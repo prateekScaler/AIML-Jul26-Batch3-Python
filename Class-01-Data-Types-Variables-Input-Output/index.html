@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 1 · Data Types, Variables, Input &amp; Output</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c01" data-class="Class 1" data-title="Data Types, Variables, Input &amp; Output" data-course="Python · AIML Jul26 Batch 3" data-date="2026-10-05">
+
+<!-- ============ cover ============ -->
+<div class="cover" id="cover">
+  <h1><small>Class 1</small>Data Types, Variables, Input &amp; Output</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<!-- ============ 1 ============ -->
+<section class="step" data-nav="From prompts to Python">
+  <h2>You already make computers do things</h2>
+  <ul class="b">
+    <li>Prompts. Workflows. Agents. Vibe-coded apps.</li>
+    <li>All of it ran on code someone else wrote.</li>
+    <li>Now <b>you</b> write it.</li>
+  </ul>
+  <button class="rv" data-reveal="next">The plan</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>12 classes. One app: <b>PaisaPay</b>, a UPI-style payments app.</li>
+      <li>Every class adds one capability.</li>
+      <li>Today: take a payment, print a receipt.</li>
+    </ul>
+    <div class="out">Welcome to PaisaPay
+<span class="p">Your name: </span><span class="in">Sangeeta</span>
+<span class="p">Pay to: </span><span class="in">Chai Point</span>
+<span class="p">Amount in rupees: </span><span class="in">120</span>
+----- Receipt -----
+From: Sangeeta
+To: Chai Point
+Paid: ₹ 120
+Balance left: ₹ 880</div>
+  </div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section class="step" data-nav="What is programming?">
+  <h2>What are we actually doing when we code?</h2>
+  <div class="ask"><span class="ic">🎤</span><div>What does “programming” mean? One sentence, in the chat. <span class="timer" data-sec="40"></span></div></div>
+  <button class="rv" data-reveal="next">Build the definition</button>
+  <div class="reveal">
+    <p class="lead">Suppose we want the computer to do this:</p>
+    <div class="steps-list prose">
+      <div class="sl on">1 · Ask the user for their name.</div>
+      <div class="sl on">2 · Remember the name.</div>
+      <div class="sl on">3 · Ask for their age.</div>
+      <div class="sl on">4 · Show a message using the name and the age.</div>
+    </div>
+    <ul class="b">
+      <li>A computer needs this in a language it understands. Written exactly.</li>
+    </ul>
+    <div class="take">Programming = giving instructions to a computer, in a programming language it understands.</div>
+  </div>
+  <button class="rv" data-reveal="next">A prompt vs a program</button>
+  <div class="reveal">
+    <table class="tbl"><tr><th>A prompt</th><th>A program</th></tr>
+      <tr><td>A request in plain English</td><td>Instructions in <b>exact syntax</b></td></tr>
+      <tr><td>The model interprets what you meant</td><td>Python does <b>exactly</b> what you wrote</td></tr>
+      <tr><td>Can answer differently each time</td><td>Same input, same result, every time</td></tr>
+      <tr><td>Rarely refuses. It guesses</td><td>Refuses to run when a rule is broken</td></tr></table>
+    <p class="note">A bank cannot run your balance on “probably”.</p>
+  </div>
+</section>
+
+<!-- ============ why learn ============ -->
+<section class="step" data-nav="Why learn to code?">
+  <h2>AI writes code. So why learn Python?</h2>
+  <div class="ask"><span class="ic">🎤</span><div>AI can build a demo from one prompt. So why are we here? <span class="timer" data-sec="45"></span></div></div>
+  <div class="ladder" data-brk><span>Reliability</span><span>Trust</span><span>Debugging</span><span>Direction</span><span>Career</span></div>
+</section>
+
+<section class="step" data-nav="Why 1 · Reliability">
+  <h2>Reliability</h2>
+  <ul class="b">
+    <li>A demo runs on the happy path. Real users do not.</li>
+    <li>A vibe-coded payment form asks: “Amount?”</li>
+  </ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 760 256" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="mR" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <text x="20" y="46" font-size="17" font-weight="700" fill="#0f172a">Demo day: you type</text>
+      <text x="20" y="114" font-size="17" font-weight="700" fill="#0f172a">Launch day: users type</text>
+      <rect x="230" y="18" width="220" height="44" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="340" y="47" text-anchor="middle" font-size="19" font-family="Menlo,monospace" fill="#0f172a">500</text>
+      <line x1="450" y1="40" x2="500" y2="40" stroke="#334155" stroke-width="2" marker-end="url(#mR)"/>
+      <rect x="505" y="18" width="170" height="44" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="590" y="47" text-anchor="middle" font-size="19" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">Paid ₹500</text>
+      <rect x="230" y="86" width="220" height="44" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="340" y="115" text-anchor="middle" font-size="19" font-family="Menlo,monospace" fill="#0f172a">₹500</text>
+      <line x1="450" y1="108" x2="500" y2="108" stroke="#334155" stroke-width="2" marker-end="url(#mR)"/>
+      <rect x="505" y="86" width="170" height="44" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="590" y="115" text-anchor="middle" font-size="19" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">crash</text>
+      <rect x="230" y="142" width="220" height="44" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="340" y="171" text-anchor="middle" font-size="19" font-family="Menlo,monospace" fill="#0f172a">1,000</text>
+      <line x1="450" y1="164" x2="500" y2="164" stroke="#334155" stroke-width="2" marker-end="url(#mR)"/>
+      <rect x="505" y="142" width="170" height="44" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="590" y="171" text-anchor="middle" font-size="19" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">crash</text>
+      <rect x="230" y="198" width="220" height="44" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="340" y="227" text-anchor="middle" font-size="19" font-family="Menlo,monospace" fill="#0f172a">(left blank)</text>
+      <line x1="450" y1="220" x2="500" y2="220" stroke="#334155" stroke-width="2" marker-end="url(#mR)"/>
+      <rect x="505" y="198" width="170" height="44" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="590" y="227" text-anchor="middle" font-size="19" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">crash</text>
+    </svg>
+  </div>
+  <ul class="b">
+    <li>The demo tested one input. Users tried all of them.</li>
+    <li>By tonight you will know why each one crashes.</li>
+  </ul>
+</section>
+
+<section class="step" data-nav="Why 2 · Trust">
+  <h2>Trust</h2>
+  <ul class="b"><li>You cannot check what you cannot read.</li></ul>
+  <p class="lead">You asked AI to add 18% GST to a ₹100 item. It wrote:</p>
+  <pre class="py" data-file="bill.py">price = 100
+total = price + price * 18
+print(total)</pre>
+  <div class="out"><span class="bad">1900</span></div>
+  <ul class="b">
+    <li>Looks right. Runs without an error.</li>
+    <li>A ₹100 item, billed at ₹1,900.</li>
+  </ul>
+</section>
+
+<section class="step" data-nav="Why 3 · Debugging">
+  <h2>Debugging</h2>
+  <ul class="b"><li>When it breaks, someone must find the cause.</li></ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 760 200" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="mD" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <text x="20" y="72" font-size="17" font-weight="700" fill="#0f172a">Cannot read code</text>
+      <rect x="200" y="46" width="100" height="44" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="250" y="74" text-anchor="middle" font-size="16" fill="#0f172a">error</text>
+      <line x1="300" y1="68" x2="336" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mD)"/>
+      <rect x="340" y="46" width="160" height="44" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="420" y="74" text-anchor="middle" font-size="16" fill="#0f172a">ask AI again</text>
+      <line x1="500" y1="68" x2="536" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mD)"/>
+      <rect x="540" y="46" width="140" height="44" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="610" y="74" text-anchor="middle" font-size="16" fill="#0f172a">new error</text>
+      <path d="M610,46 L610,18 L420,18 L420,43" fill="none" stroke="#334155" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#mD)"/>
+      <text x="20" y="158" font-size="17" font-weight="700" fill="#0f172a">Can read code</text>
+      <rect x="200" y="132" width="100" height="44" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="250" y="160" text-anchor="middle" font-size="16" fill="#0f172a">error</text>
+      <line x1="300" y1="154" x2="336" y2="154" stroke="#334155" stroke-width="2" marker-end="url(#mD)"/>
+      <rect x="340" y="132" width="190" height="44" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="435" y="160" text-anchor="middle" font-size="16" fill="#0f172a">read the message</text>
+      <line x1="530" y1="154" x2="566" y2="154" stroke="#334155" stroke-width="2" marker-end="url(#mD)"/>
+      <rect x="570" y="132" width="150" height="44" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="645" y="160" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">fix the line</text>
+    </svg>
+  </div>
+  <ul class="b"><li>One path is a loop. The other one ends.</li></ul>
+</section>
+
+<section class="step" data-nav="Why 4 · Direction">
+  <h2>Direction</h2>
+  <ul class="b"><li>Knowing the words makes your prompts precise.</li></ul>
+  <div class="lab bad">Without the words</div>
+  <div class="out">"The total is wrong. Fix it."</div>
+  <ul class="b"><li>AI has to guess.</li></ul>
+  <div class="lab good">With the words</div>
+  <div class="out">"amount comes from input() as a str. Convert it to int before adding."</div>
+  <ul class="b"><li>AI fixes the exact line.</li></ul>
+</section>
+
+<section class="step" data-nav="Why 5 · Career">
+  <h2>Career</h2>
+  <ul class="b"><li>Interviews test reading and fixing code. Not prompting.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>A real interview warm-up. What does it print?</div></div>
+  <pre class="py" data-nocopy>x = "5"
+print(x * 3)</pre>
+  <div class="vote">
+    <div class="vopt">15</div>
+    <div class="vopt" data-win>555</div>
+    <div class="vopt">An error</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Answer</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>555. Text times 3 repeats the text.</li>
+      <li>No AI in the interview room. Only what you understand.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="step" data-nav="Why · The evidence">
+  <h2>The evidence</h2>
+  <button class="rv" data-reveal="next">What the research says</button>
+  <div class="reveal"><div class="case" style="border-left-color:var(--indigo)">
+    <div class="tag" style="color:var(--indigo)">Study · Anthropic · 2026 · 52 engineers</div>
+    <h4>Test score after learning a new Python library</h4>
+    <svg class="chart" viewBox="0 0 520 150" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Coded by hand 67 percent, with AI help 50 percent">
+      <line x1="170" y1="14" x2="170" y2="136" stroke="#94a3b8" stroke-width="1.5"/>
+      <text x="160" y="52" text-anchor="end" font-size="17" font-weight="600" fill="#0f172a">Coded by hand</text>
+      <rect x="170" y="28" width="228" height="38" rx="4" fill="#4f46e5"/>
+      <text x="408" y="54" font-size="20" font-weight="800" fill="#0f172a">67%</text>
+      <text x="160" y="110" text-anchor="end" font-size="17" font-weight="600" fill="#0f172a">With AI help</text>
+      <rect x="170" y="86" width="170" height="38" rx="4" fill="#94a3b8"/>
+      <text x="350" y="112" font-size="20" font-weight="800" fill="#0f172a">50%</text>
+    </svg>
+    <ul>
+      <li>Biggest gap: <b>debugging</b>.</li>
+      <li>Asking AI to <b>explain</b> kept the learning. Asking it to just write did not.</li>
+    </ul>
+    <div class="lesson">Use AI to understand. Not to skip understanding.</div>
+    <div class="src">Read: <a href="https://www.anthropic.com/research/AI-assistance-coding-skills" target="_blank" rel="noopener">Anthropic: How AI assistance impacts the formation of coding skills</a></div>
+  </div></div>
+  <button class="rv" data-reveal="next">Real world: an agent nobody was reading</button>
+  <div class="reveal"><div class="case">
+    <div class="tag">Real incident · 2025</div>
+    <h4>An AI coding agent deleted a company's live database</h4>
+    <ul>
+      <li>A founder was building an app with Replit's AI agent.</li>
+      <li>He said: freeze, change nothing. It wiped the live database anyway.</li>
+      <li>Then it said the data was gone for good. It was not.</li>
+    </ul>
+    <div class="lesson">Only someone who understands the code can supervise an agent.</div>
+    <div class="src">Read: <a href="https://www.theregister.com/2025/07/21/replit_saastr_vibe_coding_incident/" target="_blank" rel="noopener">The Register</a></div>
+  </div></div>
+  <div class="take">AI is the fast junior developer. You are the one who reads, checks and decides.</div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section class="step" data-nav="Your first program" data-tag="PaisaPay v1 begins">
+  <h2>Your first Python program</h2>
+  <p class="lead">We run code in <b>PyLens</b>. It shows what Python does at every line.</p>
+  <pre class="py" data-file="hello.py">print("Hello, world!")</pre>
+  <button class="rv run" data-reveal="next">▶ Run</button>
+  <div class="reveal"><div class="out">Hello, world!</div></div>
+  <div class="lab">What each part does — click</div>
+  <div class="anat">
+    <div class="a"><code>print</code><div class="m">A <b>function</b>: display this on the screen.</div></div>
+    <div class="a"><code>( )</code><div class="m">They hold what we give the function.</div></div>
+    <div class="a"><code>"Hello, world!"</code><div class="m">The text. Quotes mark where it starts and ends.</div></div>
+  </div>
+  <ul class="b"><li>Not plain English. Python has exact rules for writing an instruction: its <b>syntax</b>.</li></ul>
+
+  <div class="ask"><span class="ic">✋</span><div>I delete the closing parenthesis. What happens when I run it?</div></div>
+  <pre class="py" data-kind="bad" data-nocopy>print("Hello, world!"</pre>
+  <div class="vote">
+    <div class="vopt">Nothing happens</div>
+    <div class="vopt">It prints anyway</div>
+    <div class="vopt" data-win>Python shows an error</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">▶ Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">SyntaxError: '(' was never closed</span></div>
+    <ul class="b">
+      <li>Python refused to run <b>anything</b>.</li>
+      <li>Habit from today: read the <b>error type</b> first. Here: <b>SyntaxError</b>.</li>
+    </ul>
+    <div class="take">Syntax = the exact rules for writing an instruction.</div>
+  </div>
+
+  <div class="quiz" data-level="s">
+    <div class="qt">The closing quote is missing this time. What happens?</div>
+    <pre class="py" data-nocopy>print("Welcome to PaisaPay)</pre>
+    <div class="opts">
+      <button class="opt">It prints Welcome to PaisaPay</button>
+      <button class="opt" data-ok>SyntaxError</button>
+      <button class="opt">It prints the text with one quote mark</button>
+      <button class="opt">Nothing. Python waits for more typing</button>
+    </div>
+    <div class="expl"><b>SyntaxError: unterminated string literal.</b> The quote was opened and never closed. Everything you open, you close.</div>
+  </div>
+
+  <div class="build"><div class="bh">PaisaPay v1 · build 1 of 5</div><div class="bd">Our app greets the user.</div>
+  <pre class="py" data-file="paisapay_v1.py" data-hl="1">print("Welcome to PaisaPay")</pre></div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section class="step" data-nav="print() can do more">
+  <h2><code>print()</code> can do more than text</h2>
+  <pre class="py" data-file="print_more.py">print("Hello")
+print("Python")
+print(10)
+print(25 + 5)</pre>
+  <div class="ask"><span class="ic">✋</span><div>The last line: does it show the text <b>25 + 5</b>, or the number <b>30</b>?</div></div>
+  <div class="vote">
+    <div class="vopt">The text 25 + 5</div>
+    <div class="vopt" data-win>The number 30</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">▶ Run</button>
+  <div class="reveal">
+    <div class="out">Hello
+Python
+10
+30</div>
+    <ul class="b">
+      <li>Python <b>calculates first</b>, then displays.</li>
+    </ul>
+    <div class="take">print() displays the <b>result</b>, not the characters you typed.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Same characters, with and without quotes. What prints?</div>
+    <pre class="py" data-nocopy>print("500 + 100")
+print(500 + 100)</pre>
+    <div class="opts">
+      <button class="opt">600, then 600</button>
+      <button class="opt">Error. Text cannot contain a plus sign</button>
+      <button class="opt" data-ok>500 + 100, then 600</button>
+      <button class="opt">500 + 100, both times</button>
+    </div>
+    <div class="expl"><b>500 + 100, then 600.</b> In quotes it is text, shown as written. Without quotes it is a calculation.</div>
+  </div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section class="step" data-nav="What is data?">
+  <h2>What is data?</h2>
+  <ul class="b">
+    <li>A name, an age, a salary, “is this person a student?” — all of it is data.</li>
+    <li>But not all data is the same kind.</li>
+  </ul>
+  <div class="vals"><span>Kishor</span><span>25</span><span>98.5</span><span>True</span></div>
+  <div class="ask"><span class="ic">🎤</span><div>Sort these four into groups. How many groups? <span class="timer" data-sec="60"></span></div></div>
+  <button class="rv" data-reveal="next">What most people say</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>Python already has official names for these groups.</li>
+    </ul>
+    <div class="take">The <b>kind</b> of data is its <b>data type</b>.</div>
+  </div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section class="step" data-nav="The four data types">
+  <h2>The four basic data types</h2>
+  <div class="types">
+    <div class="ty t-int"><div class="nm">int</div><div class="full">integer</div><div class="bd">Whole numbers. No decimal part.<code>age = 20</code>Also 10, 25, -5, 0.<br><small>In PaisaPay: number of PIN attempts left.</small></div></div>
+    <div class="ty t-float"><div class="nm">float</div><div class="full">floating point</div><div class="bd">Numbers with a decimal point.<code>height = 5.8</code>10 is an int. 10.5 is a float.<br><small>In PaisaPay: a merchant's rating, 4.5.</small></div></div>
+    <div class="ty t-str"><div class="nm">str</div><div class="full">string</div><div class="bd">Text, written inside quotes.<code>name = "Kishor"</code>"Hello", "Python", "123".<br><small>In PaisaPay: payee name, UPI ID.</small></div></div>
+    <div class="ty t-bool"><div class="nm">bool</div><div class="full">boolean</div><div class="bd">Exactly two values: a yes or a no.<code>is_student = True</code>Capital T in True, capital F in False.<br><small>In PaisaPay: did the payment succeed?</small></div></div>
+  </div>
+
+  <div class="ask"><span class="ic">✋</span><div>Is <code>"123"</code>, in quotes, a number or text as far as Python is concerned?</div></div>
+  <div class="vote">
+    <div class="vopt">A number. It is all digits</div>
+    <div class="vopt" data-win>Text</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">💡 Reveal</button>
+  <div class="reveal">
+    <ul class="b"><li><code>"123"</code> is a <b>str</b>. The quotes decide the type, not how the characters look.</li></ul>
+    <div class="take">Quotes and the decimal point decide the type. Not how the value looks.</div>
+  </div>
+
+  <div class="lab">Name the type — one of these is a trap</div>
+  <div class="chips">
+    <div class="chip"><div class="q">42</div><div class="a">int</div></div>
+    <div class="chip"><div class="q">42.0</div><div class="a">float. The decimal point decides.</div></div>
+    <div class="chip"><div class="q">"42"</div><div class="a">str</div></div>
+    <div class="chip"><div class="q">True</div><div class="a">bool</div></div>
+    <div class="chip"><div class="q">"True"</div><div class="a">str. Quotes win.</div></div>
+  </div>
+
+  <div class="quiz" data-level="m">
+    <div class="qt">Your UPI PIN is 0421. Which type should PaisaPay store it as?</div>
+    <div class="opts">
+      <button class="opt">int. It is made of digits</button>
+      <button class="opt">float</button>
+      <button class="opt">bool</button>
+      <button class="opt" data-ok>str</button>
+    </div>
+    <div class="expl"><b>str.</b> No maths on a PIN, and the leading zero must survive. <code>int("0421")</code> becomes 421. Same for phone and Aadhaar numbers.</div>
+  </div>
+  <div class="ai"><b>Explore with AI</b> — type <code>pin = 0421</code> in Python and read the error. Then ask an AI assistant:
+    <div class="pr">"Why does Python not allow a leading zero in an integer like 0421? What did a leading zero mean in older versions?"</div>
+    Then check its answer yourself: what does <code>print(0o421)</code> show?</div>
+  <div class="quiz" data-level="t">
+    <div class="qt">A student writes this. What happens?</div>
+    <pre class="py" data-nocopy>is_paid = true</pre>
+    <div class="opts">
+      <button class="opt" data-ok>NameError</button>
+      <button class="opt">It stores True</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt">It stores the text "true"</button>
+    </div>
+    <div class="expl"><b>NameError: name 'true' is not defined.</b>
+      <ul class="b" style="font-size:1.05rem;margin:.6rem 0 0">
+        <li>Python works out the <b>right side first</b>.</li>
+        <li><code>true</code> has no quotes, so it is a <b>name</b>. Python goes looking for a variable called true, to copy its value.</li>
+        <li>No such variable exists. So it stops.</li>
+        <li><code>a = b</code> only works when <code>b</code> already has a value. Only <code>True</code>, capital T, is the built-in boolean.</li>
+      </ul></div>
+  </div>
+
+  <button class="rv" data-reveal="next">Real world: when software guesses the type</button>
+  <div class="reveal"><div class="case">
+    <div class="tag">Real incident · 2020</div>
+    <h4>Scientists renamed 27 human genes because of Excel</h4>
+    <ul>
+      <li>Genes had names like <b>MARCH1</b> and <b>SEPT1</b>.</li>
+      <li>Excel decided they were <b>dates</b>: 1-Mar, 1-Sep. Silently.</li>
+      <li>One in five genetics papers with Excel gene lists had this error.</li>
+    </ul>
+    <div class="lesson">A wrong type corrupts data without any error.</div>
+    <div class="src">Read: <a href="https://www.theregister.com/2020/08/06/excel_gene_names/" target="_blank" rel="noopener">The Register</a> · <a href="https://theprint.in/science/27-genes-in-your-body-now-have-a-new-name-because-microsoft-excel-confused-them-for-dates/477398/" target="_blank" rel="noopener">ThePrint</a></div>
+  </div></div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section class="step" data-nav="Variables" data-tag="PaisaPay v1">
+  <h2>Variables: giving data a name</h2>
+  <div class="vals"><span>25</span></div>
+  <div class="ask"><span class="ic">🎤</span><div>A number. But what does it <b>mean</b>? An age? A price? A score?</div></div>
+  <button class="rv" data-reveal="next">Give it a name</button>
+  <div class="reveal">
+    <pre class="py" data-nocopy>age = 25</pre>
+    <div class="diag">
+      <svg viewBox="0 0 520 160" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="mA" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+        <rect x="50" y="42" width="140" height="60" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="120" y="80" text-anchor="middle" font-size="22" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">age</text>
+        <text x="120" y="130" text-anchor="middle" font-size="13" fill="#64748b">the name (a tag)</text>
+        <line x1="190" y1="72" x2="318" y2="72" stroke="#334155" stroke-width="2" marker-end="url(#mA)"/>
+        <text x="254" y="62" text-anchor="middle" font-size="13" fill="#475569">refers to</text>
+        <rect x="322" y="32" width="150" height="80" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+        <text x="397" y="82" text-anchor="middle" font-size="28" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">25</text>
+        <text x="397" y="138" text-anchor="middle" font-size="13" fill="#64748b">the value (in the box)</text>
+      </svg>
+    </div>
+    <ul class="b">
+      <li>A <b>variable</b>: a name that refers to a value.</li>
+      <li>A name tag on a box. The tag finds the box again.</li>
+    </ul>
+  </div>
+
+  <pre class="py" data-file="variables.py">name = "Kishor"
+age = 25
+height = 5.8
+is_student = True
+
+print(name)
+print(age)
+print(height)
+print(is_student)</pre>
+  <button class="rv run" data-reveal="next">▶ Run</button>
+  <div class="reveal">
+    <div class="out">Kishor
+25
+5.8
+True</div>
+    <ul class="b"><li>The name is enough. We never typed the values again.</li></ul>
+    <div class="take">A variable is a name that refers to a value.</div>
+  </div>
+
+  <button class="rv" data-reveal="next">Rules for names</button>
+  <div class="reveal"><div class="chips">
+    <div class="chip"><div class="q">amount_paid</div><div class="a">✓ Lowercase, underscores, says what it holds.</div></div>
+    <div class="chip"><div class="q">2nd_payee</div><div class="a">✗ Cannot start with a digit. Python sees a digit and starts reading a <b>number</b>. <code>2nd</code> is not one.</div></div>
+    <div class="chip"><div class="q">payee name</div><div class="a">✗ No spaces. Use payee_name.</div></div>
+    <div class="chip"><div class="q">Balance vs balance</div><div class="a">Two different variables. Case matters.</div></div>
+    <div class="chip"><div class="q">x</div><div class="a">Allowed, but says nothing.</div></div>
+  </div>
+  <div class="ai"><b>Explore with AI</b> — ask an AI assistant:
+    <div class="pr">"Why can a Python variable name not start with a digit? Show me one example where it would be confusing."</div>
+    A hint to test first: what does <code>print(1e3)</code> show?</div>
+  </div>
+
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>payee = "Zomato"
+print("payee")</pre>
+    <div class="opts">
+      <button class="opt">Zomato</button>
+      <button class="opt" data-ok>payee</button>
+      <button class="opt">"payee", with the quotes</button>
+      <button class="opt">NameError</button>
+    </div>
+    <div class="expl"><b>payee.</b> In quotes it is text. Without quotes Python looks up the variable. Quotes = data. No quotes = a name.</div>
+  </div>
+
+  <button class="rv" data-reveal="next">Real world: a number with no meaning</button>
+  <div class="reveal"><div class="case">
+    <div class="tag">Real incident · 1999</div>
+    <h4>NASA lost a Mars orbiter over what a number meant</h4>
+    <ul>
+      <li>One program wrote thrust in <b>pound-force seconds</b>.</li>
+      <li>Another read the same numbers as <b>newton-seconds</b>. Off by 4.45×.</li>
+      <li>Nothing crashed. Nine months later the $327 million orbiter burned up.</li>
+    </ul>
+    <div>
+    <div class="lab bad">What the code looked like, in spirit</div>
+    <pre class="py" data-kind="bad" data-file="thrust.py">thrust = 100
+print("Thrust:", thrust)    # 100 what?</pre>
+    <div class="lab good">With names that carry the meaning</div>
+    <pre class="py" data-kind="good" data-file="thrust.py">thrust_pound_seconds = 100
+thrust_newton_seconds = thrust_pound_seconds * 4.45
+print("Thrust in newton-seconds:", thrust_newton_seconds)</pre>
+    <div class="out">Thrust in newton-seconds: 445.0</div>
+    </div>
+    <div class="lesson">A bare number means nothing. The name carries the meaning.</div>
+    <div class="src">Read: <a href="https://en.wikipedia.org/wiki/Mars_Climate_Orbiter" target="_blank" rel="noopener">Wikipedia: Mars Climate Orbiter</a> · <a href="https://everydayastronaut.com/mars-climate-orbiter/" target="_blank" rel="noopener">Everyday Astronaut</a></div>
+  </div></div>
+
+  <div class="build"><div class="bh">PaisaPay v1 · build 2 of 5</div><div class="bd">The wallet gets a balance.</div>
+  <pre class="py" data-file="paisapay_v1.py" data-hl="3-4">print("Welcome to PaisaPay")
+
+balance = 1000
+print(balance)</pre></div>
+</section>
+
+<!-- ============ 8 ============ -->
+<section class="step" data-nav="The = operator" data-tag="PaisaPay v1">
+  <h2><code>=</code> does not mean “equals”</h2>
+  <div class="ask"><span class="ic">🎤</span><div>In maths, = means “is equal to”. In Python, does <code>age = 25</code> mean the same thing?</div></div>
+  <button class="rv" data-reveal="next">What it really means</button>
+  <div class="reveal">
+    <div class="tern"><span class="t2">age</span> <span class="k">←</span> <span class="t1">25</span></div>
+    <ul class="b">
+      <li><code>age = 25</code> means: <b>store 25 under the name age</b>.</li>
+      <li>An action. Not a claim that two things are equal.</li>
+    </ul>
+  </div>
+
+  <div class="ask"><span class="ic">✋</span><div>In maths, x = x + 1 is nonsense. In Python?</div></div>
+  <pre class="py" data-file="assignment.py" id="c8">age = 20
+print(age)
+age = age + 1
+print(age)</pre>
+  <div class="vote">
+    <div class="vopt">An error, like in maths</div>
+    <div class="vopt">Prints 20 and 20</div>
+    <div class="vopt" data-win>Prints 20 and 21</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">▶ Reveal, then trace it</button>
+  <div class="reveal">
+    <div class="trace" data-code="c8" data-steps='[
+      {"l":1,"n":"store 20 under the name age","r":"t","m":{"age":"20"}},
+      {"l":2,"n":"look up age, print it","r":"t","o":"20\n"},
+      {"l":3,"n":"right side first: age + 1 is 20 + 1, which is 21","r":"n"},
+      {"l":3,"n":"now store 21 under age. The old 20 is replaced","r":"t","m":{"age":"21"}},
+      {"l":4,"n":"look up age, print it","r":"t","o":"21\n"}]'></div>
+    <ul class="b">
+      <li><b>Right side first</b>, using the current value.</li>
+      <li>Then the result is stored under the name.</li>
+    </ul>
+    <div class="take">= assigns. A variable can be reassigned, even using itself.</div>
+  </div>
+
+  <div class="quiz" data-level="s">
+    <div class="qt">A wallet after two payments. What prints?</div>
+    <pre class="py" data-nocopy>balance = 1000
+balance = balance - 200
+balance = balance - 300
+print(balance)</pre>
+    <div class="opts">
+      <button class="opt">1000</button>
+      <button class="opt">800</button>
+      <button class="opt" data-ok>500</button>
+      <button class="opt">300</button>
+    </div>
+    <div class="expl"><b>500.</b> Each line uses the current value: 1000 → 800 → 500.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">The price changes after the bill is made. What prints?</div>
+    <pre class="py" data-nocopy>price = 499
+total = price
+price = 599
+print(total)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>499</button>
+      <button class="opt">599</button>
+      <button class="opt">1098</button>
+      <button class="opt">Error. price changed after it was used</button>
+    </div>
+    <div class="expl"><b>499.</b> <code>total = price</code> stores the value 499 under total. It does not link the two names.</div>
+  </div>
+
+  <div class="build"><div class="bh">PaisaPay v1 · build 3 of 5</div><div class="bd">A payment of ₹200 leaves the wallet.</div>
+  <pre class="py" data-file="paisapay_v1.py" data-hl="4">print("Welcome to PaisaPay")
+
+balance = 1000
+balance = balance - 200
+print(balance)</pre></div>
+</section>
+
+<!-- ============ 9 ============ -->
+<section class="step" data-nav="type()">
+  <h2>Asking Python: what type is this?</h2>
+  <div class="ask"><span class="ic">🎤</span><div>If I ask Python for the type of <code>age</code>, will it print just the word <b>int</b>, or something else?</div></div>
+  <pre class="py" data-file="check_types.py">age = 25
+height = 5.8
+name = "Kishor"
+is_student = True
+
+print(type(age))
+print(type(height))
+print(type(name))
+print(type(is_student))</pre>
+  <button class="rv run" data-reveal="next">▶ Run</button>
+  <div class="reveal">
+    <div class="out">&lt;class 'int'&gt;
+&lt;class 'float'&gt;
+&lt;class 'str'&gt;
+&lt;class 'bool'&gt;</div>
+    <ul class="b">
+      <li>More than the bare word. Python calls the category a <b>class</b>.</li>
+      <li>For now: <code>type()</code> asks “what kind of data is stored here?”</li>
+    </ul>
+    <div class="take">type() tells us the kind of data. &lt;class '...'&gt; is normal output.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A wallet holds exactly five hundred rupees. What does the last line show?</div>
+    <pre class="py" data-nocopy>balance = 500.0
+print(type(balance))</pre>
+    <div class="opts">
+      <button class="opt">&lt;class 'int'&gt;</button>
+      <button class="opt">&lt;class 'str'&gt;</button>
+      <button class="opt">float</button>
+      <button class="opt" data-ok>&lt;class 'float'&gt;</button>
+    </div>
+    <div class="expl"><b>&lt;class 'float'&gt;.</b> The decimal point makes it a float, even for a whole value.</div>
+  </div>
+</section>
+
+<!-- ============ 10 ============ -->
+<section class="step" data-nav="Comments">
+  <h2>Comments: notes for humans</h2>
+  <pre class="py" data-file="comments.py"># This is my age
+age = 25
+# Display the age
+print(age)</pre>
+  <pre class="py" data-nocopy>age = 25  # Student's age</pre>
+  <ul class="b">
+    <li>Python ignores everything after <code>#</code> on that line.</li>
+    <li>They help the next reader. Often that is you, three months later.</li>
+  </ul>
+  <button class="rv" data-reveal="next">A useful comment vs noise</button>
+  <div class="reveal">
+    <div class="lab bad">Noise — repeats the code</div>
+    <pre class="py" data-kind="bad" data-nocopy>balance = 1000  # set balance to 1000</pre>
+    <div class="lab good">Useful — explains a decision</div>
+    <pre class="py" data-kind="good" data-nocopy>balance = 1000  # every new wallet starts with a joining bonus of ₹1000</pre>
+    <div class="ai"><b>AI angle</b> — AI comments every line. Keep the <b>why</b>. Delete the <b>what</b>.</div>
+    <div class="take">Use comments with purpose, not on every single line.</div>
+  </div>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy># print("Payment failed")
+print("Payment successful")  # print("Refund started")</pre>
+    <div class="opts">
+      <button class="opt">All three messages</button>
+      <button class="opt">Payment failed, then Payment successful</button>
+      <button class="opt" data-ok>Only Payment successful</button>
+      <button class="opt">Payment successful, then Refund started</button>
+    </div>
+    <div class="expl"><b>Only Payment successful.</b> Everything after # is ignored. Switching a line off this way is “commenting out”.</div>
+  </div>
+</section>
+
+<!-- ============ 11 ============ -->
+<section class="step" data-nav="input()" data-tag="PaisaPay v1">
+  <h2>Getting information from the user: <code>input()</code></h2>
+  <ul class="b">
+    <li>So far we typed every value into the code.</li>
+    <li>Real programs ask the user.</li>
+  </ul>
+  <div class="ask"><span class="ic">🎤</span><div>How could Python ask the person at the keyboard for a name?</div></div>
+  <button class="rv" data-reveal="next">Meet input()</button>
+  <div class="reveal">
+    <pre class="py" data-file="ask_name.py">name = input("What is your name? ")
+print(name)</pre>
+    <div class="out"><span class="p">What is your name? </span><span class="in">Rahul</span>
+Rahul</div>
+    <div class="anat">
+      <div class="a"><code>input( )</code><div class="m">Pauses. Waits for the user to type and press Enter.</div></div>
+      <div class="a"><code>"What is your name? "</code><div class="m">The prompt shown to the user.</div></div>
+      <div class="a"><code>name =</code><div class="m">What the user typed is stored under this name.</div></div>
+    </div>
+    <div class="take">input() receives information from the user.</div>
+  </div>
+  <div class="build"><div class="bh">PaisaPay v1 · build 4 of 5</div><div class="bd">The app asks who is paying, and whom.</div>
+  <pre class="py" data-file="paisapay_v1.py" data-hl="3-4">print("Welcome to PaisaPay")
+
+name = input("Your name: ")
+payee = input("Pay to: ")
+
+balance = 1000
+balance = balance - 200
+print(balance)</pre></div>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="step" data-nav="The big surprise">
+  <h2>The big surprise</h2>
+  <pre class="py" data-file="ask_age.py">age = input("What is your age? ")
+print(age)
+print(type(age))</pre>
+  <div class="ask"><span class="ic">✋</span><div>You type <b>25</b>. What type does Python actually store?</div></div>
+  <div class="vote">
+    <div class="vopt">int</div>
+    <div class="vopt" data-win>str</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">▶ Run</button>
+  <div class="reveal">
+    <div class="out"><span class="p">What is your age? </span><span class="in">25</span>
+25
+&lt;class 'str'&gt;</div>
+    <ul class="b">
+      <li>Everything typed arrives as keystrokes. Keystrokes are <b>text</b>.</li>
+      <li>Python never guesses. Remember what guessing did to those genes.</li>
+    </ul>
+    <div class="take">input() ALWAYS returns a string. Want a number? Convert it.</div>
+  </div>
+  <button class="rv" data-reveal="next">You have met this before</button>
+  <div class="reveal"><div class="ai"><b>AI angle</b> — data crossing a boundary arrives as text. Everywhere.
+    <ul class="b" style="margin-top:8px">
+      <li><b>n8n / Zapier:</b> a form field arrives as <code>"500"</code>.</li>
+      <li><b>LLMs:</b> every reply is text.</li>
+      <li><b>Agent tools / MCP:</b> every input declares a type: <code>string</code>, <code>number</code>, <code>boolean</code>.</li>
+    </ul></div></div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Splitting a bill. The user types 100, then 50. What prints?</div>
+    <pre class="py" data-nocopy>a = input("First amount: ")
+b = input("Second amount: ")
+print(a + b)</pre>
+    <div class="opts">
+      <button class="opt">150</button>
+      <button class="opt">TypeError</button>
+      <button class="opt">100 50</button>
+      <button class="opt" data-ok>10050</button>
+    </div>
+    <div class="expl"><b>10050.</b> Two strings, and + joins strings. No error. Just a wrong bill.</div>
+  </div>
+</section>
+
+<!-- ============ 13 ============ -->
+<section class="step" data-nav="Type casting">
+  <h2>Type casting: fixing what we just broke</h2>
+  <pre class="py" data-file="next_year.py">age = input("What is your age? ")
+next_year = age + 1</pre>
+  <div class="ask"><span class="ic">✋</span><div><code>age</code> is a string. What happens at <code>age + 1</code>?</div></div>
+  <div class="vote">
+    <div class="vopt">A normal answer: 26</div>
+    <div class="vopt">A wrong but silent answer: 251</div>
+    <div class="vopt" data-win>A crash</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">▶ Run</button>
+  <div class="reveal">
+    <div class="out"><span class="p">What is your age? </span><span class="in">25</span>
+<span class="err">TypeError: can only concatenate str (not "int") to str</span></div>
+    <ul class="b">
+      <li>Python refuses to mix text and a number.</li>
+      <li>Read it in two parts: the type, <b>TypeError</b>, then the message.</li>
+    </ul>
+    <div class="ai"><b>AI moment 1</b> — paste the error into an AI assistant:
+      <div class="pr">"Explain this Python error in plain English. Do not give me the fix yet."</div>
+      Compare it with your own guess.</div>
+  </div>
+
+  <button class="rv" data-reveal="next">The fix: convert the type</button>
+  <div class="reveal">
+    <pre class="py" data-file="next_year.py" data-kind="good">age = int(input("What is your age? "))
+print(type(age))</pre>
+    <div class="out"><span class="p">What is your age? </span><span class="in">25</span>
+&lt;class 'int'&gt;</div>
+    <div class="diag">
+      <svg viewBox="0 0 760 136" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="mB" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+        <rect x="10" y="30" width="150" height="76" rx="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+        <text x="85" y="62" text-anchor="middle" font-size="15" font-weight="800" fill="#0f172a">User types</text>
+        <text x="85" y="88" text-anchor="middle" font-size="16" font-family="Menlo,monospace" fill="#334155">2  5  Enter</text>
+        <line x1="160" y1="68" x2="198" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mB)"/>
+        <rect x="202" y="30" width="150" height="76" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="277" y="62" text-anchor="middle" font-size="16" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">input()</text>
+        <text x="277" y="88" text-anchor="middle" font-size="13" fill="#334155">always returns text</text>
+        <line x1="352" y1="68" x2="390" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mB)"/>
+        <rect x="394" y="30" width="110" height="76" rx="12" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+        <text x="449" y="64" text-anchor="middle" font-size="20" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">"25"</text>
+        <text x="449" y="90" text-anchor="middle" font-size="13" fill="#334155">a str</text>
+        <line x1="504" y1="68" x2="542" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mB)"/>
+        <rect x="546" y="30" width="100" height="76" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="596" y="62" text-anchor="middle" font-size="16" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">int()</text>
+        <text x="596" y="88" text-anchor="middle" font-size="13" fill="#334155">converts</text>
+        <line x1="646" y1="68" x2="684" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mB)"/>
+        <rect x="688" y="30" width="62" height="76" rx="12" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+        <text x="719" y="64" text-anchor="middle" font-size="20" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">25</text>
+        <text x="719" y="90" text-anchor="middle" font-size="13" fill="#334155">an int</text>
+      </svg>
+      <div class="cap">Inside out: ask → convert → store</div>
+    </div>
+    <ul class="b"><li>Converting one type to another = <b>type casting</b>.</li></ul>
+    <div class="ai"><b>AI moment 2</b> — now ask for the fix. Run <b>your own</b> version. Accept it only when <code>type(age)</code> says <code>&lt;class 'int'&gt;</code>.</div>
+    <div class="take">int(input(...)) turns user input into a number.</div>
+  </div>
+
+  <div class="quiz" data-level="m">
+    <div class="qt">PaisaPay asks for an amount like this. The user types 99.5. What happens?</div>
+    <pre class="py" data-nocopy>amount = int(input("Amount: "))</pre>
+    <div class="opts">
+      <button class="opt">amount becomes 99</button>
+      <button class="opt" data-ok>ValueError</button>
+      <button class="opt">amount becomes 100</button>
+      <button class="opt">amount becomes 99.5</button>
+    </div>
+    <div class="expl"><b>ValueError.</b> "99.5" is not a whole number, so int() refuses. <code>float("99.5")</code> works.</div>
+  </div>
+
+  <button class="rv" data-reveal="next">Real world: one type conversion, one rocket</button>
+  <div class="reveal"><div class="case">
+    <div class="tag">Real incident · 1996</div>
+    <h4>Ariane 5 destroyed itself 37 seconds after launch</h4>
+    <ul>
+      <li>Software converted a 64-bit float into a 16-bit integer.</li>
+      <li>The value did not fit. The guidance computer shut down.</li>
+      <li>The rocket destroyed itself. Loss: more than $370 million.</li>
+    </ul>
+    <div>
+    <div class="lab">The same shape, in Python</div>
+    <pre class="py" data-kind="bad" data-file="rocket.py">speed = "32768.5"                 # the sensor sends a decimal number
+speed_whole = int(speed)          # the code expected a small whole number
+print("Steering the rocket...")   # never runs</pre>
+    <div class="out"><span class="err">ValueError: invalid literal for int() with base 10: '32768.5'</span></div>
+    <p class="note">The conversion fails, so everything after it stops. Ariane's small integer could hold at most 32,767.</p>
+    </div>
+    <div class="lesson">A type conversion is a decision. What if the value does not fit?</div>
+    <div class="src">Read: <a href="https://en.wikipedia.org/wiki/Ariane_flight_V88" target="_blank" rel="noopener">Wikipedia: Ariane flight V88</a> · <a href="http://sunnyday.mit.edu/nasa-class/Ariane5-report.html" target="_blank" rel="noopener">Inquiry board report</a></div>
+  </div></div>
+</section>
+
+<!-- ============ 14 ============ -->
+<section class="step" data-nav="Casting functions">
+  <h2>The casting functions</h2>
+  <pre class="py" data-file="casting.py">age = int("25")
+price = float("99.5")
+number = str(100)</pre>
+  <div class="chips">
+    <div class="chip"><div class="q">int("25")</div><div class="a">25</div></div>
+    <div class="chip"><div class="q">float("99.5")</div><div class="a">99.5</div></div>
+    <div class="chip"><div class="q">str(100)</div><div class="a">"100". Casting works both ways.</div></div>
+    <div class="chip"><div class="q">bool( )</div><div class="a">Exists. Surprising rules. Its own lesson, later.</div></div>
+  </div>
+  <div class="take">int(), float(), str(), bool() convert between the basic types.</div>
+
+  <div class="quiz" data-level="m">
+    <div class="qt">Printing a price with the rupee sign. What happens?</div>
+    <pre class="py" data-nocopy>print("₹" + 500)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>TypeError</button>
+      <button class="opt">₹500</button>
+      <button class="opt">₹ 500</button>
+      <button class="opt">500₹</button>
+    </div>
+    <div class="expl"><b>TypeError.</b> Same error, other direction. Fix: <code>"₹" + str(500)</code>.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">A payment of ₹99.90 is recorded like this. What prints?</div>
+    <pre class="py" data-nocopy>print(int(99.9))</pre>
+    <div class="opts">
+      <button class="opt">100</button>
+      <button class="opt">99.9</button>
+      <button class="opt" data-ok>99</button>
+      <button class="opt">ValueError</button>
+    </div>
+    <div class="expl"><b>99.</b> int() <b>cuts off</b> the decimals. It does not round. Ninety paise vanished.</div>
+  </div>
+
+  <button class="rv" data-reveal="next">How real payment apps store money</button>
+  <div class="reveal">
+    <pre class="py" data-file="float_surprise.py">print(0.1 + 0.2)</pre>
+    <div class="out">0.30000000000000004</div>
+    <ul class="b">
+      <li>Floats cannot store many decimals exactly. Tiny errors creep in.</li>
+      <li>Tiny errors × crores of transactions = real money.</li>
+      <li>So payment systems store money as an <b>int</b> of paise. Razorpay: ₹299 is sent as <code>29900</code>.</li>
+    </ul>
+    <div class="case" style="border-left-color:var(--green)">
+      <div class="lesson">Money is an <b>int of paise</b>, never a float of rupees.</div>
+      <div class="src">Read: <a href="https://razorpay.com/docs/api/orders/create/" target="_blank" rel="noopener">Razorpay API docs: order amount</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15 ============ -->
+<section class="step" data-nav="Putting it together" data-tag="PaisaPay v1 complete">
+  <h2>Putting it together</h2>
+  <div class="diag">
+    <svg viewBox="0 0 760 124" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="mC" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="20" y="22" width="210" height="80" rx="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="125" y="56" text-anchor="middle" font-size="17" font-weight="800" fill="#0f172a">Input</text>
+      <text x="125" y="82" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#334155">input()</text>
+      <line x1="230" y1="62" x2="271" y2="62" stroke="#334155" stroke-width="2" marker-end="url(#mC)"/>
+      <rect x="275" y="22" width="210" height="80" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="380" y="56" text-anchor="middle" font-size="17" font-weight="800" fill="#0f172a">Process</text>
+      <text x="380" y="82" text-anchor="middle" font-size="13" fill="#334155">store, convert, calculate</text>
+      <line x1="485" y1="62" x2="526" y2="62" stroke="#334155" stroke-width="2" marker-end="url(#mC)"/>
+      <rect x="530" y="22" width="210" height="80" rx="12" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="635" y="56" text-anchor="middle" font-size="17" font-weight="800" fill="#0f172a">Output</text>
+      <text x="635" y="82" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#334155">print()</text>
+    </svg>
+    <div class="cap">The shape of almost every program</div>
+  </div>
+  <pre class="py" data-file="hello_user.py">name = input("What is your name? ")
+age = int(input("What is your age? "))
+
+print("Hello", name)
+print("You are", age, "years old.")
+print("Next year, you will be", age + 1)</pre>
+  <div class="ask"><span class="ic">🎤</span><div>The user types Rahul and 25. Predict all three lines.</div></div>
+  <button class="rv run" data-reveal="next">▶ Run</button>
+  <div class="reveal">
+    <div class="out"><span class="p">What is your name? </span><span class="in">Rahul</span>
+<span class="p">What is your age? </span><span class="in">25</span>
+Hello Rahul
+You are 25 years old.
+Next year, you will be 26</div>
+    <ul class="b">
+      <li>Commas in print() put a <b>space</b> between items.</li>
+      <li><code>age + 1</code> works only because age is now an int.</li>
+    </ul>
+    <div class="take">Once age is an int, it behaves like a number.</div>
+  </div>
+
+  <div class="quiz" data-level="s">
+    <div class="qt">What exactly prints?</div>
+    <pre class="py" data-nocopy>amount = 250
+print("Paid ₹", amount, "to", "Zomato")</pre>
+    <div class="opts">
+      <button class="opt">Paid ₹250 to Zomato</button>
+      <button class="opt" data-ok>Paid ₹ 250 to Zomato</button>
+      <button class="opt">Paid ₹,250,to,Zomato</button>
+      <button class="opt">TypeError. Text and a number are mixed</button>
+    </div>
+    <div class="expl"><b>Paid ₹ 250 to Zomato.</b> Commas add a space, and mixing text and numbers is fine. Unlike +.</div>
+  </div>
+
+  <div class="build"><div class="bh">PaisaPay v1 · build 5 of 5 · complete</div><div class="bd">Everything from today in one program.</div>
+  <pre class="py" data-file="paisapay_v1.py" data-hl="5,7-8,10-14"># PaisaPay v1: take one payment and print a receipt
+print("Welcome to PaisaPay")
+
+name = input("Your name: ")
+payee = input("Pay to: ")
+amount = int(input("Amount in rupees: "))
+
+balance = 1000              # every new wallet starts with ₹1000
+balance = balance - amount  # the money leaves the wallet
+
+print("----- Receipt -----")
+print("From:", name)
+print("To:", payee)
+print("Paid: ₹", amount)
+print("Balance left: ₹", balance)</pre>
+  <button class="rv run" data-reveal="next">▶ Sample run</button>
+  <div class="reveal">
+    <div class="out">Welcome to PaisaPay
+<span class="p">Your name: </span><span class="in">Sangeeta</span>
+<span class="p">Pay to: </span><span class="in">Chai Point</span>
+<span class="p">Amount in rupees: </span><span class="in">120</span>
+----- Receipt -----
+From: Sangeeta
+To: Chai Point
+Paid: ₹ 120
+Balance left: ₹ 880</div>
+    <ul class="b">
+      <li>Pay ₹5000 from this ₹1000 wallet: balance −4000. v1 cannot say no.</li>
+      <li>Saying no needs comparisons and decisions. Next classes.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ============ 16 ============ -->
+<section class="step" data-nav="Your turn">
+  <h2>Your turn: mini practice</h2>
+  <p class="lead">Write a program that asks for a <b>name</b>, an <b>age</b> and a <b>favorite subject</b>, then displays:</p>
+  <div class="out">Hello, [name]!
+You are [age] years old.
+Your favorite subject is [subject].</div>
+  <div class="ask"><span class="ic">✍️</span><div>Write it yourself in PyLens first. <span class="timer" data-sec="420"></span></div></div>
+  <div class="lab">Slips to watch for</div>
+  <div class="ladder"><span>missing quotes</span><span>forgot int()</span><span>unclosed parenthesis</span><span>Print with a capital P</span><span>misspelt variable name</span></div>
+  <button class="rv" data-reveal="next">One solution</button>
+  <div class="reveal">
+    <pre class="py" data-file="mini_practice.py">name = input("What is your name? ")
+age = int(input("How old are you? "))
+subject = input("What is your favorite subject? ")
+
+print("Hello,", name)
+print("You are", age, "years old.")
+print("Your favorite subject is", subject)</pre>
+    <p class="note">No “!” on purpose: commas would print “Rahul !”.</p>
+  </div>
+  <button class="rv" data-reveal="next">AI stretch</button>
+  <div class="reveal">
+    <div class="ai"><b>AI moment 3</b> — once it works, ask:
+      <div class="pr">"Show me one other way to write these print statements that gives the same output."</div>
+      Most likely an <b>f-string</b>:
+      <pre class="py" data-nocopy>print(f"Hello, {name}!")</pre>
+      Read it. Which version is clearer?</div>
+    <div class="take">Reading a different, equally correct version is also a skill.</div>
+  </div>
+</section>
+
+<!-- ============ 17 ============ -->
+<section class="step" data-nav="Debug clinic">
+  <h2>Debug clinic: three snippets, three errors</h2>
+  <p class="lead">For each one, predict the error <b>type</b> before the reveal.</p>
+  <div class="chips">
+    <div class="chip"><div class="q">name = Aanand</div><div class="a"><b>NameError.</b> No quotes, so Python looks for a variable.</div></div>
+    <div class="chip"><div class="q">age = input("Age: ")<br>print(age + 1)</div><div class="a"><b>TypeError.</b> input() gave text. Fix: int(input("Age: ")).</div></div>
+    <div class="chip"><div class="q">Print("Hello")</div><div class="a"><b>NameError.</b> Case matters: print, not Print.</div></div>
+  </div>
+  <button class="rv" data-reveal="next">The four errors you met today</button>
+  <div class="reveal">
+    <table class="tbl"><tr><th>Error</th><th>Python is saying</th><th>Today's example</th></tr>
+      <tr><td><b>SyntaxError</b></td><td>The shape of the code is broken. Nothing ran.</td><td><code>print("Hello"</code></td></tr>
+      <tr><td><b>NameError</b></td><td>I do not know this name.</td><td><code>Print("Hello")</code></td></tr>
+      <tr><td><b>TypeError</b></td><td>That operation does not work on these types.</td><td><code>"25" + 1</code></td></tr>
+      <tr><td><b>ValueError</b></td><td>Right type of thing, but this value cannot be used.</td><td><code>int("99.5")</code></td></tr></table>
+    <div class="take">Read the error type first. Before guessing. Before asking AI.</div>
+  </div>
+</section>
+
+<!-- ============ 18 ============ -->
+<section class="step" data-nav="Recap and what's next">
+  <h2>Recap</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Write three things you learned today in the chat. <span class="timer" data-sec="60"></span></div></div>
+  <button class="rv" data-reveal="next">Compare with mine</button>
+  <div class="reveal"><div class="steps-list prose">
+    <div class="sl on"><b>Variable</b> — a name for a value. <code>=</code> assigns.</div>
+    <div class="sl on"><b>Data types</b> — int, float, str, bool. Quotes and the decimal point decide.</div>
+    <div class="sl on"><b>print()</b> displays. <b>input()</b> receives, always a str.</div>
+    <div class="sl on"><b>Type casting</b> — int(), float(), str(). Daily pattern: <code>int(input(...))</code>.</div>
+    <div class="sl on"><b>Comments</b> — after <code>#</code>. Explain why, not what.</div>
+    <div class="sl on"><b>Errors</b> — SyntaxError, NameError, TypeError, ValueError. Read the type first.</div>
+  </div></div>
+  <button class="rv" data-reveal="next">PaisaPay: where it goes next</button>
+  <div class="reveal">
+    <div class="ladder"><span><b>v1</b> receipt ✓</span><span><b>v2</b> money maths: split bills, cashback</span><span><b>v3</b> decisions: “insufficient balance”</span><span><b>v4</b> loops: PIN retries, statements</span><span>… up to <b>v12</b></span></div>
+    <ul class="b">
+      <li><b>Before next class:</b> post-read, assignment, interview-readiness questions.</li>
+    </ul>
+  </div>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
