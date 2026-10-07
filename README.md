@@ -9,8 +9,8 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 
 | # | Topic | Material | PaisaPay after this class |
 |---|---|---|---|
-| 1 | Data Types, Variables, Input/Output | [Class 1](Class-01-Data-Types-Variables-Input-Output/) | **v1** takes one payment and prints a receipt |
-| 2 | Operators | coming up | **v2** money maths: bill split, cashback, "is the balance enough?" |
+| 1 | Data Types, Variables, Input/Output | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-01-Data-Types-Variables-Input-Output/) · [notes and code](Class-01-Data-Types-Variables-Input-Output/README.md) | **v1** takes one payment and prints a receipt |
+| 2 | Operators | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-02-Operators/) · [notes and code](Class-02-Operators/README.md) | **v2** money maths: bill split, cashback, "is the balance enough?" |
 | 3 | Control Statements | coming up | **v3** decisions: refuse, approve, cashback tiers |
 | 4 | Loops | coming up | **v4** keeps running: menu, PIN retries, mini statement |
 | 5 | Functions | coming up | **v5** reusable actions: `pay()`, `add_money()`, `show_balance()` |
@@ -26,9 +26,10 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 
 | File | Use it for |
 |---|---|
-| `index.html` | The interactive class page: questions, predictions, real incidents and the project build. Download the repo and open it in a browser. **Step by step** reveals one thing at a time (press → or Next); **Show everything** gives the whole class on one page. |
+| `index.html` | The interactive class page: questions, predictions, real incidents and the project build. Open it from the link in the table above; no download needed. **Step by step** reveals one thing at a time (press → or Next); **Show everything** gives the whole class on one page. |
 | `README.md` | The full class notes, readable on GitHub. |
 | `code/` | Every example from the class as a runnable file, in order, plus that class's PaisaPay version. |
+| `Python-Class-NN-….ipynb` | The same examples as one notebook. Open it in Google Colab from the class notes and run the cells; nothing to install. |
 | `ASSIGNMENT.md` | Practice problems. |
 | `INTERVIEW-READINESS.md` | Questions interviewers ask, predict-the-output gotchas, and questions that connect the topic to AI systems. |
 

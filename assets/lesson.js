@@ -70,6 +70,7 @@
     const box = el('div', 'code' + (pre.dataset.kind ? ' ' + pre.dataset.kind : ''));
     const ch = el('div', 'ch', '<span class="dots"><i></i><i></i><i></i>' + (pre.dataset.file ? '<span class="fn">' + esc(pre.dataset.file) + '</span>' : '') + '</span>' +
       (pre.hasAttribute('data-nocopy') ? '' : '<button class="copy" type="button">copy</button>'));
+    if (pre.hasAttribute('data-brk')) box.setAttribute('data-brk', '');     // a break marked on the code applies to its box
     pre.parentNode.insertBefore(box, pre); box.appendChild(ch); box.appendChild(pre);
     pre.dataset.raw = raw;
     pre.innerHTML = raw.split('\n').map((l, i) => '<span class="line' + (hl.has(i + 1) ? ' new' : '') + '" data-n="' + (i + 1) + '"><span class="lno">' + (i + 1) + '</span>' + (plain ? esc(l) : hlLine(l)) + '</span>').join('');
@@ -116,6 +117,7 @@
 
   /* ---------- wide screens: code on the left, its result on the right ---------- */
   function duoize(box) {
+    if (box.classList.contains('reveal') && box.parentElement && box.parentElement.classList.contains('duo-r')) return;   // no side-by-side inside a panel that is already the right side
     const kids = [...box.children];
     for (let i = 0; i < kids.length; i++) {
       const k = kids[i]; if (!k.matches('.code')) continue;
@@ -132,6 +134,13 @@
   }
   steps.forEach(duoize); $$('.reveal').forEach(duoize);
 
+  /* tables marked data-cells: rows all visible, the last column hidden until each cell is clicked */
+  $$('table.tbl[data-cells]').forEach(t => $$('tr', t).slice(1).forEach(tr => {
+    const td = tr.lastElementChild; if (!td) return;
+    td.classList.add('cell'); td.innerHTML = '<span class="q">?</span><span class="v">' + td.innerHTML + '</span>';
+    td.addEventListener('click', () => td.classList.toggle('on'));
+  }));
+
   /* ---------- a few presses per step ----------
      A step opens with its heading and its first group (the question). Each further press shows
      one group: an answer panel as a whole, or the next run of blocks. A new group starts at a
@@ -143,10 +152,14 @@
     const close = () => { grp = null; };
     const tail = n => { const last = list[list.length - 1]; if (last) (last.also || (last.also = [])).push(mark(n)); else add(n); };
     const extras = n => {                 // parts of a block that still take their own press
-      $$('table.tbl', n).concat(n.matches('table.tbl') ? [n] : []).forEach(t => $$('tr', t).slice(1).forEach(r => list.push({ el: mark(r), also: [] })));
+      $$('table.tbl', n).concat(n.matches('table.tbl') ? [n] : []).forEach(t => {
+        if (t.hasAttribute('data-cells')) $$('td.cell', t).forEach(td => list.push({ card: td }));
+        else $$('tr', t).slice(1).forEach(r => list.push({ el: mark(r), also: [] }));
+      });
       $$('.trace', n).concat(n.matches('.trace') ? [n] : []).forEach(t => list.push({ trace: t }));
       $$('.types', n).concat(n.matches('.types') ? [n] : []).forEach(g => [...g.children].forEach(c => { if (!c.classList.contains('on')) list.push({ card: c }); }));
       $$('.chips, .anat', n).concat(n.matches('.chips, .anat') ? [n] : []).forEach(g => { const cs = [...g.children].filter(c => !c.classList.contains('on')); if (cs.length) list.push({ cards: cs }); });
+      if (!n.matches('.reveal')) $$('.rv[data-reveal]', n).forEach(b => list.push({ btn: b }));   // a button inside a block (a build's sample run) gets its own press
     };
     const add = n => {
       if (!grp) { grp = { el: mark(n), also: [] }; list.push(grp); groups++; } else grp.also.push(mark(n));
@@ -237,7 +250,7 @@
     B.classList.add('showall'); if (!REVIEW) store.set(KEY + 'showall', '1'); paint();
   }
   D.addEventListener('click', e => {          // a click on a table shows its next row
-    const t = e.target.closest('table.tbl'); if (!t) return;
+    const t = e.target.closest('table.tbl'); if (!t || t.hasAttribute('data-cells')) return;
     const r = $$('tr.frag', t).find(x => !x.classList.contains('frag-on'));
     if (r) { r.classList.add('frag-on'); saveState(); }
   });
@@ -289,7 +302,7 @@
     const on = t.classList.contains('on'); b.classList.toggle('done', on);
     const v = voteOf(b); if (v) { v.classList.toggle('done', on); $$('.vopt', v).forEach(o => { o.classList.toggle('win', o.hasAttribute('data-win') && on); if (!on) o.classList.remove('wrong'); }); }
   }
-  const revs = $$('.reveal'), toggles = $$('.chip, .anat .a, .ty'), quizzes = $$('.quiz');
+  const revs = $$('.reveal'), toggles = $$('.chip, .anat .a, .ty, td.cell'), quizzes = $$('.quiz');
   let restoring = false;
   const SIG = revs.length + ':' + frags.length + ':' + toggles.length;   // saved state only fits the page it was made on
   function saveState() {       // what is open survives a refresh
@@ -304,6 +317,7 @@
     saveState();
   }));
   toggles.forEach(c => {
+    if (c.tagName === 'TD') { c.addEventListener('click', saveState); return; }      // cells toggle themselves
     if (!c.classList.contains('on') && !$('.hint', c)) c.appendChild(el('div', 'hint', 'click to reveal'));
     c.addEventListener('click', () => { c.classList.toggle('on'); saveState(); });
   });

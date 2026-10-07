@@ -6,6 +6,7 @@ INSTRUCTOR*.md
 GenAIFoundation_Module_Notes/
 *.local.js
 *.local.md
+*.local.html
 feedback/
 /Class-*/assets
 

@@ -256,7 +256,7 @@ Two places to prevent it: declare `"amount"` as `integer` in the tool's input sc
 JSON spells booleans in lowercase. In Python, lowercase `true` is read as a variable name and raises `NameError`.
 </details>
 
-**C3. The same bug in n8n.** In an n8n expression, a form field `amount` holds `"500"`. You write `{{ $json.amount + 10 }}`. What do you get, and why is it not an error?
+**C3. The same bug in n8n.** In an n8n expression, a form field `amount` holds `"500"`. You write <code>&#123;&#123; $json.amount + 10 &#125;&#125;</code>. What do you get, and why is it not an error?
 
 <details><summary>Things to find</summary>
 

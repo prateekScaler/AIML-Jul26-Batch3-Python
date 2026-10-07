@@ -505,3 +505,21 @@ table.tbl:has(tr.frag:not(.frag-on)) + .tbl-hint{display:block}
 /* the path: every step is clickable; steps not reached yet are only dimmed */
 .sidenav a.locked{pointer-events:auto;opacity:.55;cursor:pointer}
 .sidenav a.locked:hover{opacity:1}
+
+/* code never needs a sideways scroll: the code side gets more room, and long lines wrap */
+.duo{grid-template-columns:minmax(0,1.35fr) minmax(0,1fr)}
+.code pre{white-space:pre-wrap;overflow-wrap:anywhere;overflow-x:visible}
+.code .line{white-space:pre-wrap}
+
+/* output boxes: long values wrap inside the box instead of spilling out */
+.out{overflow-wrap:anywhere;word-break:break-word;min-width:0;overflow:hidden}
+.duo-l,.duo-r{min-width:0}
+
+/* click-to-reveal cells (tables marked data-cells) */
+td.cell{cursor:pointer}
+td.cell .v{display:none}
+td.cell .q{display:inline-block;min-width:1.6em;text-align:center;color:var(--muted);border:1.5px dashed var(--border);border-radius:6px;padding:0 .4em}
+td.cell.on .v{display:inline}
+td.cell.on .q{display:none}
+table.tbl[data-cells]{cursor:default}
+table.tbl[data-cells] + .tbl-hint{display:none}

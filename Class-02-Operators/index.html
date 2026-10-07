@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 2 · Operators</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c02" data-class="Class 2" data-title="Operators" data-course="Python · AIML Jul26 Batch 3" data-date="2026-10-07">
+
+<div class="cover" id="cover">
+  <h1><small>Class 2</small>Operators</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Last class, in three questions">
+  <h2>Last class, in three questions</h2>
+  <div class="quiz" data-level="s">
+    <div class="qt">What does this show?</div>
+    <pre class="py" data-nocopy>print(type("42"))</pre>
+    <div class="opts">
+      <button class="opt">&lt;class 'int'&gt;</button>
+      <button class="opt">42</button>
+      <button class="opt" data-ok>&lt;class 'str'&gt;</button>
+      <button class="opt">&lt;class 'float'&gt;</button>
+    </div>
+    <div class="expl"><b>&lt;class 'str'&gt;.</b> Quotes decide the type.</div>
+  </div>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>balance = 1000
+balance = balance - 250
+print(balance)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>750</button>
+      <button class="opt">1000</button>
+      <button class="opt">250</button>
+      <button class="opt">An error</button>
+    </div>
+    <div class="expl"><b>750.</b> Right side first, then store.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What happens?</div>
+    <pre class="py" data-nocopy>Print("Welcome to PaisaPay")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>NameError</button>
+      <button class="opt">It prints the message</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt">TypeError</button>
+    </div>
+    <div class="expl"><b>NameError.</b> Case matters: <code>print</code>, not <code>Print</code>.</div>
+  </div>
+</section>
+
+<section class="step" data-nav="input()" data-tag="From Class 1">
+  <h2>Getting information from the user: <code>input()</code></h2>
+  <ul class="b">
+    <li>So far we typed every value into the code.</li>
+    <li>Real programs ask the user.</li>
+  </ul>
+  <div class="ask"><span class="ic">🎤</span><div>How could Python ask the person at the keyboard for a name?</div></div>
+  <button class="rv" data-reveal="next">Meet input()</button>
+  <div class="reveal">
+    <pre class="py" data-file="ask_name.py">name = input("What is your name? ")
+print(name)</pre>
+    <div class="out"><span class="p">What is your name? </span><span class="in">Vamsi</span>
+Vamsi</div>
+    <div class="anat">
+      <div class="a"><code>input( )</code><div class="m">Pauses. Waits for the user to type and press Enter.</div></div>
+      <div class="a"><code>"What is your name? "</code><div class="m">The prompt shown to the user.</div></div>
+      <div class="a"><code>name =</code><div class="m">What the user typed is stored under this name.</div></div>
+    </div>
+    <div class="take">input() receives information from the user.</div>
+  </div>
+  <div class="build"><div class="bh">PaisaPay v1 · finishing, 1 of 2</div><div class="bd">The app asks who is paying, and whom.</div>
+  <pre class="py" data-file="paisapay_v1.py" data-hl="3-4">print("Welcome to PaisaPay")
+
+name = input("Your name: ")
+payee = input("Pay to: ")
+
+balance = 1000
+balance = balance - 200
+print(balance)</pre></div>
+</section>
+
+<!-- ============ 12 ============ -->
+<section class="step" data-nav="The big surprise">
+  <h2>The big surprise</h2>
+  <ul class="b"><li>Two friends paid for dinner. Add the two amounts.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>The user types <b>100</b>, then <b>50</b>. What prints?</div></div>
+  <pre class="py" data-file="bill.py">a = input("First amount: ")
+b = input("Second amount: ")
+
+print(a + b)</pre>
+  <div class="vote">
+    <div class="vopt">150</div>
+    <div class="vopt" data-win>10050</div>
+    <div class="vopt">An error</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="p">First amount: </span><span class="in">100</span>
+<span class="p">Second amount: </span><span class="in">50</span>
+<span class="bad">10050</span></div>
+    <ul class="b">
+      <li>No error. Just a wrong bill.</li>
+      <li>Everything typed arrives as keystrokes. Keystrokes are <b>text</b>. And <code>+</code> joins text.</li>
+    </ul>
+    <pre class="py" data-nocopy>print(type(a))</pre>
+    <div class="out">&lt;class 'str'&gt;</div>
+    <div class="take">input() ALWAYS returns a string. Want a number? Convert it.</div>
+  </div>
+  <button class="rv" data-reveal="next">You have met this before</button>
+  <div class="reveal"><div class="ai"><b>AI angle</b> — data crossing a boundary arrives as text. Everywhere.
+    <ul class="b" style="margin-top:8px">
+      <li><b>n8n / Zapier:</b> a form field arrives as <code>"500"</code>.</li>
+      <li><b>LLMs:</b> every reply is text.</li>
+      <li><b>Agent tools / MCP:</b> every input declares a type: <code>string</code>, <code>number</code>, <code>boolean</code>.</li>
+    </ul></div></div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Now the program pays instead of adding. The user types 250. What happens?</div>
+    <pre class="py" data-nocopy>balance = 1000
+amount = input("Amount to pay: ")
+print(balance - amount)</pre>
+    <div class="opts">
+      <button class="opt">750</button>
+      <button class="opt">1000250</button>
+      <button class="opt" data-ok>TypeError</button>
+      <button class="opt">-250</button>
+    </div>
+    <div class="expl"><b>TypeError: unsupported operand type(s) for -: 'int' and 'str'.</b> Text can be joined with <code>+</code>. It cannot be subtracted. One operator hides the bug, the other exposes it.</div>
+  </div>
+</section>
+
+<section class="step" data-nav="Type casting">
+  <h2>Type casting: fixing what we just broke</h2>
+  <ul class="b">
+    <li>10050 was not an error. It was worse: a wrong answer that looked fine.</li>
+    <li>The fix is the same either way: turn the text into a number <b>first</b>.</li>
+  </ul>
+  <div class="ai"><b>AI moment 1</b> — paste the bill program and its output into an AI assistant:
+    <div class="pr">"My program printed 10050 instead of 150. Explain why in plain English. Do not give me the fix yet."</div>
+    Compare it with your own guess.</div>
+  <button class="rv" data-reveal="next">The fix: convert the type</button>
+  <div class="reveal">
+    <pre class="py" data-file="bill.py" data-kind="good">a = int(input("First amount: "))
+b = int(input("Second amount: "))
+
+print(a + b)</pre>
+    <div class="out"><span class="p">First amount: </span><span class="in">100</span>
+<span class="p">Second amount: </span><span class="in">50</span>
+150</div>
+    <div class="diag">
+      <svg viewBox="0 0 760 136" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="mB" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+        <rect x="10" y="30" width="150" height="76" rx="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+        <text x="85" y="62" text-anchor="middle" font-size="15" font-weight="800" fill="#0f172a">User types</text>
+        <text x="85" y="88" text-anchor="middle" font-size="16" font-family="Menlo,monospace" fill="#334155">1 0 0 Enter</text>
+        <line x1="160" y1="68" x2="198" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mB)"/>
+        <rect x="202" y="30" width="150" height="76" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="277" y="62" text-anchor="middle" font-size="16" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">input()</text>
+        <text x="277" y="88" text-anchor="middle" font-size="13" fill="#334155">always returns text</text>
+        <line x1="352" y1="68" x2="390" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mB)"/>
+        <rect x="394" y="30" width="110" height="76" rx="12" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+        <text x="449" y="64" text-anchor="middle" font-size="20" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">"100"</text>
+        <text x="449" y="90" text-anchor="middle" font-size="13" fill="#334155">a str</text>
+        <line x1="504" y1="68" x2="542" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mB)"/>
+        <rect x="546" y="30" width="100" height="76" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="596" y="62" text-anchor="middle" font-size="16" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">int()</text>
+        <text x="596" y="88" text-anchor="middle" font-size="13" fill="#334155">converts</text>
+        <line x1="646" y1="68" x2="684" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#mB)"/>
+        <rect x="688" y="30" width="62" height="76" rx="12" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+        <text x="719" y="64" text-anchor="middle" font-size="20" font-weight="800" font-family="Menlo,monospace" fill="#0f172a">100</text>
+        <text x="719" y="90" text-anchor="middle" font-size="13" fill="#334155">an int</text>
+      </svg>
+      <div class="cap">Inside out: ask → convert → store</div>
+    </div>
+    <ul class="b"><li>Converting one type to another = <b>type casting</b>.</li></ul>
+    <div class="ai"><b>AI moment 2</b> — now ask for the fix. Run <b>your own</b> version. Accept it only when it prints 150.</div>
+    <div class="take">int(input(...)) turns user input into a number.</div>
+  </div>
+
+  <div class="quiz" data-level="m">
+    <div class="qt">PaisaPay asks for an amount like this. The user types 99.5. What happens?</div>
+    <pre class="py" data-nocopy>amount = int(input("Amount: "))</pre>
+    <div class="opts">
+      <button class="opt">amount becomes 99</button>
+      <button class="opt" data-ok>ValueError</button>
+      <button class="opt">amount becomes 100</button>
+      <button class="opt">amount becomes 99.5</button>
+    </div>
+    <div class="expl"><b>ValueError: invalid literal for int() with base 10: '99.5'.</b>
+      <ul class="b" style="font-size:1.05rem;margin:.6rem 0 0">
+        <li><code>input()</code> gave <b>text</b>: the five characters 9, 9, ., 5.</li>
+        <li>On text, <code>int()</code> only accepts a whole number written in digits. A dot is not a digit, so it refuses.</li>
+        <li><code>float("99.5")</code> accepts the dot and gives 99.5.</li>
+      </ul></div>
+  </div>
+
+  <button class="rv" data-reveal="next">Real world: one type conversion, one rocket</button>
+  <div class="reveal"><div class="case">
+    <div class="tag">Real incident · 1996</div>
+    <h4>Ariane 5 destroyed itself 37 seconds after launch</h4>
+    <ul>
+      <li>Software converted a 64-bit float into a 16-bit integer.</li>
+      <li>The value did not fit. The guidance computer shut down.</li>
+      <li>The rocket destroyed itself. Loss: more than $370 million.</li>
+    </ul>
+    <div>
+    <div class="lab">The same shape, in Python</div>
+    <pre class="py" data-kind="bad" data-file="rocket.py">speed = "32768.5"                 # the sensor sends a decimal number
+speed_whole = int(speed)          # the code expected a small whole number
+print("Steering the rocket...")   # never runs</pre>
+    <div class="out"><span class="err">ValueError: invalid literal for int() with base 10: '32768.5'</span></div>
+    <p class="note">The conversion fails, so everything after it stops. Ariane's small integer could hold at most 32,767.</p>
+    </div>
+    <div class="lesson">A type conversion is a decision. What if the value does not fit?</div>
+    <div class="src">Read: <a href="https://en.wikipedia.org/wiki/Ariane_flight_V88" target="_blank" rel="noopener">Wikipedia: Ariane flight V88</a> · <a href="http://sunnyday.mit.edu/nasa-class/Ariane5-report.html" target="_blank" rel="noopener">Inquiry board report</a></div>
+  </div></div>
+</section>
+
+<!-- ============ 14 ============ -->
+<section class="step" data-nav="Casting functions">
+  <h2>The casting functions</h2>
+  <pre class="py" data-file="casting.py">age = int("25")
+price = float("99.5")
+number = str(100)</pre>
+  <div class="chips">
+    <div class="chip"><div class="q">int("25")</div><div class="a">25</div></div>
+    <div class="chip"><div class="q">float("99.5")</div><div class="a">99.5</div></div>
+    <div class="chip"><div class="q">str(100)</div><div class="a">"100". Casting works both ways.</div></div>
+    <div class="chip"><div class="q">bool( )</div><div class="a">Exists. Surprising rules. Its own lesson, later.</div></div>
+  </div>
+  <div class="take">int(), float(), str(), bool() convert between the basic types.</div>
+
+  <div class="quiz" data-level="m">
+    <div class="qt">Printing a price with the rupee sign. What happens?</div>
+    <pre class="py" data-nocopy>print("₹" + 500)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>TypeError</button>
+      <button class="opt">₹500</button>
+      <button class="opt">₹ 500</button>
+      <button class="opt">500₹</button>
+    </div>
+    <div class="expl"><b>TypeError.</b> Same error, other direction. Fix: <code>"₹" + str(500)</code>.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">A payment of ₹99.90 is recorded like this. What prints?</div>
+    <pre class="py" data-nocopy>print(int(99.9))</pre>
+    <div class="opts">
+      <button class="opt">100</button>
+      <button class="opt">99.9</button>
+      <button class="opt" data-ok>99</button>
+      <button class="opt">ValueError</button>
+    </div>
+    <div class="expl"><b>99.</b> Ninety paise vanished.
+      <ul class="b" style="font-size:1.05rem;margin:.6rem 0 0">
+        <li>99.9 is already a <b>number</b> (a float). On a number, <code>int()</code> converts by <b>cutting off</b> the decimals. It does not round.</li>
+        <li>On <b>text</b>, <code>int()</code> is strict: <code>int("99.9")</code> is a ValueError, because text must be a whole number in digits.</li>
+        <li>Text with a dot needs two steps: <code>int(float("99.9"))</code> gives 99.</li>
+      </ul></div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">The amount arrives as text with a dot. Two conversions. What prints?</div>
+    <pre class="py" data-nocopy>amount = "99.9"
+print(int(float(amount)))</pre>
+    <div class="opts">
+      <button class="opt">ValueError</button>
+      <button class="opt">100</button>
+      <button class="opt">99.9</button>
+      <button class="opt" data-ok>99</button>
+    </div>
+    <div class="expl"><b>99.</b> Inside out: <code>float("99.9")</code> accepts the dot and gives the number 99.9. Then <code>int(99.9)</code> cuts to 99. Text to number first, then number to whole number.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Now the other direction: numbers turned into text. What prints?</div>
+    <pre class="py" data-nocopy>print(str(250) + str(50))</pre>
+    <div class="opts">
+      <button class="opt">300</button>
+      <button class="opt" data-ok>25050</button>
+      <button class="opt">TypeError</button>
+      <button class="opt">250 50</button>
+    </div>
+    <div class="expl"><b>25050.</b> <code>str()</code> turns each number into text, and <code>+</code> joins text. Casting works in both directions, and the direction decides what <code>+</code> means.</div>
+  </div>
+
+  <button class="rv" data-reveal="next">How real payment apps store money</button>
+  <div class="reveal">
+    <pre class="py" data-file="float_surprise.py">print(0.1 + 0.2)</pre>
+    <div class="out">0.30000000000000004</div>
+    <div>
+    <div class="lab">Why? It happens to you in decimal too</div>
+    <div class="tern"><span class="t2">1 / 3</span> = 0.333… never ends &nbsp;→&nbsp; cut it: <span class="t3">0.33</span> &nbsp;→&nbsp; 0.33 + 0.33 + 0.33 = <span class="t3">0.99</span></div>
+    <ul class="b">
+      <li>A computer counts in <b>binary</b>: only 0 and 1.</li>
+      <li>In binary, 0.1 never ends, like 1/3 in decimal. The computer must cut somewhere.</li>
+    </ul>
+    <div class="diag">
+      <svg viewBox="0 0 760 120" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="mF" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+        <rect x="10" y="22" width="150" height="76" rx="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+        <text x="85" y="54" text-anchor="middle" font-size="15" font-weight="800" fill="#0f172a">You type</text>
+        <text x="85" y="82" text-anchor="middle" font-size="20" font-family="Menlo,monospace" fill="#0f172a">0.1</text>
+        <line x1="160" y1="60" x2="198" y2="60" stroke="#334155" stroke-width="2" marker-end="url(#mF)"/>
+        <rect x="202" y="22" width="300" height="76" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="352" y="54" text-anchor="middle" font-size="15" font-weight="800" fill="#0f172a">In binary, it never ends</text>
+        <text x="352" y="82" text-anchor="middle" font-size="15" font-family="Menlo,monospace" fill="#0f172a">0.000110011001100110011…</text>
+        <line x1="502" y1="60" x2="540" y2="60" stroke="#334155" stroke-width="2" marker-end="url(#mF)"/>
+        <rect x="544" y="22" width="206" height="76" rx="12" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+        <text x="647" y="54" text-anchor="middle" font-size="15" font-weight="800" fill="#0f172a">Stored, cut short</text>
+        <text x="647" y="82" text-anchor="middle" font-size="15" font-family="Menlo,monospace" fill="#0f172a">0.1000000000000000055…</text>
+      </svg>
+    </div>
+    <pre class="py" data-file="float_why.py">print(0.1 + 0.2)
+print(0.1 * 3)</pre>
+    <div class="out">0.30000000000000004
+0.30000000000000004</div>
+    </div>
+    <ul class="b">
+      <li>Each float is off by a tiny bit. Add a few and the error shows.</li>
+      <li>Tiny errors × crores of transactions = real money.</li>
+      <li>So payment systems store money as an <b>int</b> of paise. Razorpay: ₹299 is sent as <code>29900</code>.</li>
+    </ul>
+    <div class="case" style="border-left-color:var(--green)">
+      <div class="lesson">Money is an <b>int of paise</b>, never a float of rupees.</div>
+      <div class="src">Read: <a href="https://razorpay.com/docs/api/orders/create/" target="_blank" rel="noopener">Razorpay API docs: order amount</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 15 ============ -->
+<section class="step" data-nav="Putting it together" data-tag="PaisaPay v1 complete">
+  <h2>Putting it together</h2>
+  <div class="diag">
+    <svg viewBox="0 0 760 124" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="mC" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="20" y="22" width="210" height="80" rx="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="125" y="56" text-anchor="middle" font-size="17" font-weight="800" fill="#0f172a">Input</text>
+      <text x="125" y="82" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#334155">input()</text>
+      <line x1="230" y1="62" x2="271" y2="62" stroke="#334155" stroke-width="2" marker-end="url(#mC)"/>
+      <rect x="275" y="22" width="210" height="80" rx="12" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="380" y="56" text-anchor="middle" font-size="17" font-weight="800" fill="#0f172a">Process</text>
+      <text x="380" y="82" text-anchor="middle" font-size="13" fill="#334155">store, convert, calculate</text>
+      <line x1="485" y1="62" x2="526" y2="62" stroke="#334155" stroke-width="2" marker-end="url(#mC)"/>
+      <rect x="530" y="22" width="210" height="80" rx="12" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="635" y="56" text-anchor="middle" font-size="17" font-weight="800" fill="#0f172a">Output</text>
+      <text x="635" y="82" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#334155">print()</text>
+    </svg>
+    <div class="cap">The shape of almost every program</div>
+  </div>
+  <pre class="py" data-file="hello_user.py">name = input("What is your name? ")
+age = int(input("What is your age? "))
+
+print("Hello", name)
+print("You are", age, "years old.")
+print("Next year, you will be", age + 1)</pre>
+  <div class="ask"><span class="ic">🎤</span><div>The user types Vamsi and 25. Predict all three lines.</div></div>
+  <button class="rv run" data-reveal="next">▶ Run</button>
+  <div class="reveal">
+    <div class="out"><span class="p">What is your name? </span><span class="in">Vamsi</span>
+<span class="p">What is your age? </span><span class="in">25</span>
+Hello Vamsi
+You are 25 years old.
+Next year, you will be 26</div>
+    <ul class="b">
+      <li>Commas in print() put a <b>space</b> between items.</li>
+      <li><code>age + 1</code> works only because age is now an int.</li>
+    </ul>
+    <div class="take">Once age is an int, it behaves like a number.</div>
+  </div>
+
+  <div class="quiz" data-level="s">
+    <div class="qt">What exactly prints?</div>
+    <pre class="py" data-nocopy>amount = 250
+print("Paid ₹", amount, "to", "Zomato")</pre>
+    <div class="opts">
+      <button class="opt">Paid ₹250 to Zomato</button>
+      <button class="opt" data-ok>Paid ₹ 250 to Zomato</button>
+      <button class="opt">Paid ₹,250,to,Zomato</button>
+      <button class="opt">TypeError. Text and a number are mixed</button>
+    </div>
+    <div class="expl"><b>Paid ₹ 250 to Zomato.</b> Commas add a space, and mixing text and numbers is fine. Unlike +.</div>
+  </div>
+
+  <div class="build"><div class="bh">PaisaPay v1 · finishing, 2 of 2 · complete</div><div class="bd">Everything from today in one program.</div>
+  <pre class="py" data-file="paisapay_v1.py" data-hl="5,7-8,10-14"># PaisaPay v1: take one payment and print a receipt
+print("Welcome to PaisaPay")
+
+name = input("Your name: ")
+payee = input("Pay to: ")
+amount = int(input("Amount in rupees: "))
+
+balance = 1000              # every new wallet starts with ₹1000
+balance = balance - amount  # the money leaves the wallet
+
+print("----- Receipt -----")
+print("From:", name)
+print("To:", payee)
+print("Paid: ₹", amount)
+print("Balance left: ₹", balance)</pre>
+  <button class="rv run" data-reveal="next">▶ Sample run</button>
+  <div class="reveal">
+    <div class="out">Welcome to PaisaPay
+<span class="p">Your name: </span><span class="in">Sangeeta</span>
+<span class="p">Pay to: </span><span class="in">Chai Point</span>
+<span class="p">Amount in rupees: </span><span class="in">120</span>
+----- Receipt -----
+From: Sangeeta
+To: Chai Point
+Paid: ₹ 120
+Balance left: ₹ 880</div>
+    <ul class="b">
+      <li>Pay ₹5000 from this ₹1000 wallet: balance −4000. v1 cannot say no.</li>
+      <li>Saying no needs comparisons and decisions. Next classes.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ============ 16 ============ -->
+
+<!-- ============ operators: opening ============ -->
+<section class="step" data-nav="What can we do with data?" data-tag="Operators">
+  <h2>What can we do with data?</h2>
+  <ul class="b">
+    <li>We can store data: <code>age = 20</code>.</li>
+    <li>Now we want to <b>do</b> things with it.</li>
+  </ul>
+  <div class="ask"><span class="ic">🎤</span><div>Which symbols from maths class might work in code? Type them in the chat. <span class="timer" data-sec="20"></span></div></div>
+  <button class="rv" data-reveal="next">Six families</button>
+  <div class="reveal">
+    <div class="ladder"><span>Arithmetic</span><span>Comparison</span><span>Logical</span><span>Assignment</span><span>Membership</span><span>Identity</span></div>
+    <div class="take">An operator is a symbol or keyword that tells Python to perform an operation.</div>
+  </div>
+</section>
+
+<!-- ============ + - * ============ -->
+<section class="step" data-nav="Arithmetic: + − ×">
+  <h2>Arithmetic: the three you know</h2>
+  <pre class="py" data-file="arithmetic.py">a = 10
+b = 3</pre>
+  <div class="chips">
+    <div class="chip"><div class="q">a + b</div><div class="a">13</div></div>
+    <div class="chip"><div class="q">a - b</div><div class="a">7</div></div>
+    <div class="chip"><div class="q">a * b</div><div class="a">30. Python uses <code>*</code>, not ×.</div></div>
+  </div>
+</section>
+
+<!-- ============ / ============ -->
+<section class="step" data-nav="Division /">
+  <h2>Division: <code>/</code></h2>
+  <div class="ask"><span class="ic">✋</span><div>What does this print?</div></div>
+  <pre class="py" data-nocopy>print(15 / 5)</pre>
+  <div class="vote">
+    <div class="vopt">3</div>
+    <div class="vopt" data-win>3.0</div>
+    <div class="vopt">5</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Answer</button>
+  <div class="reveal">
+    <pre class="py" data-file="division.py">print(15 / 5)
+print(10 / 3)</pre>
+    <div class="out">3.0
+3.3333333333333335</div>
+    <div class="take"><code>/</code> always gives a float. Even when it divides evenly.</div>
+  </div>
+</section>
+
+<!-- ============ // and % ============ -->
+<section class="step" data-nav="Floor division // and remainder %">
+  <h2>Two halves of one division: <code>//</code> and <code>%</code></h2>
+  <ul class="b"><li>Share ₹10 among 3 friends. No coins.</li></ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 760 170" xmlns="http://www.w3.org/2000/svg">
+      <rect x="60" y="34" width="192" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="156" y="60" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">₹3</text>
+      <rect x="252" y="34" width="192" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="348" y="60" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">₹3</text>
+      <rect x="444" y="34" width="192" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="540" y="60" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">₹3</text>
+      <rect x="636" y="34" width="64" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="668" y="60" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">₹1</text>
+      <line x1="60" y1="92" x2="700" y2="92" stroke="#334155" stroke-width="2"/>
+      <text x="60" y="114" text-anchor="middle" font-size="13" fill="#475569">0</text>
+      <text x="252" y="114" text-anchor="middle" font-size="13" fill="#475569">3</text>
+      <text x="444" y="114" text-anchor="middle" font-size="13" fill="#475569">6</text>
+      <text x="636" y="114" text-anchor="middle" font-size="13" fill="#475569">9</text>
+      <text x="700" y="114" text-anchor="middle" font-size="13" fill="#475569">10</text>
+      <text x="348" y="150" text-anchor="middle" font-size="16" font-family="Menlo,monospace" fill="#0f172a">10 // 3 = 3 each</text>
+      <text x="640" y="150" text-anchor="middle" font-size="16" font-family="Menlo,monospace" fill="#b91c1c">10 % 3 = 1 left</text>
+    </svg>
+  </div>
+  <pre class="py" data-file="share.py">print(10 // 3)
+print(10 % 3)</pre>
+  <div class="out">3
+1</div>
+  <div class="take"><code>//</code> gives the whole share. <code>%</code> gives what is left over.</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A ₹450 dinner bill, split among 4. What prints?</div>
+    <pre class="py" data-nocopy>print(450 // 4)
+print(450 % 4)</pre>
+    <div class="opts">
+      <button class="opt">112.5, then 0</button>
+      <button class="opt">112, then 5</button>
+      <button class="opt" data-ok>112, then 2</button>
+      <button class="opt">113, then 2</button>
+    </div>
+    <div class="expl"><b>112, then 2.</b> 4 × 112 = 448. Two rupees are left over. Someone has to pay them.</div>
+  </div>
+</section>
+
+<!-- ============ % uses ============ -->
+<section class="step" data-nav="What % is good for">
+  <h2>What <code>%</code> is good for</h2>
+  <div class="ask"><span class="ic">🎤</span><div>How can a program tell if a number is even?</div></div>
+  <pre class="py" data-file="even.py" data-brk>print(14 % 2)
+print(15 % 2)</pre>
+  <div class="out">0
+1</div>
+  <ul class="b">
+    <li>Remainder 0 when divided by 2 → even.</li>
+    <li>An ATM gives only ₹100 notes: <code>amount % 100</code> must be 0.</li>
+  </ul>
+  <div class="quiz" data-level="s">
+    <div class="qt">You ask an ATM for ₹2,550. What is <code>2550 % 100</code>?</div>
+    <div class="opts">
+      <button class="opt">25</button>
+      <button class="opt">0</button>
+      <button class="opt">25.5</button>
+      <button class="opt" data-ok>50</button>
+    </div>
+    <div class="expl"><b>50.</b> ₹2,500 fits in ₹100 notes. ₹50 is left over, so the ATM refuses.</div>
+  </div>
+</section>
+
+<!-- ============ ** ============ -->
+<section class="step" data-nav="Power **">
+  <h2>Power: <code>**</code></h2>
+  <pre class="py" data-file="power.py">print(2 ** 3)</pre>
+  <div class="out">8</div>
+  <ul class="b"><li>2 × 2 × 2. Two stars, not one.</li></ul>
+  <div class="quiz" data-level="s">
+    <div class="qt">What is <code>10 ** 3</code>?</div>
+    <div class="opts">
+      <button class="opt">30</button>
+      <button class="opt" data-ok>1000</button>
+      <button class="opt">13</button>
+      <button class="opt">103</button>
+    </div>
+    <div class="expl"><b>1000.</b> 10 × 10 × 10. <code>10 * 3</code> would be 30.</div>
+  </div>
+</section>
+
+<!-- ============ practice ============ -->
+<section class="step" data-nav="Predict: arithmetic">
+  <h2>Predict each one</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Write all seven answers first. <span class="timer" data-sec="60"></span></div></div>
+  <div class="chips">
+    <div class="chip"><div class="q">15 + 5</div><div class="a">20</div></div>
+    <div class="chip"><div class="q">15 - 5</div><div class="a">10</div></div>
+    <div class="chip"><div class="q">15 * 5</div><div class="a">75</div></div>
+    <div class="chip"><div class="q">15 / 5</div><div class="a">3.0, not 3</div></div>
+    <div class="chip"><div class="q">15 // 4</div><div class="a">3</div></div>
+    <div class="chip"><div class="q">15 % 4</div><div class="a">3</div></div>
+    <div class="chip"><div class="q">2 ** 4</div><div class="a">16</div></div>
+  </div>
+  <div class="ai"><b>Explore with AI</b> — ask an assistant, without letting it run code:
+    <div class="pr">"What is 23957 * 4873? Answer directly."</div>
+    Then run <code>print(23957 * 4873)</code>. Did it match? This is why agents call a code tool for maths.</div>
+</section>
+
+<!-- ============ Vancouver ============ -->
+<section class="step" data-nav="Real world: cutting vs rounding">
+  <h2>Real world: cutting off is not rounding</h2>
+  <ul class="b"><li>A stock index. One small choice in its code.</li></ul>
+  <div class="case">
+    <div class="tag">Real incident · 1982</div>
+    <h4>A stock index lost half its value to a rounding choice</h4>
+    <ul>
+      <li>The Vancouver Stock Exchange index started at 1000.</li>
+      <li>After every trade the software <b>cut off</b> the last decimals. It never rounded.</li>
+      <li>About 3,000 tiny cuts a day. In 22 months the index read 524.811.</li>
+      <li>Recalculated correctly: <b>1098.892</b>.</li>
+    </ul>
+    <div class="lab">The same choice, in Python</div>
+    <pre class="py" data-file="cut_or_round.py">price = 99.9
+print(int(price))      # cuts
+print(round(price))    # rounds</pre>
+    <div class="out">99
+100</div>
+    <div class="lesson">Cutting always loses a little. Thousands of times a day, it adds up.</div>
+    <div class="src">Read: <a href="https://en.wikipedia.org/wiki/Vancouver_Stock_Exchange" target="_blank" rel="noopener">Wikipedia: Vancouver Stock Exchange</a> · <a href="https://www5.in.tum.de/~huckle/Vancouv.pdf" target="_blank" rel="noopener">Press reports (TU Munich)</a></div>
+  </div>
+</section>
+
+<!-- ============ build 1 ============ -->
+<section class="step" data-nav="PaisaPay v2: money maths" data-tag="PaisaPay v2">
+  <h2>PaisaPay v2: money maths</h2>
+  <ul class="b"><li>Add a fee, give 5% cashback, split the bill.</li></ul>
+  <div class="build"><div class="bh">PaisaPay v2 · build 1 of 4</div><div class="bd">Only arithmetic operators.</div>
+  <pre class="py" data-file="paisapay_v2.py" data-hl="5-9">amount = int(input("Amount in rupees: "))
+people = int(input("Split between how many people? "))
+
+fee = 2
+total = amount + fee
+cashback = amount * 5 // 100
+share = amount // people
+left_over = amount % people
+
+print("Total:", total, "| Cashback:", cashback)
+print("Each owes:", share, "| Left over:", left_over)</pre>
+  <div class="out"><span class="p">Amount in rupees: </span><span class="in">450</span>
+<span class="p">Split between how many people? </span><span class="in">4</span>
+Total: 452 | Cashback: 22
+Each owes: 112 | Left over: 2</div></div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Why <code>amount * 5 // 100</code> and not <code>amount * 5 / 100</code>?</div>
+    <div class="opts">
+      <button class="opt">The second one is a syntax error</button>
+      <button class="opt">The first one is faster</button>
+      <button class="opt">They always give the same result</button>
+      <button class="opt" data-ok>The second gives 22.5, a float. We keep money in whole units</button>
+    </div>
+    <div class="expl"><b>Money stays an int.</b> <code>/</code> gives 22.5. <code>//</code> gives 22 whole rupees. Real apps do this in paise.</div>
+  </div>
+</section>
+
+<!-- ============ comparison ============ -->
+<section class="step" data-nav="Comparison operators">
+  <h2>Comparison: asking a question</h2>
+  <ul class="b">
+    <li>Arithmetic calculates. Programs must also <b>decide</b>.</li>
+    <li>Is the balance enough? Is the PIN correct?</li>
+  </ul>
+  <div class="lab">True or False? Predict each</div>
+  <div class="chips">
+    <div class="chip"><div class="q">5 == 5</div><div class="a">True · equal to</div></div>
+    <div class="chip"><div class="q">5 != 3</div><div class="a">True · not equal to</div></div>
+    <div class="chip"><div class="q">5 &gt; 3</div><div class="a">True · greater than</div></div>
+    <div class="chip"><div class="q">3 &lt; 5</div><div class="a">True · less than</div></div>
+    <div class="chip"><div class="q">5 &gt;= 5</div><div class="a">True · greater than or equal to</div></div>
+    <div class="chip"><div class="q">3 &lt;= 2</div><div class="a">False · less than or equal to</div></div>
+  </div>
+</section>
+
+<!-- ============ booleans ============ -->
+<section class="step" data-nav="A comparison gives True or False" data-tag="PaisaPay v2">
+  <h2>A comparison gives True or False</h2>
+  <div class="ask"><span class="ic">✋</span><div>What does this print?</div></div>
+  <pre class="py" data-file="adult.py">age = 20
+is_adult = age &gt;= 18
+
+print(is_adult)</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">True</div>
+    <ul class="b"><li>Not a number. Not a word. The answer to a question, stored like any other value.</li></ul>
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>So what kind of value does <code>10 &gt; 5</code> produce?</div></div>
+  <div class="vote">
+    <div class="vopt">A number</div>
+    <div class="vopt">A word</div>
+    <div class="vopt" data-win>True or False</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Answer</button>
+  <div class="reveal">
+    <pre class="py" data-file="compare.py">print(10 &gt; 5)
+print(10 &lt; 5)
+print(10 == 10)
+print(10 != 10)</pre>
+    <div class="out">True
+False
+True
+False</div>
+    <div class="take">Every comparison produces a bool. Nothing else.</div>
+  </div>
+  <div class="build"><div class="bh">PaisaPay v2 · build 2 of 4</div><div class="bd">Is the balance enough? Is this a big payment?</div>
+  <pre class="py" data-file="paisapay_v2.py" data-hl="3-4">balance = 1000
+total = 452
+can_pay = balance &gt;= total
+is_big_payment = total &gt;= 500
+
+print("Enough balance:", can_pay)
+print("Big payment:", is_big_payment)</pre>
+  <div class="out">Enough balance: True
+Big payment: False</div></div>
+  <div class="ai"><b>AI angle</b> — every IF node, filter and router you built in n8n or Zapier is one of these comparisons.</div>
+</section>
+
+<!-- ============ = vs == ============ -->
+<section class="step" data-nav="= vs ==">
+  <h2><code>=</code> vs <code>==</code></h2>
+  <div class="ask"><span class="ic">✋</span><div>Same job, or different job?</div></div>
+  <pre class="py" data-nocopy>age = 20
+age == 20</pre>
+  <div class="vote">
+    <div class="vopt">Same job</div>
+    <div class="vopt" data-win>Different job</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Answer</button>
+  <div class="reveal">
+    <div class="tern"><span class="t2">age = 20</span> &nbsp;→&nbsp; put 20 into age &nbsp;&nbsp;·&nbsp;&nbsp; <span class="t1">age == 20</span> &nbsp;→&nbsp; is age equal to 20?</div>
+    <div class="take"><code>=</code> assigns. <code>==</code> compares.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">The saved PIN is text. The check uses a number. What prints?</div>
+    <pre class="py" data-nocopy>pin = "4321"
+print(pin == 4321)</pre>
+    <div class="opts">
+      <button class="opt">True</button>
+      <button class="opt">TypeError</button>
+      <button class="opt" data-ok>False</button>
+      <button class="opt">4321</button>
+    </div>
+    <div class="expl"><b>False.</b> A str is never equal to an int. No error, no warning. The right PIN is rejected.</div>
+  </div>
+  <button class="rv" data-reveal="next">The fix</button>
+  <div class="reveal">
+    <ul class="b"><li>Compare like with like. Both sides the same type.</li></ul>
+    <pre class="py" data-file="pin_check.py">pin = "4321"
+
+print(pin == "4321")        # text with text
+print(int(pin) == 4321)     # number with number</pre>
+    <div class="out">True
+True</div>
+    <ul class="b">
+      <li>A PIN is text, so the first line is the right one. It keeps a leading zero.</li>
+      <li>Convert only when you really need a number, and convert <b>before</b> you compare.</li>
+    </ul>
+  </div>
+  <button class="rv" data-reveal="next">Real world: one missing =</button>
+  <div class="reveal"><div class="case">
+    <div class="tag">Real incident · 2003</div>
+    <h4>Someone tried to hide a backdoor in Linux with a single <code>=</code></h4>
+    <ul>
+      <li>A change was slipped into a copy of the Linux kernel code.</li>
+      <li>It looked like a check: “is this user the admin?”</li>
+      <li>It used <code>=</code>, not <code>==</code>. So it <b>made</b> the user the admin.</li>
+      <li>It was noticed and removed before it reached the main code.</li>
+    </ul>
+    <div class="lab">The idea, in Python words</div>
+    <pre class="py" data-nocopy>user_id == 0    # asks: is this the admin?
+user_id = 0     # says: this IS the admin now</pre>
+    <div class="lesson">One character changes a question into an order.</div>
+    <div class="src">Read: <a href="https://blog.citp.princeton.edu/2013/10/09/the-linux-backdoor-attempt-of-2003/" target="_blank" rel="noopener">Princeton CITP: The Linux backdoor attempt of 2003</a> · <a href="https://lwn.net/Articles/57135/" target="_blank" rel="noopener">LWN</a></div>
+  </div></div>
+</section>
+
+<!-- ============ and ============ -->
+<section class="step" data-nav="and">
+  <h2>Two conditions: <code>and</code></h2>
+  <ul class="b"><li>Pay only if the balance is enough <b>and</b> the PIN is correct.</li></ul>
+  <div class="ask"><span class="ic">✍️</span><div>Click each cell in the last column after you decide. Reason from the English word “and”.</div></div>
+  <table class="tbl" data-cells><tr><th>A</th><th>B</th><th>A and B</th></tr>
+    <tr><td>True</td><td>True</td><td><b>True</b></td></tr>
+    <tr><td>True</td><td>False</td><td><b>False</b></td></tr>
+    <tr><td>False</td><td>True</td><td><b>False</b></td></tr>
+    <tr><td>False</td><td>False</td><td><b>False</b></td></tr></table>
+  <pre class="py" data-file="and.py" data-brk>age = 20
+has_id = True
+
+print(age &gt;= 18 and has_id)</pre>
+  <div class="out">True</div>
+  <div class="take"><code>and</code>: both must be True.</div>
+</section>
+
+<!-- ============ or ============ -->
+<section class="step" data-nav="or">
+  <h2>Either one: <code>or</code></h2>
+  <ul class="b"><li>Pay by card <b>or</b> by cash.</li></ul>
+  <div class="ask"><span class="ic">✍️</span><div>Click each cell after you decide. Reason from the English word “or”.</div></div>
+  <table class="tbl" data-cells><tr><th>A</th><th>B</th><th>A or B</th></tr>
+    <tr><td>True</td><td>True</td><td><b>True</b></td></tr>
+    <tr><td>True</td><td>False</td><td><b>True</b></td></tr>
+    <tr><td>False</td><td>True</td><td><b>True</b></td></tr>
+    <tr><td>False</td><td>False</td><td><b>False</b></td></tr></table>
+  <pre class="py" data-file="or.py" data-brk>has_card = False
+has_cash = True
+
+print(has_card or has_cash)</pre>
+  <div class="out">True</div>
+  <div class="take"><code>or</code>: at least one must be True.</div>
+</section>
+
+<!-- ============ not ============ -->
+<section class="step" data-nav="not">
+  <h2>Flip it: <code>not</code></h2>
+  <pre class="py" data-file="not.py">is_raining = False
+
+print(not is_raining)</pre>
+  <div class="out">True</div>
+  <div class="tern"><span class="k">not</span> True → False &nbsp;&nbsp;·&nbsp;&nbsp; <span class="k">not</span> False → True</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A frozen account cannot pay. What prints?</div>
+    <pre class="py" data-nocopy>is_frozen = True
+print(not is_frozen)</pre>
+    <div class="opts">
+      <button class="opt">True</button>
+      <button class="opt" data-ok>False</button>
+      <button class="opt">not True</button>
+      <button class="opt">An error</button>
+    </div>
+    <div class="expl"><b>False.</b> <code>not True</code> is False. The account may not pay.</div>
+  </div>
+</section>
+
+<!-- ============ combining ============ -->
+<section class="step" data-nav="Combining conditions" data-tag="PaisaPay v2">
+  <h2>Comparisons create. Logical operators combine.</h2>
+  <pre class="py" data-file="can_enter.py">age = 20
+has_id = True
+
+can_enter = age &gt;= 18 and has_id
+
+print(can_enter)</pre>
+  <div class="steps-list" data-brk>
+    <div class="sl on">age &gt;= 18 <span class="r t">True</span></div>
+    <div class="sl on">has_id <span class="r t">True</span></div>
+    <div class="sl on">True and True <span class="r t">True</span></div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Enough money, wrong PIN. What prints?</div>
+    <pre class="py" data-nocopy>balance = 1000
+total = 452
+pin_ok = False
+
+print(balance &gt;= total and pin_ok)</pre>
+    <div class="opts">
+      <button class="opt">True</button>
+      <button class="opt">452</button>
+      <button class="opt">An error</button>
+      <button class="opt" data-ok>False</button>
+    </div>
+    <div class="expl"><b>False.</b> True and False is False. Money moves only when every check passes.</div>
+  </div>
+  <button class="rv" data-reveal="next">Other ways to write the same thing</button>
+  <div class="reveal">
+    <pre class="py" data-file="can_enter_ways.py">age = 20
+has_id = True
+
+can_enter = has_id and age &gt;= 18              # same checks, other order
+
+is_adult = age &gt;= 18                           # name each check first
+can_enter = is_adult and has_id
+
+can_enter = not (age &lt; 18 or not has_id)      # "not blocked" says the same thing</pre>
+    <div class="out">True
+True
+True</div>
+    <ul class="b">
+      <li>All three give the same answer for every age and ID.</li>
+      <li>The middle one reads best: each check has a name.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ assignment ============ -->
+<section class="step" data-nav="Assignment shortcuts" data-tag="PaisaPay v2">
+  <h2>Updating a variable, the short way</h2>
+  <pre class="py" data-nocopy>score = 10
+score = score + 5</pre>
+  <div class="ask"><span class="ic">🎤</span><div>Python has a shorter form. From <code>=</code> and <code>==</code>, guess what <code>+=</code> means.</div></div>
+  <pre class="py" data-file="shortcuts.py" data-brk>score = 10
+
+score += 5
+print(score)
+
+score -= 2
+print(score)
+
+score *= 2
+print(score)</pre>
+  <div class="out">15
+13
+26</div>
+  <button class="rv" data-reveal="next">Why have a shortcut at all?</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>Programmers call this <b>syntactic sugar</b>: a sweeter way to write something the language can already do.</li>
+      <li>It adds no new power. Python does exactly what the long form does.</li>
+      <li>It helps the <b>human</b>: less typing, and the variable name is written once.</li>
+    </ul>
+    <pre class="py" data-nocopy>balance = balanec + 5    # typo in the second name: NameError
+balance += 5             # one name, nothing to mistype</pre>
+    <ul class="b"><li>It also reads like what you mean: “add 5 to balance”.</li></ul>
+  </div>
+  <div class="lab">What each one expands to</div>
+  <div class="chips">
+    <div class="chip"><div class="q">x += 2</div><div class="a">x = x + 2</div></div>
+    <div class="chip"><div class="q">x -= 2</div><div class="a">x = x - 2</div></div>
+    <div class="chip"><div class="q">x *= 2</div><div class="a">x = x * 2</div></div>
+    <div class="chip"><div class="q">x /= 2</div><div class="a">x = x / 2</div></div>
+    <div class="chip"><div class="q">x //= 2</div><div class="a">x = x // 2</div></div>
+    <div class="chip"><div class="q">x %= 2</div><div class="a">x = x % 2</div></div>
+  </div>
+  <div class="build"><div class="bh">PaisaPay v2 · build 3 of 4</div><div class="bd">Money leaves. Cashback comes back.</div>
+  <pre class="py" data-file="paisapay_v2.py" data-hl="5-6">balance = 1000
+total = 452
+cashback = 22
+
+balance -= total
+balance += cashback
+
+print("Balance left:", balance)</pre>
+  <div class="out">Balance left: 570</div></div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Two characters are swapped. What prints?</div>
+    <pre class="py" data-nocopy>balance = 100
+balance =+ 50
+print(balance)</pre>
+    <div class="opts">
+      <button class="opt">150</button>
+      <button class="opt" data-ok>50</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt">100</button>
+    </div>
+    <div class="expl"><b>50.</b> <code>=+ 50</code> means <code>= +50</code>: plain assignment. No error. ₹100 just disappeared.</div>
+  </div>
+</section>
+
+<!-- ============ membership + identity ============ -->
+<section class="step" data-nav="in, not in, is">
+  <h2>Is it inside? <code>in</code> and <code>not in</code></h2>
+  <ul class="b"><li>A UPI ID must contain <code>@</code>.</li></ul>
+  <pre class="py" data-file="membership.py" data-brk>upi_id = "rajani@paisapay"
+
+print("@" in upi_id)
+print(" " not in upi_id)</pre>
+  <div class="out">True
+True</div>
+  <div class="take"><code>in</code> asks: is this inside that? The answer is a bool.</div>
+  <div class="ask"><span class="ic">✋</span><div><code>==</code> asks “same value?”. What does <code>is</code> ask?</div></div>
+  <pre class="py" data-nocopy>a = [100, 200]
+b = [100, 200]
+
+print(a == b)
+print(a is b)</pre>
+  <div class="vote">
+    <div class="vopt">True, then True</div>
+    <div class="vopt" data-win>True, then False</div>
+    <div class="vopt">False, then False</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Answer</button>
+  <div class="reveal">
+    <ul class="b">
+      <li><code>==</code>: do they hold the same value? Yes.</li>
+      <li><code>is</code>: are they the very same object? No. Two separate lists.</li>
+    </ul>
+    <div class="take">Compare values with <code>==</code>.</div>
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>One small change. Now what prints?</div></div>
+  <pre class="py" data-nocopy>a = [100, 200]
+b = a
+
+print(a is b)</pre>
+  <div class="vote">
+    <div class="vopt">False, two names</div>
+    <div class="vopt" data-win>True, one list</div>
+    <div class="vopt">An error</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Answer</button>
+  <div class="reveal">
+    <ul class="b">
+      <li><code>b = a</code> does not copy the list. It gives the same list a second name.</li>
+      <li>One object, two name tags. So <code>is</code> says True.</li>
+    </ul>
+    <pre class="py" data-nocopy>b += [300]
+print(a)</pre>
+    <div class="out">[100, 200, 300]</div>
+    <ul class="b">
+      <li>Change it through <code>b</code> and <code>a</code> sees it too. That is what <code>is</code> is for: “are these the same thing?”</li>
+      <li>Its everyday use is <code>x is None</code>, which you meet in the functions class.</li>
+    </ul>
+    <div class="take"><code>==</code> for values. <code>is</code> only to ask “same object?”</div>
+  </div>
+</section>
+
+<!-- ============ precedence ============ -->
+<section class="step" data-nav="Operator precedence">
+  <h2>Which operator goes first?</h2>
+  <div class="ask"><span class="ic">✋</span><div>Commit to a number.</div></div>
+  <pre class="py" data-nocopy>result = 10 + 5 * 2
+print(result)</pre>
+  <div class="vote">
+    <div class="vopt">30</div>
+    <div class="vopt" data-win>20</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Answer</button>
+  <div class="reveal">
+    <ul class="b"><li>Multiplication first: 5 × 2 = 10. Then 10 + 10 = <b>20</b>.</li></ul>
+    <div class="take">Python follows a fixed order, called operator precedence.</div>
+  </div>
+  <button class="rv" data-reveal="next">The order</button>
+  <div class="reveal">
+    <div class="steps-list prose">
+      <div class="sl on">1 · Parentheses <code>( )</code></div>
+      <div class="sl on">2 · Power <code>**</code></div>
+      <div class="sl on">3 · <code>*</code> <code>/</code> <code>//</code> <code>%</code></div>
+      <div class="sl on">4 · <code>+</code> <code>-</code></div>
+      <div class="sl on">5 · Comparisons <code>==</code> <code>!=</code> <code>&gt;</code> <code>&lt;</code> <code>&gt;=</code> <code>&lt;=</code></div>
+      <div class="sl on">6 · <code>not</code></div>
+      <div class="sl on">7 · <code>and</code></div>
+      <div class="sl on">8 · <code>or</code></div>
+    </div>
+    <div class="lab">Is this BODMAS?</div>
+    <ul class="b"><li>Yes, for the maths part. Python then keeps going.</li></ul>
+    <table class="tbl"><tr><th>BODMAS at school</th><th>Python</th></tr>
+      <tr><td><b>B</b>rackets</td><td>Parentheses <code>( )</code></td></tr>
+      <tr><td><b>O</b>rders (powers, roots)</td><td>Power <code>**</code></td></tr>
+      <tr><td><b>D</b>ivision, <b>M</b>ultiplication</td><td><code>* / // %</code>, same level, left to right</td></tr>
+      <tr><td><b>A</b>ddition, <b>S</b>ubtraction</td><td><code>+ -</code>, same level, left to right</td></tr>
+      <tr><td>Stops here</td><td>Then comparisons, then <code>not</code>, <code>and</code>, <code>or</code></td></tr></table>
+    <ul class="b">
+      <li>Same level means left to right: <code>10 - 4 - 3</code> is 3, not 9. Maths uses the same convention. BODMAS only looks like “D before M, A before S”; a maths teacher does <code>20 ÷ 2 × 5</code> left to right too, and gets 50.</li>
+      <li>One exception, in both maths and Python: powers go <b>right to left</b>. <code>2 ** 3 ** 2</code> is 2 to the power 9, which is 512.</li>
+      <li>Python has operators school never had: <code>//</code>, <code>%</code>, and the whole True/False family after the maths.</li>
+    </ul>
+    </div>
+  <div class="ask"><span class="ic">✋</span><div>Now you try.</div></div>
+  <pre class="py" data-nocopy>print(2 + 3 ** 2)</pre>
+  <div class="vote">
+    <div class="vopt" data-win>11</div>
+    <div class="vopt">25</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Answer</button>
+  <div class="reveal">
+    <ul class="b"><li>Power first: 3 ** 2 = 9. Then 2 + 9 = <b>11</b>.</li></ul>
+  </div>
+</section>
+
+<!-- ============ parentheses ============ -->
+<section class="step" data-nav="Parentheses">
+  <h2>Parentheses decide</h2>
+  <pre class="py" data-file="parentheses.py">print(10 + 5 * 2)
+print((10 + 5) * 2)</pre>
+  <div class="out">20
+30</div>
+  <div class="take">Parentheses say exactly what to calculate first. They help the human reader too.</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Two friends paid ₹100 and ₹200. A program prints their average. What prints?</div>
+    <pre class="py" data-nocopy>print(100 + 200 / 2)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>200.0</button>
+      <button class="opt">150.0</button>
+      <button class="opt">150</button>
+      <button class="opt">300.0</button>
+    </div>
+    <div class="expl"><b>200.0.</b> Division first: 200 / 2 = 100.0, then 100 + 100.0. The average needs <code>(100 + 200) / 2</code>.
+      <ul class="b" style="font-size:1.05rem;margin:.6rem 0 0">
+        <li>Why 200.0 and not 200? Mixing an int with a float gives a <b>float</b>. Python turns 100 into 100.0 first, because nothing is lost that way.</li>
+        <li>Rules: int with int stays int (except <code>/</code>). Any float in the mix makes the result a float. <code>/</code> always gives a float.</li>
+      </ul></div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Three conditions, no parentheses. What prints?</div>
+    <pre class="py" data-nocopy>print(True or False and False)</pre>
+    <div class="opts">
+      <button class="opt">False</button>
+      <button class="opt">An error</button>
+      <button class="opt">None</button>
+      <button class="opt" data-ok>True</button>
+    </div>
+    <div class="expl"><b>True.</b>
+      <div class="steps-list prose" style="margin:.6rem 0">
+        <div class="sl on">1 · <code>and</code> goes before <code>or</code>, so Python groups it as <code>True or (False and False)</code></div>
+        <div class="sl on">2 · Inside the group: <code>False and False</code> → <b>False</b></div>
+        <div class="sl on">3 · Then: <code>True or False</code> → <b>True</b></div>
+        <div class="sl on">Read it the other way, <code>(True or False) and False</code>, and you get <b>False</b>. Same words, opposite answer.</div>
+      </div>
+      When you mix <code>and</code> with <code>or</code>, write the parentheses.</div>
+  </div>
+</section>
+
+<!-- ============ practical example ============ -->
+<section class="step" data-nav="A practical example">
+  <h2>Both classes, one program</h2>
+  <pre class="py" data-file="score.py">score = int(input("Enter your score: "))
+
+passed = score &gt;= 40
+excellent = score &gt;= 90
+
+print("Passed:", passed)
+print("Excellent:", excellent)</pre>
+  <div class="ask"><span class="ic">🎤</span><div>The user types 75. Predict both lines.</div></div>
+  <div class="out" data-brk><span class="p">Enter your score: </span><span class="in">75</span>
+Passed: True
+Excellent: False</div>
+  <ul class="b">
+    <li><code>input()</code> gets it. <code>int()</code> converts it. <code>&gt;=</code> compares it.</li>
+    <li>A bool variable stores the answer. <code>print()</code> shows it.</li>
+  </ul>
+</section>
+
+<!-- ============ PaisaPay v2 complete ============ -->
+<section class="step" data-nav="PaisaPay v2 complete" data-tag="PaisaPay v2 complete">
+  <h2>PaisaPay v2</h2>
+  <div class="build"><div class="bh">PaisaPay v2 · build 4 of 4 · complete</div><div class="bd">v1, plus today's operators.</div>
+  <pre class="py" data-file="paisapay_v2.py" data-hl="7,9-17,19-20,26-30"># PaisaPay v2: money maths and checks
+print("Welcome to PaisaPay")
+
+name = input("Your name: ")
+payee = input("Pay to: ")
+amount = int(input("Amount in rupees: "))
+people = int(input("Split between how many people? "))
+
+balance = 1000
+fee = 2
+total = amount + fee
+cashback = amount * 5 // 100
+share = amount // people
+left_over = amount % people
+
+can_pay = balance &gt;= total
+is_big_payment = amount &gt;= 500
+
+balance -= total
+balance += cashback
+
+print("----- Receipt -----")
+print("From:", name)
+print("To:", payee)
+print("Paid: ₹", amount, "+ fee ₹", fee)
+print("Cashback: ₹", cashback)
+print("Each person owes: ₹", share, "| left over: ₹", left_over)
+print("Enough balance:", can_pay)
+print("Big payment:", is_big_payment)
+print("Balance left: ₹", balance)</pre>
+  <button class="rv run" data-reveal="next">Sample run</button>
+  <div class="reveal">
+    <div class="out">Welcome to PaisaPay
+<span class="p">Your name: </span><span class="in">Rajani</span>
+<span class="p">Pay to: </span><span class="in">Zomato</span>
+<span class="p">Amount in rupees: </span><span class="in">450</span>
+<span class="p">Split between how many people? </span><span class="in">4</span>
+----- Receipt -----
+From: Rajani
+To: Zomato
+Paid: ₹ 450 + fee ₹ 2
+Cashback: ₹ 22
+Each person owes: ₹ 112 | left over: ₹ 2
+Enough balance: True
+Big payment: False
+Balance left: ₹ 570</div>
+    <ul class="b">
+      <li>Pay ₹5000: it prints <b>Enough balance: False</b>. And pays anyway.</li>
+      <li>v2 can ask the question. It cannot act on the answer. That is next class.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ============ mini challenge ============ -->
+<section class="step" data-nav="Mini challenge">
+  <h2>Your turn: can they enter?</h2>
+  <ul class="b"><li>Rule: at least 18 <b>and</b> has an ID.</li></ul>
+  <pre class="py" data-file="entry_starter.py">age = int(input("Enter your age: "))
+has_id = input("Do you have an ID? ")
+
+# Complete the condition</pre>
+  <div class="ask"><span class="ic">✍️</span><div>Which operator goes between the two conditions? Write it in PyLens. <span class="timer" data-sec="300"></span></div></div>
+  <button class="rv" data-reveal="next">One solution</button>
+  <div class="reveal">
+    <pre class="py" data-file="entry.py" data-kind="good">age = int(input("Enter your age: "))
+has_id = input("Do you have an ID? ")
+
+can_enter = age &gt;= 18 and has_id == "yes"
+
+print("Can enter:", can_enter)</pre>
+    <ul class="b"><li><code>input()</code> gives text. So we compare with the text <code>"yes"</code>.</li></ul>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Age 25. The user types <code>Yes</code>, with a capital Y. What prints?</div>
+    <div class="opts">
+      <button class="opt">Can enter: True</button>
+      <button class="opt">An error</button>
+      <button class="opt" data-ok>Can enter: False</button>
+      <button class="opt">It asks again</button>
+    </div>
+    <div class="expl"><b>Can enter: False.</b> <code>"Yes" == "yes"</code> is False. Text must match exactly.</div>
+  </div>
+</section>
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Recap and what's next">
+  <h2>Recap</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Three things you learned today, in the chat. <span class="timer" data-sec="90"></span></div></div>
+  <button class="rv" data-reveal="next">Compare with mine</button>
+  <div class="reveal"><div class="steps-list prose">
+    <div class="sl on"><b>input()</b> always gives a str. Convert with <code>int()</code> or <code>float()</code>.</div>
+    <div class="sl on"><b>Arithmetic</b> — <code>+ - * / // % **</code>. <code>/</code> gives a float.</div>
+    <div class="sl on"><b>Comparison</b> — <code>== != &gt; &lt; &gt;= &lt;=</code>. Always a bool.</div>
+    <div class="sl on"><b>= vs ==</b> — assign vs compare.</div>
+    <div class="sl on"><b>Logical</b> — <code>and</code>, <code>or</code>, <code>not</code> combine conditions.</div>
+    <div class="sl on"><b>Shortcuts</b> — <code>+=</code>, <code>-=</code>, <code>*=</code>.</div>
+    <div class="sl on"><b>Membership</b> — <code>in</code>, <code>not in</code>. And <code>==</code> is not <code>is</code>.</div>
+    <div class="sl on"><b>Precedence</b> — a fixed order. Parentheses decide.</div>
+  </div></div>
+  <button class="rv" data-reveal="next">PaisaPay: where it goes next</button>
+  <div class="reveal">
+    <div class="ladder"><span><b>v1</b> receipt ✓</span><span><b>v2</b> money maths, checks ✓</span><span><b>v3</b> decisions: it can say no</span><span><b>v4</b> loops</span><span>… up to <b>v12</b></span></div>
+    <ul class="b"><li><b>Before next class:</b> post-read, assignment, interview-readiness questions.</li></ul>
+  </div>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

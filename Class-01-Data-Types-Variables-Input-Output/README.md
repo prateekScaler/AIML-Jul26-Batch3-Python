@@ -15,9 +15,10 @@ The first class of the Python module. You go from "I have prompted AI to write c
 
 | File | What it is |
 |---|---|
-| [`index.html`](index.html) | The interactive class page. Download the repo and open it in a browser. **Step by step** shows one thing at a time, the way we did in class (press → or Next). **Show everything** gives the whole class on one page. |
+| [`index.html`](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-01-Data-Types-Variables-Input-Output/) | The interactive class page. [Open it here](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-01-Data-Types-Variables-Input-Output/), no download needed. **Step by step** shows one thing at a time, the way we did in class (press → or Next). **Show everything** gives the whole class on one page. |
 | [`code/`](code/) | Every example from the class as a runnable file, in order. |
 | [`code/paisapay_v1.py`](code/paisapay_v1.py) | Today's version of our course project. |
+| [`Python-Class-01-Data-Types-Variables-Input-Output.ipynb`](https://colab.research.google.com/github/prateekScaler/AIML-Jul26-Batch3-Python/blob/main/Class-01-Data-Types-Variables-Input-Output/Python-Class-01-Data-Types-Variables-Input-Output.ipynb) | The same examples as one notebook. [Open it in Google Colab](https://colab.research.google.com/github/prateekScaler/AIML-Jul26-Batch3-Python/blob/main/Class-01-Data-Types-Variables-Input-Output/Python-Class-01-Data-Types-Variables-Input-Output.ipynb) and run the cells, nothing to install. |
 | [`ASSIGNMENT.md`](ASSIGNMENT.md) | Practice problems for this class. |
 | [`INTERVIEW-READINESS.md`](INTERVIEW-READINESS.md) | Interview questions, gotchas and AI-era questions on today's topics. |
 
