@@ -325,7 +325,7 @@
   quizzes.forEach(q => {
     const lv = q.dataset.level, qt = $('.qt', q);
     if (lv && qt) qt.prepend(el('span', 'lvl ' + lv, LV[lv] || lv));
-    $$('.opt', q).forEach((o, oi) => { o.type = 'button'; o.addEventListener('click', () => {
+    $$('.opt', q).forEach((o, oi) => { o.type = 'button'; o.prepend(el('span', 'ol', String.fromCharCode(65 + oi))); o.addEventListener('click', () => {
       if (q.classList.contains('done')) return;
       q.classList.add('done'); q.dataset.pick = oi;
       $$('.opt', q).forEach(x => { if (x.hasAttribute('data-ok')) x.classList.add('right'); });
@@ -335,8 +335,8 @@
   });
 
   /* ---------- quick questions: click an option, the right one lights up and the result opens ---------- */
-  $$('.vote').forEach(v => $$('.vopt', v).forEach(o => {
-    o.setAttribute('role', 'button'); o.tabIndex = 0;
+  $$('.vote').forEach(v => $$('.vopt', v).forEach((o, oi) => {
+    o.setAttribute('role', 'button'); o.tabIndex = 0; o.prepend(el('span', 'ol', String.fromCharCode(65 + oi)));
     o.addEventListener('click', () => {
       if (v.classList.contains('done')) return;
       v.classList.add('done');

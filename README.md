@@ -11,7 +11,7 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 |---|---|---|---|
 | 1 | Data Types, Variables, Input/Output | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-01-Data-Types-Variables-Input-Output/) · [notes and code](Class-01-Data-Types-Variables-Input-Output/README.md) | **v1** takes one payment and prints a receipt |
 | 2 | Operators | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-02-Operators/) · [notes and code](Class-02-Operators/README.md) | **v2** money maths: bill split, cashback, "is the balance enough?" |
-| 3 | Control Statements | coming up | **v3** decisions: refuse, approve, cashback tiers |
+| 3 | Control Statements | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-03-Control-Statements/) · [notes and code](Class-03-Control-Statements/README.md) | **v3** decisions: refuse, approve, cashback tiers |
 | 4 | Loops | coming up | **v4** keeps running: menu, PIN retries, mini statement |
 | 5 | Functions | coming up | **v5** reusable actions: `pay()`, `add_money()`, `show_balance()` |
 | 6 | Lists | coming up | **v6** transaction history |

@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 3 · Control Statements</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c03" data-class="Class 3" data-title="Control Statements" data-course="Python · AIML Jul26 Batch 3" data-date="2026-10-09">
+
+<div class="cover" id="cover">
+  <h1><small>Class 3</small>Control Statements</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Last class, in three questions">
+  <h2>Last class, in three questions</h2>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>print(7 // 2, 7 % 2)</pre>
+    <div class="opts">
+      <button class="opt">3.5 1</button>
+      <button class="opt" data-ok>3 1</button>
+      <button class="opt">3 0.5</button>
+      <button class="opt">4 1</button>
+    </div>
+    <div class="expl"><b>3 1.</b> Whole share, then what is left over.</div>
+  </div>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>balance = 1000
+balance -= 300
+print(balance &gt;= 700)</pre>
+    <div class="opts">
+      <button class="opt">700</button>
+      <button class="opt">False</button>
+      <button class="opt" data-ok>True</button>
+      <button class="opt">An error</button>
+    </div>
+    <div class="expl"><b>True.</b> 700 &gt;= 700. A comparison always gives a bool.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>print(10 + 5 * 2 == 20)</pre>
+    <div class="opts">
+      <button class="opt">False</button>
+      <button class="opt">20</button>
+      <button class="opt">An error</button>
+      <button class="opt" data-ok>True</button>
+    </div>
+    <div class="expl"><b>True.</b> 5 * 2 = 10, then 10 + 10 = 20, then 20 == 20.<br>Yes, comparisons come near the end. The order, high to low:<br>
+      <code>**</code> &nbsp;→&nbsp; <code>* / // %</code> &nbsp;→&nbsp; <code>+ -</code> &nbsp;→&nbsp; <code>== != &lt; &gt; &lt;= &gt;=</code> &nbsp;→&nbsp; <code>not</code> &nbsp;→&nbsp; <code>and</code> &nbsp;→&nbsp; <code>or</code><br>
+      Brackets beat all of them. Maths first, then compare, then combine.</div>
+  </div>
+</section>
+
+<!-- ============ why ============ -->
+<section class="step" data-nav="Programs need decisions" data-tag="PaisaPay">
+  <h2>PaisaPay v2 has a problem</h2>
+  <ul class="b"><li>Balance ₹1000. Someone tries to pay ₹5000.</li></ul>
+  <pre class="py" data-file="paisapay_v2.py (short)" data-hl="5-6">balance = 1000
+amount = int(input("Amount in rupees: "))
+can_pay = balance &gt;= amount
+
+balance -= amount
+print("Enough balance:", can_pay)
+print("Balance left: ₹", balance)</pre>
+  <div class="out"><span class="p">Amount in rupees: </span><span class="in">5000</span>
+Enough balance: <span class="bad">False</span>
+Balance left: ₹ -4000</div>
+  <div class="ask"><span class="ic">🎤</span><div>v2 can ask the question. What is it missing? <span class="timer" data-sec="30"></span></div></div>
+  <button class="rv" data-reveal="next">The missing piece</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>So far every line runs. Top to bottom. Every time.</li>
+      <li>Line 3 asks. Line 5 deducts anyway. Nothing can stop it.</li>
+      <li>A real app must <b>choose</b>: pay, or refuse.</li>
+    </ul>
+    <div class="take">Today Python learns to make decisions: conditional statements.</div>
+  </div>
+</section>
+
+<!-- ============ condition ============ -->
+<section class="step" data-nav="A condition is a question">
+  <h2>A condition is a question</h2>
+  <div class="ask"><span class="ic">✋</span><div>From last class: what prints?</div></div>
+  <pre class="py" data-file="condition.py">balance = 500
+amount = 200
+
+print(balance &gt;= amount)</pre>
+  <div class="vote">
+    <div class="vopt">500</div>
+    <div class="vopt" data-win>True</div>
+    <div class="vopt">Yes</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">True</div>
+    <ul class="b">
+      <li>A condition = a question whose answer is True or False.</li>
+      <li>Python can <b>act</b> on that answer.</li>
+    </ul>
+  </div>
+  <div class="quiz" data-level="s">
+    <div class="qt">The limit is exactly ₹2000. What prints?</div>
+    <pre class="py" data-nocopy>amount = 2000
+limit = 2000
+print(amount &gt; limit)</pre>
+    <div class="opts">
+      <button class="opt">True</button>
+      <button class="opt" data-ok>False</button>
+      <button class="opt">2000</button>
+      <button class="opt">An error</button>
+    </div>
+    <div class="expl"><b>False.</b> <code>&gt;</code> is strictly greater. 2000 is not greater than 2000. Boundaries matter in money code.</div>
+  </div>
+</section>
+
+<!-- ============ if ============ -->
+<section class="step" data-nav="The if statement">
+  <h2>The <code>if</code> statement</h2>
+  <ul class="b"><li>Rule 1: pay only if the balance is enough.</li></ul>
+  <pre class="py" data-file="pay_if.py">balance = 1000
+amount = 400
+
+if balance &gt;= amount:
+    print("Payment successful")</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">Payment successful</div>
+  </div>
+  <div class="lab">Line 4, part by part</div>
+  <div class="anat">
+    <div class="a"><code>if</code><div class="m">A decision is coming.</div></div>
+    <div class="a"><code>balance &gt;= amount</code><div class="m">The condition. A True/False question.</div></div>
+    <div class="a"><code>:</code><div class="m">The code controlled by this if starts here.</div></div>
+    <div class="a"><code>    print(...)</code><div class="m">Indented. Runs <b>only</b> when the condition is True.</div></div>
+  </div>
+  <button class="rv" data-reveal="next">The flow</button>
+  <div class="reveal"><div class="diag"><svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar3" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <polygon points="260,20 400,70 260,120 120,70" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="260" y="75" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">balance &gt;= amount ?</text>
+      <line x1="190" y1="95" x2="140" y2="165" stroke="#334155" stroke-width="2" marker-end="url(#ar3)"/>
+      <text x="140" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">True</text>
+      <line x1="330" y1="95" x2="380" y2="165" stroke="#334155" stroke-width="2" stroke-dasharray="6 4" marker-end="url(#ar3)"/>
+      <text x="385" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">False</text>
+      <rect x="10" y="170" width="260" height="50" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="140" y="200" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">print("Payment successful")</text>
+      <rect x="290" y="170" width="180" height="50" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 4"/>
+      <text x="380" y="200" text-anchor="middle" font-size="14" fill="#475569">skip the block</text>
+    </svg><div class="cap">True → run the indented block · False → skip it</div></div></div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A student wrote this. What happens?</div>
+    <pre class="py" data-nocopy>balance = 500
+amount = 500
+
+if balance = amount:
+    print("Exact amount!")</pre>
+    <div class="opts">
+      <button class="opt">Prints Exact amount!</button>
+      <button class="opt">Prints nothing</button>
+      <button class="opt" data-ok>SyntaxError</button>
+      <button class="opt">Prints True</button>
+    </div>
+    <div class="expl"><b>SyntaxError.</b> <code>=</code> assigns, <code>==</code> compares. Python even hints: <code>Maybe you meant '=='?</code> The most common slip in this class.</div>
+  </div>
+</section>
+
+<!-- ============ indentation ============ -->
+<section class="step" data-nav="Indentation is syntax">
+  <h2>Indentation is not decoration</h2>
+  <div class="ask"><span class="ic">✋</span><div>Same words. Only the spacing changed. What happens?</div></div>
+  <pre class="py" data-kind="bad" data-nocopy>balance = 1000
+amount = 400
+
+if balance &gt;= amount:
+print("Payment successful")</pre>
+  <div class="vote">
+    <div class="vopt">Runs fine, same output</div>
+    <div class="vopt">Runs, different output</div>
+    <div class="vopt" data-win>Fails with an error</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">IndentationError: expected an indented block after 'if' statement on line 4</span></div>
+    <ul class="b">
+      <li>Indentation tells Python <b>which lines belong</b> to the if.</li>
+      <li>It is part of the syntax. Convention: 4 spaces.</li>
+    </ul>
+    <div class="take">Indented = inside the decision. Not indented = outside it.</div>
+  </div>
+  <button class="rv" data-reveal="next">Real world: when indentation lies</button>
+  <div class="reveal"><div class="case">
+    <div class="tag">Real incident · 2014</div>
+    <h4>Apple's security check that never ran</h4>
+    <ul>
+      <li>One line was pasted twice in Apple's connection-security code.</li>
+      <li>It was indented as if it belonged to an <code>if</code>. In that language, indentation means nothing. It ran every time.</li>
+      <li>So the security check below it was skipped on every iPhone and Mac.</li>
+    </ul>
+    <pre class="py" data-plain data-nocopy data-file="Apple's code, simplified (C, not Python)" data-hl="3">if (check_1_failed)
+    goto fail;
+    goto fail;          // pasted twice. Looks inside the if. Is not.
+if (check_2_failed)     // never reached
+    goto fail;</pre>
+    <div class="lesson">Python makes indentation the truth. What you see is what runs.</div>
+    <div class="src">Read: <a href="https://dwheeler.com/essays/apple-goto-fail.html" target="_blank" rel="noopener">The Apple goto fail vulnerability: lessons learned</a></div>
+  </div></div>
+</section>
+
+<!-- ============ false ============ -->
+<section class="step" data-nav="When the condition is False">
+  <h2>When the condition is False</h2>
+  <div class="ask"><span class="ic">✋</span><div>Balance ₹300, paying ₹800. What prints?</div></div>
+  <pre class="py" data-file="pay_if.py">balance = 300
+amount = 800
+
+if balance &gt;= amount:
+    print("Payment successful")</pre>
+  <div class="vote">
+    <div class="vopt">Payment successful</div>
+    <div class="vopt">An error</div>
+    <div class="vopt" data-win>Nothing</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="dim">(nothing printed)</span></div>
+    <ul class="b">
+      <li>300 &gt;= 800 is False. The block is skipped.</li>
+      <li>Silence is bad UX. The user needs a message.</li>
+    </ul>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">One more line at the end. Now what prints?</div>
+    <pre class="py" data-nocopy>balance = 300
+amount = 800
+
+if balance &gt;= amount:
+    print("Payment successful")
+print("Thank you for using PaisaPay")</pre>
+    <div class="opts">
+      <button class="opt">Nothing</button>
+      <button class="opt">Both lines</button>
+      <button class="opt">IndentationError</button>
+      <button class="opt" data-ok>Only Thank you for using PaisaPay</button>
+    </div>
+    <div class="expl"><b>Only the thank-you line.</b> Line 6 is not indented, so it is outside the if. It runs every time.</div>
+  </div>
+</section>
+
+<!-- ============ else ============ -->
+<section class="step" data-nav="The else statement">
+  <h2>The <code>else</code> statement</h2>
+  <ul class="b"><li>Rule 2: if the balance is not enough, say so.</li></ul>
+  <pre class="py" data-file="pay_else.py">balance = 300
+amount = 800
+
+if balance &gt;= amount:
+    print("Payment successful")
+else:
+    print("Insufficient balance")</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="bad">Insufficient balance</span></div>
+    <ul class="b">
+      <li><b>if</b>: the condition is True. <b>else</b>: everything else. No condition of its own.</li>
+      <li>Exactly <b>one</b> of the two blocks runs.</li>
+    </ul>
+  </div>
+  <button class="rv" data-reveal="next">The flow</button>
+  <div class="reveal"><div class="diag"><svg viewBox="0 0 520 250" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar6" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <polygon points="260,20 400,70 260,120 120,70" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="260" y="75" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">balance &gt;= amount ?</text>
+      <line x1="190" y1="95" x2="140" y2="165" stroke="#334155" stroke-width="2" marker-end="url(#ar6)"/>
+      <text x="140" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">True</text>
+      <line x1="330" y1="95" x2="380" y2="165" stroke="#334155" stroke-width="2" marker-end="url(#ar6)"/>
+      <text x="385" y="125" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">False</text>
+      <rect x="10" y="170" width="260" height="50" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="140" y="200" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"Payment successful"</text>
+      <rect x="270" y="170" width="220" height="50" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="380" y="200" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"Insufficient balance"</text>
+    </svg><div class="cap">if → the True path · else → everything else</div></div></div>
+  <div class="quiz" data-level="s">
+    <div class="qt">Balance exactly equals the amount. What prints?</div>
+    <pre class="py" data-nocopy>balance = 500
+amount = 500
+
+if balance &gt;= amount:
+    print("Payment successful")
+else:
+    print("Insufficient balance")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Payment successful</button>
+      <button class="opt">Insufficient balance</button>
+      <button class="opt">Both</button>
+      <button class="opt">Nothing</button>
+    </div>
+    <div class="expl"><b>Payment successful.</b> 500 &gt;= 500 is True: greater than <i>or equal</i>. Paying your whole balance is allowed.</div>
+  </div>
+</section>
+
+<!-- ============ build 1 ============ -->
+<section class="step" data-nav="PaisaPay v3: it can say no" data-tag="PaisaPay v3">
+  <h2>PaisaPay v3: it can say no</h2>
+  <div class="build"><div class="bh">PaisaPay v3 · build 1 of 4</div><div class="bd">The v2 check becomes a decision.</div>
+  <pre class="py" data-file="paisapay_v3.py" data-hl="7-11">balance = 1000
+amount = int(input("Amount in rupees: "))
+
+fee = 2
+total = amount + fee
+
+if total &lt;= balance:
+    balance = balance - total
+    print("Paid: ₹", amount, "| Balance left: ₹", balance)
+else:
+    print("Insufficient balance. Payment refused.")</pre>
+  <div class="out"><span class="p">Amount in rupees: </span><span class="in">5000</span>
+Insufficient balance. Payment refused.</div></div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Balance ₹1000, fee ₹2. The user pays exactly ₹1000. What prints?</div>
+    <div class="opts">
+      <button class="opt">Paid: ₹ 1000 | Balance left: ₹ 0</button>
+      <button class="opt">Paid: ₹ 1000 | Balance left: ₹ -2</button>
+      <button class="opt" data-ok>Insufficient balance. Payment refused.</button>
+      <button class="opt">An error</button>
+    </div>
+    <div class="expl"><b>Refused.</b> The check is on the <b>total</b>, 1002, not on the amount. Decide what you compare before you compare it.</div>
+  </div>
+</section>
+
+<!-- ============ elif ============ -->
+<section class="step" data-nav="More than two outcomes: elif">
+  <h2>More than two outcomes: <code>elif</code></h2>
+  <ul class="b"><li>Rule 3: cashback depends on how much you pay.</li></ul>
+  <table class="tbl"><tr><th>Amount</th><th>Cashback</th></tr>
+    <tr><td>₹5,000 or more</td><td>₹100</td></tr>
+    <tr><td>₹2,000 or more</td><td>₹50</td></tr>
+    <tr><td>₹500 or more</td><td>₹10</td></tr>
+    <tr><td>less than ₹500</td><td>₹0</td></tr></table>
+  <div class="ask"><span class="ic">🎤</span><div><code>if</code> and <code>else</code> give two outcomes. We need four. Ideas?</div></div>
+  <button class="rv" data-reveal="next">Python's answer: elif</button>
+  <div class="reveal">
+    <pre class="py" data-file="cashback.py" id="c9">amount = int(input("Amount in rupees: "))
+
+if amount &gt;= 5000:
+    cashback = 100
+elif amount &gt;= 2000:
+    cashback = 50
+elif amount &gt;= 500:
+    cashback = 10
+else:
+    cashback = 0
+
+print("Cashback: ₹", cashback)</pre>
+    <div class="lab">Trace it for amount = 2500</div>
+    <div class="trace" data-code="c9" data-steps='[
+      {"l":3,"n":"2500 &amp;gt;= 5000 → False, move on","r":"f"},
+      {"l":5,"n":"2500 &amp;gt;= 2000 → True. Run this block","r":"t"},
+      {"l":6,"n":"cashback = 50","r":"t","m":{"cashback":"50"}},
+      {"l":[7,8,9,10],"n":"the rest is not even looked at","r":"s"},
+      {"l":12,"n":"Cashback: ₹ 50","r":"t","o":"Cashback: ₹ 50\n"}]'></div>
+    <ul class="b">
+      <li>Top to bottom. The <b>first True</b> wins. The rest is skipped.</li>
+      <li><b>else</b> runs only if nothing matched.</li>
+    </ul>
+  </div>
+  <button class="rv" data-reveal="next">The flow</button>
+  <div class="reveal"><div class="diag"><svg viewBox="0 0 640 400" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar8" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <polygon points="200,14 320,50 200,86 80,50" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="200" y="55" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">amount &gt;= 5000 ?</text>
+      <line x1="320" y1="50" x2="420" y2="50" stroke="#334155" stroke-width="2" marker-end="url(#ar8)"/>
+      <text x="370" y="42" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">True</text>
+      <rect x="430" y="30" width="180" height="40" rx="9" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="520" y="55" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">cashback = 100</text>
+      <line x1="200" y1="86" x2="200" y2="112" stroke="#334155" stroke-width="2" marker-end="url(#ar8)"/>
+      <text x="228" y="104" font-size="13" font-weight="700" fill="#dc2626">False</text>
+
+      <polygon points="200,114 320,150 200,186 80,150" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="200" y="155" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">amount &gt;= 2000 ?</text>
+      <line x1="320" y1="150" x2="420" y2="150" stroke="#334155" stroke-width="2" marker-end="url(#ar8)"/>
+      <text x="370" y="142" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">True</text>
+      <rect x="430" y="130" width="180" height="40" rx="9" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="520" y="155" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">cashback = 50</text>
+      <line x1="200" y1="186" x2="200" y2="212" stroke="#334155" stroke-width="2" marker-end="url(#ar8)"/>
+      <text x="228" y="204" font-size="13" font-weight="700" fill="#dc2626">False</text>
+
+      <polygon points="200,214 320,250 200,286 80,250" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="200" y="255" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">amount &gt;= 500 ?</text>
+      <line x1="320" y1="250" x2="420" y2="250" stroke="#334155" stroke-width="2" marker-end="url(#ar8)"/>
+      <text x="370" y="242" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">True</text>
+      <rect x="430" y="230" width="180" height="40" rx="9" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="520" y="255" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">cashback = 10</text>
+      <line x1="200" y1="286" x2="200" y2="326" stroke="#334155" stroke-width="2" marker-end="url(#ar8)"/>
+      <text x="228" y="312" font-size="13" font-weight="700" fill="#dc2626">False</text>
+
+      <rect x="110" y="330" width="180" height="40" rx="9" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="200" y="355" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">else: cashback = 0</text>
+      <text x="520" y="340" text-anchor="middle" font-size="13" fill="#64748b" font-style="italic">first True wins,</text>
+      <text x="520" y="360" text-anchor="middle" font-size="13" fill="#64748b" font-style="italic">the rest is skipped</text>
+    </svg></div></div>
+  <div class="quiz" data-level="s">
+    <div class="qt">amount = 5000. What is the cashback?</div>
+    <div class="opts">
+      <button class="opt">₹50. 5000 is not more than 5000</button>
+      <button class="opt" data-ok>₹100</button>
+      <button class="opt">₹160. All three tiers add up</button>
+      <button class="opt">₹0</button>
+    </div>
+    <div class="expl"><b>₹100.</b> 5000 &gt;= 5000 is True on the first check. Only one block of a chain ever runs, so tiers never add up.</div>
+  </div>
+</section>
+
+<!-- ============ order ============ -->
+<section class="step" data-nav="A surprising case">
+  <h2>A surprising case</h2>
+  <ul class="b"><li>A junior dev shipped this. Paying ₹8,000.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>What prints?</div></div>
+  <pre class="py" data-file="cashback_bug.py" id="c10">amount = 8000
+
+if amount &gt;= 500:
+    print("Cashback ₹10")
+elif amount &gt;= 5000:
+    print("Cashback ₹100")</pre>
+  <div class="vote">
+    <div class="vopt">Cashback ₹100</div>
+    <div class="vopt" data-win>Cashback ₹10</div>
+    <div class="vopt">Both lines</div>
+    <div class="vopt">Neither</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="bad">Cashback ₹10</span></div>
+    <div class="trace" data-code="c10" data-steps='[
+      {"l":3,"n":"8000 &amp;gt;= 500 → True. First True wins","r":"t"},
+      {"l":4,"n":"Cashback ₹10","r":"t","o":"Cashback ₹10\n"},
+      {"l":[5,6],"n":"never checked. 8000 &amp;gt;= 5000 was also True, but Python already stopped","r":"s"}]'></div>
+    <div class="take">Order matters. Most specific, highest condition first. Broad conditions last.</div>
+    <div class="lab good">Fixed</div>
+    <pre class="py" data-kind="good" data-nocopy>if amount &gt;= 5000:
+    print("Cashback ₹100")
+elif amount &gt;= 500:
+    print("Cashback ₹10")</pre>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Same mistake, another app. Score 95. What prints?</div>
+    <pre class="py" data-nocopy>score = 95
+
+if score &gt;= 60:
+    grade = "D"
+elif score &gt;= 70:
+    grade = "C"
+elif score &gt;= 80:
+    grade = "B"
+elif score &gt;= 90:
+    grade = "A"
+print(grade)</pre>
+    <div class="opts">
+      <button class="opt">A</button>
+      <button class="opt">B</button>
+      <button class="opt" data-ok>D</button>
+      <button class="opt">A, B, C and D on four lines</button>
+    </div>
+    <div class="expl"><b>D.</b> 95 &gt;= 60 is True, so the first block runs and the chain stops. The 90 check is never reached. Highest score first:
+<pre class="py" data-kind="good" data-nocopy>if score &gt;= 90:
+    grade = "A"
+elif score &gt;= 80:
+    grade = "B"
+elif score &gt;= 70:
+    grade = "C"
+elif score &gt;= 60:
+    grade = "D"
+else:
+    grade = "F"</pre></div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">The dev “fixed” it another way. Paying ₹8,000, what prints?</div>
+    <pre class="py" data-nocopy>amount = 8000
+
+if amount &gt;= 5000:
+    print("Cashback ₹100")
+if amount &gt;= 500:
+    print("Cashback ₹10")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Both lines</button>
+      <button class="opt">Only Cashback ₹100</button>
+      <button class="opt">Only Cashback ₹10</button>
+      <button class="opt">SyntaxError</button>
+    </div>
+    <div class="expl"><b>Both lines.</b> Two separate <code>if</code>s are two independent questions, and both are True. <code>elif</code> links them into one decision. ₹110 cashback would not please the finance team.</div>
+  </div>
+</section>
+
+<!-- ============ match ============ -->
+<section class="step" data-nav="match / case">
+  <h2>Exact values: <code>match</code> / <code>case</code></h2>
+  <ul class="b"><li>Choose what happens for each payment mode.</li></ul>
+  <pre class="py" data-file="mode_elif.py">mode = input("Payment mode: ")
+
+if mode == "upi":
+    print("Opening UPI app...")
+elif mode == "card":
+    print("Enter card PIN")
+elif mode == "netbanking":
+    print("Redirecting to your bank")
+else:
+    print("Unknown mode")</pre>
+  <ul class="b"><li>Works. But every line asks the same thing: <code>mode == ...</code></li></ul>
+  <button class="rv" data-reveal="next">Same logic, cleaner</button>
+  <div class="reveal">
+    <pre class="py" data-file="mode_match.py">mode = input("Payment mode: ")
+
+match mode:
+    case "upi":
+        print("Opening UPI app...")
+    case "card":
+        print("Enter card PIN")
+    case "netbanking":
+        print("Redirecting to your bank")
+    case _:
+        print("Unknown mode")</pre>
+    <div class="anat">
+      <div class="a"><code>match mode:</code><div class="m">Compare this variable against the cases below. Runs once.</div></div>
+      <div class="a"><code>case "upi":</code><div class="m">Is mode exactly "upi"? Top to bottom, first match wins.</div></div>
+      <div class="a"><code>case _:</code><div class="m">The wildcard. Anything left over. Plays the role of else.</div></div>
+    </div>
+    <div class="take">match: one variable against exact values. Ranges like <code>amount &gt;= 5000</code> stay with if / elif.</div>
+    <p class="note">Needs Python 3.10 or newer.</p>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">The user types <code>UPI</code>, in capitals. What prints?</div>
+    <div class="opts">
+      <button class="opt">Opening UPI app...</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt">Enter card PIN</button>
+      <button class="opt" data-ok>Unknown mode</button>
+    </div>
+    <div class="expl"><b>Unknown mode.</b> A case is an exact match, and text is case-sensitive: "UPI" is not "upi". Real apps clean the input first.</div>
+  </div>
+  <div class="quiz" data-level="s">
+    <div class="qt">Which of these is the right job for <code>match</code>?</div>
+    <div class="opts">
+      <button class="opt">Cashback tiers by amount</button>
+      <button class="opt">Is the balance enough?</button>
+      <button class="opt" data-ok>Payment mode: "upi" / "card" / "netbanking"</button>
+      <button class="opt">Is the user 18 or older?</button>
+    </div>
+    <div class="expl"><b>Payment mode.</b> One variable, a few exact values. The other three are comparisons and ranges: if / elif / else.</div>
+  </div>
+</section>
+
+<!-- ============ build 2 ============ -->
+<section class="step" data-nav="PaisaPay v3: tiers and modes" data-tag="PaisaPay v3">
+  <h2>PaisaPay v3: cashback tiers and payment modes</h2>
+  <div class="build"><div class="bh">PaisaPay v3 · build 2 of 4</div><div class="bd">An elif chain for the tiers. A match for the mode.</div>
+  <pre class="py" data-file="paisapay_v3.py" data-hl="4-11,13-21">amount = int(input("Amount in rupees: "))
+mode = input("Mode (upi / card / netbanking): ")
+
+if amount &gt;= 5000:
+    cashback = 100
+elif amount &gt;= 2000:
+    cashback = 50
+elif amount &gt;= 500:
+    cashback = 10
+else:
+    cashback = 0
+
+match mode:
+    case "upi":
+        mode_text = "UPI"
+    case "card":
+        mode_text = "Card"
+    case "netbanking":
+        mode_text = "Net banking"
+    case _:
+        mode_text = "Unknown mode"
+
+print("Cashback: ₹", cashback, "| Mode:", mode_text)</pre>
+  <div class="out"><span class="p">Amount in rupees: </span><span class="in">600</span>
+<span class="p">Mode (upi / card / netbanking): </span><span class="in">upi</span>
+Cashback: ₹ 10 | Mode: UPI</div></div>
+</section>
+
+<!-- ============ and ============ -->
+<section class="step" data-nav="Conditions with and">
+  <h2>Two conditions at once: <code>and</code></h2>
+  <ul class="b"><li>Rule 4: enough balance <b>and</b> the correct PIN.</li></ul>
+  <pre class="py" data-file="pay_and.py">balance = 1000
+amount = 400
+pin_correct = True
+
+if balance &gt;= amount and pin_correct:
+    print("Payment successful")
+else:
+    print("Payment failed")</pre>
+  <div class="ask"><span class="ic">🎤</span><div>Work out line 5 step by step.</div></div>
+  <button class="rv" data-reveal="next">Evaluate</button>
+  <div class="reveal">
+    <div class="steps-list">
+      <div class="sl on"><span>1000 &gt;= 400</span> <span class="r t">True</span></div>
+      <div class="sl on"><span>pin_correct</span> <span class="r t">True</span></div>
+      <div class="sl on"><span>True and True</span> <span class="r t">True</span></div>
+    </div>
+    <div class="out">Payment successful</div>
+  </div>
+  <div class="quiz" data-level="s">
+    <div class="qt">Same code, but <code>pin_correct = False</code>. Balance still ₹1000. What prints?</div>
+    <div class="opts">
+      <button class="opt">Payment successful. The balance was enough</button>
+      <button class="opt" data-ok>Payment failed</button>
+      <button class="opt">An error</button>
+      <button class="opt">Nothing</button>
+    </div>
+    <div class="expl"><b>Payment failed.</b> True and False is False. Money moves only when every check passes.</div>
+  </div>
+</section>
+
+<!-- ============ or ============ -->
+<section class="step" data-nav="Conditions with or">
+  <h2>Either one is enough: <code>or</code></h2>
+  <ul class="b"><li>Authorise with a UPI PIN <b>or</b> a fingerprint.</li></ul>
+  <pre class="py" data-file="authorise.py">has_upi_pin = False
+has_fingerprint = True
+
+if has_upi_pin or has_fingerprint:
+    print("Authorised")
+else:
+    print("Cannot authorise")</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">Authorised</div>
+    <ul class="b"><li><code>or</code>: at least one must be True. False or True → True.</li></ul>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">“UPI or card is digital.” Written like English. Mode is <code>"cash"</code>. What prints?</div>
+    <pre class="py" data-nocopy>mode = "cash"
+
+if mode == "upi" or "card":
+    print("Digital payment")
+else:
+    print("Cash payment")</pre>
+    <div class="opts">
+      <button class="opt">Cash payment</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt" data-ok>Digital payment</button>
+      <button class="opt">Nothing</button>
+    </div>
+    <div class="expl"><b>Digital payment, for any mode.</b> Python reads it as <code>(mode == "upi") or ("card")</code>. A non-empty string counts as True, so the condition can never be False. Write <code>mode == "upi" or mode == "card"</code>.</div>
+  </div>
+  <div class="lab">What counts as True? Click each cell.</div>
+  <table class="tbl" data-cells>
+    <tr><th>Value</th><th>In a condition</th></tr>
+    <tr><td><code>0</code></td><td class="cell"><span class="bad">False</span></td></tr>
+    <tr><td><code>""</code> empty string</td><td class="cell"><span class="bad">False</span></td></tr>
+    <tr><td><code>None</code></td><td class="cell"><span class="bad">False</span></td></tr>
+    <tr><td><code>500</code></td><td class="cell"><span class="ok">True</span></td></tr>
+    <tr><td><code>-1</code></td><td class="cell"><span class="ok">True</span></td></tr>
+    <tr><td><code>"card"</code></td><td class="cell"><span class="ok">True</span></td></tr>
+    <tr><td><code>"0"</code> a string</td><td class="cell"><span class="ok">True</span> — not empty</td></tr>
+    <tr><td><code>"False"</code> a string</td><td class="cell"><span class="ok">True</span> — not empty</td></tr>
+    <tr><td><code>" "</code> one space</td><td class="cell"><span class="ok">True</span> — not empty</td></tr>
+  </table>
+  <div class="take">Zero, empty, None count as False. Everything else is True. Check with <code>bool(value)</code>.</div>
+</section>
+
+<!-- ============ not ============ -->
+<section class="step" data-nav="Conditions with not">
+  <h2>Flip it: <code>not</code></h2>
+  <ul class="b"><li>Frozen accounts cannot pay.</li></ul>
+  <pre class="py" data-file="frozen.py">is_frozen = False
+
+if not is_frozen:
+    print("Account active. Proceed.")</pre>
+  <div class="ask"><span class="ic">✋</span><div>Does the message print?</div></div>
+  <div class="vote">
+    <div class="vopt" data-win>Yes</div>
+    <div class="vopt">No</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Account active. Proceed.</div>
+    <ul class="b"><li><code>not False</code> → True. The block runs.</li></ul>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Active account, low balance. What prints?</div>
+    <pre class="py" data-nocopy>is_frozen = False
+balance = 300
+amount = 800
+
+if not is_frozen and balance &gt;= amount:
+    print("Payment successful")
+else:
+    print("Payment failed")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Payment failed</button>
+      <button class="opt">Payment successful</button>
+      <button class="opt">An error</button>
+      <button class="opt">Nothing</button>
+    </div>
+    <div class="expl"><b>Payment failed.</b> not False → True. 300 &gt;= 800 → False. True and False → False.</div>
+  </div>
+</section>
+
+<!-- ============ nested ============ -->
+<section class="step" data-nav="Nested conditions">
+  <h2>A decision inside a decision</h2>
+  <ul class="b"><li>Rule 5: check the PIN first. Only then look at the balance.</li></ul>
+  <pre class="py" data-file="pay_nested.py">pin_correct = True
+balance = 1000
+amount = 400
+
+if pin_correct:
+    if balance &gt;= amount:
+        print("Payment successful")
+    else:
+        print("Insufficient balance")
+else:
+    print("Wrong PIN")</pre>
+  <ul class="b">
+    <li>An <code>if</code> inside an <code>if</code>: a <b>nested</b> condition.</li>
+    <li>The inner question is asked <b>only when</b> the outer answer is True.</li>
+  </ul>
+  <button class="rv" data-reveal="next">The tree</button>
+  <div class="reveal"><div class="diag"><svg viewBox="0 0 600 330" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar14" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <polygon points="300,14 410,50 300,86 190,50" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="300" y="55" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">pin_correct ?</text>
+      <line x1="250" y1="70" x2="185" y2="122" stroke="#334155" stroke-width="2" marker-end="url(#ar14)"/>
+      <text x="195" y="88" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">True</text>
+      <line x1="350" y1="70" x2="440" y2="138" stroke="#334155" stroke-width="2" marker-end="url(#ar14)"/>
+      <text x="420" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">False</text>
+      <rect x="390" y="140" width="170" height="42" rx="9" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="475" y="166" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"Wrong PIN"</text>
+      <polygon points="170,124 300,160 170,196 40,160" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="170" y="165" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">balance &gt;= amount ?</text>
+      <line x1="110" y1="180" x2="110" y2="256" stroke="#334155" stroke-width="2" marker-end="url(#ar14)"/>
+      <text x="86" y="222" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">True</text>
+      <line x1="235" y1="180" x2="300" y2="256" stroke="#334155" stroke-width="2" marker-end="url(#ar14)"/>
+      <text x="290" y="222" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">False</text>
+      <rect x="15" y="260" width="195" height="42" rx="9" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="112" y="286" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"Payment successful"</text>
+      <rect x="225" y="260" width="200" height="42" rx="9" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="325" y="286" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"Insufficient balance"</text>
+    </svg><div class="cap">The balance question exists only on the True side of the PIN question</div></div></div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Wrong PIN, plenty of money: <code>pin_correct = False</code>, balance ₹5000, amount ₹100. What prints?</div>
+    <div class="opts">
+      <button class="opt">Payment successful. The balance is enough</button>
+      <button class="opt">Insufficient balance</button>
+      <button class="opt">Wrong PIN, then Payment successful</button>
+      <button class="opt" data-ok>Wrong PIN</button>
+    </div>
+    <div class="expl"><b>Wrong PIN.</b> The outer condition is False, so the inner if / else is never looked at.</div>
+  </div>
+</section>
+
+<!-- ============ nested vs and ============ -->
+<section class="step" data-nav="Nested vs and">
+  <h2>Nested <code>if</code> or <code>and</code>?</h2>
+  <pre class="py" data-nocopy>if pin_correct:
+    if balance &gt;= amount:
+        print("Payment successful")</pre>
+  <pre class="py" data-nocopy>if pin_correct and balance &gt;= amount:
+    print("Payment successful")</pre>
+  <div class="ask"><span class="ic">🎤</span><div>Same output. So why would anyone write the longer one?</div></div>
+  <button class="rv" data-reveal="next">When each wins</button>
+  <div class="reveal">
+    <table class="tbl"><tr><th>Use and when</th><th>Use nested when</th></tr>
+      <tr><td>Both checks are simple and independent</td><td>The second check depends on the first passing</td></tr>
+      <tr><td>One success message, one failure message</td><td>A different message at each level: “Wrong PIN” vs “Insufficient balance”</td></tr>
+      <tr><td>Shorter, easier to read</td><td>More lines, but every failure is explained</td></tr></table>
+    <div class="take">Both are correct Python. Pick by what the user needs to see.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Someone deleted the inner else. Correct PIN, balance ₹300, amount ₹800. What prints?</div>
+    <pre class="py" data-nocopy>pin_correct = True
+balance = 300
+amount = 800
+
+if pin_correct:
+    if balance &gt;= amount:
+        print("Payment successful")
+else:
+    print("Wrong PIN")</pre>
+    <div class="opts">
+      <button class="opt">Wrong PIN</button>
+      <button class="opt" data-ok>Nothing</button>
+      <button class="opt">Payment successful</button>
+      <button class="opt">IndentationError</button>
+    </div>
+    <div class="expl"><b>Nothing.</b> The <code>else</code> lines up with the <b>outer</b> if, so it belongs to <code>pin_correct</code>. Outer True → else skipped. Inner False, no inner else → silence. An else belongs to the if at the same indentation.</div>
+  </div>
+</section>
+
+<!-- ============ build 3 ============ -->
+<section class="step" data-nav="PaisaPay v3: PIN first" data-tag="PaisaPay v3">
+  <h2>PaisaPay v3: PIN first, then balance</h2>
+  <div class="build"><div class="bh">PaisaPay v3 · build 3 of 4</div><div class="bd">Nested: the balance is checked only after the PIN passes.</div>
+  <pre class="py" data-file="paisapay_v3.py" data-hl="7-14">balance = 1000
+saved_pin = "4321"
+
+amount = int(input("Amount in rupees: "))
+pin = input("UPI PIN: ")
+
+if pin == saved_pin:
+    if amount &lt;= balance:
+        balance = balance - amount
+        print("Paid: ₹", amount, "| Balance left: ₹", balance)
+    else:
+        print("Insufficient balance. Payment refused.")
+else:
+    print("Wrong PIN. Payment refused.")</pre>
+  <div class="out"><span class="p">Amount in rupees: </span><span class="in">400</span>
+<span class="p">UPI PIN: </span><span class="in">1111</span>
+Wrong PIN. Payment refused.</div></div>
+  <ul class="b"><li>Why is the PIN text, not a number? Think of a PIN that starts with 0.</li></ul>
+</section>
+
+<!-- ============ login ============ -->
+<section class="step" data-nav="Nested in practice: login">
+  <h2>Nested in practice: UPI login</h2>
+  <pre class="py" data-file="login.py">upi_id = input("Enter UPI ID: ")
+pin = input("Enter UPI PIN: ")
+
+if upi_id == "sumit@paisapay":
+    if pin == "4321":
+        print("Login successful")
+    else:
+        print("Incorrect PIN")
+else:
+    print("Unknown UPI ID")</pre>
+  <div class="chips">
+    <div class="chip"><div class="q">Wrong UPI ID?</div><div class="a"><b>Unknown UPI ID.</b> The PIN is never checked.</div></div>
+    <div class="chip"><div class="q">Right ID, wrong PIN?</div><div class="a"><b>Incorrect PIN.</b> Outer True → inner False → inner else.</div></div>
+    <div class="chip"><div class="q">Why not one and?</div><div class="a">One <code>and</code> gives one failure message. The user must know <i>which</i> part failed.</div></div>
+  </div>
+  <p class="note">No real app keeps a PIN in the code like this. Much later. Today it is a second decision that depends on the first.</p>
+</section>
+
+<!-- ============ pattern ============ -->
+<section class="step" data-nav="Zoom out: the pattern">
+  <h2>Every decision looks like this</h2>
+  <div class="diag"><svg viewBox="0 0 760 140" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar17" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="15" y="30" width="160" height="80" rx="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="95" y="62" text-anchor="middle" font-size="16" font-weight="800" fill="#0f172a">Input</text>
+      <text x="95" y="88" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#334155">balance, amount</text>
+      <line x1="175" y1="70" x2="205" y2="70" stroke="#334155" stroke-width="2" marker-end="url(#ar17)"/>
+      <polygon points="300,22 400,70 300,118 200,70" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="300" y="66" text-anchor="middle" font-size="16" font-weight="800" fill="#0f172a">Condition</text>
+      <text x="300" y="88" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#334155">balance &gt;= amount</text>
+      <line x1="400" y1="70" x2="430" y2="70" stroke="#334155" stroke-width="2" marker-end="url(#ar17)"/>
+      <rect x="435" y="30" width="140" height="80" rx="12" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="505" y="62" text-anchor="middle" font-size="16" font-weight="800" fill="#0f172a">True / False</text>
+      <text x="505" y="88" text-anchor="middle" font-size="13" fill="#334155">the answer</text>
+      <line x1="575" y1="70" x2="605" y2="70" stroke="#334155" stroke-width="2" marker-end="url(#ar17)"/>
+      <rect x="610" y="30" width="135" height="80" rx="12" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="677" y="62" text-anchor="middle" font-size="16" font-weight="800" fill="#0f172a">Action</text>
+      <text x="677" y="88" text-anchor="middle" font-size="13" fill="#334155">pay ✓ / refuse ✗</text>
+    </svg><div class="cap">Input → Condition → True or False → an action</div></div>
+  <ul class="b">
+    <li>Pass or fail, login, discount, OTP, traffic light. Same shape.</li>
+    <li>The syntax is the small part. Spotting the <b>decision</b> is the skill.</li>
+  </ul>
+</section>
+
+<!-- ============ ternary ============ -->
+<section class="step" data-nav="The ternary operator">
+  <h2>A one-line decision</h2>
+  <ul class="b"><li>Five lines just to set one variable.</li></ul>
+  <pre class="py" data-file="status_long.py">balance = 1000
+amount = 400
+
+if balance &gt;= amount:
+    status = "SUCCESS"
+else:
+    status = "FAILED"
+
+print(status)</pre>
+  <div class="ask"><span class="ic">🎤</span><div>Guess: how might Python squeeze lines 4 to 7 into <b>one</b> line?</div></div>
+  <button class="rv" data-reveal="next">The one-liner</button>
+  <div class="reveal">
+    <pre class="py" data-file="status_short.py" data-kind="good">status = "SUCCESS" if balance &gt;= amount else "FAILED"</pre>
+    <div class="tern"><span class="t1">value_if_true</span> <span class="k">if</span> <span class="t2">condition</span> <span class="k">else</span> <span class="t3">value_if_false</span></div>
+    <ul class="b">
+      <li>Read it as a sentence: status is SUCCESS <i>if</i> the balance is enough, <i>else</i> FAILED.</li>
+      <li>Called a conditional expression, or the <b>ternary operator</b>. Not new logic. A compact if / else that gives a <b>value</b>.</li>
+    </ul>
+  </div>
+  <div class="quiz" data-wide data-level="s">
+    <div class="qt">balance = 500, amount = 800. What prints?</div>
+    <pre class="py" data-nocopy>status = "SUCCESS" if balance &gt;= amount else "FAILED"
+print(status)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>FAILED</button>
+      <button class="opt">SUCCESS</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt">False</button>
+    </div>
+    <div class="expl"><b>FAILED.</b> 500 &gt;= 800 is False, so the value after <code>else</code>.</div>
+  </div>
+  <div class="quiz" data-wide data-level="m">
+    <div class="qt">A dev swapped the two words. balance = 1000, amount = 400. What prints?</div>
+    <pre class="py" data-nocopy>status = "FAILED" if balance &gt;= amount else "SUCCESS"
+print(status)</pre>
+    <div class="opts">
+      <button class="opt">SUCCESS</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt" data-ok>FAILED</button>
+      <button class="opt">True</button>
+    </div>
+    <div class="expl"><b>FAILED.</b> The condition is True, and the value <i>before</i> <code>if</code> is the True value. Python runs it happily. A logic bug, not a syntax bug.</div>
+  </div>
+</section>
+
+<!-- ============ ternary limits ============ -->
+<section class="step" data-nav="When not to use a ternary">
+  <h2>When <b>not</b> to use a ternary</h2>
+  <div class="lab bad">Clever, unreadable</div>
+  <pre class="py" data-kind="bad" data-nocopy>cashback = 100 if amount &gt;= 5000 else 50 if amount &gt;= 2000 else 10 if amount &gt;= 500 else 0</pre>
+  <div class="lab good">Plain, readable</div>
+  <pre class="py" data-kind="good" data-nocopy>if amount &gt;= 5000:
+    cashback = 100
+elif amount &gt;= 2000:
+    cashback = 50
+elif amount &gt;= 500:
+    cashback = 10
+else:
+    cashback = 0</pre>
+  <div class="take">Ternary for a simple two-way choice. Three or more outcomes: if / elif / else.</div>
+  <div class="quiz" data-wide data-level="t">
+    <div class="qt">A transaction fee, written the clever way. amount = 1000. What prints?</div>
+    <pre class="py" data-nocopy>amount = 1000
+
+fee = 0 if amount &lt; 1000 else 5 if amount &lt; 10000 else 10
+print(fee)</pre>
+    <div class="opts">
+      <button class="opt">0</button>
+      <button class="opt">10</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt" data-ok>5</button>
+    </div>
+    <div class="expl"><b>5.</b> Left to right: 1000 &lt; 1000 is False, so look at the rest: 1000 &lt; 10000 is True → 5. If it took a while to read, that is the point.</div>
+  </div>
+</section>
+
+<!-- ============ v3 complete ============ -->
+<section class="step" data-nav="PaisaPay v3 complete" data-tag="PaisaPay v3 complete">
+  <h2>PaisaPay v3</h2>
+  <div class="build"><div class="bh">PaisaPay v3 · build 4 of 4 · complete</div><div class="bd">v2, plus every kind of decision from today.</div>
+  <pre class="py" data-file="paisapay_v3.py" data-hl="12-19,21-29,31-39"># PaisaPay v3: the app can say no
+print("Welcome to PaisaPay")
+
+balance = 1000
+saved_pin = "4321"
+
+name = input("Your name: ")
+payee = input("Pay to: ")
+amount = int(input("Amount in rupees: "))
+mode = input("Mode (upi / card / netbanking): ")
+pin = input("UPI PIN: ")
+
+fee = 2
+total = amount + fee
+
+if amount &gt;= 5000:
+    cashback = 100
+elif amount &gt;= 2000:
+    cashback = 50
+elif amount &gt;= 500:
+    cashback = 10
+else:
+    cashback = 0
+
+match mode:
+    case "upi":
+        mode_text = "UPI"
+    case "card":
+        mode_text = "Card"
+    case "netbanking":
+        mode_text = "Net banking"
+    case _:
+        mode_text = "Unknown mode"
+
+print("----- Receipt -----")
+if pin != saved_pin:
+    print("Wrong PIN. Payment refused.")
+elif mode_text == "Unknown mode":
+    print("Unknown payment mode. Payment refused.")
+elif total &gt; balance:
+    print("Insufficient balance. Payment refused.")
+else:
+    balance = balance - total + cashback
+    print("Paid: ₹", amount, "to", payee, "via", mode_text)
+    print("Cashback: ₹", cashback)
+    print("Balance left: ₹", balance)</pre>
+  <button class="rv run" data-reveal="next">Sample run</button>
+  <div class="reveal">
+    <div class="out">Welcome to PaisaPay
+<span class="p">Your name: </span><span class="in">Sumit</span>
+<span class="p">Pay to: </span><span class="in">Chai Point</span>
+<span class="p">Amount in rupees: </span><span class="in">600</span>
+<span class="p">Mode (upi / card / netbanking): </span><span class="in">upi</span>
+<span class="p">UPI PIN: </span><span class="in">4321</span>
+----- Receipt -----
+Paid: ₹ 600 to Chai Point via UPI
+Cashback: ₹ 10
+Balance left: ₹ 408</div>
+    <ul class="b">
+      <li>Wrong PIN, unknown mode, not enough money: v3 says no, and says why.</li>
+      <li>It still handles <b>one</b> payment, then stops. A second payment means running it again. Next class.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ============ mini project ============ -->
+<section class="step" data-nav="Mini project: open an account">
+  <h2>Mini project: open a PaisaPay account</h2>
+  <ul class="b"><li>Rule: at least <b>18</b> years old <b>and</b> KYC completed.</li></ul>
+  <div class="lab">Build it together</div>
+  <button class="rv" data-reveal="next">1 · Ask the age</button>
+  <div class="reveal"><pre class="py" data-nocopy>age = int(input("Enter your age: "))</pre></div>
+  <button class="rv" data-reveal="next">2 · Ask about KYC</button>
+  <div class="reveal"><pre class="py" data-nocopy>kyc_done = input("KYC completed? (yes/no): ")</pre></div>
+  <button class="rv" data-reveal="next">3 · The decision</button>
+  <div class="reveal">
+    <pre class="py" data-file="open_account.py" data-kind="good">age = int(input("Enter your age: "))
+kyc_done = input("KYC completed? (yes/no): ")
+
+if age &gt;= 18 and kyc_done == "yes":
+    print("Account opened. Welcome to PaisaPay!")
+else:
+    print("Sorry, you are not eligible.")</pre>
+    <div class="lab">Predict before running</div>
+    <div class="chips">
+      <div class="chip"><div class="q">age 20, kyc "yes"</div><div class="a">True and True → <b>Account opened</b></div></div>
+      <div class="chip"><div class="q">age 20, kyc "no"</div><div class="a">True and False → <b>not eligible</b></div></div>
+      <div class="chip"><div class="q">age 16, kyc "yes"</div><div class="a">False and True → <b>not eligible</b></div></div>
+      <div class="chip"><div class="q">Why and, not or?</div><div class="a">With <code>or</code>, a 16-year-old with KYC would get in. Both rules must hold.</div></div>
+    </div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Age 25. The user types <code>Yes</code>, capital Y. What prints?</div>
+    <div class="opts">
+      <button class="opt">Account opened. Welcome to PaisaPay!</button>
+      <button class="opt" data-ok>Sorry, you are not eligible.</button>
+      <button class="opt">An error</button>
+      <button class="opt">Python asks again</button>
+    </div>
+    <div class="expl"><b>Not eligible.</b> "Yes" == "yes" is False. Text comparison is exact. Real apps clean the input first; that comes in the strings class.</div>
+  </div>
+</section>
+
+<!-- ============ mini challenge ============ -->
+<section class="step" data-nav="Mini challenge: Diwali cashback">
+  <h2>Mini challenge: Diwali cashback</h2>
+  <table class="tbl"><tr><th>Purchase amount</th><th>Cashback</th></tr>
+    <tr><td>₹5,000 or more</td><td>20%</td></tr>
+    <tr><td>₹2,000 or more</td><td>10%</td></tr>
+    <tr><td>otherwise</td><td>0%</td></tr></table>
+  <pre class="py" data-file="cashback_starter.py">amount = int(input("Enter purchase amount: "))
+
+if __________:
+    cashback = 20
+elif __________:
+    cashback = 10
+else:
+    cashback = 0
+
+print("Cashback:", cashback, "%")</pre>
+  <div class="ask"><span class="ic">✍️</span><div>Which check goes first, 5,000 or 2,000? Why? Fill the blanks in PyLens. <span class="timer" data-sec="300"></span></div></div>
+  <button class="rv" data-reveal="next">Solution</button>
+  <div class="reveal">
+    <pre class="py" data-file="diwali_cashback.py" data-kind="good">amount = int(input("Enter purchase amount: "))
+
+if amount &gt;= 5000:
+    cashback = 20
+elif amount &gt;= 2000:
+    cashback = 10
+else:
+    cashback = 0
+
+print("Cashback:", cashback, "%")
+print("You get back ₹", amount * cashback // 100)</pre>
+    <ul class="b">
+      <li>Biggest threshold first. <code>&gt;= 2000</code> first would swallow every big purchase.</li>
+      <li>Stretch: a negative amount should print “Invalid amount”. Where in the chain does it go?</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ errors ============ -->
+<section class="step" data-nav="New errors today">
+  <h2>Two new errors today</h2>
+  <table class="tbl"><tr><th>Error</th><th>Python is saying</th><th>Today's example</th></tr>
+    <tr><td><b>IndentationError</b></td><td>A block was expected, or the spacing does not line up.</td><td>a <code>print</code> under <code>if</code> without the 4 spaces</td></tr>
+    <tr><td><b>SyntaxError</b></td><td>The shape is wrong. Here, an assignment where a question belongs.</td><td><code>if balance = amount:</code></td></tr>
+    <tr><td>No error</td><td>The dangerous one. Wrong answer, no complaint.</td><td><code>mode == "upi" or "card"</code> · conditions in the wrong order</td></tr></table>
+  <div class="take">Read the error type first. And when there is no error, read the condition twice.</div>
+</section>
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Recap and what's next">
+  <h2>Recap</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Three things you learned today, in the chat. <span class="timer" data-sec="90"></span></div></div>
+  <button class="rv" data-reveal="next">Compare with mine</button>
+  <div class="reveal"><div class="steps-list prose">
+    <div class="sl on"><b>if</b> — run a block only when a condition is True.</div>
+    <div class="sl on"><b>else</b> — everything else. No condition of its own.</div>
+    <div class="sl on"><b>elif</b> — many outcomes. Top to bottom, first True wins. Order matters.</div>
+    <div class="sl on"><b>match / case</b> — one variable vs exact values. <code>case _</code> is the else.</div>
+    <div class="sl on"><b>and / or / not</b> — build bigger questions.</div>
+    <div class="sl on"><b>nested if</b> — inner question only when the outer is True. An else belongs to the if at its indentation.</div>
+    <div class="sl on"><b>ternary</b> — <code>a if cond else b</code>, for simple two-way choices only.</div>
+    <div class="sl on"><b>indentation</b> — is the syntax. Inside vs outside the decision.</div>
+  </div></div>
+  <button class="rv" data-reveal="next">PaisaPay: where it goes next</button>
+  <div class="reveal">
+    <div class="ladder"><span><b>v1</b> receipt ✓</span><span><b>v2</b> money maths ✓</span><span><b>v3</b> it can say no ✓</span><span><b>v4</b> loops: PIN retries, many payments, a statement</span><span>… up to <b>v12</b></span></div>
+    <ul class="b"><li><b>Before next class:</b> post-read, assignment, interview-readiness questions.</li></ul>
+  </div>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
