@@ -19,6 +19,7 @@ Until now every program ran top to bottom, every line, every time. In this class
 | [`code/`](code/) | Every example from the class as a runnable file, in order. |
 | [`code/paisapay_v3.py`](code/paisapay_v3.py) | Today's version of our course project. |
 | [`Python-Class-03-Control-Statements.ipynb`](https://colab.research.google.com/github/prateekScaler/AIML-Jul26-Batch3-Python/blob/main/Class-03-Control-Statements/Python-Class-03-Control-Statements.ipynb) | The same examples as one notebook. [Open it in Google Colab](https://colab.research.google.com/github/prateekScaler/AIML-Jul26-Batch3-Python/blob/main/Class-03-Control-Statements/Python-Class-03-Control-Statements.ipynb) and run the cells, nothing to install. |
+| [`PRACTICE.md`](PRACTICE.md) | Twelve coding problems, easy to hard, with sample output, hints and solutions. |
 | [`ASSIGNMENT.md`](ASSIGNMENT.md) | Practice problems for this class. |
 | [`INTERVIEW-READINESS.md`](INTERVIEW-READINESS.md) | Interview questions, gotchas and AI-era questions on today's topics. |
 

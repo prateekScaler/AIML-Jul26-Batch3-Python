@@ -19,6 +19,7 @@ The first class of the Python module. You go from "I have prompted AI to write c
 | [`code/`](code/) | Every example from the class as a runnable file, in order. |
 | [`code/paisapay_v1.py`](code/paisapay_v1.py) | Today's version of our course project. |
 | [`Python-Class-01-Data-Types-Variables-Input-Output.ipynb`](https://colab.research.google.com/github/prateekScaler/AIML-Jul26-Batch3-Python/blob/main/Class-01-Data-Types-Variables-Input-Output/Python-Class-01-Data-Types-Variables-Input-Output.ipynb) | The same examples as one notebook. [Open it in Google Colab](https://colab.research.google.com/github/prateekScaler/AIML-Jul26-Batch3-Python/blob/main/Class-01-Data-Types-Variables-Input-Output/Python-Class-01-Data-Types-Variables-Input-Output.ipynb) and run the cells, nothing to install. |
+| [`PRACTICE.md`](PRACTICE.md) | Twelve coding problems, easy to hard, with sample output, hints and solutions. |
 | [`ASSIGNMENT.md`](ASSIGNMENT.md) | Practice problems for this class. |
 | [`INTERVIEW-READINESS.md`](INTERVIEW-READINESS.md) | Interview questions, gotchas and AI-era questions on today's topics. |
 
