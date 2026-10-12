@@ -9,10 +9,10 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 
 | # | Topic | Material | PaisaPay after this class |
 |---|---|---|---|
-| 1 | Data Types, Variables, Input/Output | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-01-Data-Types-Variables-Input-Output/) · [notes and code](Class-01-Data-Types-Variables-Input-Output/README.md) | **v1** takes one payment and prints a receipt |
-| 2 | Operators | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-02-Operators/) · [notes and code](Class-02-Operators/README.md) | **v2** money maths: bill split, cashback, "is the balance enough?" |
-| 3 | Control Statements | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-03-Control-Statements/) · [notes and code](Class-03-Control-Statements/README.md) | **v3** decisions: refuse, approve, cashback tiers |
-| 4 | Loops | coming up | **v4** keeps running: menu, PIN retries, mini statement |
+| 1 | Data Types, Variables, Input/Output | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-01-Data-Types-Variables-Input-Output/) · [notes and code](Class-01-Data-Types-Variables-Input-Output/README.md) · [practice](Class-01-Data-Types-Variables-Input-Output/PRACTICE.md) | **v1** takes one payment and prints a receipt |
+| 2 | Operators | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-02-Operators/) · [notes and code](Class-02-Operators/README.md) · [practice](Class-02-Operators/PRACTICE.md) | **v2** money maths: bill split, cashback, "is the balance enough?" |
+| 3 | Control Statements | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-03-Control-Statements/) · [notes and code](Class-03-Control-Statements/README.md) · [practice](Class-03-Control-Statements/PRACTICE.md) | **v3** decisions: refuse, approve, cashback tiers |
+| 4 | Loops | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-04-Loops/) · [notes and code](Class-04-Loops/README.md) · [practice](Class-04-Loops/PRACTICE.md) | **v4** keeps running: menu, PIN retries, mini statement |
 | 5 | Functions | coming up | **v5** reusable actions: `pay()`, `add_money()`, `show_balance()` |
 | 6 | Lists | coming up | **v6** transaction history |
 | 7 | Strings | coming up | **v7** clean input, masked account numbers, formatted receipts |
@@ -32,6 +32,7 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 | `Python-Class-NN-….ipynb` | The same examples as one notebook. Open it in Google Colab from the class notes and run the cells; nothing to install. |
 | `ASSIGNMENT.md` | Practice problems. |
 | `INTERVIEW-READINESS.md` | Questions interviewers ask, predict-the-output gotchas, and questions that connect the topic to AI systems. |
+| `PRACTICE.md` | Twelve coding problems on the class topics, easy to hard, with sample output, hints and solutions. |
 
 ## The project: PaisaPay
 

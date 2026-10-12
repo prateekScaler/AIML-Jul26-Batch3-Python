@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 4 · Loops</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c04" data-class="Class 4" data-title="Loops" data-course="Python · AIML Jul26 Batch 3" data-date="2026-10-12">
+
+<div class="cover" id="cover">
+  <h1><small>Class 4</small>Loops</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Last class, in three questions">
+  <h2>Last class, in three questions</h2>
+  <div class="quiz" data-level="s">
+    <div class="qt">Paying ₹8,000. What prints?</div>
+    <pre class="py" data-nocopy>amount = 8000
+if amount &gt;= 500:
+    print("Cashback ₹10")
+elif amount &gt;= 5000:
+    print("Cashback ₹100")</pre>
+    <div class="opts">
+      <button class="opt">Cashback ₹100</button>
+      <button class="opt">Both lines</button>
+      <button class="opt" data-ok>Cashback ₹10</button>
+      <button class="opt">Nothing</button>
+    </div>
+    <div class="expl"><b>Cashback ₹10.</b> First True wins. The broad check came first.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Mode is <code>"cash"</code>. What prints?</div>
+    <pre class="py" data-nocopy>mode = "cash"
+if mode == "upi" or "card":
+    print("Digital")
+else:
+    print("Cash")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Digital</button>
+      <button class="opt">Cash</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt">Nothing</button>
+    </div>
+    <div class="expl"><b>Digital.</b> <code>"card"</code> is a non-empty string, so it counts as True.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>pin_correct = False
+balance = 9000
+if pin_correct:
+    if balance &gt;= 100:
+        print("Paid")
+else:
+    print("Wrong PIN")</pre>
+    <div class="opts">
+      <button class="opt">Paid</button>
+      <button class="opt">Nothing</button>
+      <button class="opt">IndentationError</button>
+      <button class="opt" data-ok>Wrong PIN</button>
+    </div>
+    <div class="expl"><b>Wrong PIN.</b> The <code>else</code> lines up with the outer <code>if</code>, so it belongs to it.</div>
+  </div>
+</section>
+
+<!-- ============ the problem ============ -->
+<section class="step" data-nav="PaisaPay v3 has a problem" data-tag="PaisaPay">
+  <h2>PaisaPay v3 has a problem</h2>
+  <ul class="b"><li>One payment. Then the program ends.</li><li>A chai stall takes 50 payments before 10 AM.</li></ul>
+  <pre class="py" data-file="cashback_by_hand.py">print("₹10 cashback sent")
+print("₹10 cashback sent")
+print("₹10 cashback sent")
+print("₹10 cashback sent")
+print("₹10 cashback sent")</pre>
+  <div class="out">₹10 cashback sent
+₹10 cashback sent
+₹10 cashback sent
+₹10 cashback sent
+₹10 cashback sent</div>
+  <div class="ask"><span class="ic">🎤</span><div>Five customers: five lines. One hundred customers? <span class="timer" data-sec="30"></span></div></div>
+  <button class="rv" data-reveal="next">The missing piece</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>Write the instruction <b>once</b>.</li>
+      <li>Tell Python how many times, or until when.</li>
+    </ul>
+    <div class="take">Today Python learns to repeat: loops.</div>
+  </div>
+</section>
+
+<!-- ============ angle 1 ============ -->
+<section class="step" data-nav="Every app repeats">
+  <h2>Every app repeats</h2>
+  <ul class="b">
+    <li>A bank statement: one line per transaction.</li>
+    <li>An OTP timer: 60, 59, 58 …</li>
+    <li>A PIN screen: ask again until it is right.</li>
+  </ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 520 300" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a2" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="200" y="10" width="120" height="34" rx="17" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="260" y="32" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Start</text>
+      <line x1="260" y1="44" x2="260" y2="68" stroke="#334155" stroke-width="2" marker-end="url(#a2)"/>
+      <rect x="160" y="70" width="200" height="46" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="260" y="98" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">do the action</text>
+      <line x1="260" y1="116" x2="260" y2="143" stroke="#334155" stroke-width="2" marker-end="url(#a2)"/>
+      <polygon points="260,145 370,185 260,225 150,185" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="260" y="190" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">repeat again?</text>
+      <path d="M150,185 L70,185 L70,93 L158,93" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#a2)"/>
+      <text x="108" y="177" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">Yes</text>
+      <line x1="260" y1="225" x2="260" y2="258" stroke="#334155" stroke-width="2" marker-end="url(#a2)"/>
+      <text x="282" y="247" font-size="14" font-weight="700" fill="#dc2626">No</text>
+      <rect x="165" y="260" width="190" height="34" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="260" y="282" text-anchor="middle" font-size="14" fill="#334155">rest of the program</text>
+    </svg><div class="cap">One block of code, run many times.</div></div>
+  <div class="take">A loop: do the action, ask “again?”, repeat or move on.</div>
+</section>
+
+<!-- ============ angle 2 ============ -->
+<section class="step" data-nav="Every agent is a loop">
+  <h2>Every agent is a loop</h2>
+  <ul class="b"><li>You built agents in GenAI Foundations. Inside, every one of them runs this.</li></ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a4" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="20" y="80" width="120" height="50" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="80" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Think</text>
+      <line x1="140" y1="105" x2="178" y2="105" stroke="#334155" stroke-width="2" marker-end="url(#a4)"/>
+      <rect x="180" y="80" width="140" height="50" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="250" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Act: call a tool</text>
+      <line x1="320" y1="105" x2="358" y2="105" stroke="#334155" stroke-width="2" marker-end="url(#a4)"/>
+      <rect x="360" y="80" width="120" height="50" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="420" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Observe</text>
+      <line x1="480" y1="105" x2="518" y2="105" stroke="#334155" stroke-width="2" marker-end="url(#a4)"/>
+      <polygon points="580,70 630,105 580,140 530,105" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="580" y="110" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Done?</text>
+      <path d="M580,140 L580,190 L80,190 L80,132" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#a4)"/>
+      <text x="330" y="208" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">No: think again</text>
+      <line x1="580" y1="70" x2="580" y2="38" stroke="#334155" stroke-width="2" marker-end="url(#a4)"/>
+      <text x="580" y="24" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">Yes: answer</text>
+    </svg><div class="cap">Think, act, observe, check. Until done.</div></div>
+  <div class="take">An agent is a <code>while not done</code> loop around an LLM call. Today you learn to write that loop.</div>
+</section>
+
+<!-- ============ first for ============ -->
+<section class="step" data-nav="Your first for loop">
+  <h2>Your first <code>for</code> loop</h2>
+  <pre class="py" data-file="cashback_loop.py">for i in range(5):
+    print("₹10 cashback sent")</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">₹10 cashback sent
+₹10 cashback sent
+₹10 cashback sent
+₹10 cashback sent
+₹10 cashback sent</div>
+  </div>
+  <div class="lab">Line 1, part by part</div>
+  <div class="anat">
+    <div class="a"><code>for</code><div class="m">Repeat what follows.</div></div>
+    <div class="a"><code>i</code><div class="m">The loop variable. Changes each pass.</div></div>
+    <div class="a"><code>range(5)</code><div class="m">The values to walk through. Five of them.</div></div>
+    <div class="a"><code>:</code> + indent<div class="m">The block that repeats. Same rule as <code>if</code>.</div></div>
+  </div>
+  <div class="quiz" data-level="s">
+    <div class="qt">How many lines print in total?</div>
+    <pre class="py" data-nocopy>for i in range(3):
+    print("Cashback sent")
+print("All done")</pre>
+    <div class="opts">
+      <button class="opt">3</button>
+      <button class="opt" data-ok>4</button>
+      <button class="opt">6</button>
+      <button class="opt">2</button>
+    </div>
+    <div class="expl"><b>4.</b> The indented line runs 3 times. <code>All done</code> is outside the loop and runs once, after it.</div>
+  </div>
+</section>
+
+<!-- ============ range(5) ============ -->
+<section class="step" data-nav="What does range(5) give?">
+  <h2>What does <code>range(5)</code> actually give?</h2>
+  <div class="ask"><span class="ic">✋</span><div>Print <code>i</code> instead of the message. What comes out?</div></div>
+  <pre class="py" data-file="range_five.py" id="c7">for i in range(5):
+    print(i)</pre>
+  <div class="vote">
+    <div class="vopt">1 2 3 4 5</div>
+    <div class="vopt" data-win>0 1 2 3 4</div>
+    <div class="vopt">5 5 5 5 5</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">0
+1
+2
+3
+4</div>
+    <div class="trace" data-code="c7" data-once data-steps='[
+      {"l":[1,2],"n":"pass 1 → i = 0","r":"t","o":"0\n"},
+      {"l":[1,2],"n":"pass 2 → i = 1","r":"t","o":"1\n"},
+      {"l":[1,2],"n":"pass 3 → i = 2","r":"t","o":"2\n"},
+      {"l":[1,2],"n":"pass 4 → i = 3","r":"t","o":"3\n"},
+      {"l":[1,2],"n":"pass 5 → i = 4","r":"t","o":"4\n"},
+      {"l":1,"n":"no values left → loop ends","r":"n"}]'></div>
+    <div class="take">Starts at 0. Stops <b>before</b> 5. Five values, none of them 5.</div>
+    <div class="ai"><b>🤖 AI moment</b> — ask why Python stops before the end value. Then run <code>range(1, 6)</code> yourself and check whether 5 appears. Verify, do not believe.<div class="pr">"Why does range(5) stop at 4 and not 5? Keep it short."</div></div>
+  </div>
+</section>
+
+<!-- ============ range(start, stop) ============ -->
+<section class="step" data-nav="range(start, stop)">
+  <h2><code>range(start, stop)</code></h2>
+  <ul class="b"><li>Bank tokens should say 1 to 5, not 0 to 4.</li></ul>
+  <pre class="py" data-file="tokens.py">for token in range(1, 6):
+    print("Token", token)</pre>
+  <div class="out">Token 1
+Token 2
+Token 3
+Token 4
+Token 5</div>
+  <div class="take">Start is included. Stop is not. To reach 5, stop at 6.</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A 12-month loan. We want “EMI month 1” up to “EMI month 12”. Which range?</div>
+    <div class="opts">
+      <button class="opt">range(12)</button>
+      <button class="opt">range(1, 12)</button>
+      <button class="opt">range(0, 12)</button>
+      <button class="opt" data-ok>range(1, 13)</button>
+    </div>
+    <div class="expl"><b>range(1, 13).</b> <code>range(1, 12)</code> ends at 11: the customer skips the last EMI. <code>range(12)</code> starts at 0.</div>
+  </div>
+</section>
+
+<!-- ============ step ============ -->
+<section class="step" data-nav="range with a step">
+  <h2>The third number: step</h2>
+  <pre class="py" data-file="step.py">for i in range(2, 11, 2):
+    print(i)</pre>
+  <div class="out">2
+4
+6
+8
+10</div>
+  <div class="lab">A negative step counts down</div>
+  <pre class="py" data-file="otp_countdown.py">for sec in range(10, 0, -1):
+    print("OTP expires in", sec)</pre>
+  <div class="out">OTP expires in 10
+OTP expires in 9
+<span class="dim">…</span>
+OTP expires in 1</div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Someone forgot the step. What prints?</div>
+    <pre class="py" data-nocopy>for sec in range(10, 0):
+    print("OTP expires in", sec)</pre>
+    <div class="opts">
+      <button class="opt">10 down to 1</button>
+      <button class="opt">10 down to 0</button>
+      <button class="opt">An error: start is bigger than stop</button>
+      <button class="opt" data-ok>Nothing at all</button>
+    </div>
+    <div class="expl"><b>Nothing.</b> The default step is +1. From 10 going up, we are already past 0. Empty range, zero passes, no error.</div>
+  </div>
+</section>
+
+<!-- ============ savings table ============ -->
+<section class="step" data-nav="A real table">
+  <h2>A real table: savings plan</h2>
+  <ul class="b"><li>Karthikeyan saves ₹500 a month. Show ten months.</li></ul>
+  <pre class="py" data-file="savings.py">monthly = int(input("Monthly deposit: "))
+
+for month in range(1, 11):
+    print("Month", month, "→ ₹", monthly * month)</pre>
+  <div class="chips">
+    <div class="chip"><div class="q">First line?</div><div class="a">Month 1 → ₹ 500</div></div>
+    <div class="chip"><div class="q">Last line?</div><div class="a">Month 10 → ₹ 5000</div></div>
+    <div class="chip"><div class="q">How many lines?</div><div class="a">10. range(1, 11) has ten values.</div></div>
+  </div>
+  <div class="take">Input, casting, a loop, maths, print. Four classes in five lines.</div>
+</section>
+
+<!-- ============ list ============ -->
+<section class="step" data-nav="Loop through a list">
+  <h2>Not only numbers: loop through a list</h2>
+  <ul class="b"><li>A list is a box of values in order. Full details in Class 6.</li></ul>
+  <pre class="py" data-file="payees.py">payees = ["Chai Point", "Zomato", "Jio"]
+
+for payee in payees:
+    print("Paid", payee)</pre>
+  <div class="out">Paid Chai Point
+Paid Zomato
+Paid Jio</div>
+  <div class="take"><code>for</code> walks through any sequence, one item at a time. No <code>range</code> needed.</div>
+  <div class="quiz" data-level="t">
+    <div class="qt">What does the last line print?</div>
+    <pre class="py" data-nocopy>amounts = [120, 450, 99]
+
+for amount in amounts:
+    print(amount)
+
+print(amount)</pre>
+    <div class="opts">
+      <button class="opt">120</button>
+      <button class="opt">NameError: amount exists only inside the loop</button>
+      <button class="opt" data-ok>99</button>
+      <button class="opt">[120, 450, 99]</button>
+    </div>
+    <div class="expl"><b>99.</b> The loop variable is an ordinary variable. After the loop it still holds the last value.</div>
+  </div>
+</section>
+
+<!-- ============ while ============ -->
+<section class="step" data-nav="The while loop">
+  <h2>The <code>while</code> loop: repeat while a condition is True</h2>
+  <pre class="py" data-file="count_while.py" id="c12">count = 1
+
+while count &lt;= 5:
+    print(count)
+    count += 1</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">1
+2
+3
+4
+5</div>
+    <div class="trace" data-code="c12" data-once data-steps='[
+      {"l":1,"n":"count = 1","r":"n"},
+      {"l":3,"n":"1 &amp;lt;= 5 → True","r":"t"},
+      {"l":[4,5],"n":"print 1, count becomes 2","r":"t","o":"1\n"},
+      {"l":3,"n":"2 &amp;lt;= 5 → True","r":"t"},
+      {"l":[4,5],"n":"print 2, count becomes 3","r":"t","o":"2\n"},
+      {"l":[3,4,5],"n":"same for 3, 4, 5 → count becomes 6","r":"t","o":"3\n4\n5\n"},
+      {"l":3,"n":"6 &amp;lt;= 5 → False → loop ends","r":"f"}]'></div>
+  </div>
+  <div class="diag">
+    <svg viewBox="0 0 560 250" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a12" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="190" y="8" width="180" height="34" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="280" y="30" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">count = 1</text>
+      <line x1="280" y1="42" x2="280" y2="63" stroke="#334155" stroke-width="2" marker-end="url(#a12)"/>
+      <polygon points="280,65 400,105 280,145 160,105" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="280" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">count &lt;= 5 ?</text>
+      <line x1="280" y1="145" x2="280" y2="178" stroke="#334155" stroke-width="2" marker-end="url(#a12)"/>
+      <text x="300" y="167" font-size="13" font-weight="700" fill="#16a34a">True</text>
+      <rect x="170" y="180" width="220" height="56" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="280" y="204" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">print(count)</text>
+      <text x="280" y="224" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">count += 1</text>
+      <path d="M170,208 L90,208 L90,105 L158,105" fill="none" stroke="#334155" stroke-width="2" marker-end="url(#a12)"/>
+      <text x="92" y="92" text-anchor="middle" font-size="13" fill="#475569">check again</text>
+      <line x1="400" y1="105" x2="448" y2="105" stroke="#334155" stroke-width="2" marker-end="url(#a12)"/>
+      <text x="424" y="97" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">False</text>
+      <rect x="452" y="85" width="100" height="40" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="502" y="110" text-anchor="middle" font-size="14" fill="#0f172a">loop ends</text>
+    </svg><div class="cap">Check, run the body, check again. Stops the moment the condition is False.</div></div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Chai subscription: ₹300 each time, while the money lasts. How many payments?</div>
+    <pre class="py" data-nocopy>balance = 1000
+
+while balance &gt;= 300:
+    balance -= 300
+    print("Paid ₹300. Left:", balance)</pre>
+    <div class="opts">
+      <button class="opt">4</button>
+      <button class="opt" data-ok>3</button>
+      <button class="opt">2</button>
+      <button class="opt">It never stops</button>
+    </div>
+    <div class="expl"><b>3.</b> 1000 → 700 → 400 → 100. Then 100 &gt;= 300 is False. We never said “3 times”. The condition decided.</div>
+  </div>
+</section>
+
+<!-- ============ infinite ============ -->
+<section class="step" data-nav="One missing line">
+  <h2>One missing line</h2>
+  <div class="ask"><span class="ic">✋</span><div>Delete <code>count += 1</code>. What happens?</div></div>
+  <pre class="py" data-file="forever.py" data-kind="bad" data-nocopy>count = 1
+
+while count &lt;= 5:
+    print(count)</pre>
+  <div class="vote">
+    <div class="vopt">Prints 1, then stops</div>
+    <div class="vopt">Prints 1 to 5</div>
+    <div class="vopt" data-win>Prints 1 forever</div>
+    <div class="vopt">An error</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">What happens</button>
+  <div class="reveal">
+    <div class="out">1
+1
+1
+1
+<span class="dim">… for ever. Ctrl+C to stop.</span></div>
+    <ul class="b">
+      <li><code>count</code> never changes. <code>1 &lt;= 5</code> stays True.</li>
+      <li>An <b>infinite loop</b>. Do not run this in PyLens.</li>
+    </ul>
+  </div>
+  <div class="case">
+    <div class="tag">Real incident · 2008</div>
+    <h4>Every Zune 30 froze on the same day</h4>
+    <ul>
+      <li>31 December 2008: thousands of Microsoft Zune music players stopped at once.</li>
+      <li>The clock code had a <code>while</code> loop. On day 366 of a leap year, nothing inside it changed the day count.</li>
+      <li>The loop ran until the day was over. The fix: wait for 1 January.</li>
+    </ul>
+    <pre class="py" data-file="zune_clock.py (simplified)" data-kind="bad" data-nocopy data-wide data-hl="6-7">days = 366        # 31 December 2008, day 366 of a leap year
+leap = True
+
+while days &gt; 365:
+    if leap:
+        if days &gt; 366:      # 366 is not more than 366
+            days -= 366      # so this never runs
+    else:
+        days -= 365</pre>
+    <div class="lesson">Every <code>while</code> needs a line that moves it towards False. On every path. Every time.</div>
+    <div class="src">Read: <a href="https://techcrunch.com/2008/12/31/zune-bug-explained-in-detail/" target="_blank" rel="noopener">Zune bug explained in detail</a> · <a href="https://en.wikipedia.org/wiki/Zune_30#Freescale_Driver_Issue" target="_blank" rel="noopener">Zune 30</a></div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">This one does change the balance. Does it stop?</div>
+    <pre class="py" data-nocopy>balance = 1000
+
+while balance != 0:
+    balance -= 300
+    print("Left:", balance)</pre>
+    <div class="opts">
+      <button class="opt">Yes, after 3 payments</button>
+      <button class="opt">Yes, after 4 payments</button>
+      <button class="opt">Error when the balance goes negative</button>
+      <button class="opt" data-ok>No, it never stops</button>
+    </div>
+    <div class="expl"><b>Never.</b> 1000 → 700 → 400 → 100 → −200 → … It jumps over 0, so <code>!= 0</code> stays True. Changing the variable is not enough. The condition must become False. Safer: <code>while balance &gt;= 300</code>.</div>
+  </div>
+</section>
+
+<!-- ============ for vs while ============ -->
+<section class="step" data-nav="for or while?">
+  <h2><code>for</code> or <code>while</code>?</h2>
+  <ul class="b">
+    <li><code>for</code>: you know the sequence or the count.</li>
+    <li><code>while</code>: you know the stopping condition.</li>
+  </ul>
+  <div class="lab">Click each answer</div>
+  <table class="tbl" data-cells><tr><th>Task</th><th>Loop</th></tr>
+    <tr><td>Print EMI months 1 to 12</td><td class="cell">for</td></tr>
+    <tr><td>Ask for the PIN until it is correct</td><td class="cell">while</td></tr>
+    <tr><td>Send a reminder to every payee in a list</td><td class="cell">for</td></tr>
+    <tr><td>Keep the agent thinking until the task is done</td><td class="cell">while</td></tr>
+    <tr><td>Count an OTP timer down from 60 to 1</td><td class="cell">for</td></tr>
+    <tr><td>Keep asking for an amount until it is more than 0</td><td class="cell">while</td></tr>
+    <tr><td>Add up every amount in today's payments</td><td class="cell">for</td></tr>
+    <tr><td>Pay ₹300 at a time while the balance lasts</td><td class="cell">while</td></tr>
+    <tr><td>Print a 10-row multiplication table</td><td class="cell">for</td></tr>
+    <tr><td>Roll a die until it shows 6</td><td class="cell">while</td></tr></table>
+  <div class="ai"><b>🤖 AI moment</b> — you chose <code>while</code> for “ask until correct”. Ask for the other side, then decide.<div class="pr">"Give me the strongest argument for using a for loop to ask for a PIN until it is correct."</div></div>
+</section>
+
+<!-- ============ while PIN ============ -->
+<section class="step" data-nav="while in practice: ask the PIN">
+  <h2><code>while</code> in practice: ask until it is right</h2>
+  <pre class="py" data-file="pin_loop.py">pin = ""
+
+while pin != "4321":
+    pin = input("Enter UPI PIN: ")
+
+print("Access granted!")</pre>
+  <div class="out"><span class="p">Enter UPI PIN: </span><span class="in">1111</span>
+<span class="p">Enter UPI PIN: </span><span class="in">0000</span>
+<span class="p">Enter UPI PIN: </span><span class="in">4321</span>
+<span class="ok">Access granted!</span></div>
+  <div class="take">Line 1 gives the condition something to check the first time. Line 4 moves it towards False.</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A student deletes line 1 (<code>pin = ""</code>). What happens?</div>
+    <div class="opts">
+      <button class="opt">It asks once, then grants access</button>
+      <button class="opt" data-ok>NameError on the while line</button>
+      <button class="opt">Works exactly the same</button>
+      <button class="opt">It asks for ever</button>
+    </div>
+    <div class="expl"><b>NameError.</b> <code>while pin != "4321"</code> runs first and needs <code>pin</code>. It does not exist yet. A <code>while</code> needs its variable set up before it starts.</div>
+  </div>
+</section>
+
+<!-- ============ build 1 ============ -->
+<section class="step" data-nav="PaisaPay v4: the menu loop" data-tag="PaisaPay v4">
+  <h2>PaisaPay v4: the menu loop</h2>
+  <div class="build"><div class="bh">PaisaPay v4 · build 1 of 4</div><div class="bd">The app stays open until the user chooses Exit.</div>
+  <pre class="py" data-file="paisapay_v4.py" data-hl="6-20" data-wide>print("Welcome to PaisaPay")
+
+balance = 1000
+saved_pin = "4321"
+
+choice = ""
+while choice != "4":
+    print()
+    print("1. Pay   2. Balance   4. Exit")
+    choice = input("Choose: ")
+
+    if choice == "1":
+        payee = input("Pay to: ")
+        amount = int(input("Amount in rupees: "))
+        pin = input("UPI PIN: ")
+        if pin != saved_pin:
+            print("Wrong PIN. Payment refused.")
+        elif amount &gt; balance:
+            print("Insufficient balance. Payment refused.")
+        else:
+            balance -= amount
+            print("Paid ₹", amount, "to", payee, "| Left ₹", balance)
+
+    elif choice == "2":
+        print("Balance: ₹", balance)
+
+print("Thank you for using PaisaPay")</pre>
+  <ul class="b">
+    <li>The whole v3 decision now lives <b>inside</b> a loop.</li>
+    <li><code>choice = ""</code> before the loop, like <code>pin = ""</code>. Same reason.</li>
+    <li>Choice 3 is missing. It arrives with the mini statement.</li>
+  </ul></div>
+</section>
+
+<!-- ============ break ============ -->
+<section class="step" data-nav="break: stop the loop now">
+  <h2><code>break</code>: stop the loop now</h2>
+  <pre class="py" data-file="break.py" id="c17">for txn in range(1, 11):
+    if txn == 6:
+        break
+    print("Transaction", txn, "done")</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">Transaction 1 done
+Transaction 2 done
+Transaction 3 done
+Transaction 4 done
+Transaction 5 done</div>
+    <div class="trace" data-code="c17" data-once data-steps='[
+      {"l":[1,2,4],"n":"txn = 1 to 5 → not 6 → print","r":"t","o":"Transaction 1 done\nTransaction 2 done\nTransaction 3 done\nTransaction 4 done\nTransaction 5 done\n"},
+      {"l":[2,3],"n":"txn = 6 → break → leave the loop","r":"f"},
+      {"l":4,"n":"7 to 10 never happen","r":"s"}]'></div>
+    <div class="take"><code>break</code> leaves the loop at once. The rest of the program continues.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">The print moved above the <code>if</code>. What is the full output?</div>
+    <pre class="py" data-nocopy>for i in range(1, 6):
+    print(i)
+    if i == 3:
+        break
+print("Done")</pre>
+    <div class="opts">
+      <button class="opt">1 2 Done</button>
+      <button class="opt">1 2 3</button>
+      <button class="opt" data-ok>1 2 3 Done</button>
+      <button class="opt">1 2 3 4 5 Done</button>
+    </div>
+    <div class="expl"><b>1 2 3 Done.</b> 3 is printed before the check. <code>break</code> ends the loop, not the program.</div>
+  </div>
+</section>
+
+<!-- ============ continue ============ -->
+<section class="step" data-nav="continue: skip this one">
+  <h2><code>continue</code>: skip this one pass</h2>
+  <pre class="py" data-file="continue.py">for txn in range(1, 6):
+    if txn == 3:
+        continue
+    print("Transaction", txn, "done")</pre>
+  <div class="out">Transaction 1 done
+Transaction 2 done
+Transaction 4 done
+Transaction 5 done</div>
+  <div class="take"><code>continue</code> jumps to the next pass. The loop goes on.</div>
+  <div class="ask"><span class="ic">✋</span><div>A phone switch. The programmer wants to skip the busy line, but wrote <code>break</code>. What prints?</div></div>
+  <pre class="py" data-file="switch.py" data-nocopy data-wide data-hl="6">calls = ["Delhi", "Mumbai", "Pune", "Chennai"]
+
+for call in calls:
+    if call == "Mumbai":
+        print("Mumbai line busy, skip it")
+        break
+    print("Connected", call)
+
+print("Switch idle")</pre>
+  <div class="vote">
+    <div class="vopt">All four connect, Mumbai skipped</div>
+    <div class="vopt" data-win>Delhi only, then Switch idle</div>
+    <div class="vopt">Delhi only. Switch idle never prints</div>
+    <div class="vopt">Nothing: break stops the program</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Connected Delhi
+Mumbai line busy, skip it
+Switch idle</div>
+    <ul class="b">
+      <li><code>break</code> left the whole loop. Pune and Chennai never connect.</li>
+      <li>With <code>continue</code> on line 6: Delhi, Pune and Chennai connect. Mumbai is skipped.</li>
+    </ul>
+  </div>
+  <div class="case">
+    <div class="tag">Real incident · 1990</div>
+    <h4>The same mistake took down half of America's long-distance calls</h4>
+    <ul>
+      <li>15 January 1990. AT&amp;T's 114 switches crashed and restarted each other in a chain.</li>
+      <li>The cause: a <code>break</code> inside an <code>if</code>, which left a bigger block than the programmer intended.</li>
+      <li>Nine hours. About half of all calls failed. Over 50 million calls blocked, over $60 million lost.</li>
+    </ul>
+    <div class="lesson">Know exactly which block a <code>break</code> leaves. Indentation tells you.</div>
+    <div class="src">Read: <a href="https://users.csc.calpoly.edu/~jdalbey/SWE/Papers/att_collapse" target="_blank" rel="noopener">The 1990 AT&amp;T long distance network collapse</a></div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Same idea with <code>while</code>. What happens?</div>
+    <pre class="py" data-nocopy>count = 0
+
+while count &lt; 5:
+    if count == 3:
+        continue
+    print(count)
+    count += 1</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Prints 0 1 2, then is stuck for ever</button>
+      <button class="opt">Prints 0 1 2 4</button>
+      <button class="opt">Prints 0 1 2 3 4</button>
+      <button class="opt">Prints 0 1 2 and ends</button>
+    </div>
+    <div class="expl"><b>Stuck.</b> At 3, <code>continue</code> jumps back to the condition and skips <code>count += 1</code>. In a <code>for</code> loop, <code>range</code> moves on by itself. In a <code>while</code> loop, moving on is your job.</div>
+  </div>
+</section>
+
+<!-- ============ pass ============ -->
+<section class="step" data-nav="pass: do nothing">
+  <h2><code>pass</code>: do nothing, for now</h2>
+  <pre class="py" data-file="pass.py">for i in range(5):
+    if i == 3:
+        pass
+    else:
+        print(i)</pre>
+  <div class="out">0
+1
+2
+4</div>
+  <table class="tbl"><tr><th>Statement</th><th>Effect</th></tr>
+    <tr><td><code>break</code></td><td>Leave the whole loop.</td></tr>
+    <tr><td><code>continue</code></td><td>Skip the rest of this pass. Next pass.</td></tr>
+    <tr><td><code>pass</code></td><td>Nothing. A placeholder where Python needs a line.</td></tr></table>
+  <div class="quiz" data-level="m">
+    <div class="qt">No <code>else</code> this time. What prints?</div>
+    <pre class="py" data-nocopy>for i in range(3):
+    if i == 1:
+        pass
+    print(i)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>0 1 2</button>
+      <button class="opt">0 2</button>
+      <button class="opt">0</button>
+      <button class="opt">Error: pass needs an else</button>
+    </div>
+    <div class="expl"><b>0 1 2.</b> <code>pass</code> does nothing, then Python continues to <code>print(i)</code>. With <code>continue</code> in its place: 0 2.</div>
+  </div>
+</section>
+
+<!-- ============ build 2 ============ -->
+<section class="step" data-nav="PaisaPay v4: three PIN attempts" data-tag="PaisaPay v4">
+  <h2>PaisaPay v4: three PIN attempts</h2>
+  <div class="build"><div class="bh">PaisaPay v4 · build 2 of 4</div><div class="bd">Real apps give three chances. A loop, a flag, and a break.</div>
+  <pre class="py" data-file="paisapay_v4.py" data-hl="5-12,14-15" data-wide>    if choice == "1":
+        payee = input("Pay to: ")
+        amount = int(input("Amount in rupees: "))
+
+        pin_ok = False
+        for attempt in range(3):
+            pin = input("UPI PIN: ")
+            if pin == saved_pin:
+                pin_ok = True
+                break
+            print("Wrong PIN.", 2 - attempt, "attempts left")
+
+        if not pin_ok:
+            print("Three wrong PINs. Payment refused.")
+        elif amount &gt; balance:
+            print("Insufficient balance. Payment refused.")
+        else:
+            balance -= amount
+            print("Paid ₹", amount, "to", payee, "| Left ₹", balance)</pre>
+  <div class="out"><span class="p">UPI PIN: </span><span class="in">1111</span>
+Wrong PIN. 2 attempts left
+<span class="p">UPI PIN: </span><span class="in">4321</span>
+Paid ₹ 300 to Chai Point | Left ₹ 700</div>
+  <ul class="b">
+    <li><code>pin_ok</code> starts False. A correct PIN flips it and breaks out.</li>
+    <li>Three wrong PINs: the loop simply runs out. The flag stays False.</li>
+  </ul></div>
+</section>
+
+<!-- ============ debug clinic ============ -->
+<section class="step" data-nav="Debug clinic">
+  <h2>Debug clinic</h2>
+  <div class="lab">Bug 1: wanted 1 to 10, skipping multiples of 3. What prints?</div>
+  <pre class="py" data-kind="bad" data-nocopy>for i in range(1, 11):
+    if i % 3 == 0:
+        break
+    print(i)</pre>
+  <button class="rv" data-reveal="next">Diagnosis</button>
+  <div class="reveal"><ul class="b"><li>Prints 1 2 and stops. <code>break</code> leaves the loop at 3.</li><li>Fix: <code>continue</code>. Skip, do not stop.</li></ul></div>
+  <div class="lab">Bug 2: wanted the total of 1 to 5. What happens?</div>
+  <pre class="py" data-kind="bad" data-nocopy>count = 1
+total = 0
+
+while count &lt;= 5:
+    total += count</pre>
+  <button class="rv" data-reveal="next">Diagnosis</button>
+  <div class="reveal"><ul class="b"><li><code>total</code> changes. <code>count</code> does not. The condition checks <code>count</code>.</li><li>Fix: <code>count += 1</code> inside the loop. Update the variable the condition reads.</li></ul></div>
+  <div class="lab">Bug 3: wanted EMI months 1 to 12. What prints?</div>
+  <pre class="py" data-kind="bad" data-nocopy>for month in range(1, 12):
+    print("EMI month", month)</pre>
+  <button class="rv" data-reveal="next">Diagnosis</button>
+  <div class="reveal"><ul class="b"><li>Prints 1 to 11. Stop is excluded.</li><li>Fix: <code>range(1, 13)</code>. The off-by-one bug. No error, one line short.</li></ul>
+  <div class="take">Before fixing a loop, trace it: what does the condition read, and what changes it?</div></div>
+</section>
+
+<!-- ============ nested ============ -->
+<section class="step" data-nav="A loop inside a loop">
+  <h2>A loop inside a loop</h2>
+  <div class="ask"><span class="ic">✋</span><div>Three branches, two counters each. How many lines print?</div></div>
+  <pre class="py" data-file="nested.py" id="c22">for branch in range(3):
+    for counter in range(2):
+        print(branch, counter)</pre>
+  <div class="vote">
+    <div class="vopt">3</div>
+    <div class="vopt">5</div>
+    <div class="vopt" data-win>6</div>
+    <div class="vopt">2</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">0 0
+0 1
+1 0
+1 1
+2 0
+2 1</div>
+    <div class="trace" data-code="c22" data-once data-steps='[
+      {"l":[1,2,3],"n":"branch = 0, counter = 0","r":"t","o":"0 0\n"},
+      {"l":[2,3],"n":"branch = 0, counter = 1","r":"t","o":"0 1\n"},
+      {"l":1,"n":"inner loop finished → outer moves to branch = 1","r":"n"},
+      {"l":[2,3],"n":"branch = 1, counter = 0 (inner starts again from 0)","r":"t","o":"1 0\n"},
+      {"l":[2,3],"n":"branch = 1, counter = 1","r":"t","o":"1 1\n"},
+      {"l":[1,2,3],"n":"branch = 2 → counter 0 and 1","r":"t","o":"2 0\n2 1\n"}]'></div>
+    <div class="take">For each pass of the outer loop, the inner loop runs completely. 3 × 2 = 6.</div>
+  </div>
+</section>
+
+<!-- ============ grid ============ -->
+<section class="step" data-nav="Nested loops draw grids">
+  <h2>Nested loops draw grids</h2>
+  <pre class="py" data-file="grid.py" id="c23">for row in range(3):
+    for column in range(3):
+        print("*", end=" ")
+    print()</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">* * *
+* * *
+* * *</div>
+    <div class="trace" data-code="c23" data-once data-steps='[
+      {"l":[1,2,3],"n":"row 0 → inner loop prints 3 stars on one line","r":"t","o":"* * * "},
+      {"l":4,"n":"print() → new line","r":"n","o":"\n"},
+      {"l":[1,2,3],"n":"row 1 → 3 stars again","r":"t","o":"* * * "},
+      {"l":4,"n":"print() → new line","r":"n","o":"\n"},
+      {"l":[1,2,3],"n":"row 2 → 3 stars again","r":"t","o":"* * * "},
+      {"l":4,"n":"print() → new line. Grid complete.","r":"n","o":"\n"}]'></div>
+    <ul class="b"><li>Outer loop: rows. Inner loop: columns.</li></ul>
+    <div class="lab">What is <code>end=" "</code> doing?</div>
+    <ul class="b">
+      <li>Every <code>print</code> ends with something. The default is a new line: <code>end="\n"</code>.</li>
+      <li><code>end=" "</code> ends with a space instead. The next print continues on the same line.</li>
+      <li>Without it, the inner loop prints one star per line: nine lines, no grid.</li>
+      <li>The bare <code>print()</code> prints nothing, then its default end: the new line that finishes the row.</li>
+    </ul>
+    <pre class="py" data-nocopy data-wide>print("Chai", end=" | ")
+print("Point")</pre>
+    <div class="out">Chai | Point</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">The inner range now depends on the row. What shape prints?</div>
+    <pre class="py" data-nocopy>for row in range(1, 4):
+    for column in range(row):
+        print("₹", end=" ")
+    print()</pre>
+    <div class="opts">
+      <button class="opt">3 rows of 3 coins: a square</button>
+      <button class="opt" data-ok>1 coin, then 2, then 3: a growing triangle</button>
+      <button class="opt">3 coins, then 2, then 1: a shrinking triangle</button>
+      <button class="opt">One line of 6 coins</button>
+    </div>
+    <div class="expl"><b>Growing triangle.</b> <code>row</code> is 1, 2, 3. <code>range(row)</code> gives that many values. The inner loop may use the outer loop's variable.
+<div class="out">₹
+₹ ₹
+₹ ₹ ₹</div></div>
+  </div>
+</section>
+
+<!-- ============ accumulate ============ -->
+<section class="step" data-nav="Pattern: accumulate">
+  <h2>Loop pattern 1: accumulate a total</h2>
+  <pre class="py" data-file="total.py" id="c24">total = 0
+
+for i in range(1, 6):
+    total += i
+
+print(total)</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">15</div>
+    <div class="trace" data-code="c24" data-once data-steps='[
+      {"l":1,"n":"start: total = 0","r":"n","m":{"total":"0"}},
+      {"l":[3,4],"n":"i = 1 → total = 1","r":"t","m":{"total":"1"}},
+      {"l":[3,4],"n":"i = 2 → total = 3","r":"t","m":{"total":"3"}},
+      {"l":[3,4],"n":"i = 3 → total = 6","r":"t","m":{"total":"6"}},
+      {"l":[3,4],"n":"i = 4 → total = 10","r":"t","m":{"total":"10"}},
+      {"l":[3,4],"n":"i = 5 → total = 15","r":"t","m":{"total":"15"}},
+      {"l":6,"n":"prints 15","r":"t","o":"15\n"}]'></div>
+    <div class="take">Start the total <b>above</b> the loop. Add inside it. Print after it.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Total spent today. What prints?</div>
+    <pre class="py" data-nocopy>amounts = [100, 200, 300]
+
+for amount in amounts:
+    total = 0
+    total += amount
+
+print(total)</pre>
+    <div class="opts">
+      <button class="opt">600</button>
+      <button class="opt" data-ok>300</button>
+      <button class="opt">0</button>
+      <button class="opt">NameError</button>
+    </div>
+    <div class="expl"><b>300.</b> <code>total = 0</code> is inside the loop, so it is wiped on every pass. Only the last amount survives.</div>
+  </div>
+</section>
+
+<!-- ============ count find filter ============ -->
+<section class="step" data-nav="Patterns: count, find, filter">
+  <h2>Loop patterns 2, 3, 4: loop + condition</h2>
+  <pre class="py" data-file="patterns.py" data-wide>amounts = [250, 1200, 80, 5000, 999, 1500]
+
+# count the big ones
+count = 0
+for amount in amounts:
+    if amount &gt;= 1000:
+        count += 1
+print("Big payments:", count)
+
+# find: is there a payment of exactly 5000?
+found = False
+for amount in amounts:
+    if amount == 5000:
+        found = True
+        break
+print("Found 5000:", found)
+
+# filter: print only the big ones
+for amount in amounts:
+    if amount &lt; 1000:
+        continue
+    print(amount)</pre>
+  <div class="out">Big payments: 3
+Found 5000: True
+1200
+5000
+1500</div>
+  <div class="take">Same skeleton every time: loop, check, update. Learn the skeleton, not the example.</div>
+  <div class="ai"><b>🤖 AI moment</b> — ask for the find pattern rewritten with <code>while</code>. Run it. Which line now does the work <code>for</code> did for free?<div class="pr">"Rewrite this find loop with a while loop, nothing else changed."</div></div>
+  <div class="quiz" data-level="t">
+    <div class="qt">A student “improved” the find pattern with an <code>else</code>. What prints?</div>
+    <pre class="py" data-nocopy>numbers = [4, 15, 20]
+target = 15
+found = False
+
+for number in numbers:
+    if number == target:
+        found = True
+    else:
+        found = False
+
+print(found)</pre>
+    <div class="opts">
+      <button class="opt">True</button>
+      <button class="opt">Error: found is set twice</button>
+      <button class="opt">None</button>
+      <button class="opt" data-ok>False</button>
+    </div>
+    <div class="expl"><b>False.</b> At 15 it becomes True. Then 20 is not the target and the <code>else</code> overwrites it. The answer depends only on the last item. Start False, set True on a match, <code>break</code>. No <code>else</code>.</div>
+  </div>
+</section>
+
+<!-- ============ build 3 ============ -->
+<section class="step" data-nav="PaisaPay v4: mini statement" data-tag="PaisaPay v4">
+  <h2>PaisaPay v4: mini statement</h2>
+  <div class="build"><div class="bh">PaisaPay v4 · build 3 of 4</div><div class="bd">Count, accumulate, find the biggest. Three patterns, three variables.</div>
+  <pre class="py" data-file="paisapay_v4.py" data-hl="3-5,10-13,16-17">balance = 1000
+saved_pin = "4321"
+count = 0
+total_spent = 0
+biggest = 0
+<span class="dim"># … menu loop, PIN attempts …</span>
+        else:
+            balance -= amount
+            print("Paid ₹", amount, "to", payee, "| Left ₹", balance)
+            count += 1
+            total_spent += amount
+            if amount &gt; biggest:
+                biggest = amount
+
+    elif choice == "3":
+        print("Count:", count, "| Spent ₹", total_spent)
+        print("Biggest ₹", biggest)</pre>
+  <ul class="b">
+    <li>The three counters start <b>above</b> the loop. Inside, they would reset on every pass.</li>
+    <li>A statement with every line needs a list that grows. Class 6.</li>
+  </ul></div>
+</section>
+
+<!-- ============ complete ============ -->
+<section class="step" data-nav="PaisaPay v4 complete" data-tag="PaisaPay v4 complete">
+  <h2>PaisaPay v4</h2>
+  <div class="build"><div class="bh">PaisaPay v4 · build 4 of 4 · complete</div><div class="bd">Many payments in one run. Three PIN attempts. A mini statement.</div>
+  <pre class="py" data-file="paisapay_v4.py" data-wide># PaisaPay v4: the app keeps running
+print("Welcome to PaisaPay")
+
+balance = 1000
+saved_pin = "4321"
+count = 0
+total_spent = 0
+biggest = 0
+
+choice = ""
+while choice != "4":
+    print()
+    print("1. Pay   2. Balance   3. Mini statement   4. Exit")
+    choice = input("Choose: ")
+
+    if choice == "1":
+        payee = input("Pay to: ")
+        amount = int(input("Amount in rupees: "))
+
+        pin_ok = False
+        for attempt in range(3):
+            pin = input("UPI PIN: ")
+            if pin == saved_pin:
+                pin_ok = True
+                break
+            print("Wrong PIN.", 2 - attempt, "attempts left")
+
+        if not pin_ok:
+            print("Three wrong PINs. Payment refused.")
+        elif amount &gt; balance:
+            print("Insufficient balance. Payment refused.")
+        else:
+            balance -= amount
+            print("Paid ₹", amount, "to", payee, "| Left ₹", balance)
+            count += 1
+            total_spent += amount
+            if amount &gt; biggest:
+                biggest = amount
+
+    elif choice == "2":
+        print("Balance: ₹", balance)
+
+    elif choice == "3":
+        print("Count:", count, "| Spent ₹", total_spent)
+        print("Biggest ₹", biggest)
+
+    elif choice != "4":
+        print("Unknown choice. Try again.")
+
+print("Thank you for using PaisaPay")</pre>
+  <button class="rv run" data-reveal="next">Sample run</button>
+  <div class="reveal">
+    <div class="out">Welcome to PaisaPay
+
+1. Pay   2. Balance   3. Mini statement   4. Exit
+<span class="p">Choose: </span><span class="in">1</span>
+<span class="p">Pay to: </span><span class="in">Chai Point</span>
+<span class="p">Amount in rupees: </span><span class="in">300</span>
+<span class="p">UPI PIN: </span><span class="in">1111</span>
+Wrong PIN. 2 attempts left
+<span class="p">UPI PIN: </span><span class="in">4321</span>
+Paid ₹ 300 to Chai Point | Left ₹ 700
+
+1. Pay   2. Balance   3. Mini statement   4. Exit
+<span class="p">Choose: </span><span class="in">1</span>
+<span class="p">Pay to: </span><span class="in">Zomato</span>
+<span class="p">Amount in rupees: </span><span class="in">450</span>
+<span class="p">UPI PIN: </span><span class="in">4321</span>
+Paid ₹ 450 to Zomato | Left ₹ 250
+
+1. Pay   2. Balance   3. Mini statement   4. Exit
+<span class="p">Choose: </span><span class="in">3</span>
+Count: 2 | Spent ₹ 750
+Biggest ₹ 450
+
+1. Pay   2. Balance   3. Mini statement   4. Exit
+<span class="p">Choose: </span><span class="in">4</span>
+Thank you for using PaisaPay</div>
+    <ul class="b">
+      <li>Sathvik pays twice without restarting the app. v3 could not.</li>
+      <li>Fee, cashback and modes are out for now. They return in v5, as functions.</li>
+      <li>The statement knows totals, not the lines. A growing list is Class 6.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ============ mini project ============ -->
+<section class="step" data-nav="Mini project: number analyzer">
+  <h2>Mini project: number analyzer</h2>
+  <ul class="b"><li>Ask for a number. Print 1 up to it. Label each as even or odd.</li></ul>
+  <pre class="py" data-file="number_analyzer.py">n = int(input("Enter a number: "))
+
+for i in range(1, n + 1):
+    if i % 2 == 0:
+        print(i, "- Even")
+    else:
+        print(i, "- Odd")</pre>
+  <div class="out"><span class="p">Enter a number: </span><span class="in">5</span>
+1 - Odd
+2 - Even
+3 - Odd
+4 - Even
+5 - Odd</div>
+  <div class="take">Input, casting, modulo, if/else, for, range. Every class so far, in seven lines.</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A student wrote <code>range(1, n)</code> and entered 5. Which numbers appear?</div>
+    <div class="opts">
+      <button class="opt">1 to 5</button>
+      <button class="opt">0 to 4</button>
+      <button class="opt" data-ok>1 to 4</button>
+      <button class="opt">1 to 6</button>
+    </div>
+    <div class="expl"><b>1 to 4.</b> Stop is excluded, so 5 never appears. No error, one number short. The cure is <code>n + 1</code>.</div>
+  </div>
+</section>
+
+<!-- ============ mini challenge ============ -->
+<section class="step" data-nav="Mini challenge: lucky number">
+  <h2>Mini challenge: guess the lucky number</h2>
+  <pre class="py" data-file="lucky_starter.py" data-wide>number = 0
+
+while __________:
+    number = int(input("Guess the number: "))
+
+print("Correct! You won ₹7 cashback")</pre>
+  <div class="ask"><span class="ic">✍️</span><div>The lucky number is 7. Fill the blank in PyLens. Stretch: say “Too low!” or “Too high!”. <span class="timer" data-sec="240"></span></div></div>
+  <button class="rv" data-reveal="next">Solution</button>
+  <div class="reveal">
+    <pre class="py" data-file="lucky_number.py" data-kind="good">number = 0
+
+while number != 7:
+    number = int(input("Guess the number: "))
+
+    if number &lt; 7:
+        print("Too low!")
+    elif number &gt; 7:
+        print("Too high!")
+
+print("Correct! You won ₹7 cashback")</pre>
+    <div class="chips">
+      <div class="chip"><div class="q">Why while, not for?</div><div class="a">We do not know how many guesses. The condition decides.</div></div>
+      <div class="chip"><div class="q">Why number = 0 first?</div><div class="a">The condition needs a value before the first check. 0 is safely not 7.</div></div>
+    </div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">A student changes line 1 to <code>number = 7</code>. What happens when the program runs?</div>
+    <div class="opts">
+      <button class="opt" data-ok>Prints Correct! at once, without asking</button>
+      <button class="opt">Asks once, then prints Correct!</button>
+      <button class="opt">Asks for ever</button>
+      <button class="opt">Error: number is already 7</button>
+    </div>
+    <div class="expl"><b>Correct! at once.</b> The condition is checked before the first pass. <code>7 != 7</code> is False, so the body runs zero times. Free cashback for everyone.</div>
+  </div>
+</section>
+
+<!-- ============ traps ============ -->
+<section class="step" data-nav="Traps today">
+  <h2>Four traps today. Only one is an error.</h2>
+  <table class="tbl"><tr><th>Trap</th><th>What you see</th><th>Today's example</th></tr>
+    <tr><td><b>Infinite loop</b></td><td>Nothing ends. No error.</td><td><code>while</code> without <code>count += 1</code> · <code>!= 0</code> that jumps over 0</td></tr>
+    <tr><td><b>Off by one</b></td><td>One line missing. No error.</td><td><code>range(1, 12)</code> for 12 months</td></tr>
+    <tr><td><b>break where continue belongs</b></td><td>The loop ends early. No error.</td><td>skipping multiples of 3</td></tr>
+    <tr><td><b>NameError</b></td><td>The one that complains.</td><td><code>while pin != "4321"</code> with no <code>pin</code> before it</td></tr></table>
+  <div class="take">Loops rarely raise errors. They give the wrong answer quietly. Trace them.</div>
+</section>
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Recap and what's next">
+  <h2>Recap</h2>
+  <div class="steps-list prose">
+    <div class="sl on"><b>for</b> — walk through a sequence. <code>range(start, stop, step)</code>, stop excluded.</div>
+    <div class="sl on"><b>while</b> — repeat while a condition is True. Set the variable before, change it inside.</div>
+    <div class="sl on"><b>break / continue / pass</b> — leave the loop, skip one pass, do nothing.</div>
+    <div class="sl on"><b>nested loops</b> — the inner loop runs fully for each outer pass.</div>
+    <div class="sl on"><b>patterns</b> — accumulate, count, find, filter. Start the variable above the loop.</div>
+    <div class="sl on"><b>PaisaPay v4</b> — a menu loop, three PIN attempts, a mini statement.</div>
+  </div>
+  <div class="ask"><span class="ic">🎤</span><div>v4 repeats the same 20 lines for every payment. What would you want to name and reuse?</div></div>
+  <button class="rv" data-reveal="next">Next class</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>Functions: name a block once, call it anywhere. <code>pay()</code>, <code>show_balance()</code>.</li>
+      <li>Practice: <b>PRACTICE.md</b> has twelve problems on loops. Do them before Class 5.</li>
+    </ul>
+  </div>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

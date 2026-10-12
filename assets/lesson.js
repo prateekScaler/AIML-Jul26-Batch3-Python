@@ -121,6 +121,7 @@
     const kids = [...box.children];
     for (let i = 0; i < kids.length; i++) {
       const k = kids[i]; if (!k.matches('.code')) continue;
+      if (k.matches('[data-wide]') || k.querySelector('[data-wide]')) continue;   // data-wide: keep the code full width, result below
       let j = i + 1; const mid = [];
       while (kids[j] && kids[j].matches('.ask, .vote')) mid.push(kids[j++]);
       let right = null, btn = null;
@@ -352,14 +353,14 @@
     let st; try { st = JSON.parse(tr.dataset.steps); } catch (e) { console.error('trace JSON', e); return; }
     const pre = D.getElementById(tr.dataset.code); if (!pre) return;
     const mem = st.some(x => x.m) ? el('div', 'mem') : null, log = el('div', 'steps-list');
-    const out = st.some(x => x.o !== undefined) ? el('div', 'out') : null, btn = el('button', 'rv small', 'Step ▸');
+    const once = tr.hasAttribute('data-once'), label = once ? 'Trace ▸' : 'Step ▸';   // data-once: one press plays the whole trace
+    const out = st.some(x => x.o !== undefined) ? el('div', 'out') : null, btn = el('button', 'rv small', label);
     btn.type = 'button'; [mem, log, out, btn].forEach(x => x && tr.appendChild(x));
     let k = 0; const vars = {};
     const drawMem = () => { if (!mem) return; const ks = Object.keys(vars); mem.innerHTML = '<span class="ml">memory</span>' + (ks.length ? ks.map(n => '<span class="mv"><b>' + esc(n) + '</b> → ' + esc(vars[n]) + '</span>').join('') : '<em>nothing stored yet</em>'); };
     drawMem();
-    btn.addEventListener('click', () => {
+    const stepOnce = () => {
       const lines = $$('.line', pre);
-      if (k >= st.length) { k = 0; log.innerHTML = ''; if (out) out.textContent = ''; Object.keys(vars).forEach(n => delete vars[n]); drawMem(); lines.forEach(l => l.classList.remove('hi', 'ok', 'skip')); btn.textContent = 'Step ▸'; delete tr.dataset.done; return; }
       const s = st[k]; lines.forEach(l => l.classList.remove('hi', 'ok'));
       const ls = Array.isArray(s.l) ? s.l : [s.l];
       ls.forEach(n => { const L = $('.line[data-n="' + n + '"]', pre); if (!L) return; if (s.r === 's') L.classList.add('skip'); else { L.classList.add('hi'); if (s.r === 't') L.classList.add('ok'); } });
@@ -369,6 +370,10 @@
       if (s.m) { Object.assign(vars, s.m); drawMem(); }
       if (out && s.o !== undefined) { out.textContent += s.o; out.scrollTop = out.scrollHeight; }
       k++; if (k >= st.length) { btn.textContent = '↺ Restart'; tr.dataset.done = '1'; }
+    };
+    btn.addEventListener('click', () => {
+      if (k >= st.length) { k = 0; log.innerHTML = ''; if (out) out.textContent = ''; Object.keys(vars).forEach(n => delete vars[n]); drawMem(); $$('.line', pre).forEach(l => l.classList.remove('hi', 'ok', 'skip')); btn.textContent = label; delete tr.dataset.done; return; }
+      do { stepOnce(); } while (once && k < st.length);   // data-once plays every step on one press
     });
   });
 
