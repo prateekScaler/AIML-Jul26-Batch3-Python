@@ -531,3 +531,6 @@ td.cell.on .v{display:inline}
 td.cell.on .q{display:none}
 table.tbl[data-cells]{cursor:default}
 table.tbl[data-cells] + .tbl-hint{display:none}
+
+/* data-big: a short snippet shown large, for debug clinics */
+.main .code pre.py[data-big]{font-size:1.5rem}

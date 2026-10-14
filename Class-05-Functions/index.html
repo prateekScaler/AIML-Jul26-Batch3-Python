@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 5 · Functions</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c05" data-class="Class 5" data-title="Functions" data-course="Python · AIML Jul26 Batch 3" data-date="2026-10-14">
+
+<div class="cover" id="cover">
+  <h1><small>Class 5</small>Functions</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<!-- ============ carried over from Class 4 ============ -->
+<section class="step" data-nav="From Class 4: loop bug 1">
+  <h2>From Class 4: loop bug 1 of 3</h2>
+<div class="lab">Bug 1: wanted 1 to 10, skipping multiples of 3. What prints?</div>
+  <pre class="py" data-kind="bad" data-nocopy data-big data-wide>for i in range(1, 11):
+    if i % 3 == 0:
+        break
+    print(i)</pre>
+  <button class="rv" data-reveal="next">Diagnosis</button>
+  <div class="reveal"><ul class="b"><li>Prints 1 2 and stops. <code>break</code> leaves the loop at 3.</li><li>Fix: <code>continue</code>. Skip, do not stop.</li></ul></div>
+  
+</section>
+<section class="step" data-nav="From Class 4: loop bug 2">
+  <h2>From Class 4: loop bug 2 of 3</h2>
+<div class="lab">Bug 2: wanted the total of 1 to 5. What happens?</div>
+  <pre class="py" data-kind="bad" data-nocopy data-big data-wide>count = 1
+total = 0
+
+while count &lt;= 5:
+    total += count</pre>
+  <button class="rv" data-reveal="next">Diagnosis</button>
+  <div class="reveal"><ul class="b"><li><code>total</code> changes. <code>count</code> does not. The condition checks <code>count</code>.</li><li>Fix: <code>count += 1</code> inside the loop. Update the variable the condition reads.</li></ul></div>
+  
+</section>
+<section class="step" data-nav="From Class 4: loop bug 3">
+  <h2>From Class 4: loop bug 3 of 3</h2>
+<div class="lab">Bug 3: wanted EMI months 1 to 12. What prints?</div>
+  <pre class="py" data-kind="bad" data-nocopy data-big data-wide>for month in range(1, 12):
+    print("EMI month", month)</pre>
+  <button class="rv" data-reveal="next">Diagnosis</button>
+  <div class="reveal"><ul class="b"><li>Prints 1 to 11. Stop is excluded.</li><li>Fix: <code>range(1, 13)</code>. The off-by-one bug. No error, one line short.</li></ul>
+  <div class="take">Before fixing a loop, trace it: what does the condition read, and what changes it?</div></div>
+</section>
+
+<section class="step" data-nav="From Class 4: a loop inside a loop">
+  <h2>From Class 4: a loop inside a loop</h2>
+  <div class="ask"><span class="ic">✋</span><div>Three branches, two counters each. How many lines print?</div></div>
+  <pre class="py" data-file="nested.py" id="c22">for branch in range(3):
+    for counter in range(2):
+        print(branch, counter)</pre>
+  <div class="vote">
+    <div class="vopt">3</div>
+    <div class="vopt">5</div>
+    <div class="vopt" data-win>6</div>
+    <div class="vopt">2</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">0 0
+0 1
+1 0
+1 1
+2 0
+2 1</div>
+    <div class="trace" data-code="c22" data-once data-steps='[
+      {"l":[1,2,3],"n":"branch = 0, counter = 0","r":"t","o":"0 0\n"},
+      {"l":[2,3],"n":"branch = 0, counter = 1","r":"t","o":"0 1\n"},
+      {"l":1,"n":"inner loop finished → outer moves to branch = 1","r":"n"},
+      {"l":[2,3],"n":"branch = 1, counter = 0 (inner starts again from 0)","r":"t","o":"1 0\n"},
+      {"l":[2,3],"n":"branch = 1, counter = 1","r":"t","o":"1 1\n"},
+      {"l":[1,2,3],"n":"branch = 2 → counter 0 and 1","r":"t","o":"2 0\n2 1\n"}]'></div>
+    <div class="take">For each pass of the outer loop, the inner loop runs completely. 3 × 2 = 6.</div>
+  </div>
+</section>
+
+<section class="step" data-nav="From Class 4: nested loops draw grids">
+  <h2>From Class 4: nested loops draw grids</h2>
+  <pre class="py" data-file="grid.py" id="c23">for row in range(3):
+    for column in range(3):
+        print("*", end=" ")
+    print()</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">* * *
+* * *
+* * *</div>
+    <div class="trace" data-code="c23" data-once data-steps='[
+      {"l":[1,2,3],"n":"row 0 → inner loop prints 3 stars on one line","r":"t","o":"* * * "},
+      {"l":4,"n":"print() → new line","r":"n","o":"\n"},
+      {"l":[1,2,3],"n":"row 1 → 3 stars again","r":"t","o":"* * * "},
+      {"l":4,"n":"print() → new line","r":"n","o":"\n"},
+      {"l":[1,2,3],"n":"row 2 → 3 stars again","r":"t","o":"* * * "},
+      {"l":4,"n":"print() → new line. Grid complete.","r":"n","o":"\n"}]'></div>
+    <ul class="b"><li>Outer loop: rows. Inner loop: columns.</li></ul>
+    <div class="lab">What is <code>end=" "</code> doing?</div>
+    <ul class="b">
+      <li>Every <code>print</code> ends with something. The default is a new line: <code>end="\n"</code>.</li>
+      <li><code>end=" "</code> ends with a space instead. The next print continues on the same line.</li>
+      <li>Without it, the inner loop prints one star per line: nine lines, no grid.</li>
+      <li>The bare <code>print()</code> prints nothing, then its default end: the new line that finishes the row.</li>
+    </ul>
+    <pre class="py" data-nocopy data-wide>print("Chai", end=" | ")
+print("Point")</pre>
+    <div class="out">Chai | Point</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">The inner range now depends on the row. What shape prints?</div>
+    <pre class="py" data-nocopy>for row in range(1, 4):
+    for column in range(row):
+        print("₹", end=" ")
+    print()</pre>
+    <div class="opts">
+      <button class="opt">3 rows of 3 coins: a square</button>
+      <button class="opt" data-ok>1 coin, then 2, then 3: a growing triangle</button>
+      <button class="opt">3 coins, then 2, then 1: a shrinking triangle</button>
+      <button class="opt">One line of 6 coins</button>
+    </div>
+    <div class="expl"><b>Growing triangle.</b> <code>row</code> is 1, 2, 3. <code>range(row)</code> gives that many values. The inner loop may use the outer loop's variable.
+<div class="out">₹
+₹ ₹
+₹ ₹ ₹</div></div>
+  </div>
+</section>
+
+<!-- ============ the problem ============ -->
+<section class="step" data-nav="PaisaPay v4 has a problem" data-tag="PaisaPay">
+  <h2>PaisaPay v4 has a problem</h2>
+  <ul class="b">
+    <li>v4 asks for the PIN, three attempts, before a payment. Ten lines.</li>
+    <li>A real app asks the same way before a refund, before adding a card, before changing the PIN.</li>
+    <li>Copy the ten lines four times. Fix a bug in one copy. Forget the other three.</li>
+  </ul>
+  <pre class="py" data-file="paisapay_v4.py · the PIN block" data-wide>pin_ok = False
+for attempt in range(3):
+    pin = input("UPI PIN: ")
+    if pin == saved_pin:
+        pin_ok = True
+        break
+    print("Wrong PIN.", 2 - attempt, "attempts left")
+
+if not pin_ok:
+    print("Three wrong PINs. Refused.")</pre>
+  <div class="ask"><span class="ic">🎤</span><div>Before a refund, before a new card, before a PIN change: paste these ten lines again? What should Python let us do instead? <span class="timer" data-sec="30"></span></div></div>
+  <button class="rv" data-reveal="next">The missing piece</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>Write the block <b>once</b>. Give it a name.</li>
+      <li>Use the name wherever you need it. Change it in one place.</li>
+      <li>We start with a block of one line, then come back to this one.</li>
+    </ul>
+    <div class="take">Today Python learns to name a block of code: functions.</div>
+  </div>
+</section>
+
+<!-- ============ angle 1 ============ -->
+<section class="step" data-nav="Every tool is a function">
+  <h2>Every tool an agent calls is a function</h2>
+  <ul class="b"><li>In GenAI Foundations you gave agents tools. This is what a tool is.</li></ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 720 230" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a3" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="20" y="85" width="150" height="60" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="95" y="111" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Agent (LLM)</text>
+      <text x="95" y="132" text-anchor="middle" font-size="12" fill="#475569">decides to call a tool</text>
+      <line x1="170" y1="100" x2="268" y2="100" stroke="#334155" stroke-width="2" marker-end="url(#a3)"/>
+      <text x="219" y="88" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">pay("Zomato", 450)</text>
+      <line x1="268" y1="130" x2="172" y2="130" stroke="#334155" stroke-width="2" marker-end="url(#a3)"/>
+      <text x="219" y="150" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">550 comes back</text>
+      <rect x="270" y="55" width="260" height="120" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="400" y="83" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">The tool is a function</text>
+      <text x="400" y="110" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def pay(payee, amount):</text>
+      <text x="400" y="132" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">    ...</text>
+      <text x="400" y="154" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">    return balance</text>
+      <rect x="560" y="55" width="140" height="120" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="630" y="83" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Tool schema</text>
+      <text x="630" y="108" text-anchor="middle" font-size="12" fill="#475569">name: pay</text>
+      <text x="630" y="128" text-anchor="middle" font-size="12" fill="#475569">inputs: payee, amount</text>
+      <text x="630" y="148" text-anchor="middle" font-size="12" fill="#475569">output: balance</text>
+      <line x1="530" y1="115" x2="558" y2="115" stroke="#94a3b8" stroke-width="2" stroke-dasharray="5 4"/>
+    </svg><div class="cap">The schema you wrote in n8n describes this line: a name, parameters in, a value out.</div></div>
+  <div class="take">A tool schema is a function signature. Today you write the function behind it.</div>
+</section>
+
+<!-- ============ angle 2 ============ -->
+<section class="step" data-nav="Big programs are small named blocks">
+  <h2>Big programs are small named blocks</h2>
+  <ul class="b"><li>Nobody reads 500 lines top to bottom. They read names.</li></ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a4" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="220" y="15" width="200" height="46" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="320" y="44" text-anchor="middle" font-size="16" font-weight="700" fill="#0f172a">PaisaPay</text>
+      <line x1="320" y1="61" x2="90" y2="118" stroke="#334155" stroke-width="2" marker-end="url(#a4)"/>
+      <line x1="320" y1="61" x2="245" y2="118" stroke="#334155" stroke-width="2" marker-end="url(#a4)"/>
+      <line x1="320" y1="61" x2="395" y2="118" stroke="#334155" stroke-width="2" marker-end="url(#a4)"/>
+      <line x1="320" y1="61" x2="550" y2="118" stroke="#334155" stroke-width="2" marker-end="url(#a4)"/>
+      <rect x="20" y="120" width="140" height="44" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="90" y="147" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">pay()</text>
+      <rect x="175" y="120" width="140" height="44" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="245" y="147" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">add_money()</text>
+      <rect x="325" y="120" width="140" height="44" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="395" y="147" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">show_balance()</text>
+      <rect x="480" y="120" width="140" height="44" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="550" y="147" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">is_valid_pin()</text>
+      <text x="320" y="200" text-anchor="middle" font-size="14" fill="#334155">Each box: one job, one name. Read the names, understand the app.</text>
+    </svg><div class="cap">v5 at the end of today.</div></div>
+  <div class="take">One function, one job. The name says what, the body says how.</div>
+</section>
+
+<!-- ============ evidence ============ -->
+<section class="step" data-nav="Eleven lines the internet relied on">
+  <h2>Eleven lines the internet relied on</h2>
+  <div class="case">
+    <div class="tag">Real incident · 2016</div>
+    <h4>One tiny function disappears. Thousands of projects stop building.</h4>
+    <ul>
+      <li>March 2016. A developer removed his packages from npm, the JavaScript library store.</li>
+      <li>One of them, <code>left-pad</code>, was an eleven-line function that pads text with spaces.</li>
+      <li>Thousands of projects, including big ones, used it. Their builds broke within minutes.</li>
+    </ul>
+    <div class="lesson">Write a function once and everyone reuses it. That is the power, and the risk.</div>
+    <div class="src">Read: <a href="https://en.wikipedia.org/wiki/Npm_left-pad_incident" target="_blank" rel="noopener">The npm left-pad incident</a></div>
+  </div>
+  <div class="take">One more story today, about a function that trusted its input.</div>
+</section>
+
+<!-- ============ first function ============ -->
+<section class="step" data-nav="Your first function">
+  <h2>Your first function</h2>
+  <pre class="py" data-file="welcome.py">def welcome():
+    print("Welcome to PaisaPay")
+
+welcome()
+welcome()
+welcome()</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">Welcome to PaisaPay
+Welcome to PaisaPay
+Welcome to PaisaPay</div>
+  </div>
+  <div class="lab">Line 1, part by part</div>
+  <div class="anat">
+    <div class="a"><code>def</code><div class="m">A function is being defined.</div></div>
+    <div class="a"><code>welcome</code><div class="m">Its name. Verb-like, lowercase, underscores.</div></div>
+    <div class="a"><code>()</code><div class="m">Where parameters go. Empty for now.</div></div>
+    <div class="a"><code>:</code> + indent<div class="m">The body. Same rule as <code>if</code> and <code>for</code>.</div></div>
+  </div>
+  <div class="take">Define it once. Call it by name, as many times as you like.</div>
+</section>
+
+<!-- ============ define vs call ============ -->
+<section class="step" data-nav="Define vs call">
+  <h2>Defining is not running</h2>
+  <div class="ask"><span class="ic">✋</span><div>Only the definition. No call anywhere. What prints?</div></div>
+  <pre class="py" data-file="define_only.py">def greet():
+    print("Hello!")</pre>
+  <div class="vote">
+    <div class="vopt">Hello!</div>
+    <div class="vopt" data-win>Nothing</div>
+    <div class="vopt">An error: greet was never used</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="dim">(nothing)</span></div>
+    <ul class="b">
+      <li>A definition is a blueprint. It describes, it does not build.</li>
+      <li><code>greet()</code> makes it run. Every call runs the body start to finish.</li>
+    </ul>
+  </div>
+  <div class="diag">
+    <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a7" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="15" y="50" width="130" height="50" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="80" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">def greet():</text>
+      <line x1="145" y1="75" x2="178" y2="75" stroke="#334155" stroke-width="2" marker-end="url(#a7)"/>
+      <rect x="180" y="50" width="130" height="50" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="245" y="80" text-anchor="middle" font-size="14" fill="#0f172a">function exists</text>
+      <line x1="310" y1="75" x2="343" y2="75" stroke="#334155" stroke-width="2" marker-end="url(#a7)"/>
+      <rect x="345" y="50" width="130" height="50" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="410" y="80" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">greet()</text>
+      <line x1="475" y1="75" x2="508" y2="75" stroke="#334155" stroke-width="2" marker-end="url(#a7)"/>
+      <rect x="510" y="50" width="120" height="50" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="570" y="80" text-anchor="middle" font-size="14" fill="#0f172a">body runs</text>
+    </svg><div class="cap">Define, then call. The body runs only on the call.</div></div>
+  <div class="quiz" data-level="s">
+    <div class="qt">How many lines print?</div>
+    <pre class="py" data-nocopy>def ping():
+    print("ping")
+
+ping()
+ping()
+print("done")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>3</button>
+      <button class="opt">2</button>
+      <button class="opt">4</button>
+      <button class="opt">1</button>
+    </div>
+    <div class="expl"><b>3.</b> Two calls, two pings, then done. The definition itself prints nothing.</div>
+  </div>
+</section>
+
+<!-- ============ parameters ============ -->
+<section class="step" data-nav="Parameters and arguments">
+  <h2>Give the function information</h2>
+  <pre class="py" data-file="greet.py">def greet(name):
+    print("Hello", name)
+
+greet("Uma")
+greet("Prince")
+greet("Vinit")</pre>
+  <div class="out">Hello Uma
+Hello Prince
+Hello Vinit</div>
+  <div class="anat">
+    <div class="a"><code>name</code><div class="m"><b>Parameter.</b> The variable in the definition.</div></div>
+    <div class="a"><code>"Uma"</code><div class="m"><b>Argument.</b> The value given at the call.</div></div>
+  </div>
+  <div class="lab">More than one: matched by position</div>
+  <pre class="py" data-file="introduce.py">def introduce(name, age):
+    print("My name is", name)
+    print("I am", age, "years old.")
+
+introduce("Uma", 20)</pre>
+  <div class="out">My name is Uma
+I am 20 years old.</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">The arguments are swapped. What prints?</div>
+    <pre class="py" data-nocopy>def introduce(name, age):
+    print("My name is", name)
+    print("I am", age, "years old.")
+
+introduce(20, "Uma")</pre>
+    <div class="opts">
+      <button class="opt">My name is Uma / I am 20 years old.</button>
+      <button class="opt" data-ok>My name is 20 / I am Uma years old.</button>
+      <button class="opt">TypeError: name must be text</button>
+      <button class="opt">Nothing</button>
+    </div>
+    <div class="expl"><b>Swapped, no error.</b> Position decides. The first argument lands in the first parameter, whatever it is.</div>
+  </div>
+</section>
+
+<!-- ============ everything inside ============ -->
+<section class="step" data-nav="Functions hold everything you know">
+  <h2>Functions do not replace what you know. They package it.</h2>
+  <table class="tbl"><tr><th>From class</th><th>Inside a function</th></tr>
+    <tr><td>Variables</td><td><code>def square(n):</code> &nbsp;<code>result = n * n</code></td></tr>
+    <tr><td>Operators</td><td><code>def fee(amount):</code> &nbsp;<code>print(amount * 2 // 100)</code></td></tr>
+    <tr><td>Conditions</td><td><code>def check_age(age):</code> &nbsp;<code>if age &gt;= 18: print("Adult")</code></td></tr>
+    <tr><td>Loops</td><td><code>def countdown():</code> &nbsp;<code>for i in range(3, 0, -1): print(i)</code></td></tr></table>
+  <div class="take">Anything you can write at the top level, you can write inside <code>def</code>.</div>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>def fee(amount):
+    return amount * 2 // 100
+
+print(fee(500))</pre>
+    <div class="opts">
+      <button class="opt">1000</button>
+      <button class="opt">10.0</button>
+      <button class="opt">5</button>
+      <button class="opt" data-ok>10</button>
+    </div>
+    <div class="expl"><b>10.</b> 500 × 2 = 1000, floor-divided by 100. Operators from Class 2, now inside a function.</div>
+  </div>
+</section>
+
+<!-- ============ return ============ -->
+<section class="step" data-nav="return: hand the result back">
+  <h2><code>return</code>: hand the result back</h2>
+  <pre class="py" data-file="add_print.py">def add(a, b):
+    print(a + b)
+
+add(10, 20)</pre>
+  <div class="out">30</div>
+  <div class="ask"><span class="ic">✋</span><div>Now we <b>store</b> the answer. What does the last line print?</div></div>
+  <pre class="py" data-file="add_store.py">def add(a, b):
+    print(a + b)
+
+result = add(10, 20)
+print(result)</pre>
+  <div class="vote">
+    <div class="vopt">30 then 30</div>
+    <div class="vopt" data-win>30 then None</div>
+    <div class="vopt">An error</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">30
+<span class="bad">None</span></div>
+    <ul class="b">
+      <li>The <code>print</code> inside shows 30 on screen. That is all it does.</li>
+      <li>The function hands back nothing. Python's word for nothing: <code>None</code>.</li>
+    </ul>
+    <pre class="py" data-file="add_return.py" data-kind="good" data-hl="2">def add(a, b):
+    return a + b
+
+result = add(10, 20)
+print(result)</pre>
+    <div class="out">30</div>
+    <div class="take"><code>print</code> is for the human watching. <code>return</code> is for the rest of the program.</div>
+    <div class="ai"><b>🤖 AI moment</b> — if you voted 30, ask for the walk-through. Then add <code>return</code> yourself and run it. Verify, do not believe.<div class="pr">"I expected result to be 30 here, but it is None. Walk me through exactly why, step by step."</div></div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">A return on one path only. What prints?</div>
+    <pre class="py" data-nocopy>def sign(n):
+    if n &gt; 0:
+        return "plus"
+
+print(sign(5))
+print(sign(-5))</pre>
+    <div class="opts">
+      <button class="opt">plus then minus</button>
+      <button class="opt" data-ok>plus then None</button>
+      <button class="opt">plus then an error</button>
+      <button class="opt">plus then plus</button>
+    </div>
+    <div class="expl"><b>plus then None.</b> For −5 the <code>if</code> is False, the body ends without a <code>return</code>, and the function hands back <code>None</code>. Every path needs a return.</div>
+  </div>
+</section>
+
+<!-- ============ return reuse ============ -->
+<section class="step" data-nav="A returned value can be used">
+  <h2>A returned value can be used, not just shown</h2>
+  <pre class="py" data-file="square.py">def square(number):
+    return number * number
+
+x = square(5)
+print(x)
+print(square(5) + 10)</pre>
+  <div class="out">25
+35</div>
+  <div class="take">Store it, print it, or use it inside a bigger calculation.</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Three lines in the body. How many run?</div>
+    <pre class="py" data-nocopy>def test():
+    print("Start")
+    return 10
+    print("End")
+
+test()</pre>
+    <div class="opts">
+      <button class="opt">All three: Start, End</button>
+      <button class="opt" data-ok>Two: only Start prints</button>
+      <button class="opt">SyntaxError: code after return</button>
+      <button class="opt">One: 10 prints</button>
+    </div>
+    <div class="expl"><b>Only Start.</b> <code>return</code> ends the function at once. The line after it never runs. Nobody prints the 10, because nobody stored it.</div>
+  </div>
+</section>
+
+<!-- ============ build 1 ============ -->
+<section class="step" data-nav="PaisaPay v5: show and add" data-tag="PaisaPay v5">
+  <h2>PaisaPay v5: two jobs get names</h2>
+  <div class="build"><div class="bh">PaisaPay v5 · build 1 of 4</div><div class="bd">One function shows. One function changes and hands the new balance back.</div>
+  <pre class="py" data-file="paisapay_v5.py" data-wide>def show_balance(balance):
+    print("Balance: ₹", balance)
+
+
+def add_money(balance, amount):
+    print("Added ₹", amount)
+    return balance + amount
+
+
+balance = 1000
+show_balance(balance)
+balance = add_money(balance, 500)
+show_balance(balance)</pre>
+  <div class="out">Balance: ₹ 1000
+Added ₹ 500
+Balance: ₹ 1500</div>
+  <ul class="b">
+    <li><code>show_balance</code> only prints. No <code>return</code> needed.</li>
+    <li><code>add_money</code> must hand back the new balance. The caller stores it: <code>balance = add_money(...)</code>.</li>
+    <li>Forget to store it, and the money vanishes. Same bug as <code>None</code> above.</li>
+  </ul></div>
+</section>
+
+<!-- ============ scope ============ -->
+<section class="step" data-nav="Scope: local and global">
+  <h2>Where does a variable live?</h2>
+  <div class="ask"><span class="ic">✋</span><div><code>message</code> was created inside. Is it still there after the call?</div></div>
+  <pre class="py" data-file="scope_local.py">def greet():
+    message = "Hello"
+
+greet()
+print(message)</pre>
+  <div class="vote">
+    <div class="vopt">Hello</div>
+    <div class="vopt" data-win>NameError</div>
+    <div class="vopt">None</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">NameError: name 'message' is not defined</span></div>
+    <ul class="b">
+      <li><code>message</code> is <b>local</b>. Born when the function runs, gone when it ends.</li>
+      <li>To get a value out, <code>return</code> it.</li>
+    </ul>
+  </div>
+  <div class="lab">The other direction</div>
+  <pre class="py" data-file="scope_global.py">name = "Uma"
+
+def greet():
+    print("Hello", name)
+
+greet()</pre>
+  <div class="out">Hello Uma</div>
+  <ul class="b">
+    <li><code>name</code> is <b>global</b>: created outside every function.</li>
+    <li>A function can read a global. It cannot see another function's locals.</li>
+  </ul>
+  <div class="take">Inside stays inside. Outside is visible everywhere. Prefer passing values in and returning them out.</div>
+  <div class="quiz" data-level="t">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>balance = 1000
+
+def add_bonus():
+    balance = balance + 100
+
+add_bonus()
+print(balance)</pre>
+    <div class="opts">
+      <button class="opt">1100</button>
+      <button class="opt">1000</button>
+      <button class="opt">None</button>
+      <button class="opt" data-ok>An error on the balance + 100 line</button>
+    </div>
+    <div class="expl"><b>An error.</b> Assigning <code>balance</code> inside makes it local, so the right side reads a local that has no value yet: <code>UnboundLocalError</code>. The clean way: <code>def add_bonus(balance): return balance + 100</code>.</div>
+  </div>
+</section>
+
+<!-- ============ defaults ============ -->
+<section class="step" data-nav="Default arguments">
+  <h2>A parameter with a fallback</h2>
+  <pre class="py" data-file="default_arg.py">def greet(name="Student"):
+    print("Hello", name)
+
+greet()
+greet("Prince")</pre>
+  <div class="out">Hello Student
+Hello Prince</div>
+  <ul class="b">
+    <li>No argument: the default fills the gap.</li>
+    <li>An argument: it replaces the default.</li>
+  </ul>
+  <div class="lab">Mixed: one required, one with a default</div>
+  <pre class="py" data-file="power.py">def power(number, exponent=2):
+    return number ** exponent
+
+print(power(5))
+print(power(5, 3))</pre>
+  <div class="out">25
+125</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A fee function with a default rate. What prints?</div>
+    <pre class="py" data-nocopy>def fee(amount, rate=2):
+    return amount * rate // 100
+
+print(fee(1000), fee(1000, 5))</pre>
+    <div class="opts">
+      <button class="opt">20 20</button>
+      <button class="opt">TypeError: fee needs two arguments</button>
+      <button class="opt">2 5</button>
+      <button class="opt" data-ok>20 50</button>
+    </div>
+    <div class="expl"><b>20 50.</b> The first call uses the default rate 2. The second passes 5, which replaces it.</div>
+  </div>
+</section>
+
+<!-- ============ keyword ============ -->
+<section class="step" data-nav="Keyword arguments">
+  <h2>Match by name, not by position</h2>
+  <div class="ask"><span class="ic">✋</span><div>The order looks flipped. Swapped, or correct?</div></div>
+  <pre class="py" data-file="keyword.py">def introduce(name, age):
+    print(name, age)
+
+introduce(age=20, name="Vinit")</pre>
+  <div class="vote">
+    <div class="vopt">20 Vinit</div>
+    <div class="vopt" data-win>Vinit 20</div>
+    <div class="vopt">An error</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Vinit 20</div>
+    <ul class="b"><li>Named arguments go to the named parameter. Order no longer matters.</li></ul>
+  </div>
+  <div class="lab">All three styles together</div>
+  <pre class="py" data-file="greet_mix.py" data-wide>def greet(name, message="Welcome"):
+    print(message, name)
+
+greet("Vinit")
+greet("Vinit", "Good morning")
+greet(name="Vinit", message="Good evening")</pre>
+  <div class="out">Welcome Vinit
+Good morning Vinit
+Good evening Vinit</div>
+  <div class="take">Positional: by order. Keyword: by name. Defaults fill whatever is left.</div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Keyword first, then positional. What happens?</div>
+    <pre class="py" data-nocopy>def greet(name, message="Welcome"):
+    print(message, name)
+
+greet(message="Hi", "Vinit")</pre>
+    <div class="opts">
+      <button class="opt">Hi Vinit</button>
+      <button class="opt">Vinit Hi</button>
+      <button class="opt" data-ok>SyntaxError before anything runs</button>
+      <button class="opt">Welcome Vinit</button>
+    </div>
+    <div class="expl"><b>SyntaxError.</b> Python fills parameters left to right. A plain value like <code>"Vinit"</code> is matched by position. Once you name one argument, Python cannot tell where a plain value after it should go, so it refuses the whole file before running anything.<br>Rule: plain values first, named ones after. Either of these works:
+<pre class="py" data-kind="good" data-nocopy>greet("Vinit", message="Hi")
+greet(name="Vinit", message="Hi")</pre></div>
+  </div>
+</section>
+
+<!-- ============ build 2 ============ -->
+<section class="step" data-nav="PaisaPay v5: pay with helpers" data-tag="PaisaPay v5">
+  <h2>PaisaPay v5: fee, cashback and modes come back</h2>
+  <div class="build"><div class="bh">PaisaPay v5 · build 2 of 4</div><div class="bd">Three small helpers return a number or a name. <code>pay</code> uses them. <code>mode</code> has a default.</div>
+  <pre class="py" data-file="paisapay_v5.py" data-wide>def fee_for(mode):
+    if mode == "card":
+        return 5
+    elif mode == "netbanking":
+        return 2
+    return 0
+
+def cashback_for(amount):
+    if amount &gt;= 5000:
+        return 100
+    elif amount &gt;= 2000:
+        return 50
+    elif amount &gt;= 500:
+        return 10
+    return 0
+
+def mode_name(mode):
+    match mode:
+        case "upi":
+            return "UPI"
+        case "card":
+            return "Card"
+        case "netbanking":
+            return "Net banking"
+        case _:
+            return "Unknown mode"
+
+def pay(balance, payee, amount, mode="upi"):
+    fee = fee_for(mode)
+    if amount + fee &gt; balance:
+        print("Insufficient balance. Payment refused.")
+        return balance
+    cashback = cashback_for(amount)
+    print("Paid ₹", amount, "to", payee, "via", mode_name(mode))
+    print("Fee ₹", fee, "| Cashback ₹", cashback)
+    return balance - amount - fee + cashback
+
+balance = 1000
+balance = pay(balance, "Chai Point", 600)
+balance = pay(balance, "Zomato", 300, mode="card")</pre>
+  <div class="out">Paid ₹ 600 to Chai Point via UPI
+Fee ₹ 0 | Cashback ₹ 10
+Paid ₹ 300 to Zomato via Card
+Fee ₹ 5 | Cashback ₹ 0</div>
+  <ul class="b">
+    <li>Every <code>return</code> in <code>pay</code> hands back a balance, refused or not. The caller always stores it.</li>
+    <li>The v3 <code>if</code> / <code>elif</code> chains and the <code>match</code> did not change. They got names.</li>
+  </ul></div>
+</section>
+
+<!-- ============ validation ============ -->
+<section class="step" data-nav="Validation helpers">
+  <h2>Small functions that answer yes or no</h2>
+  <pre class="py" data-file="checks.py" data-wide>saved_pin = "4321"
+
+def is_valid_amount(amount):
+    return amount &gt; 0 and amount &lt;= 100000
+
+def is_valid_pin(pin):
+    return pin == saved_pin
+
+print(is_valid_amount(600), is_valid_amount(-5))
+print(is_valid_pin("4321"), is_valid_pin("1111"))</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">True False
+True False</div>
+  </div>
+  <ul class="b">
+    <li>Name starts with <code>is_</code>. Returns a bool. Reads like a question in an <code>if</code>.</li>
+    <li>Check inputs at the door, once, in one place.</li>
+  </ul>
+  <div class="ask"><span class="ic">✋</span><div>A server keeps the last three things it saw in memory. A client sends “hello” and asks: send me back 1 word. An attacker sends “hello” and asks for 3. What does the second call print?</div></div>
+  <pre class="py" data-file="heartbeat.py" data-nocopy data-wide>memory = ["hello", "PIN=4321", "KEY=secret99"]
+
+def heartbeat(count):
+    sent = 0
+    for word in memory:
+        if sent == count:
+            break
+        print(word)
+        sent += 1
+
+heartbeat(1)
+heartbeat(3)</pre>
+  <div class="vote">
+    <div class="vopt">hello, then hello again</div>
+    <div class="vopt" data-win>hello, then all three words</div>
+    <div class="vopt">hello, then an error</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">hello
+hello
+<span class="bad">PIN=4321
+KEY=secret99</span></div>
+    <ul class="b">
+      <li>The function believed <code>count</code>. It sent back whatever was in memory, as many words as asked.</li>
+      <li>One line at the door: <code>if count != 1: return</code>. Send back only what was sent in.</li>
+    </ul>
+  </div>
+  <div class="case">
+    <div class="tag">Real incident · 2014</div>
+    <h4>The same mistake at internet scale: Heartbleed</h4>
+    <ul>
+      <li>OpenSSL, the code behind the padlock on most websites, had a “heartbeat” function: send some text and its length, get the same text back.</li>
+      <li>It never checked that the length matched the text. Ask for 64,000 bytes with a 1-byte message, and it sent back 64,000 bytes of whatever was in memory: passwords, keys.</li>
+      <li>Disclosed April 2014. About 17% of the internet's secure servers, around half a million, were open to it.</li>
+    </ul>
+    <div class="lesson">A function must not trust its arguments. Validate at the boundary.</div>
+    <div class="src">Read: <a href="https://en.wikipedia.org/wiki/Heartbleed" target="_blank" rel="noopener">Heartbleed</a> · <a href="https://heartbleed.com/" target="_blank" rel="noopener">heartbleed.com</a></div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>def is_valid_amount(amount):
+    return amount &gt; 0 and amount &lt;= 100000
+
+print(is_valid_amount(0))</pre>
+    <div class="opts">
+      <button class="opt" data-ok>False</button>
+      <button class="opt">True</button>
+      <button class="opt">0</button>
+      <button class="opt">None</button>
+    </div>
+    <div class="expl"><b>False.</b> <code>0 &gt; 0</code> is False, and <code>and</code> needs both. A zero-rupee payment is refused at the door.</div>
+  </div>
+</section>
+
+<!-- ============ short forms ============ -->
+<section class="step" data-nav="Short forms so far">
+  <h2>Short forms so far</h2>
+  <ul class="b"><li>Python often has a long way and a short way. Same meaning, fewer words.</li></ul>
+  <table class="tbl"><tr><th>From class</th><th>Long way</th><th>Short way</th></tr>
+    <tr><td>2 · assignment operators</td><td><code>balance = balance - 300</code></td><td><code>balance -= 300</code></td></tr>
+    <tr><td>3 · ternary</td><td><code>if balance &gt;= 500:</code> <code>status = "OK"</code> <code>else:</code> <code>status = "LOW"</code></td><td><code>status = "OK" if balance &gt;= 500 else "LOW"</code></td></tr>
+</table>
+  <div class="quiz" data-level="m">
+    <div class="qt">Revision. Balance is 300. What does <code>status</code> hold?</div>
+    <pre class="py" data-nocopy>balance = 300
+status = "OK" if balance &gt;= 500 else "LOW"
+print(status)</pre>
+    <div class="opts">
+      <button class="opt">OK</button>
+      <button class="opt">True</button>
+      <button class="opt" data-ok>LOW</button>
+      <button class="opt">SyntaxError</button>
+    </div>
+    <div class="expl"><b>LOW.</b> Read it as: status is "OK" if the condition holds, else "LOW". 300 &gt;= 500 is False, so the else value.</div>
+  </div>
+  <div class="take">A short form never changes what happens. It only changes how much you type and read. Today adds one more.</div>
+</section>
+
+<!-- ============ lambda ============ -->
+<section class="step" data-nav="lambda: a one-line function">
+  <h2><code>lambda</code>: a one-line function</h2>
+  <pre class="py" data-file="square_def.py">def square(x):
+    return x * x</pre>
+  <div class="ask"><span class="ic">🎤</span><div>One expression. Is there a shorter way to write something this small, like the ternary in Class 3?</div></div>
+  <button class="rv" data-reveal="next">The short way</button>
+  <div class="reveal">
+    <pre class="py" data-file="lambda.py">square = lambda x: x * x
+print(square(5))
+
+add = lambda a, b: a + b
+print(add(10, 20))</pre>
+    <div class="out">25
+30</div>
+  </div>
+  <div class="anat">
+    <div class="a"><code>lambda</code><div class="m">A small function with no name of its own.</div></div>
+    <div class="a"><code>x</code><div class="m">The parameter. Several: <code>a, b</code>.</div></div>
+    <div class="a"><code>:</code><div class="m">Separates parameters from the expression.</div></div>
+    <div class="a"><code>x * x</code><div class="m">One expression. Its value is returned.</div></div>
+  </div>
+  <table class="tbl"><tr><th><code>def</code></th><th><code>lambda</code></th></tr>
+    <tr><td>Many statements, loops, ifs</td><td>One expression only</td></tr>
+    <tr><td>A descriptive name</td><td>Usually no name, used on the spot</td></tr>
+    <tr><td>Anything longer than a line</td><td>Short, throw-away operations. Class 9 uses them a lot.</td></tr></table>
+  <div class="ai"><b>🤖 AI moment</b> — you have both versions of <code>square</code>. Ask, then rewrite the even-or-odd check as a lambda and judge for yourself whether it reads better.<div class="pr">"When would a professional Python developer actually choose lambda over def?"</div></div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>double = lambda x: x * 2
+print(double(3) + double(4))</pre>
+    <div class="opts">
+      <button class="opt" data-ok>14</button>
+      <button class="opt">7</button>
+      <button class="opt">34</button>
+      <button class="opt">An error: lambda has no return</button>
+    </div>
+    <div class="expl"><b>14.</b> 6 + 8. A lambda returns its expression without the word <code>return</code>.</div>
+  </div>
+</section>
+
+<!-- ============ together ============ -->
+<section class="step" data-nav="Small functions, one job each">
+  <h2>Small functions, one job each</h2>
+  <pre class="py" data-file="score.py" data-wide>def calculate_average(score1, score2, score3):
+    total = score1 + score2 + score3
+    return total / 3
+
+def check_result(average):
+    if average &gt;= 40:
+        return "Pass"
+    return "Fail"
+
+average = calculate_average(80, 90, 70)
+result = check_result(average)
+print("Average:", average)
+print("Result:", result)</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">Average: 80.0
+Result: Pass</div>
+  </div>
+  <ul class="b">
+    <li>One function computes. Another decides. The main program connects them.</li>
+    <li>Each is easy to test alone: <code>check_result(39)</code>.</li>
+  </ul>
+  <div class="take">Good programs are small functions with clear names, not one long block.</div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Scores 40, 40, 40. What prints?</div>
+    <pre class="py" data-nocopy>average = calculate_average(40, 40, 40)
+print(check_result(average))</pre>
+    <div class="opts">
+      <button class="opt">Fail</button>
+      <button class="opt">40</button>
+      <button class="opt" data-ok>Pass</button>
+      <button class="opt">None</button>
+    </div>
+    <div class="expl"><b>Pass.</b> The average is 40.0 and <code>40.0 &gt;= 40</code> is True. The boundary belongs to Pass.</div>
+  </div>
+</section>
+
+<!-- ============ build 3 ============ -->
+<section class="step" data-nav="PaisaPay v5: PIN and checks" data-tag="PaisaPay v5">
+  <h2>PaisaPay v5: the checks get names too</h2>
+  <div class="build"><div class="bh">PaisaPay v5 · build 3 of 4</div><div class="bd">The three-attempt loop from v4 becomes <code>ask_pin()</code>. It returns True or False.</div>
+  <pre class="py" data-file="paisapay_v5.py" data-wide data-hl="1-7,10-11,21-22">def ask_pin():
+    for attempt in range(3):
+        pin = input("UPI PIN: ")
+        if is_valid_pin(pin):
+            return True
+        print("Wrong PIN.", 2 - attempt, "attempts left")
+    return False
+
+def pay(balance, payee, amount, mode="upi"):
+    if not is_valid_amount(amount):
+        print("Invalid amount. Payment refused.")
+        return balance
+    if mode_name(mode) == "Unknown mode":
+        print("Unknown payment mode. Payment refused.")
+        return balance
+    fee = fee_for(mode)
+    <span class="dim"># … balance check, cashback, prints, return …</span>
+
+    if choice == "1":
+        payee = input("Pay to: ")
+        amount = int(input("Amount in rupees: "))
+        mode = input("Mode (upi / card / netbanking): ")
+        if ask_pin():
+            balance = pay(balance, payee, amount, mode)
+        else:
+            print("Three wrong PINs. Payment refused.")</pre>
+  <ul class="b">
+    <li><code>return True</code> inside the loop ends both the loop and the function. No flag needed.</li>
+    <li>The menu reads like a sentence: if the PIN is fine, pay.</li>
+  </ul></div>
+</section>
+
+<!-- ============ complete ============ -->
+<section class="step" data-nav="PaisaPay v5 complete" data-tag="PaisaPay v5 complete">
+  <h2>PaisaPay v5</h2>
+  <div class="build"><div class="bh">PaisaPay v5 · build 4 of 4 · complete</div><div class="bd">Nine functions. The main program is twenty lines that read like a menu.</div>
+  <pre class="py" data-file="paisapay_v5.py" data-wide># PaisaPay v5: named blocks
+print("Welcome to PaisaPay")
+
+saved_pin = "4321"
+
+def is_valid_amount(amount):
+    return amount &gt; 0 and amount &lt;= 100000
+
+def is_valid_pin(pin):
+    return pin == saved_pin
+
+def fee_for(mode):
+    if mode == "card":
+        return 5
+    elif mode == "netbanking":
+        return 2
+    return 0
+
+def cashback_for(amount):
+    if amount &gt;= 5000:
+        return 100
+    elif amount &gt;= 2000:
+        return 50
+    elif amount &gt;= 500:
+        return 10
+    return 0
+
+def mode_name(mode):
+    match mode:
+        case "upi":
+            return "UPI"
+        case "card":
+            return "Card"
+        case "netbanking":
+            return "Net banking"
+        case _:
+            return "Unknown mode"
+
+def show_balance(balance):
+    print("Balance: ₹", balance)
+
+def add_money(balance, amount):
+    if not is_valid_amount(amount):
+        print("Invalid amount. Nothing added.")
+        return balance
+    print("Added ₹", amount)
+    return balance + amount
+
+def ask_pin():
+    for attempt in range(3):
+        pin = input("UPI PIN: ")
+        if is_valid_pin(pin):
+            return True
+        print("Wrong PIN.", 2 - attempt, "attempts left")
+    return False
+
+def pay(balance, payee, amount, mode="upi"):
+    if not is_valid_amount(amount):
+        print("Invalid amount. Payment refused.")
+        return balance
+    if mode_name(mode) == "Unknown mode":
+        print("Unknown payment mode. Payment refused.")
+        return balance
+    fee = fee_for(mode)
+    if amount + fee &gt; balance:
+        print("Insufficient balance. Payment refused.")
+        return balance
+    cashback = cashback_for(amount)
+    print("Paid ₹", amount, "to", payee, "via", mode_name(mode))
+    print("Fee ₹", fee, "| Cashback ₹", cashback)
+    return balance - amount - fee + cashback
+
+balance = 1000
+choice = ""
+while choice != "4":
+    print()
+    print("1. Pay   2. Balance   3. Add money   4. Exit")
+    choice = input("Choose: ")
+
+    if choice == "1":
+        payee = input("Pay to: ")
+        amount = int(input("Amount in rupees: "))
+        mode = input("Mode (upi / card / netbanking): ")
+        if ask_pin():
+            balance = pay(balance, payee, amount, mode)
+        else:
+            print("Three wrong PINs. Payment refused.")
+
+    elif choice == "2":
+        show_balance(balance)
+
+    elif choice == "3":
+        amount = int(input("Amount to add: "))
+        balance = add_money(balance, amount)
+
+    elif choice != "4":
+        print("Unknown choice. Try again.")
+
+print("Thank you for using PaisaPay")</pre>
+  <button class="rv run" data-reveal="next">Sample run</button>
+  <div class="reveal">
+    <div class="out">Welcome to PaisaPay
+
+1. Pay   2. Balance   3. Add money   4. Exit
+<span class="p">Choose: </span><span class="in">1</span>
+<span class="p">Pay to: </span><span class="in">Chai Point</span>
+<span class="p">Amount in rupees: </span><span class="in">600</span>
+<span class="p">Mode (upi / card / netbanking): </span><span class="in">upi</span>
+<span class="p">UPI PIN: </span><span class="in">4321</span>
+Paid ₹ 600 to Chai Point via UPI
+Fee ₹ 0 | Cashback ₹ 10
+
+1. Pay   2. Balance   3. Add money   4. Exit
+<span class="p">Choose: </span><span class="in">3</span>
+<span class="p">Amount to add: </span><span class="in">500</span>
+Added ₹ 500
+
+1. Pay   2. Balance   3. Add money   4. Exit
+<span class="p">Choose: </span><span class="in">2</span>
+Balance: ₹ 910
+
+1. Pay   2. Balance   3. Add money   4. Exit
+<span class="p">Choose: </span><span class="in">4</span>
+Thank you for using PaisaPay</div>
+    <ul class="b">
+      <li>Uma pays, adds money and checks the balance. Fee, cashback and modes are back, each as a function.</li>
+      <li>The mini statement is out: totals need a list that grows. Class 6.</li>
+      <li>Money is still a whole number of rupees. Paise come with strings and formatting, Class 7.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ============ mini practices ============ -->
+<section class="step" data-nav="Three to write now">
+  <h2>Three to write now</h2>
+  <div class="ask"><span class="ic">✍️</span><div>In PyLens. Pick one, finish it, then the next. <span class="timer" data-sec="300"></span></div></div>
+  <pre class="py" data-file="practice_starter.py" data-wide>def greet(name):
+    ...          # 1. prints Hello name. Then give name a default: "Student"
+
+def check_even(number):
+    ...          # 2. returns "Even" or "Odd"
+
+def add(a, b):
+    ...          # 3. then subtract, multiply, divide: four functions
+
+print(check_even(10))
+print(add(10, 5))</pre>
+  <button class="rv" data-reveal="next">Solutions</button>
+  <div class="reveal">
+    <pre class="py" data-file="practice_solution.py" data-kind="good" data-wide>def greet(name="Student"):
+    print("Hello", name)
+
+def check_even(number):
+    if number % 2 == 0:
+        return "Even"
+    return "Odd"
+
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+
+def multiply(a, b):
+    return a * b
+
+def divide(a, b):
+    return a / b
+
+greet()
+print(check_even(10))
+print(add(10, 5), subtract(10, 5), multiply(10, 5), divide(10, 5))</pre>
+    <div class="out">Hello Student
+Even
+15 5 50 2.0</div>
+    <ul class="b"><li>Four small functions beat one calculator block. Each can be tested alone.</li></ul>
+  </div>
+</section>
+
+<!-- ============ debug clinic ============ -->
+<section class="step" data-nav="Debug clinic: bug 1">
+  <h2>Debug clinic: bug 1 of 3</h2>
+<div class="lab">Bug 1: nothing prints, no error</div>
+  <pre class="py" data-kind="bad" data-nocopy data-big data-wide>def greet():
+    print("Hello!")
+
+message = greet
+print(message)</pre>
+  <button class="rv" data-reveal="next">Diagnosis</button>
+  <div class="reveal"><div class="out">&lt;function greet at 0x1047d3e20&gt;</div><ul class="b"><li>No parentheses, no call. <code>message</code> holds the function itself, not its result.</li><li>Fix: <code>greet()</code>. The sneakiest bug: it runs, and does the wrong thing.</li></ul></div>
+  
+</section>
+<section class="step" data-nav="Debug clinic: bug 2">
+  <h2>Debug clinic: bug 2 of 3</h2>
+<div class="lab">Bug 2: NameError after a successful call</div>
+  <pre class="py" data-kind="bad" data-nocopy data-big data-wide>def calculate():
+    result = 10 + 20
+    return result
+
+calculate()
+print(result)</pre>
+  <button class="rv" data-reveal="next">Diagnosis</button>
+  <div class="reveal"><ul class="b"><li><code>result</code> was local. It died with the function. The returned 30 was thrown away.</li><li>Fix: catch the return: <code>result = calculate()</code>.</li></ul></div>
+  
+</section>
+<section class="step" data-nav="Debug clinic: bug 3">
+  <h2>Debug clinic: bug 3 of 3</h2>
+<div class="lab">Bug 3: the balance vanishes</div>
+  <pre class="py" data-kind="bad" data-nocopy data-big data-wide>def show_balance(balance):
+    print("Balance: ₹", balance)
+
+balance = 1000
+balance = show_balance(balance)
+print(balance)</pre>
+  <button class="rv" data-reveal="next">Diagnosis</button>
+  <div class="reveal"><div class="out">Balance: ₹ 1000
+<span class="bad">None</span></div><ul class="b">
+    <li>Line 5 runs the function. It prints <code>Balance: ₹ 1000</code>, reaches its end, and has no <code>return</code>.</li>
+    <li>So it hands back <code>None</code>. Line 5 then stores that: <code>balance = None</code>. The 1000 is gone.</li>
+    <li>Fix 1: call it without storing: <code>show_balance(balance)</code>. It only shows.</li>
+    <li>Fix 2: if you really want to store it, make it <code>return balance</code> at the end.</li>
+    <li>Rule: store a call only when the function returns something.</li>
+  </ul>
+  <div class="take">Before fixing: was it called? Did it return? Did someone catch the return?</div></div>
+</section>
+
+<!-- ============ trace ============ -->
+<section class="step" data-nav="Trace a call">
+  <h2>Trace a call on paper</h2>
+  <div class="ask"><span class="ic">✋</span><div>Parameters? Arguments? What is <code>total</code>? What prints?</div></div>
+  <pre class="py" data-file="trace.py" id="c24">def calculate(x, y):
+    total = x + y
+    return total * 2
+
+result = calculate(5, 3)
+print(result)</pre>
+  <div class="vote">
+    <div class="vopt">8</div>
+    <div class="vopt" data-win>16</div>
+    <div class="vopt">10</div>
+    <div class="vopt">None</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Trace</button>
+  <div class="reveal">
+    <div class="trace" data-code="c24" data-once data-steps='[
+      {"l":1,"n":"the function is defined. Nothing runs yet","r":"n"},
+      {"l":5,"n":"calculate(5, 3): x = 5, y = 3","r":"t","m":{"x":"5","y":"3"}},
+      {"l":2,"n":"total = 5 + 3","r":"t","m":{"total":"8"}},
+      {"l":3,"n":"return 8 * 2 → the function ends with 16","r":"t"},
+      {"l":5,"n":"result = 16. x, y and total are gone","r":"t","m":{"result":"16"}},
+      {"l":6,"n":"prints 16","r":"t","o":"16\n"}]'></div>
+    <div class="take">Parameters <code>x, y</code>. Arguments <code>5, 3</code>. Arguments in, body runs, value out, value used.</div>
+  </div>
+</section>
+
+<!-- ============ mini challenge ============ -->
+<section class="step" data-nav="Mini challenge: bill calculator">
+  <h2>Mini challenge: bill calculator</h2>
+  <pre class="py" data-file="bill_starter.py" data-wide>def calculate_bill(price, quantity, tax=5):
+    # subtotal, then add tax percent, whole rupees
+    ...
+
+print(calculate_bill(100, 2))
+print(calculate_bill(100, 2, tax=10))</pre>
+  <div class="ask"><span class="ic">✍️</span><div>Expected: 210, then 220. Fill the body in PyLens. <span class="timer" data-sec="240"></span></div></div>
+  <button class="rv" data-reveal="next">Solution</button>
+  <div class="reveal">
+    <pre class="py" data-file="bill.py" data-kind="good" data-wide>def calculate_bill(price, quantity, tax=5):
+    subtotal = price * quantity
+    return subtotal + subtotal * tax // 100
+
+print(calculate_bill(100, 2))
+print(calculate_bill(100, 2, tax=10))</pre>
+    <div class="out">210
+220</div>
+    <div class="chips">
+      <div class="chip"><div class="q">Which ideas from today?</div><div class="a">Parameters, a default, a keyword argument, return, integer maths.</div></div>
+      <div class="chip"><div class="q">Why tax=5 and not 0.05?</div><div class="a">Whole rupees. 0.05 would bring floats into money. Class 2.</div></div>
+    </div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What does this call do?</div>
+    <pre class="py" data-nocopy>print(calculate_bill(quantity=2, price=100))</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Prints 210</button>
+      <button class="opt">TypeError: tax is missing</button>
+      <button class="opt">Prints 200: the default tax is skipped</button>
+      <button class="opt">SyntaxError: wrong order</button>
+    </div>
+    <div class="expl"><b>210.</b> Both are keyword arguments, so order is free, and <code>tax</code> takes its default of 5.</div>
+  </div>
+</section>
+
+<!-- ============ mental model ============ -->
+<section class="step" data-nav="The one idea">
+  <h2>The one idea to leave with</h2>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a27" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="20" y="55" width="150" height="60" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="95" y="80" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Input</text>
+      <text x="95" y="102" text-anchor="middle" font-size="13" fill="#475569">parameters</text>
+      <line x1="170" y1="85" x2="238" y2="85" stroke="#334155" stroke-width="2" marker-end="url(#a27)"/>
+      <rect x="240" y="40" width="160" height="90" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="320" y="72" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Function</text>
+      <text x="320" y="94" text-anchor="middle" font-size="13" fill="#475569">one job, one name</text>
+      <text x="320" y="114" text-anchor="middle" font-size="13" fill="#475569">the logic you already know</text>
+      <line x1="400" y1="85" x2="468" y2="85" stroke="#334155" stroke-width="2" marker-end="url(#a27)"/>
+      <rect x="470" y="55" width="150" height="60" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="545" y="80" text-anchor="middle" font-size="15" font-weight="700" fill="#0f172a">Output</text>
+      <text x="545" y="102" text-anchor="middle" font-size="13" fill="#475569">return</text>
+    </svg><div class="cap">Define, give input, run, get a result.</div></div>
+  <div class="take">A function packages a task. Think define → input → run → result, not syntax.</div>
+</section>
+
+<!-- ============ errors ============ -->
+<section class="step" data-nav="New errors today">
+  <h2>Two new errors today, and one silence</h2>
+  <table class="tbl"><tr><th>Error</th><th>Python is saying</th><th>Today's example</th></tr>
+    <tr><td><b>TypeError</b></td><td>The call does not match the definition.</td><td><code>greet()</code> when <code>greet(name)</code> has no default: <em>missing 1 required positional argument</em></td></tr>
+    <tr><td><b>NameError</b></td><td>That name does not exist here.</td><td>a local used outside its function</td></tr>
+    <tr><td>No error: <b>None</b></td><td>The function returned nothing and you stored it.</td><td><code>result = add(10, 20)</code> with a <code>print</code> inside</td></tr></table>
+  <div class="take">Read the error type first. When there is no error but a <code>None</code>, look for a missing <code>return</code>.</div>
+</section>
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Recap and what's next">
+  <h2>Recap</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Two minutes. Write your own three-point recap: what would you tell a friend who missed today? <span class="timer" data-sec="120"></span></div></div>
+  <div class="lab">The reference</div>
+  <div class="steps-list prose">
+    <div class="sl on"><b>def</b> — name a block once. Nothing runs until you call it.</div>
+    <div class="sl on"><b>parameters and arguments</b> — the variable in the definition, the value at the call. Matched by position, or by name.</div>
+    <div class="sl on"><b>return</b> — hands a value back and ends the function. <code>print</code> only shows it. No return means <code>None</code>.</div>
+    <div class="sl on"><b>scope</b> — locals live and die inside. Globals are readable everywhere. Pass in, return out.</div>
+    <div class="sl on"><b>defaults and keywords</b> — <code>mode="upi"</code> fills the gap; <code>pay(..., mode="card")</code> names it.</div>
+    <div class="sl on"><b>lambda</b> — a one-expression function for small jobs.</div>
+    <div class="sl on"><b>PaisaPay v5</b> — nine functions: checks, fee, cashback, mode, show, add, PIN, pay.</div>
+  </div>
+  <div class="ask"><span class="ic">🎤</span><div>v5 forgets every payment the moment it is made. What would you need to remember them all?</div></div>
+  <button class="rv" data-reveal="next">Next class</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>Lists: a box that grows. A transaction history, the last five, totals.</li>
+      <li>Practice: <b>PRACTICE.md</b> has twelve problems on functions. Do them before Class 6.</li>
+    </ul>
+  </div>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>

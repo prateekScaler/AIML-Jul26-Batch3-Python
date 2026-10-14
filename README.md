@@ -13,7 +13,7 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 | 2 | Operators | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-02-Operators/) · [notes and code](Class-02-Operators/README.md) · [practice](Class-02-Operators/PRACTICE.md) | **v2** money maths: bill split, cashback, "is the balance enough?" |
 | 3 | Control Statements | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-03-Control-Statements/) · [notes and code](Class-03-Control-Statements/README.md) · [practice](Class-03-Control-Statements/PRACTICE.md) | **v3** decisions: refuse, approve, cashback tiers |
 | 4 | Loops | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-04-Loops/) · [notes and code](Class-04-Loops/README.md) · [practice](Class-04-Loops/PRACTICE.md) | **v4** keeps running: menu, PIN retries, mini statement |
-| 5 | Functions | coming up | **v5** reusable actions: `pay()`, `add_money()`, `show_balance()` |
+| 5 | Functions | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-05-Functions/) · [notes and code](Class-05-Functions/README.md) · [practice](Class-05-Functions/PRACTICE.md) | **v5** reusable actions: `pay()`, `add_money()`, `show_balance()` |
 | 6 | Lists | coming up | **v6** transaction history |
 | 7 | Strings | coming up | **v7** clean input, masked account numbers, formatted receipts |
 | 8 | Sets, Tuples, Dictionaries | coming up | **v8** real records: accounts and transactions as structured data |
