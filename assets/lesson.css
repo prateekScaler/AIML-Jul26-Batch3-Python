@@ -534,3 +534,6 @@ table.tbl[data-cells] + .tbl-hint{display:none}
 
 /* data-big: a short snippet shown large, for debug clinics */
 .main .code pre.py[data-big]{font-size:1.5rem}
+
+/* long files: three-digit line numbers need a wider gutter */
+.code.long .line .lno{width:3ch}

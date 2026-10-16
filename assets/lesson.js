@@ -67,7 +67,7 @@
   $$('pre.py').forEach(pre => {
     const raw = pre.textContent.replace(/^\n/, '').replace(/\s+$/, '');
     const hl = ranges(pre.dataset.hl), plain = pre.hasAttribute('data-plain');
-    const box = el('div', 'code' + (pre.dataset.kind ? ' ' + pre.dataset.kind : ''));
+    const box = el('div', 'code' + (pre.dataset.kind ? ' ' + pre.dataset.kind : '') + (raw.split('\n').length > 99 ? ' long' : ''));   // long: room for three-digit line numbers
     const ch = el('div', 'ch', '<span class="dots"><i></i><i></i><i></i>' + (pre.dataset.file ? '<span class="fn">' + esc(pre.dataset.file) + '</span>' : '') + '</span>' +
       (pre.hasAttribute('data-nocopy') ? '' : '<button class="copy" type="button">copy</button>'));
     if (pre.hasAttribute('data-brk')) box.setAttribute('data-brk', '');     // a break marked on the code applies to its box

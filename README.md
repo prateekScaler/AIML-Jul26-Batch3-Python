@@ -14,7 +14,7 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 | 3 | Control Statements | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-03-Control-Statements/) · [notes and code](Class-03-Control-Statements/README.md) · [practice](Class-03-Control-Statements/PRACTICE.md) | **v3** decisions: refuse, approve, cashback tiers |
 | 4 | Loops | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-04-Loops/) · [notes and code](Class-04-Loops/README.md) · [practice](Class-04-Loops/PRACTICE.md) | **v4** keeps running: menu, PIN retries, mini statement |
 | 5 | Functions | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-05-Functions/) · [notes and code](Class-05-Functions/README.md) · [practice](Class-05-Functions/PRACTICE.md) | **v5** reusable actions: `pay()`, `add_money()`, `show_balance()` |
-| 6 | Lists | coming up | **v6** transaction history |
+| 6 | Lists | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-06-Lists/) · [notes and code](Class-06-Lists/README.md) · [practice](Class-06-Lists/PRACTICE.md) | **v6** transaction history |
 | 7 | Strings | coming up | **v7** clean input, masked account numbers, formatted receipts |
 | 8 | Sets, Tuples, Dictionaries | coming up | **v8** real records: accounts and transactions as structured data |
 | 9 | Functional Programming | coming up | **v9** spending insights with `map`, `filter` and `sorted` |
