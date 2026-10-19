@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 7 · Strings</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c07" data-class="Class 7" data-title="Strings" data-course="Python · AIML Jul26 Batch 3" data-date="2026-10-19">
+
+<div class="cover" id="cover">
+  <h1><small>Class 7</small>Strings</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Last class, in three questions">
+  <h2>Last class, in three questions</h2>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>payees = ["Chai Point", "Zomato", "Jio"]
+print(payees[-1], len(payees))</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Jio 3</button>
+      <button class="opt">Chai Point 3</button>
+      <button class="opt">Jio 2</button>
+      <button class="opt">IndexError</button>
+    </div>
+    <div class="expl"><b>Jio 3.</b> The last box is -1. <code>len</code> counts boxes.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>numbers = [30, 10, 20]
+result = numbers.sort()
+print(result, numbers)</pre>
+    <div class="opts">
+      <button class="opt">[10, 20, 30] [10, 20, 30]</button>
+      <button class="opt">[10, 20, 30] [30, 10, 20]</button>
+      <button class="opt" data-ok>None [10, 20, 30]</button>
+      <button class="opt">None [30, 10, 20]</button>
+    </div>
+    <div class="expl"><b>None, and a sorted list.</b> <code>sort()</code> changes the list in place and hands back nothing. Remember this one today.
+<table class="tbl"><tr><th></th><th><code>numbers.sort()</code></th><th><code>sorted(numbers)</code></th></tr>
+    <tr><td>What it is</td><td>a method on the list</td><td>a function around the list</td></tr>
+    <tr><td>The original list</td><td>changed, in place</td><td>untouched</td></tr>
+    <tr><td>Gives back</td><td><code>None</code></td><td>a new sorted list</td></tr>
+    <tr><td>Use it when</td><td>you do not need the old order</td><td>you must keep the old order</td></tr></table></div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>fruits = ["Apple", "Banana", "Mango"]
+fruits.insert(1, "Orange")
+fruits.pop()
+print(fruits)</pre>
+    <div class="opts">
+      <button class="opt">['Apple', 'Orange', 'Banana', 'Mango']</button>
+      <button class="opt">['Orange', 'Banana', 'Mango']</button>
+      <button class="opt">['Apple', 'Banana', 'Mango']</button>
+      <button class="opt" data-ok>['Apple', 'Orange', 'Banana']</button>
+    </div>
+    <div class="expl"><b>Apple, Orange, Banana.</b> <code>insert(1, …)</code> puts Orange at box 1 and shifts the rest right. <code>pop()</code> with no index takes the last box, Mango.</div>
+  </div>
+</section>
+
+<!-- ============ revision: short forms ============ -->
+<section class="step" data-nav="Revision: four short forms">
+  <h2>Revision: four short forms we rushed past</h2>
+  <ul class="b">
+    <li>Python often has a long way and a short way. Same result, fewer lines.</li>
+    <li>The long way is always correct. The short way is a habit you grow into.</li>
+  </ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar0" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="20" y="30" width="200" height="120" rx="10" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="120" y="56" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Long way</text>
+      <text x="120" y="80" text-anchor="middle" font-size="13" fill="#475569">4 lines, every step visible</text>
+      <text x="120" y="100" text-anchor="middle" font-size="13" fill="#475569">easy to add a print inside</text>
+      <text x="120" y="120" text-anchor="middle" font-size="13" fill="#475569">read top to bottom</text>
+      <line x1="220" y1="90" x2="418" y2="90" stroke="#334155" stroke-width="2" marker-end="url(#ar0)"/>
+      <text x="320" y="80" text-anchor="middle" font-size="13" fill="#0f172a">same meaning</text>
+      <rect x="420" y="30" width="200" height="120" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="520" y="56" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Short way</text>
+      <text x="520" y="80" text-anchor="middle" font-size="13" fill="#475569">1 line, read as a sentence</text>
+      <text x="520" y="100" text-anchor="middle" font-size="13" fill="#475569">fits where a value is needed</text>
+      <text x="520" y="120" text-anchor="middle" font-size="13" fill="#475569">what professionals write</text>
+      <text x="320" y="178" text-anchor="middle" font-size="14" fill="#334155">ternary · loop over a list · list comprehension · lambda</text>
+    </svg><div class="cap">Four short forms, one each from Classes 3, 4, 6 and 5. Fifteen minutes.</div></div>
+</section>
+
+<!-- ============ revision: ternary ============ -->
+<section class="step" data-nav="Short form 1: the ternary">
+  <h2>Short form 1: the ternary, one decision in one line</h2>
+  <pre class="py" data-file="ternary_long.py" data-wide>balance = 300
+
+if balance &gt;= 500:
+    status = "OK"
+else:
+    status = "LOW"
+
+print(status)</pre>
+  <div class="ask"><span class="ic">🎤</span><div>Four lines to put one of two words in a variable. Read the short way out loud.</div></div>
+  <button class="rv" data-reveal="next">The short way</button>
+  <div class="reveal">
+    <pre class="py" data-file="ternary_short.py" data-kind="good" data-wide>status = "OK" if balance &gt;= 500 else "LOW"
+print(status)</pre>
+    <div class="out">LOW</div>
+    <div class="diag">
+      <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="40" width="130" height="50" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+        <text x="85" y="62" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"OK"</text>
+        <text x="85" y="80" text-anchor="middle" font-size="12" fill="#475569">value if True</text>
+        <polygon points="320,25 440,65 320,105 200,65" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="320" y="61" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">balance &gt;= 500 ?</text>
+        <text x="320" y="80" text-anchor="middle" font-size="12" fill="#475569">the question, in the middle</text>
+        <rect x="490" y="40" width="130" height="50" rx="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+        <text x="555" y="62" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"LOW"</text>
+        <text x="555" y="80" text-anchor="middle" font-size="12" fill="#475569">value if False</text>
+        <text x="320" y="135" text-anchor="middle" font-size="14" fill="#334155">value_if_true  if  question  else  value_if_false</text>
+      </svg><div class="cap">Read it as English: status is OK if the balance is at least 500, else LOW.</div></div>
+    <div class="lab">Why is it called a ternary?</div>
+    <ul class="b">
+      <li>Latin <i>ternarius</i>: made of three. It takes three parts: a value, a question, another value.</li>
+      <li>Most operators take two parts, like <code>a + b</code>. This is Python's only three-part operator.</li>
+    </ul>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Which of these should <b>not</b> be a ternary?</div>
+    <div class="opts">
+      <button class="opt">a label: "Big" if the amount is 1000 or more, else "Small"</button>
+      <button class="opt">a fee: 5 if the mode is card, else 0</button>
+      <button class="opt">a message inside a print: "Paid" if ok, else "Refused"</button>
+      <button class="opt" data-ok>a grade: A above 90, B above 80, C above 70, else D</button>
+    </div>
+    <div class="expl"><b>The grade.</b> Four outcomes. A ternary is for two. Chained ternaries read badly after the second; write <code>if</code> / <code>elif</code>. The other three are one two-way choice each.</div>
+  </div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>amount = 1000
+label = "Big" if amount &gt;= 1000 else "Small"
+print(label)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Big</button>
+      <button class="opt">Small</button>
+      <button class="opt">True</button>
+      <button class="opt">SyntaxError</button>
+    </div>
+    <div class="expl"><b>Big.</b> 1000 is at least 1000, so the value before <code>if</code> is chosen.</div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Which line is the correct ternary for this?</div>
+    <pre class="py" data-nocopy>if amount &gt; 2000:
+    fee = 5
+else:
+    fee = 0</pre>
+    <div class="opts">
+      <button class="opt">fee = if amount &gt; 2000 5 else 0</button>
+      <button class="opt" data-ok>fee = 5 if amount &gt; 2000 else 0</button>
+      <button class="opt">fee = amount &gt; 2000 ? 5 : 0</button>
+      <button class="opt">fee = 5 if amount &gt; 2000</button>
+    </div>
+    <div class="expl"><b>The second.</b> Value first, then <code>if</code> the question, then <code>else</code> the other value. The first puts <code>if</code> first, the third is another language, the last has no <code>else</code>. All three are SyntaxErrors.</div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">Which line is the correct ternary for this?</div>
+    <pre class="py" data-nocopy>if pin == saved_pin:
+    print("Access granted")
+else:
+    print("Wrong PIN")</pre>
+    <div class="opts">
+      <button class="opt">"Access granted" if pin == saved_pin else "Wrong PIN"</button>
+      <button class="opt">print(if pin == saved_pin "Access granted" else "Wrong PIN")</button>
+      <button class="opt" data-ok>print("Access granted" if pin == saved_pin else "Wrong PIN")</button>
+      <button class="opt">print("Access granted" if pin == saved_pin)</button>
+    </div>
+    <div class="expl"><b>The third.</b> The ternary chooses the text; the print shows it. The first chooses but never prints. The second and fourth are SyntaxErrors.</div>
+  </div>
+</section>
+
+<!-- ============ revision: loop over a list ============ -->
+<section class="step" data-nav="Short form 2: for over a list">
+  <h2>Short form 2: <code>for item in list</code></h2>
+  <pre class="py" data-file="loop_long.py" data-wide>amounts = [600, 300, 1500]
+
+i = 0
+while i &lt; len(amounts):
+    print(amounts[i])
+    i += 1</pre>
+  <div class="ask"><span class="ic">🎤</span><div>A counter, a condition, an index, an increment. Which of those do we actually care about?</div></div>
+  <button class="rv" data-reveal="next">The short way</button>
+  <div class="reveal">
+    <pre class="py" data-file="loop_short.py" data-kind="good" data-wide>for amount in amounts:
+    print(amount)</pre>
+    <div class="out">600
+300
+1500</div>
+    <div class="diag">
+      <svg viewBox="0 0 640 160" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="ar2" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs>
+        <rect x="60" y="60" width="120" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+        <text x="120" y="88" text-anchor="middle" font-size="15" font-family="Menlo,monospace" fill="#0f172a">600</text>
+        <rect x="260" y="60" width="120" height="44" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+        <text x="320" y="88" text-anchor="middle" font-size="15" font-family="Menlo,monospace" fill="#0f172a">300</text>
+        <rect x="460" y="60" width="120" height="44" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+        <text x="520" y="88" text-anchor="middle" font-size="15" font-family="Menlo,monospace" fill="#0f172a">1500</text>
+        <path d="M120,56 Q220,10 320,56" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#ar2)"/>
+        <path d="M320,56 Q420,10 520,56" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#ar2)"/>
+        <text x="120" y="130" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#16a34a">amount = 600</text>
+        <text x="320" y="130" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#475569">then 300</text>
+        <text x="520" y="130" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#475569">then 1500, then stop</text>
+      </svg><div class="cap">Python hands you each box in turn. No counter, no index, no off-by-one.</div></div>
+    <div class="lab">Why is it called for?</div>
+    <ul class="b">
+      <li>Say it as English: <i>for each amount in amounts, do this</i>. The word is the English word.</li>
+      <li>It is the same <code>for</code> as <code>for i in range(5)</code>. A range is just another sequence of values.</li>
+    </ul>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Which task fits <code>for item in list</code> best?</div>
+    <div class="opts">
+      <button class="opt">ask for the PIN again until it is correct</button>
+      <button class="opt">print the position and the name of every student</button>
+      <button class="opt" data-ok>send a reminder to every payee in a list</button>
+      <button class="opt">print "Welcome" exactly five times</button>
+    </div>
+    <div class="expl"><b>The reminders.</b> One action per item, no position needed. The PIN is a <code>while</code>; position and name need <code>range(len(…))</code>; five times is <code>range(5)</code>.</div>
+  </div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">How many lines print?</div>
+    <pre class="py" data-nocopy>payees = ["Chai Point", "Zomato", "Jio", "Uber"]
+for payee in payees:
+    print("Reminder sent to", payee)</pre>
+    <div class="opts">
+      <button class="opt">1</button>
+      <button class="opt">3</button>
+      <button class="opt" data-ok>4</button>
+      <button class="opt">5</button>
+    </div>
+    <div class="expl"><b>4.</b> One pass per box, and the list has four boxes.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">We double every amount. What does the list hold afterwards?</div>
+    <pre class="py" data-nocopy>amounts = [600, 300]
+for amount in amounts:
+    amount = amount * 2
+print(amounts)</pre>
+    <div class="opts">
+      <button class="opt">[1200, 600]</button>
+      <button class="opt" data-ok>[600, 300]</button>
+      <button class="opt">[600, 300, 1200, 600]</button>
+      <button class="opt">TypeError</button>
+    </div>
+    <div class="expl"><b>Unchanged.</b> <code>amount</code> is a copy of the box's value. Changing the copy does not touch the list. To build doubled values, make a new list: the next short form.</div>
+  </div>
+</section>
+
+<!-- ============ revision: comprehension ============ -->
+<section class="step" data-nav="Short form 3: list comprehension">
+  <h2>Short form 3: a new list in one line</h2>
+  <pre class="py" data-file="comp_long.py" data-wide>amounts = [600, 300, 1500]
+
+doubled = []
+for amount in amounts:
+    doubled.append(amount * 2)
+
+print(doubled)</pre>
+  <div class="ask"><span class="ic">🎤</span><div>Start empty, walk, append. Say what the new list should contain in one sentence.</div></div>
+  <button class="rv" data-reveal="next">The short way</button>
+  <div class="reveal">
+    <pre class="py" data-file="comp_short.py" data-kind="good" data-wide>doubled = [amount * 2 for amount in amounts]
+print(doubled)</pre>
+    <div class="out">[1200, 600, 3000]</div>
+    <div class="diag">
+      <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+        <rect x="20" y="40" width="190" height="56" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+        <text x="115" y="64" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">amount * 2</text>
+        <text x="115" y="84" text-anchor="middle" font-size="12" fill="#475569">what goes in each new box</text>
+        <rect x="225" y="40" width="190" height="56" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+        <text x="320" y="64" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">for amount in amounts</text>
+        <text x="320" y="84" text-anchor="middle" font-size="12" fill="#475569">where the values come from</text>
+        <rect x="430" y="40" width="190" height="56" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="525" y="64" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">if amount &gt;= 500</text>
+        <text x="525" y="84" text-anchor="middle" font-size="12" fill="#475569">optional: keep only some</text>
+        <text x="320" y="130" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">[ amount * 2  for amount in amounts  if amount &gt;= 500 ]</text>
+        <text x="320" y="156" text-anchor="middle" font-size="13" fill="#334155">make · from · keep</text>
+      </svg><div class="cap">Three parts. The third is optional. The whole thing is one expression that gives back a new list.</div></div>
+    <div><div class="diag">
+    <svg viewBox="0 0 680 230" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="apA" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <text x="80" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">amounts</text>
+      <text x="300" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">keep?  a &gt;= 500</text>
+      <text x="470" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">make  a * 2</text>
+      <text x="610" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">new list</text>
+      <rect x="30" y="44" width="100" height="40" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="80" y="70" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">600</text>
+      <line x1="130" y1="64" x2="238" y2="64" stroke="#334155" stroke-width="2" marker-end="url(#apA)"/>
+      <polygon points="300,40 360,64 300,88 240,64" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="300" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">yes</text>
+      <line x1="360" y1="64" x2="418" y2="64" stroke="#334155" stroke-width="2" marker-end="url(#apA)"/>
+      <rect x="420" y="44" width="100" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="470" y="70" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">600 * 2</text>
+      <line x1="520" y1="64" x2="558" y2="64" stroke="#334155" stroke-width="2" marker-end="url(#apA)"/>
+      <rect x="560" y="44" width="100" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="610" y="70" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">1200</text>
+      <rect x="30" y="100" width="100" height="40" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="80" y="126" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">300</text>
+      <line x1="130" y1="120" x2="238" y2="120" stroke="#334155" stroke-width="2" marker-end="url(#apA)"/>
+      <polygon points="300,96 360,120 300,144 240,120" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="300" y="125" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">no</text>
+      <text x="470" y="126" text-anchor="middle" font-size="13" fill="#94a3b8">dropped</text>
+      <rect x="30" y="156" width="100" height="40" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="80" y="182" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">1500</text>
+      <line x1="130" y1="176" x2="238" y2="176" stroke="#334155" stroke-width="2" marker-end="url(#apA)"/>
+      <polygon points="300,152 360,176 300,200 240,176" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="300" y="181" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">yes</text>
+      <line x1="360" y1="176" x2="418" y2="176" stroke="#334155" stroke-width="2" marker-end="url(#apA)"/>
+      <rect x="420" y="156" width="100" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="470" y="182" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">1500 * 2</text>
+      <line x1="520" y1="176" x2="558" y2="176" stroke="#334155" stroke-width="2" marker-end="url(#apA)"/>
+      <rect x="560" y="156" width="100" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="610" y="182" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">3000</text>
+      <text x="340" y="220" text-anchor="middle" font-size="13" fill="#334155">[a * 2 for a in amounts if a &gt;= 500]  →  [1200, 3000]</text>
+    </svg><div class="cap">Behind the scenes: each box goes through the gate, the survivors are transformed, the results fill a new list. Same as the loop, one item at a time.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>print([x * x for x in range(4)])</pre>
+    <div class="opts">
+      <button class="opt">[1, 4, 9, 16]</button>
+      <button class="opt" data-ok>[0, 1, 4, 9]</button>
+      <button class="opt">[0, 1, 4, 9, 16]</button>
+      <button class="opt">[1, 4, 9]</button>
+    </div>
+    <div class="expl"><b>[0, 1, 4, 9].</b> <code>range(4)</code> is 0 to 3, and each is squared.</div>
+  </div>
+  <div class="lab">Why is it called a comprehension?</div>
+  <ul class="b">
+    <li>From mathematics. A set written by its rule, not by listing its members: “the set of all x × 2 for x in amounts”. Mathematicians call that set-builder notation, or comprehension.</li>
+    <li>Python borrowed the idea and the name: describe the list by its rule, and Python builds it.</li>
+    <li>Not “comprehension” as in understanding. Think “comprehensive”: the whole list, stated in one rule.</li>
+    <li><b>Is it syntactic sugar?</b> Yes.</li>
+      <li>Sugar: a shorter way to write what the language could already do.</li>
+      <li>Every comprehension is the loop above. Same list, shorter to read.</li>
+  </ul>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Which of these should stay a normal loop?</div>
+    <div class="opts">
+      <button class="opt" data-ok>print each amount, count the ones that failed, and append the rest</button>
+      <button class="opt">double every amount in a list</button>
+      <button class="opt">keep only the amounts of 500 or more</button>
+      <button class="opt">upper-case every name in a list</button>
+    </div>
+    <div class="expl"><b>The second.</b> It prints, counts and appends: three jobs and a side effect. A comprehension does one job: build a list. The other three are make, keep, make.</div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Which line is the correct comprehension for this loop?</div>
+    <pre class="py" data-nocopy>scores = [35, 72, 45]
+bonus = []
+for s in scores:
+    bonus.append(s + 5)</pre>
+    <div class="opts">
+      <button class="opt">bonus = [s for s + 5 in scores]</button>
+      <button class="opt" data-ok>bonus = [s + 5 for s in scores]</button>
+      <button class="opt">bonus = [s + 5 in scores]</button>
+      <button class="opt">bonus = [for s in scores: s + 5]</button>
+    </div>
+    <div class="expl"><b>The second.</b> Make first (<code>s + 5</code>), then from (<code>for s in scores</code>). The first and last put the pieces in the wrong order; the third has no <code>for</code> at all, so <code>s</code> does not exist there: NameError.</div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">Now with a condition. Which line is the correct comprehension?</div>
+    <pre class="py" data-nocopy>amounts = [600, 300, 1500]
+big = []
+for a in amounts:
+    if a &gt;= 500:
+        big.append(a)</pre>
+    <div class="opts">
+      <button class="opt">big = [a if a &gt;= 500 for a in amounts]</button>
+      <button class="opt">big = [a &gt;= 500 for a in amounts]</button>
+      <button class="opt" data-ok>big = [a for a in amounts if a &gt;= 500]</button>
+      <button class="opt">big = [if a &gt;= 500 a for a in amounts]</button>
+    </div>
+    <div class="expl"><b>The third.</b> Make, from, keep: the filter goes last. The second runs but builds <code>[True, False, True]</code>: it makes a bool for every item instead of keeping some. The first and last are SyntaxErrors.
+<div class="diag">
+    <svg viewBox="0 0 680 230" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="apB" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <text x="80" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">amounts</text>
+      <text x="300" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">keep?  a &gt;= 500</text>
+      <text x="470" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">make  a</text>
+      <text x="610" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#475569">new list</text>
+      <rect x="30" y="44" width="100" height="40" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="80" y="70" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">600</text>
+      <line x1="130" y1="64" x2="238" y2="64" stroke="#334155" stroke-width="2" marker-end="url(#apB)"/>
+      <polygon points="300,40 360,64 300,88 240,64" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="300" y="69" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">yes</text>
+      <line x1="360" y1="64" x2="418" y2="64" stroke="#334155" stroke-width="2" marker-end="url(#apB)"/>
+      <rect x="420" y="44" width="100" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="470" y="70" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">600</text>
+      <line x1="520" y1="64" x2="558" y2="64" stroke="#334155" stroke-width="2" marker-end="url(#apB)"/>
+      <rect x="560" y="44" width="100" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="610" y="70" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">600</text>
+      <rect x="30" y="100" width="100" height="40" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="80" y="126" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">300</text>
+      <line x1="130" y1="120" x2="238" y2="120" stroke="#334155" stroke-width="2" marker-end="url(#apB)"/>
+      <polygon points="300,96 360,120 300,144 240,120" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="300" y="125" text-anchor="middle" font-size="13" font-weight="700" fill="#dc2626">no</text>
+      <text x="470" y="126" text-anchor="middle" font-size="13" fill="#94a3b8">dropped</text>
+      <rect x="30" y="156" width="100" height="40" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="80" y="182" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">1500</text>
+      <line x1="130" y1="176" x2="238" y2="176" stroke="#334155" stroke-width="2" marker-end="url(#apB)"/>
+      <polygon points="300,152 360,176 300,200 240,176" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="300" y="181" text-anchor="middle" font-size="13" font-weight="700" fill="#16a34a">yes</text>
+      <line x1="360" y1="176" x2="418" y2="176" stroke="#334155" stroke-width="2" marker-end="url(#apB)"/>
+      <rect x="420" y="156" width="100" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="470" y="182" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">1500</text>
+      <line x1="520" y1="176" x2="558" y2="176" stroke="#334155" stroke-width="2" marker-end="url(#apB)"/>
+      <rect x="560" y="156" width="100" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="610" y="182" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">1500</text>
+      <text x="340" y="220" text-anchor="middle" font-size="13" fill="#334155">[a for a in amounts if a &gt;= 500]  →  [1200, 3000]</text>
+    </svg><div class="cap">Behind the scenes: each box goes through the gate, the survivors pass through unchanged, the results fill a new list. Same as the loop, one item at a time.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Make, from, keep. What prints?</div>
+    <pre class="py" data-nocopy>words = ["upi", "card", "netbanking", "cash"]
+print([w.upper() for w in words if len(w) &gt; 3])</pre>
+    <div class="opts">
+      <button class="opt">['UPI', 'CARD', 'NETBANKING', 'CASH']</button>
+      <button class="opt">['card', 'netbanking', 'cash']</button>
+      <button class="opt" data-ok>['CARD', 'NETBANKING', 'CASH']</button>
+      <button class="opt">['NETBANKING']</button>
+    </div>
+    <div class="expl"><b>Three words in capitals.</b> Keep the words longer than 3 letters, then upper-case each kept one. "upi" has exactly 3, so it is dropped.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>amounts = [600, 300, 1500]
+big = [a for a in amounts if a &gt;= 500]
+print(len(big), len(amounts))</pre>
+    <div class="opts">
+      <button class="opt">2 2</button>
+      <button class="opt" data-ok>2 3</button>
+      <button class="opt">3 3</button>
+      <button class="opt">2 1</button>
+    </div>
+    <div class="expl"><b>2 3.</b> A comprehension builds a <b>new</b> list and never changes the source.</div>
+  </div>
+</section>
+
+<!-- ============ revision: lambda ============ -->
+<section class="step" data-nav="Short form 4: lambda">
+  <h2>Short form 4: <code>lambda</code>, a tiny function without a name</h2>
+  <pre class="py" data-file="lambda_long.py" data-wide>def cashback(amount):
+    return amount * 5 // 100
+
+print(cashback(1000))</pre>
+  <div class="ask"><span class="ic">🎤</span><div>One line of logic, three lines of ceremony. When is the name worth having?</div></div>
+  <button class="rv" data-reveal="next">The short way</button>
+  <div class="reveal">
+    <pre class="py" data-file="lambda_short.py" data-kind="good" data-wide>cashback = lambda amount: amount * 5 // 100
+print(cashback(1000))</pre>
+    <div class="out">50</div>
+    <div class="diag">
+      <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg">
+        <defs><marker id="ar4" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+        <rect x="20" y="45" width="110" height="50" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+        <text x="75" y="75" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">1000</text>
+        <line x1="130" y1="70" x2="198" y2="70" stroke="#334155" stroke-width="2" marker-end="url(#ar4)"/>
+        <rect x="200" y="30" width="240" height="80" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+        <text x="320" y="58" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">lambda amount:</text>
+        <text x="320" y="82" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">amount * 5 // 100</text>
+        <line x1="440" y1="70" x2="508" y2="70" stroke="#334155" stroke-width="2" marker-end="url(#ar4)"/>
+        <rect x="510" y="45" width="110" height="50" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+        <text x="565" y="75" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">50</text>
+        <text x="320" y="135" text-anchor="middle" font-size="13" fill="#334155">parameters, a colon, one expression. The expression is the return value.</text>
+      </svg><div class="cap">A machine with no nameplate. You usually hand it to another function instead of storing it.</div></div>
+    <div class="lab">Why is it called lambda?</div>
+    <ul class="b">
+      <li>From the Greek letter λ. In the 1930s the logician Alonzo Church wrote functions without names as <i>λx. x × 2</i>. Python kept the word.</li>
+      <li>So a lambda is a function with no name of its own.</li>
+      <li>You hand it to another function: <code>sorted</code> and <code>filter</code> take one in Class 9.</li>
+    </ul>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Which line is the correct lambda for this function?</div>
+    <pre class="py" data-nocopy>def fee(amount):
+    return amount * 2 // 100</pre>
+    <div class="opts">
+      <button class="opt" data-ok>fee = lambda amount: amount * 2 // 100</button>
+      <button class="opt">fee = lambda amount: return amount * 2 // 100</button>
+      <button class="opt">fee = lambda(amount): amount * 2 // 100</button>
+      <button class="opt">fee = lambda: amount * 2 // 100</button>
+    </div>
+    <div class="expl"><b>The first.</b> Parameters after the word <code>lambda</code>, no brackets, a colon, then the expression. No <code>return</code> word: the expression is the return value. The second and third are SyntaxErrors; the last takes no parameter, so <code>fee(1000)</code> is a TypeError.</div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">No parameters this time. Which line is the correct lambda?</div>
+    <pre class="py" data-nocopy>def welcome():
+    return "Welcome to PaisaPay"</pre>
+    <div class="opts">
+      <button class="opt">welcome = lambda(): "Welcome to PaisaPay"</button>
+      <button class="opt">welcome = lambda "Welcome to PaisaPay"</button>
+      <button class="opt">welcome = lambda: print("Welcome to PaisaPay")</button>
+      <button class="opt" data-ok>welcome = lambda: "Welcome to PaisaPay"</button>
+    </div>
+    <div class="expl"><b>The last.</b> No parameters means nothing between <code>lambda</code> and the colon, but the colon stays. The first has brackets, the second has no colon: SyntaxErrors. The third runs, but it prints instead of returning, so <code>welcome()</code> gives back <code>None</code>: the Class 5 trap.</div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">Which of these should <b>not</b> be a lambda?</div>
+    <div class="opts">
+      <button class="opt">a rule that doubles a number, handed to another function</button>
+      <button class="opt">a check that returns True for amounts of 500 or more</button>
+      <button class="opt">a one-line label: "Big" if the amount is 1000 or more, else "Small"</button>
+      <button class="opt" data-ok>a PIN check that prints a message, counts the attempt, then returns True or False</button>
+    </div>
+    <div class="expl"><b>The PIN check.</b> Three statements, a side effect and a name people will call again: that is a <code>def</code>. A lambda holds one expression and nothing else. The other three are one expression each.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>area = lambda a, b: a * b
+print(area(3, 4))</pre>
+    <div class="opts">
+      <button class="opt">7</button>
+      <button class="opt">34</button>
+      <button class="opt">An error: lambda has no return</button>
+      <button class="opt" data-ok>12</button>
+    </div>
+    <div class="expl"><b>12.</b> Two parameters, one expression, no <code>return</code> word needed.</div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">A ternary inside a lambda. What prints?</div>
+    <pre class="py" data-nocopy>kind = lambda n: "even" if n % 2 == 0 else "odd"
+print(kind(7), kind(10))</pre>
+    <div class="opts">
+      <button class="opt">even odd</button>
+      <button class="opt">True False</button>
+      <button class="opt" data-ok>odd even</button>
+      <button class="opt">SyntaxError</button>
+    </div>
+    <div class="expl"><b>odd even.</b> The lambda's one expression is a ternary. 7 is odd, 10 is even. Two short forms in one line.</div>
+  </div>
+</section>
+
+<!-- ============ revision: summary ============ -->
+<section class="step" data-nav="Four short forms, one table">
+  <h2>Four short forms, one table</h2>
+  <table class="tbl" data-cells><tr><th>I want to…</th><th>Short form</th></tr>
+    <tr><td>put one of two values in a variable</td><td class="cell"><code>a if condition else b</code></td></tr>
+    <tr><td>do something with every item of a list</td><td class="cell"><code>for item in items:</code></td></tr>
+    <tr><td>build a new list from an old one, maybe keeping only some</td><td class="cell"><code>[f(x) for x in items if test(x)]</code></td></tr>
+    <tr><td>hand a one-line rule to another function</td><td class="cell"><code>lambda x: expression</code></td></tr></table>
+  <div class="take">If a short form needs a second read, write the long form. Correct beats clever.</div>
+  <ul class="b"><li>Practice: four problems, one per form, at the top of <b>PRACTICE.md</b>.</li></ul>
+</section>
+
+<!-- ============ the problem ============ -->
+<section class="step" data-nav="PaisaPay v6 has a problem" data-tag="PaisaPay">
+  <h2>PaisaPay v6 has a problem</h2>
+  <ul class="b"><li>A user types the mode with a capital letter and a space.</li></ul>
+  <div class="out"><span class="p">Mode (upi / card / netbanking): </span><span class="in"> UPI</span>
+Unknown payment mode. Payment refused.</div>
+  <div class="ask"><span class="ic">🎤</span><div>The user did nothing wrong. What did v6 do wrong? <span class="timer" data-sec="30"></span></div></div>
+  <button class="rv" data-reveal="next">The missing piece</button>
+  <div class="reveal">
+    <ul class="b">
+      <li><code>" UPI"</code> is not <code>"upi"</code>. Text comparison is exact: case, spaces, everything.</li>
+      <li>Every <code>input()</code> is text. Before you compare it, you must <b>clean</b> it.</li>
+    </ul>
+    <div class="take">Today Python learns to read, clean, cut and build text: strings.</div>
+  </div>
+</section>
+
+<!-- ============ angle: everything is text ============ -->
+<section class="step" data-nav="Everything arrives as text">
+  <h2>Everything arrives as text</h2>
+  <ul class="b">
+    <li><code>input()</code> gives text, even when the user typed a number. Class 1.</li>
+    <li>A file, a web page, a bank SMS: text.</li>
+    <li>An LLM's answer: text. Your code has to find the number, the name, the JSON inside it.</li>
+  </ul>
+  <pre class="py" data-file="llm_answer.py" data-wide>answer = "Sure! The total is 1250 rupees."
+
+words = answer.split()
+print(words)</pre>
+  <div class="out">['Sure!', 'The', 'total', 'is', '1250', 'rupees.']</div>
+  <div class="take">The model speaks in strings. Parsing them is string work, and it is today's work.</div>
+</section>
+
+<!-- ============ what is a string ============ -->
+<section class="step" data-nav="A string is a sequence">
+  <h2>A string is a sequence of characters</h2>
+  <pre class="py" data-file="strings.py">name = "Rashi"
+subject = 'Python'
+message = "It's a great day!"
+
+word = "Python"
+print(len(word))</pre>
+  <div class="out">6</div>
+  <ul class="b">
+    <li>Single or double quotes, both make a string. Pick one style. Double quotes help when the text has an apostrophe.</li>
+    <li>Like a list, every character has a position. Unlike a list, the boxes are letters.</li>
+  </ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 560 150" xmlns="http://www.w3.org/2000/svg">
+      <rect x="40" y="40" width="70" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="75" y="69" text-anchor="middle" font-size="18" font-family="Menlo,monospace" fill="#0f172a">P</text>
+      <rect x="120" y="40" width="70" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="155" y="69" text-anchor="middle" font-size="18" font-family="Menlo,monospace" fill="#0f172a">y</text>
+      <rect x="200" y="40" width="70" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="235" y="69" text-anchor="middle" font-size="18" font-family="Menlo,monospace" fill="#0f172a">t</text>
+      <rect x="280" y="40" width="70" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="315" y="69" text-anchor="middle" font-size="18" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <rect x="360" y="40" width="70" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="395" y="69" text-anchor="middle" font-size="18" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <rect x="440" y="40" width="70" height="44" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="475" y="69" text-anchor="middle" font-size="18" font-family="Menlo,monospace" fill="#0f172a">n</text>
+      <text x="75" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">0</text>
+      <text x="155" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">1</text>
+      <text x="235" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">2</text>
+      <text x="315" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">3</text>
+      <text x="395" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">4</text>
+      <text x="475" y="112" text-anchor="middle" font-size="14" font-weight="700" fill="#16a34a">5</text>
+      <text x="75" y="137" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">-6</text>
+      <text x="155" y="137" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">-5</text>
+      <text x="235" y="137" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">-4</text>
+      <text x="315" y="137" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">-3</text>
+      <text x="395" y="137" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">-2</text>
+      <text x="475" y="137" text-anchor="middle" font-size="14" font-weight="700" fill="#dc2626">-1</text>
+    </svg><div class="cap">The same numbering as a list: 0 from the front, -1 from the back.</div></div>
+</section>
+
+<!-- ============ indexing ============ -->
+<section class="step" data-nav="Indexing a string">
+  <h2>One character by its number</h2>
+  <div class="ask"><span class="ic">✋</span><div>Same zero-based rule as lists. What prints?</div></div>
+  <pre class="py" data-file="index.py">word = "Python"
+
+print(word[0])
+print(word[3])
+print(word[-1])
+print(word[-2])</pre>
+  <div class="vote">
+    <div class="vopt" data-win>P h n o</div>
+    <div class="vopt">P t n o</div>
+    <div class="vopt">y h o n</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">P
+h
+n
+o</div>
+  </div>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>upi_id = "rashi@okaxis"
+print(upi_id[0], upi_id[-1])</pre>
+    <div class="opts">
+      <button class="opt" data-ok>r s</button>
+      <button class="opt">r i</button>
+      <button class="opt">rashi okaxis</button>
+      <button class="opt">IndexError</button>
+    </div>
+    <div class="expl"><b>r s.</b> First character and last character. One box each.</div>
+  </div>
+</section>
+
+<!-- ============ slicing ============ -->
+<section class="step" data-nav="Slicing a string">
+  <h2>A piece of the string</h2>
+  <div class="ask"><span class="ic">✋</span><div>Class 6 first. A slice of a list. What prints?</div></div>
+  <pre class="py" data-file="slice_list.py">amounts = [600, 300, 1500, 250]
+
+print(amounts[0:3])</pre>
+  <div class="vote">
+    <div class="vopt">[600, 300, 1500, 250]</div>
+    <div class="vopt">[300, 1500, 250]</div>
+    <div class="vopt" data-win>[600, 300, 1500]</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">[600, 300, 1500]</div>
+    <ul class="b"><li>Start included, stop excluded. Boxes 0, 1, 2.</li><li>A string is a sequence too. Same rule, same brackets.</li></ul>
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>Now the string. <code>[0:3]</code>. Is box 3, the letter h, included?</div></div>
+  <pre class="py" data-file="slice.py">word = "Python"
+
+print(word[0:3])</pre>
+  <div class="vote">
+    <div class="vopt">Pyth</div>
+    <div class="vopt" data-win>Pyt</div>
+    <div class="vopt">yth</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Pyt</div>
+    <div><div class="diag">
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+      <rect x="85" y="45" width="70" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="120" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">P</text>
+      <text x="120" y="106" text-anchor="middle" font-size="11" fill="#16a34a">0</text>
+      <text x="120" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-6</text>
+      <rect x="165" y="45" width="70" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="200" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">y</text>
+      <text x="200" y="106" text-anchor="middle" font-size="11" fill="#16a34a">1</text>
+      <text x="200" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-5</text>
+      <rect x="245" y="45" width="70" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="280" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">t</text>
+      <text x="280" y="106" text-anchor="middle" font-size="11" fill="#16a34a">2</text>
+      <text x="280" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-4</text>
+      <rect x="325" y="45" width="70" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="360" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <text x="360" y="106" text-anchor="middle" font-size="11" fill="#16a34a">3</text>
+      <text x="360" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-3</text>
+      <rect x="405" y="45" width="70" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="440" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <text x="440" y="106" text-anchor="middle" font-size="11" fill="#16a34a">4</text>
+      <text x="440" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-2</text>
+      <rect x="485" y="45" width="70" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="520" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">n</text>
+      <text x="520" y="106" text-anchor="middle" font-size="11" fill="#16a34a">5</text>
+      <text x="520" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-1</text>
+      <text x="320" y="28" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">word[0:3]</text>
+      <text x="320" y="155" text-anchor="middle" font-size="13" fill="#334155">start at box 0, stop before box 3: three letters</text>
+    </svg></div></div>
+    <ul class="b"><li>Start included, stop excluded. <code>range</code>, lists, strings: one rule.</li></ul>
+  </div>
+  <div class="lab">The rest of the family</div>
+  <pre class="py" data-file="slice_more.py">print(word[:3])
+print(word[2:])
+print(word[::2])
+print(word[::-1])
+print(word[-4:])</pre>
+  <div class="out">Pyt
+thon
+Pto
+nohtyP
+thon</div>
+  <ul class="b">
+    <li><code>[::2]</code>: every second letter. <code>[::-1]</code>: backwards, the whole word reversed.</li>
+    <li><code>[-4:]</code>: the last four. A card number ends with four digits you are allowed to show.</li>
+  </ul>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>card = "4111222233334444"
+print(card[-4:], card[:4])</pre>
+    <div class="opts">
+      <button class="opt">4444 1111</button>
+      <button class="opt">3444 4111</button>
+      <button class="opt">444 411</button>
+      <button class="opt" data-ok>4444 4111</button>
+    </div>
+    <div class="expl"><b>4444 4111.</b> The last four boxes, then the first four. Stop excluded, so <code>[:4]</code> is boxes 0 to 3.
+<div class="diag">
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+      <rect x="-6" y="45" width="36" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="12" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">4</text>
+      <text x="12" y="106" text-anchor="middle" font-size="11" fill="#16a34a">0</text>
+      <text x="12" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-16</text>
+      <rect x="35" y="45" width="36" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="53" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">1</text>
+      <text x="53" y="106" text-anchor="middle" font-size="11" fill="#16a34a">1</text>
+      <text x="53" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-15</text>
+      <rect x="76" y="45" width="36" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="94" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">1</text>
+      <text x="94" y="106" text-anchor="middle" font-size="11" fill="#16a34a">2</text>
+      <text x="94" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-14</text>
+      <rect x="117" y="45" width="36" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="135" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">1</text>
+      <text x="135" y="106" text-anchor="middle" font-size="11" fill="#16a34a">3</text>
+      <text x="135" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-13</text>
+      <rect x="158" y="45" width="36" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="176" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">2</text>
+      <text x="176" y="106" text-anchor="middle" font-size="11" fill="#16a34a">4</text>
+      <text x="176" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-12</text>
+      <rect x="199" y="45" width="36" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="217" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">2</text>
+      <text x="217" y="106" text-anchor="middle" font-size="11" fill="#16a34a">5</text>
+      <text x="217" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-11</text>
+      <rect x="240" y="45" width="36" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="258" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">2</text>
+      <text x="258" y="106" text-anchor="middle" font-size="11" fill="#16a34a">6</text>
+      <text x="258" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-10</text>
+      <rect x="281" y="45" width="36" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="299" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">2</text>
+      <text x="299" y="106" text-anchor="middle" font-size="11" fill="#16a34a">7</text>
+      <text x="299" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-9</text>
+      <rect x="322" y="45" width="36" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="340" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">3</text>
+      <text x="340" y="106" text-anchor="middle" font-size="11" fill="#16a34a">8</text>
+      <text x="340" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-8</text>
+      <rect x="363" y="45" width="36" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="381" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">3</text>
+      <text x="381" y="106" text-anchor="middle" font-size="11" fill="#16a34a">9</text>
+      <text x="381" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-7</text>
+      <rect x="404" y="45" width="36" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="422" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">3</text>
+      <text x="422" y="106" text-anchor="middle" font-size="11" fill="#16a34a">10</text>
+      <text x="422" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-6</text>
+      <rect x="445" y="45" width="36" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="463" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">3</text>
+      <text x="463" y="106" text-anchor="middle" font-size="11" fill="#16a34a">11</text>
+      <text x="463" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-5</text>
+      <rect x="486" y="45" width="36" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="504" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">4</text>
+      <text x="504" y="106" text-anchor="middle" font-size="11" fill="#16a34a">12</text>
+      <text x="504" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-4</text>
+      <rect x="527" y="45" width="36" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="545" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">4</text>
+      <text x="545" y="106" text-anchor="middle" font-size="11" fill="#16a34a">13</text>
+      <text x="545" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-3</text>
+      <rect x="568" y="45" width="36" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="586" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">4</text>
+      <text x="586" y="106" text-anchor="middle" font-size="11" fill="#16a34a">14</text>
+      <text x="586" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-2</text>
+      <rect x="609" y="45" width="36" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="627" y="71" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">4</text>
+      <text x="627" y="106" text-anchor="middle" font-size="11" fill="#16a34a">15</text>
+      <text x="627" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-1</text>
+      <text x="320" y="28" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">card[-4:] in green · card[:4] in blue</text>
+      <text x="320" y="155" text-anchor="middle" font-size="13" fill="#334155">green: boxes -4 to -1 · blue: boxes 0 to 3</text>
+    </svg></div></div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>word = "Python"
+print(word[1:-1])</pre>
+    <div class="opts">
+      <button class="opt">yth</button>
+      <button class="opt" data-ok>ytho</button>
+      <button class="opt">ython</button>
+      <button class="opt">Pytho</button>
+    </div>
+    <div class="expl"><b>ytho.</b> From box 1 up to, not including, the last box. Both ends trimmed.
+<div class="diag">
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+      <rect x="85" y="45" width="70" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="120" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">P</text>
+      <text x="120" y="106" text-anchor="middle" font-size="11" fill="#16a34a">0</text>
+      <text x="120" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-6</text>
+      <rect x="165" y="45" width="70" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="200" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">y</text>
+      <text x="200" y="106" text-anchor="middle" font-size="11" fill="#16a34a">1</text>
+      <text x="200" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-5</text>
+      <rect x="245" y="45" width="70" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="280" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">t</text>
+      <text x="280" y="106" text-anchor="middle" font-size="11" fill="#16a34a">2</text>
+      <text x="280" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-4</text>
+      <rect x="325" y="45" width="70" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="360" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <text x="360" y="106" text-anchor="middle" font-size="11" fill="#16a34a">3</text>
+      <text x="360" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-3</text>
+      <rect x="405" y="45" width="70" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="440" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <text x="440" y="106" text-anchor="middle" font-size="11" fill="#16a34a">4</text>
+      <text x="440" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-2</text>
+      <rect x="485" y="45" width="70" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="520" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">n</text>
+      <text x="520" y="106" text-anchor="middle" font-size="11" fill="#16a34a">5</text>
+      <text x="520" y="124" text-anchor="middle" font-size="11" fill="#dc2626">-1</text>
+      <text x="320" y="28" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">word[1:-1]</text>
+      <text x="320" y="155" text-anchor="middle" font-size="13" fill="#334155">start at box 1, stop before box -1: the two ends are left out</text>
+    </svg></div></div>
+  </div>
+</section>
+
+<!-- ============ len ============ -->
+<section class="step" data-nav="How long is it?">
+  <h2>How long is it? <code>len</code></h2>
+  <pre class="py" data-file="length.py">name = "Rashi"
+message = "Hello World"
+
+print(len(name))
+print(len(message))
+print(len(""))</pre>
+  <div class="out">5
+11
+0</div>
+  <ul class="b">
+    <li>Spaces count. The space in <code>"Hello World"</code> is a character.</li>
+    <li>The empty string has length 0. It is a string, not nothing.</li>
+  </ul>
+  <div class="quiz" data-level="m">
+    <div class="qt">A string has 10 characters. What is its last valid index, and what does <code>len</code> give?</div>
+    <div class="opts">
+      <button class="opt">10 and 10</button>
+      <button class="opt" data-ok>9 and 10</button>
+      <button class="opt">9 and 9</button>
+      <button class="opt">10 and 9</button>
+    </div>
+    <div class="expl"><b>9 and 10.</b> Boxes 0 to 9. The same answer as for a list of ten.</div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>pin = input("PIN: ")     # the user types 4321 and presses Enter
+print(len(pin), pin == 4321)</pre>
+    <div class="opts">
+      <button class="opt">4 True</button>
+      <button class="opt">4321 False</button>
+      <button class="opt" data-ok>4 False</button>
+      <button class="opt">TypeError</button>
+    </div>
+    <div class="expl"><b>4 False.</b> <code>input</code> gives the text "4321": four characters. Text is never equal to a number. Class 1, still true.</div>
+  </div>
+</section>
+
+<!-- ============ methods: lower upper ============ -->
+<section class="step" data-nav="lower and upper">
+  <h2>String methods: <code>lower</code> and <code>upper</code></h2>
+  <ul class="b"><li>Strings come with built-in tools. Ten of them today. You do not memorise them; you know they exist and look them up.</li></ul>
+  <pre class="py" data-file="case.py">text = "Hello Python"
+
+print(text.lower())
+print(text.upper())</pre>
+  <div class="out">hello python
+HELLO PYTHON</div>
+  <div class="lab">Where it matters: cleaning an answer</div>
+  <pre class="py" data-file="normalise.py">answer = input("Continue? ")
+answer = answer.lower()
+
+if answer == "yes":
+    print("Continuing...")</pre>
+  <div class="out"><span class="p">Continue? </span><span class="in">YES</span>
+Continuing...</div>
+  <div class="take">Lower everything before you compare it. Then “YES”, “Yes” and “yes” are the same answer.</div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>mode = "Card"
+print(mode.lower() == "card", mode == "card")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>True False</button>
+      <button class="opt">True True</button>
+      <button class="opt">False False</button>
+      <button class="opt">False True</button>
+    </div>
+    <div class="expl"><b>True False.</b> Lower-cased, it matches. As typed, the capital C makes it a different string.</div>
+  </div>
+</section>
+
+<!-- ============ title strip ============ -->
+<section class="step" data-nav="title and strip">
+  <h2><code>title</code> and <code>strip</code></h2>
+  <pre class="py" data-file="title_strip.py">name = "   rashi sharma   "
+
+print(name.title())
+print(name.strip())
+print(name.strip().title())</pre>
+  <div class="out">   Rashi Sharma
+Rashi Sharma
+Rashi Sharma</div>
+  <ul class="b">
+    <li><code>title()</code>: a capital at the start of every word.</li>
+    <li>A word, to <code>title</code>, is any run of letters. It restarts at a space, hyphen, apostrophe or digit.</li>
+    <li>So <code>"rashi-sharma"</code> → <code>"Rashi-Sharma"</code>, and <code>"it's"</code> → <code>"It'S"</code>.</li>
+    <li><code>strip()</code>: spaces removed from both ends only. The space between the words stays.</li>
+    <li>Chain them. Each method hands back a string, and the next method works on that.</li>
+  </ul>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>name = "  kishor  kumar "
+print(len(name.strip()))</pre>
+    <div class="opts">
+      <button class="opt" data-ok>13</button>
+      <button class="opt">11</button>
+      <button class="opt">16</button>
+      <button class="opt">12</button>
+    </div>
+    <div class="expl"><b>13.</b> Outer spaces go. The two spaces in the middle stay: 6 + 2 + 5. <code>strip</code> never touches the inside.
+<div class="diag">
+    <svg viewBox="0 0 640 175" xmlns="http://www.w3.org/2000/svg">
+      <rect x="18" y="50" width="34" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="35" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="56" y="50" width="34" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="73" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="94" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="111" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">k</text>
+      <rect x="132" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="149" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">i</text>
+      <rect x="170" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="187" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">s</text>
+      <rect x="208" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="225" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <rect x="246" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="263" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <rect x="284" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="301" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">r</text>
+      <rect x="322" y="50" width="34" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="339" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="360" y="50" width="34" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="377" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="398" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="415" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">k</text>
+      <rect x="436" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="453" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">u</text>
+      <rect x="474" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="491" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">m</text>
+      <rect x="512" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="529" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <rect x="550" y="50" width="34" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="567" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">r</text>
+      <rect x="588" y="50" width="34" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="605" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <text x="320" y="30" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"  kishor  kumar ".strip()</text>
+      <text x="320" y="120" text-anchor="middle" font-size="13" fill="#dc2626">red: removed by strip, the ends only</text>
+      <text x="320" y="140" text-anchor="middle" font-size="13" fill="#b45309">yellow: spaces in the middle, kept</text>
+      <text x="320" y="160" text-anchor="middle" font-size="13" fill="#16a34a">green: letters, kept   →   6 + 2 + 5 = 13 characters</text>
+    </svg></div></div>
+  </div>
+</section>
+
+<!-- ============ build 1 ============ -->
+<section class="step" data-nav="PaisaPay v7: clean every input" data-tag="PaisaPay v7">
+  <h2>PaisaPay v7: clean every input</h2>
+  <div class="build"><div class="bh">PaisaPay v7 · build 1 of 4</div><div class="bd">One helper. Every answer goes through it before anything compares it.</div>
+  <pre class="py" data-file="paisapay_v7.py" data-wide data-hl="1-2,6-7,9">def clean(text):
+    return text.strip().lower()
+
+while choice != "4":
+    print("1. Pay  2. Balance  3. Statement  4. Exit  5. Add money")
+    choice = clean(input("Choose: "))
+    <span class="dim"># …</span>
+    payee = input("Pay to: ").strip().title()
+    mode = clean(input("Mode (upi / card / netbanking): "))</pre>
+  <div class="out"><span class="p">Mode (upi / card / netbanking): </span><span class="in"> UPI</span>
+Paid ₹ 600 to Chai Point via UPI</div>
+  <ul class="b">
+    <li>The v6 problem is gone. <code>" UPI"</code> becomes <code>"upi"</code> at the door.</li>
+    <li>Names get <code>title()</code>, choices get <code>lower()</code>. Clean, then compare.</li>
+  </ul></div>
+</section>
+
+<!-- ============ replace find ============ -->
+<section class="step" data-nav="replace and find">
+  <h2><code>replace</code> and <code>find</code></h2>
+  <pre class="py" data-file="replace.py" data-wide>message = "I like Java"
+message = message.replace("Java", "Python")
+print(message)
+
+text = "I love Python"
+print(text.find("Python"))
+print(text.find("Java"))</pre>
+  <div class="out">I like Python
+7
+-1</div>
+  <ul class="b">
+    <li><code>replace(old, new)</code>: every match, not just the first.</li>
+  </ul>
+  <div class="diag">
+    <svg viewBox="0 0 640 135" xmlns="http://www.w3.org/2000/svg">
+      <text x="320" y="28" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">message.replace("Java", "Python")</text>
+      <rect x="20" y="45" width="49" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="44" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">I</text>
+      <rect x="75" y="45" width="49" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="100" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="130" y="45" width="49" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="154" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">l</text>
+      <rect x="185" y="45" width="49" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="210" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">i</text>
+      <rect x="240" y="45" width="49" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="264" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">k</text>
+      <rect x="295" y="45" width="49" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="320" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">e</text>
+      <rect x="350" y="45" width="49" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="374" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="405" y="45" width="49" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="430" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">J</text>
+      <rect x="460" y="45" width="49" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="484" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <rect x="515" y="45" width="49" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="540" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">v</text>
+      <rect x="570" y="45" width="49" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="594" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <text x="320" y="123" text-anchor="middle" font-size="13" fill="#334155">the yellow boxes are the match; a new string is built with Python in their place</text>
+    </svg></div>
+  <ul class="b">
+    <li><code>find(piece)</code>: the index where it starts. Not found: -1, no error.</li>
+  </ul>
+  <div class="diag">
+    <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg">
+      <text x="320" y="28" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">text.find("Python")</text>
+      <rect x="24" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="44" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">I</text>
+      <text x="44" y="104" text-anchor="middle" font-size="11" fill="#16a34a">0</text>
+      <rect x="70" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="90" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <text x="90" y="104" text-anchor="middle" font-size="11" fill="#16a34a">1</text>
+      <rect x="116" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="136" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">l</text>
+      <text x="136" y="104" text-anchor="middle" font-size="11" fill="#16a34a">2</text>
+      <rect x="162" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="182" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <text x="182" y="104" text-anchor="middle" font-size="11" fill="#16a34a">3</text>
+      <rect x="208" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="228" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">v</text>
+      <text x="228" y="104" text-anchor="middle" font-size="11" fill="#16a34a">4</text>
+      <rect x="254" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="274" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">e</text>
+      <text x="274" y="104" text-anchor="middle" font-size="11" fill="#16a34a">5</text>
+      <rect x="300" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="320" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <text x="320" y="104" text-anchor="middle" font-size="11" fill="#16a34a">6</text>
+      <rect x="346" y="45" width="40" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="366" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">P</text>
+      <text x="366" y="104" text-anchor="middle" font-size="11" fill="#16a34a">7</text>
+      <rect x="392" y="45" width="40" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="412" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">y</text>
+      <text x="412" y="104" text-anchor="middle" font-size="11" fill="#16a34a">8</text>
+      <rect x="438" y="45" width="40" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="458" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">t</text>
+      <text x="458" y="104" text-anchor="middle" font-size="11" fill="#16a34a">9</text>
+      <rect x="484" y="45" width="40" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="504" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <text x="504" y="104" text-anchor="middle" font-size="11" fill="#16a34a">10</text>
+      <rect x="530" y="45" width="40" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="550" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <text x="550" y="104" text-anchor="middle" font-size="11" fill="#16a34a">11</text>
+      <rect x="576" y="45" width="40" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="596" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">n</text>
+      <text x="596" y="104" text-anchor="middle" font-size="11" fill="#16a34a">12</text>
+      <text x="320" y="138" text-anchor="middle" font-size="13" fill="#334155">the match starts at box 7, so find gives 7; "Java" is nowhere, so find gives -1</text>
+    </svg></div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Every match, not just the first. What prints?</div>
+    <pre class="py" data-nocopy>text = "banana"
+print(text.replace("a", "o"))</pre>
+    <div class="opts">
+      <button class="opt">bonana</button>
+      <button class="opt">banano</button>
+      <button class="opt">bonon</button>
+      <button class="opt" data-ok>bonono</button>
+    </div>
+    <div class="expl"><b>bonono.</b> All three a's change.
+<div class="diag">
+    <svg viewBox="0 0 640 135" xmlns="http://www.w3.org/2000/svg">
+      <text x="320" y="28" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"banana".replace("a", "o")</text>
+      <rect x="95" y="45" width="70" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="130" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">b</text>
+      <rect x="171" y="45" width="70" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="206" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <rect x="247" y="45" width="70" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="282" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">n</text>
+      <rect x="323" y="45" width="70" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="358" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <rect x="399" y="45" width="70" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="434" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">n</text>
+      <rect x="475" y="45" width="70" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="510" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <text x="320" y="123" text-anchor="middle" font-size="13" fill="#334155">three matches, three changes: b o n o n o</text>
+    </svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">Which line prints True?</div>
+    <pre class="py" data-nocopy>text = "I love Python"
+print(text.find("Java") == False)   # A
+print(text.find("I") == 0)          # B</pre>
+    <div class="opts">
+      <button class="opt">A only</button>
+      <button class="opt">A and B</button>
+      <button class="opt" data-ok>B only</button>
+      <button class="opt">Neither</button>
+    </div>
+    <div class="expl"><b>B only.</b> Not found gives -1, and -1 is not False. Found at the start gives 0. Compare <code>find</code> with a number, never with True or False.
+<div class="diag">
+    <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg">
+      <text x="320" y="28" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">text.find("I") → 0      text.find("Java") → -1</text>
+      <rect x="24" y="45" width="40" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="44" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">I</text>
+      <text x="44" y="104" text-anchor="middle" font-size="11" fill="#16a34a">0</text>
+      <rect x="70" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="90" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <text x="90" y="104" text-anchor="middle" font-size="11" fill="#16a34a">1</text>
+      <rect x="116" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="136" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">l</text>
+      <text x="136" y="104" text-anchor="middle" font-size="11" fill="#16a34a">2</text>
+      <rect x="162" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="182" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <text x="182" y="104" text-anchor="middle" font-size="11" fill="#16a34a">3</text>
+      <rect x="208" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="228" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">v</text>
+      <text x="228" y="104" text-anchor="middle" font-size="11" fill="#16a34a">4</text>
+      <rect x="254" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="274" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">e</text>
+      <text x="274" y="104" text-anchor="middle" font-size="11" fill="#16a34a">5</text>
+      <rect x="300" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="320" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <text x="320" y="104" text-anchor="middle" font-size="11" fill="#16a34a">6</text>
+      <rect x="346" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="366" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">P</text>
+      <text x="366" y="104" text-anchor="middle" font-size="11" fill="#16a34a">7</text>
+      <rect x="392" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="412" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">y</text>
+      <text x="412" y="104" text-anchor="middle" font-size="11" fill="#16a34a">8</text>
+      <rect x="438" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="458" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">t</text>
+      <text x="458" y="104" text-anchor="middle" font-size="11" fill="#16a34a">9</text>
+      <rect x="484" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="504" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <text x="504" y="104" text-anchor="middle" font-size="11" fill="#16a34a">10</text>
+      <rect x="530" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="550" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <text x="550" y="104" text-anchor="middle" font-size="11" fill="#16a34a">11</text>
+      <rect x="576" y="45" width="40" height="40" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="596" y="71" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">n</text>
+      <text x="596" y="104" text-anchor="middle" font-size="11" fill="#16a34a">12</text>
+      <text x="320" y="138" text-anchor="middle" font-size="13" fill="#334155">0 is a real position, the first box; -1 means not found, and -1 == False is False</text>
+    </svg></div></div>
+  </div>
+</section>
+
+<!-- ============ startswith endswith ============ -->
+<section class="step" data-nav="startswith, endswith, in">
+  <h2>Three questions a string can answer</h2>
+  <pre class="py" data-file="checks.py">filename = "report.pdf"
+upi_id = "rashi@okaxis"
+
+print(filename.startswith("report"))
+print(filename.endswith(".pdf"))
+print("@" in upi_id)
+print(" " in upi_id)</pre>
+  <div class="out">True
+True
+True
+False</div>
+  <ul class="b">
+    <li>All three give a bool. They belong inside an <code>if</code>.</li>
+    <li><code>in</code> works on strings exactly as it worked on lists.</li>
+  </ul>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>sms = "Rs 600 debited from A/c XX4444 via UPI"
+print(sms.startswith("Rs"), "UPI" in sms, sms.endswith("upi"))</pre>
+    <div class="opts">
+      <button class="opt" data-ok>True True False</button>
+      <button class="opt">True True True</button>
+      <button class="opt">False True False</button>
+      <button class="opt">True False False</button>
+    </div>
+    <div class="expl"><b>True True False.</b> Case matters: the message ends with UPI in capitals, so <code>endswith("upi")</code> is False. To get True, write what is really there, <code>sms.endswith("UPI")</code>, or lower-case first, <code>sms.lower().endswith("upi")</code>.</div>
+  </div>
+</section>
+
+<!-- ============ split join ============ -->
+<section class="step" data-nav="split and join">
+  <h2>From string to list and back: <code>split</code> and <code>join</code></h2>
+  <pre class="py" data-file="split_join.py" data-wide>sentence = "Python is easy"
+words = sentence.split()
+print(words)
+
+data = "apple,banana,mango"
+print(data.split(","))
+
+print(" ".join(["Python", "is", "fun"]))
+print(", ".join(["Apple", "Banana", "Mango"]))</pre>
+  <div class="out">['Python', 'is', 'easy']
+['apple', 'banana', 'mango']
+Python is fun
+Apple, Banana, Mango</div>
+  <ul class="b">
+    <li><code>split()</code> cuts at spaces. <code>split(",")</code> cuts at commas. The result is a list.</li>
+    <li><code>join</code> is written on the glue: <code>", ".join(list)</code>. Read it as: join these with a comma and a space.</li>
+  </ul>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="a7s" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#334155"/></marker></defs>
+      <rect x="20" y="50" width="220" height="50" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="130" y="80" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"rashi@okaxis"</text>
+      <line x1="240" y1="65" x2="398" y2="65" stroke="#334155" stroke-width="2" marker-end="url(#a7s)"/>
+      <text x="320" y="55" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">split("@")</text>
+      <line x1="400" y1="85" x2="242" y2="85" stroke="#334155" stroke-width="2" marker-end="url(#a7s)"/>
+      <text x="320" y="106" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"@".join(...)</text>
+      <rect x="400" y="50" width="220" height="50" rx="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="510" y="80" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">["rashi", "okaxis"]</text>
+    </svg><div class="cap">split cuts a string into a list. join glues a list into a string.</div></div>
+  <div class="quiz" data-level="t">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>upi_id = "rashi@okaxis"
+parts = upi_id.split("@")
+print(len(parts), parts[1])</pre>
+    <div class="opts">
+      <button class="opt">1 rashi@okaxis</button>
+      <button class="opt" data-ok>2 okaxis</button>
+      <button class="opt">2 rashi</button>
+      <button class="opt">12 okaxis</button>
+    </div>
+    <div class="expl"><b>2 okaxis.</b> One @ gives two pieces. Box 1 is the part after it: the bank handle.</div>
+  </div>
+</section>
+
+<!-- ============ build 2 ============ -->
+<section class="step" data-nav="PaisaPay v7: UPI ID and card" data-tag="PaisaPay v7">
+  <h2>PaisaPay v7: check a UPI ID, mask a card</h2>
+  <div class="build"><div class="bh">PaisaPay v7 · build 2 of 4</div><div class="bd">split for the UPI ID, a slice for the card.</div>
+  <pre class="py" data-file="paisapay_v7.py" data-wide>def is_valid_upi_id(upi_id):
+    parts = upi_id.split("@")
+    return len(parts) == 2 and len(parts[0]) &gt; 0 and len(parts[1]) &gt; 0
+
+def mask(card):
+    return "**** **** **** " + card[-4:]
+
+print(is_valid_upi_id("rashi@okaxis"), is_valid_upi_id("rashi"))
+print(is_valid_upi_id("@okaxis"))
+print(mask("4111222233334444"))
+print("rashi@okaxis".split("@")[0].title())</pre>
+  <div class="out">True False
+False
+**** **** **** 4444
+Rashi</div>
+  <ul class="b">
+    <li>A valid UPI ID: exactly one @, something on both sides.</li>
+    <li>The part before @ becomes the payee's name on the receipt.</li>
+    <li>Never print a full card number. The last four are enough.</li>
+  </ul></div>
+</section>
+
+<!-- ============ f-strings ============ -->
+<section class="step" data-nav="f-strings">
+  <h2>Text with values inside: f-strings</h2>
+  <ul class="b"><li>Say "eff-string". Short for <b>formatted string</b>: a string with the <code>f</code> in front, so Python fills in the braces.</li></ul>
+  <pre class="py" data-file="concat.py" data-wide>name = "Rashi"
+age = 20
+
+print("My name is " + name + " and I am " + str(age) + " years old.")</pre>
+  <div class="out">My name is Rashi and I am 20 years old.</div>
+  <ul class="b"><li>It works. Four plus signs, one <code>str()</code>, and easy to get wrong.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>The f-string version. Does <code>age</code> need <code>str()</code>?</div></div>
+  <pre class="py" data-file="fstring.py" data-wide>print(f"My name is {name} and I am {age} years old.")</pre>
+  <div class="vote">
+    <div class="vopt">Yes, or TypeError</div>
+    <div class="vopt" data-win>No, it just works</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">My name is Rashi and I am 20 years old.</div>
+    <div class="anat">
+      <div class="a"><code>f"…"</code><div class="m">The f before the quote: fill in the braces.</div></div>
+      <div class="a"><code>{name}</code><div class="m">A variable. Any type; no <code>str()</code> needed.</div></div>
+      <div class="a"><code>{price * quantity}</code><div class="m">An expression. Python works it out.</div></div>
+      <div class="a"><code>{price:.2f}</code><div class="m">A format: two digits after the point.</div></div>
+    </div>
+  </div>
+  <pre class="py" data-file="fstring_more.py">price = 99.5678
+quantity = 3
+
+print(f"Total: {price * quantity}")
+print(f"Price: {price:.2f}")</pre>
+  <div class="out">Total: 298.7034
+Price: 99.57</div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>amount = 600
+fee = 5
+print(f"Total ₹{amount + fee}")</pre>
+    <div class="opts">
+      <button class="opt">Total ₹amount + fee</button>
+      <button class="opt">Total ₹6005</button>
+      <button class="opt">TypeError</button>
+      <button class="opt" data-ok>Total ₹605</button>
+    </div>
+    <div class="expl"><b>Total ₹605.</b> Inside the braces Python does the maths, then puts the result in the text.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">The f is missing. What prints?</div>
+    <pre class="py" data-nocopy>name = "Rashi"
+print("Hello {name}")</pre>
+    <div class="opts">
+      <button class="opt">Hello Rashi</button>
+      <button class="opt">NameError</button>
+      <button class="opt" data-ok>Hello {name}</button>
+      <button class="opt">SyntaxError</button>
+    </div>
+    <div class="expl"><b>Hello {name}.</b> Without the f, the braces are just characters. No error, no value. The most common f-string bug.</div>
+  </div>
+</section>
+
+<section class="step" data-nav="Convert to an f-string">
+  <h2>Convert to an f-string</h2>
+  <ul class="b"><li>Each long line works. Pick the f-string that prints the same.</li></ul>
+  <div class="quiz" data-level="s">
+    <div class="qt">One variable.</div>
+    <pre class="py" data-nocopy>name = "Rashi"
+print("Hello " + name)</pre>
+    <div class="opts">
+      <button class="opt">print("Hello {name}")</button>
+      <button class="opt">print(f"Hello name")</button>
+      <button class="opt">print(f"Hello " + {name})</button>
+      <button class="opt" data-ok>print(f"Hello {name}")</button>
+    </div>
+    <div class="expl"><b>D.</b> The f in front, the variable in braces. A prints the braces. B prints the word name. C is a TypeError: a string plus a set.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A number. The long way needs <code>str()</code>.</div>
+    <pre class="py" data-nocopy>balance = 410
+print("Balance: " + str(balance))</pre>
+    <div class="opts">
+      <button class="opt" data-ok>print(f"Balance: {balance}")</button>
+      <button class="opt">print(f"Balance: " + balance)</button>
+      <button class="opt">print("Balance: {balance}")</button>
+      <button class="opt">print(f"Balance: balance")</button>
+    </div>
+    <div class="expl"><b>A.</b> No <code>str()</code>: the braces take any type. B is a TypeError, string plus int. C has no f. D has no braces.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A sum.</div>
+    <pre class="py" data-nocopy>amount = 600
+fee = 5
+print("Total: " + str(amount + fee))</pre>
+    <div class="opts">
+      <button class="opt">print(f"Total: {amount} + {fee}")</button>
+      <button class="opt" data-ok>print(f"Total: {amount + fee}")</button>
+      <button class="opt">print(f"Total: amount + fee")</button>
+      <button class="opt">print(f"Total: {amount + fee")</button>
+    </div>
+    <div class="expl"><b>B.</b> The whole expression inside one pair of braces. A prints <code>600 + 5</code>, the maths is outside the braces. C prints the words. D has no closing brace: SyntaxError.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">Two decimals.</div>
+    <pre class="py" data-nocopy>price = 99.5678
+print("Price: " + str(round(price, 2)))</pre>
+    <div class="opts">
+      <button class="opt">print(f"Price: {price.2f}")</button>
+      <button class="opt">print(f"Price: {price}:.2f")</button>
+      <button class="opt" data-ok>print(f"Price: {price:.2f}")</button>
+      <button class="opt">print(f"Price: {.2f price}")</button>
+    </div>
+    <div class="expl"><b>C.</b> The format goes after a colon, inside the braces: <code>{price:.2f}</code>. A and D are SyntaxErrors. B prints <code>99.5678:.2f</code>, the format is outside the braces.</div>
+  </div>
+</section>
+
+<!-- ============ build 3 ============ -->
+<section class="step" data-nav="PaisaPay v7: the receipt" data-tag="PaisaPay v7">
+  <h2>PaisaPay v7: a receipt worth reading</h2>
+  <div class="build"><div class="bh">PaisaPay v7 · build 3 of 4</div><div class="bd">Every print in <code>pay</code> becomes an f-string. One function prints the receipt.</div>
+  <pre class="py" data-file="paisapay_v7.py" data-wide>def print_receipt(name, amount, mode, fee, cashback, balance):
+    print(f"Paid ₹{amount} to {name} via {mode_name(mode)}")
+    print(f"Fee ₹{fee} | Cashback ₹{cashback} | Balance ₹{balance}")
+
+print_receipt("Rashi", 600, "upi", 0, 10, 410)</pre>
+  <div class="out">Paid ₹600 to Rashi via UPI
+Fee ₹0 | Cashback ₹10 | Balance ₹410</div>
+  <ul class="b">
+    <li>No stray spaces: <code>₹600</code>, not <code>₹ 600</code>. The f-string puts the value exactly where the brace is.</li>
+    <li>Six values, one readable line of code each.</li>
+  </ul></div>
+</section>
+
+<!-- ============ escapes ============ -->
+<section class="step" data-nav="Escape characters">
+  <h2>Special characters: the backslash</h2>
+  <div class="ask"><span class="ic">✋</span><div>The text has an apostrophe. What does Python say?</div></div>
+  <pre class="py" data-file="apostrophe.py" data-kind="bad">message = 'It's a nice day'</pre>
+  <div class="vote">
+    <div class="vopt">Prints It's a nice day</div>
+    <div class="vopt" data-win>SyntaxError</div>
+    <div class="vopt">Prints It</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">SyntaxError: unterminated string literal</span></div>
+    <ul class="b">
+      <li>Python thinks the string ends after <code>It</code>.</li>
+      <li>Two fixes: the other quote, <code>"It's a nice day"</code>, or a backslash: <code>'It\'s a nice day'</code>.</li>
+    </ul>
+  </div>
+  <table class="tbl"><tr><th>Escape</th><th>Meaning</th><th>Example</th></tr>
+    <tr><td><code>\n</code></td><td>new line</td><td><code>print("Hello\nWorld")</code> → two lines</td></tr>
+    <tr><td><code>\t</code></td><td>tab</td><td><code>print("Name:\tRashi")</code></td></tr>
+    <tr><td><code>\'</code> <code>\"</code></td><td>a quote inside the string</td><td><code>"He said \"Hello\""</code></td></tr>
+    <tr><td><code>\\</code></td><td>one backslash</td><td><code>"C:\\Users"</code></td></tr></table>
+  <div class="quiz" data-level="m">
+    <div class="qt">How many lines does this print?</div>
+    <pre class="py" data-nocopy>print("Paid\nFee\tCashback")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>2</button>
+      <button class="opt">1</button>
+      <button class="opt">3</button>
+      <button class="opt">SyntaxError</button>
+    </div>
+    <div class="expl"><b>2.</b> <code>\n</code> breaks the line; <code>\t</code> only adds a tab inside the second line.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">A Windows path. What prints?</div>
+    <pre class="py" data-nocopy>print("C:\\Users\\rashi")</pre>
+    <div class="opts">
+      <button class="opt">C:\\Users\\rashi</button>
+      <button class="opt">C:Usersrashi</button>
+      <button class="opt" data-ok>C:\Users\rashi</button>
+      <button class="opt">SyntaxError</button>
+    </div>
+    <div class="expl"><b>C:\Users\rashi.</b> Each <code>\\</code> is one backslash in the real string. You type two, Python keeps one.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>print(len("a\nb"))</pre>
+    <div class="opts">
+      <button class="opt">4</button>
+      <button class="opt" data-ok>3</button>
+      <button class="opt">2</button>
+      <button class="opt">TypeError</button>
+    </div>
+    <div class="expl"><b>3.</b> <code>\n</code> is one character, the new line, not two. a, new line, b.</div>
+  </div>
+</section>
+
+<!-- ============ immutability ============ -->
+<section class="step" data-nav="Strings cannot change">
+  <h2>Strings cannot be changed in place</h2>
+  <div class="ask"><span class="ic">✋</span><div>Lists allowed this. Does Python quietly change the first letter, or refuse?</div></div>
+  <pre class="py" data-file="immutable.py" data-kind="bad">word = "Python"
+word[0] = "J"</pre>
+  <div class="vote">
+    <div class="vopt">word becomes Jython</div>
+    <div class="vopt" data-win>TypeError</div>
+    <div class="vopt">Nothing happens</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">TypeError: 'str' object does not support item assignment</span></div>
+    <ul class="b"><li>A string is <b>immutable</b>. Its characters cannot be replaced one by one.</li></ul>
+  </div>
+  <div class="lab">To “change” it, build a new one</div>
+  <pre class="py" data-file="new_string.py">word = "Python"
+word = "J" + word[1:]
+print(word)</pre>
+  <div class="out">Jython</div>
+  <table class="tbl"><tr><th></th><th>List</th><th>String</th></tr>
+    <tr><td>Ordered, indexed from 0, sliceable, loopable</td><td>yes</td><td>yes</td></tr>
+    <tr><td><code>x[0] = …</code></td><td>allowed: mutable</td><td>TypeError: immutable</td></tr>
+    <tr><td>Methods</td><td>change the list, give back None</td><td>cannot change it, give back a new string</td></tr></table>
+  <div class="src">Read: <a href="https://docs.python.org/3/tutorial/introduction.html#text" target="_blank" rel="noopener">Python tutorial: strings are immutable</a></div>
+</section>
+
+<!-- ============ methods return new ============ -->
+<section class="step" data-nav="Does upper change the original?">
+  <h2>Does <code>upper()</code> change the original?</h2>
+  <div class="ask"><span class="ic">✋</span><div>After <code>text.upper()</code>, what does <code>text</code> hold?</div></div>
+  <pre class="py" data-file="upper_lost.py">text = "hello"
+
+text.upper()
+
+print(text)</pre>
+  <div class="vote">
+    <div class="vopt">HELLO</div>
+    <div class="vopt" data-win>hello</div>
+    <div class="vopt">None</div>
+    <div class="vopt">An error</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="bad">hello</span></div>
+    <ul class="b">
+      <li><code>upper()</code> ran and built <code>"HELLO"</code>. Nothing caught it. Gone the instant the line finished.</li>
+      <li>A string cannot change, so every string method hands back a <b>new</b> string. Catch it: <code>text = text.upper()</code>.</li>
+    </ul>
+    <pre class="py" data-file="upper_kept.py" data-kind="good" data-hl="3">text = "hello"
+
+text = text.upper()
+
+print(text)</pre>
+    <div class="out">HELLO</div>
+    <div class="take">Class 6: <code>sort()</code> changes the list and gives back None. Today: <code>upper()</code> cannot change the string and gives back a new one. Opposite mechanisms, the same bug: the real result is the return value.</div>
+    <div class="ai"><b>🤖 AI moment</b> — if you voted HELLO, ask for the walk-through. Then try <code>text.strip()</code> and <code>text.replace("h", "j")</code> the same way, predicting first, to see that the rule holds for every string method.<div class="pr">"I expected text to become 'HELLO' after calling text.upper(), but it is still 'hello'. Walk me through exactly why, step by step."</div></div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>name = "  rashi "
+name.strip()
+clean = name.title()
+print(len(name), clean)</pre>
+    <div class="opts">
+      <button class="opt">5 Rashi</button>
+      <button class="opt" data-ok>8   Rashi </button>
+      <button class="opt">8 Rashi</button>
+      <button class="opt">5   Rashi </button>
+    </div>
+    <div class="expl"><b>8, and a title with the spaces still there.</b> Line 2 stripped a copy and threw it away. <code>name</code> never changed, so <code>title()</code> worked on the padded text.
+<div class="diag">
+    <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg">
+      <text x="12" y="46" font-size="13" font-family="Menlo,monospace" fill="#0f172a">name</text>
+      <rect x="175" y="20" width="30" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="190" y="46" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="209" y="20" width="30" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="224" y="46" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="243" y="20" width="30" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="258" y="46" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">r</text>
+      <rect x="277" y="20" width="30" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="292" y="46" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <rect x="311" y="20" width="30" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="326" y="46" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">s</text>
+      <rect x="345" y="20" width="30" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="360" y="46" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <rect x="379" y="20" width="30" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="394" y="46" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">i</text>
+      <rect x="413" y="20" width="30" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="428" y="46" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <text x="455" y="46" font-size="12" fill="#334155">8 characters, never changed</text>
+      <text x="12" y="116" font-size="13" font-family="Menlo,monospace" fill="#0f172a">name.strip()</text>
+      <rect x="175" y="90" width="30" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="190" y="116" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">r</text>
+      <rect x="209" y="90" width="30" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="224" y="116" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <rect x="243" y="90" width="30" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="258" y="116" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">s</text>
+      <rect x="277" y="90" width="30" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="292" y="116" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <rect x="311" y="90" width="30" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="326" y="116" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">i</text>
+      <text x="353" y="116" font-size="12" fill="#334155">a new string; nobody keeps it</text>
+      <text x="12" y="186" font-size="13" font-family="Menlo,monospace" fill="#0f172a">clean</text>
+      <rect x="175" y="160" width="30" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="190" y="186" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="209" y="160" width="30" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="224" y="186" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <rect x="243" y="160" width="30" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="258" y="186" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">R</text>
+      <rect x="277" y="160" width="30" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="292" y="186" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <rect x="311" y="160" width="30" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="326" y="186" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">s</text>
+      <rect x="345" y="160" width="30" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="360" y="186" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <rect x="379" y="160" width="30" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="394" y="186" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">i</text>
+      <rect x="413" y="160" width="30" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="428" y="186" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">␣</text>
+      <text x="455" y="186" font-size="12" fill="#334155">title() read name, spaces and all</text>
+      <text x="320" y="222" text-anchor="middle" font-size="13" fill="#334155">len(name) is 8, and clean is "  Rashi " with its spaces</text>
+    </svg></div></div>
+  </div>
+</section>
+
+<!-- ============ iterate ============ -->
+<section class="step" data-nav="Walk through a string">
+  <h2>Walk through a string</h2>
+  <pre class="py" data-file="iterate.py">word = "Python"
+
+for character in word:
+    print(character)</pre>
+  <div class="out">P
+y
+t
+h
+o
+n</div>
+  <div class="lab">Count the vowels</div>
+  <div class="ask"><span class="ic">✋</span><div>Count them by hand first. How many vowels in “education”?</div></div>
+  <pre class="py" data-file="vowels.py">word = "education"
+count = 0
+
+for character in word:
+    if character in "aeiou":
+        count += 1
+
+print("Vowels:", count)</pre>
+  <div class="vote">
+    <div class="vopt">4</div>
+    <div class="vopt" data-win>5</div>
+    <div class="vopt">6</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Vowels: 5</div>
+    <ul class="b"><li>e, u, a, i, o. A loop, a condition, <code>in</code> on a string, a counter. Four classes in six lines.</li></ul>
+  </div>
+</section>
+
+<!-- ============ chaining user input ============ -->
+<section class="step" data-nav="Cleaning user input">
+  <h2>Cleaning user input, step by step</h2>
+  <div class="ask"><span class="ic">✋</span><div>The user types two spaces, then <code>rashi sharma</code>. Walk through each step.</div></div>
+  <pre class="py" data-file="greet_input.py" id="c20">name = input("Enter your name: ")
+name = name.strip()
+name = name.title()
+print(f"Hello, {name}!")</pre>
+  <div class="vote">
+    <div class="vopt">Hello,   Rashi Sharma!</div>
+    <div class="vopt" data-win>Hello, Rashi Sharma!</div>
+    <div class="vopt">Hello, rashi sharma!</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Trace</button>
+  <div class="reveal">
+    <div class="trace" data-code="c20" data-once data-steps='[
+      {"l":1,"n":"input gives the raw text, spaces included","r":"t","m":{"name":"\"  rashi sharma\""}},
+      {"l":2,"n":"strip: a new string without the outer spaces, stored back","r":"t","m":{"name":"\"rashi sharma\""}},
+      {"l":3,"n":"title: a new string with capitals, stored back","r":"t","m":{"name":"\"Rashi Sharma\""}},
+      {"l":4,"n":"the f-string fills the braces","r":"t","o":"Hello, Rashi Sharma!\n"}]'></div>
+    <ul class="b"><li>Same thing in one line: <code>name = input("Enter your name: ").strip().title()</code>. Each method's result feeds the next.</li></ul>
+  </div>
+</section>
+
+<!-- ============ practices ============ -->
+<section class="step" data-nav="Two to write now">
+  <h2>Two to write now</h2>
+  <div class="ask"><span class="ic">✍️</span><div>In PyLens. Finish one, then the other. <span class="timer" data-sec="300"></span></div></div>
+  <pre class="py" data-file="practice_starter.py" data-wide># 1. Name formatter: ask for a name, remove extra spaces,
+#    title case, greet with an f-string.
+
+sentence = "Python is easy to learn"
+# 2. Print: its length · first character · last character ·
+#    in uppercase · with "easy" replaced by "powerful" · as a list of words</pre>
+  <button class="rv" data-reveal="next">Solutions</button>
+  <div class="reveal">
+    <pre class="py" data-file="practice_solution.py" data-kind="good" data-wide>name = input("Enter your name: ").strip().title()
+print(f"Hello, {name}!")
+
+sentence = "Python is easy to learn"
+print(len(sentence))
+print(sentence[0])
+print(sentence[-1])
+print(sentence.upper())
+print(sentence.replace("easy", "powerful"))
+print(sentence.split())</pre>
+    <div class="out"><span class="p">Enter your name: </span><span class="in">  kishor kumar</span>
+Hello, Kishor Kumar!
+23
+P
+n
+PYTHON IS EASY TO LEARN
+Python is powerful to learn
+['Python', 'is', 'easy', 'to', 'learn']</div>
+  </div>
+</section>
+
+<!-- ============ challenge ============ -->
+<section class="step" data-nav="Mini challenge: username">
+  <h2>Mini challenge: username validator</h2>
+  <pre class="py" data-file="username_starter.py" data-wide>username = input("Enter username: ").strip()
+# valid when: at least 5 characters · no space inside · starts with a letter
+# print "Username looks valid." or "Invalid username."</pre>
+  <div class="ask"><span class="ic">✍️</span><div>Which three tools? <code>len</code>, <code>in</code>, and one method from today. <span class="timer" data-sec="240"></span></div></div>
+  <button class="rv" data-reveal="next">Solution</button>
+  <div class="reveal">
+    <pre class="py" data-file="username.py" data-kind="good" data-wide>username = input("Enter username: ").strip()
+
+starts_with_letter = username[0].lower() in "abcdefghijklmnopqrstuvwxyz"
+
+if len(username) &gt;= 5 and " " not in username and starts_with_letter:
+    print("Username looks valid.")
+else:
+    print("Invalid username.")</pre>
+    <div class="out"><span class="p">Enter username: </span><span class="in">rashi_07</span>
+Username looks valid.</div>
+    <ul class="b">
+      <li>A classroom check, not real security. Class 11 does this properly with regex.</li>
+      <li>Stretch: what happens with an empty username? Which line breaks, and why?</li>
+    </ul>
+    <div class="ai"><b>🤖 AI moment</b> — first write one line with <code>+</code> that joins a name, an age and a price (with <code>str()</code>), and the same line as an f-string. Then ask. Then delete one <code>str()</code> and run it, to see the error the f-string never had.<div class="pr">"Beyond being shorter to type, are there situations where f-strings are more reliable than + concatenation, not just more convenient?"</div></div>
+  </div>
+</section>
+
+<!-- ============ trace ============ -->
+<section class="step" data-nav="Trace a string">
+  <h2>Trace a string on paper</h2>
+  <div class="ask"><span class="ic">✋</span><div>Four outputs. Work them out before the run.</div></div>
+  <pre class="py" data-file="trace_string.py" id="c24">text = "  python programming  "
+
+text = text.strip()
+text = text.title()
+
+print(text)
+print(len(text))
+print(text[0])
+print(text[-1])</pre>
+  <div class="vote">
+    <div class="vopt" data-win>Python Programming · 18 · P · g</div>
+    <div class="vopt">Python Programming · 22 · P · g</div>
+    <div class="vopt">Python Programming · 18 · p · g</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Trace</button>
+  <div class="reveal">
+    <div class="trace" data-code="c24" data-once data-steps='[
+      {"l":1,"n":"22 characters, with two spaces at each end","r":"n","m":{"text":"\"  python programming  \""}},
+      {"l":3,"n":"strip: 18 characters, stored back","r":"t","m":{"text":"\"python programming\""}},
+      {"l":4,"n":"title: two capitals, stored back","r":"t","m":{"text":"\"Python Programming\""}},
+      {"l":6,"n":"the cleaned text","r":"t","o":"Python Programming\n"},
+      {"l":7,"n":"len counts the space in the middle too","r":"t","o":"18\n"},
+      {"l":8,"n":"box 0","r":"t","o":"P\n"},
+      {"l":9,"n":"box -1","r":"t","o":"g\n"}]'></div>
+    <div class="take">Methods give back new strings. Store them, then index the stored one.</div>
+  </div>
+</section>
+
+<!-- ============ complete ============ -->
+<section class="step" data-nav="PaisaPay v7 complete" data-tag="PaisaPay v7 complete">
+  <h2>PaisaPay v7</h2>
+  <div class="build"><div class="bh">PaisaPay v7 · build 4 of 4 · complete</div><div class="bd">v6, plus clean input, a UPI ID check, a masked card and f-string receipts.</div>
+  <pre class="py" data-file="paisapay_v7.py" data-wide># PaisaPay v7: text in, text out
+print("Welcome to PaisaPay")
+
+saved_pin = "4321"
+history = []
+
+def clean(text):
+    return text.strip().lower()
+
+def is_valid_amount(amount):
+    return amount &gt; 0 and amount &lt;= 100000
+
+def is_valid_pin(pin):
+    return pin == saved_pin
+
+def is_valid_upi_id(upi_id):
+    parts = upi_id.split("@")
+    return len(parts) == 2 and len(parts[0]) &gt; 0 and len(parts[1]) &gt; 0
+
+def mask(card):
+    return "**** **** **** " + card[-4:]
+
+def fee_for(mode):
+    if mode == "card":
+        return 5
+    elif mode == "netbanking":
+        return 2
+    return 0
+
+def cashback_for(amount):
+    if amount &gt;= 5000:
+        return 100
+    elif amount &gt;= 2000:
+        return 50
+    elif amount &gt;= 500:
+        return 10
+    return 0
+
+def mode_name(mode):
+    match mode:
+        case "upi":
+            return "UPI"
+        case "card":
+            return "Card"
+        case "netbanking":
+            return "Net banking"
+        case _:
+            return "Unknown mode"
+
+def print_receipt(name, amount, mode, fee, cashback, balance):
+    print(f"Paid ₹{amount} to {name} via {mode_name(mode)}")
+    print(f"Fee ₹{fee} | Cashback ₹{cashback} | Balance ₹{balance}")
+
+def ask_pin():
+    for attempt in range(3):
+        pin = input("UPI PIN: ").strip()
+        if is_valid_pin(pin):
+            return True
+        print(f"Wrong PIN. {2 - attempt} attempts left")
+    return False
+
+def pay(balance, history, upi_id, amount, mode="upi"):
+    if not is_valid_upi_id(upi_id):
+        print(f"'{upi_id}' is not a valid UPI ID. Payment refused.")
+        return balance
+    if not is_valid_amount(amount):
+        print("Invalid amount. Payment refused.")
+        return balance
+    if mode_name(mode) == "Unknown mode":
+        print(f"Unknown payment mode '{mode}'. Payment refused.")
+        return balance
+    fee = fee_for(mode)
+    if amount + fee &gt; balance:
+        print("Insufficient balance. Payment refused.")
+        return balance
+    cashback = cashback_for(amount)
+    balance = balance - amount - fee + cashback
+    name = upi_id.split("@")[0].title()
+    print_receipt(name, amount, mode, fee, cashback, balance)
+    history.append(amount)
+    return balance
+
+def mini_statement(history):
+    if len(history) == 0:
+        print("No payments yet.")
+        return
+    total = 0
+    for amount in history:
+        total += amount
+    print(f"Payments: {len(history)} | Spent ₹{total}")
+    print(f"Biggest ₹{sorted(history)[-1]} | Last five: {history[-5:]}")
+
+balance = 1000
+choice = ""
+while choice != "4":
+    print()
+    print("1 Pay  2 Balance  3 Statement  4 Exit  5 Add  6 Card")
+    choice = clean(input("Choose: "))
+
+    if choice == "1":
+        upi_id = clean(input("Pay to (UPI ID): "))
+        amount = int(input("Amount in rupees: ").strip())
+        mode = clean(input("Mode (upi / card / netbanking): "))
+        if ask_pin():
+            balance = pay(balance, history, upi_id, amount, mode)
+        else:
+            print("Three wrong PINs. Payment refused.")
+
+    elif choice == "2":
+        print(f"Balance: ₹{balance}")
+
+    elif choice == "3":
+        mini_statement(history)
+
+    elif choice == "5":
+        amount = int(input("Amount to add: ").strip())
+        if is_valid_amount(amount):
+            balance = balance + amount
+            print(f"Added ₹{amount}. Balance ₹{balance}")
+        else:
+            print("Invalid amount. Nothing added.")
+
+    elif choice == "6":
+        card = input("Card number: ").replace(" ", "").strip()
+        if len(card) == 16:
+            print(f"Card linked: {mask(card)}")
+        else:
+            print("A card number has 16 digits.")
+
+    elif choice != "4":
+        print(f"Unknown choice '{choice}'. Try again.")
+
+print("Thank you for using PaisaPay")</pre>
+  <button class="rv run" data-reveal="next">Sample run</button>
+  <div class="reveal">
+    <div class="out">Welcome to PaisaPay
+
+1 Pay  2 Balance  3 Statement  4 Exit  5 Add  6 Card
+<span class="p">Choose: </span><span class="in">1</span>
+<span class="p">Pay to (UPI ID): </span><span class="in">rashi@okaxis</span>
+<span class="p">Amount in rupees: </span><span class="in">600</span>
+<span class="p">Mode (upi / card / netbanking): </span><span class="in"> UPI</span>
+<span class="p">UPI PIN: </span><span class="in">4321</span>
+Paid ₹600 to Rashi via UPI
+Fee ₹0 | Cashback ₹10 | Balance ₹410
+
+1 Pay  2 Balance  3 Statement  4 Exit  5 Add  6 Card
+<span class="p">Choose: </span><span class="in">6</span>
+<span class="p">Card number: </span><span class="in">4111 2222 3333 4444</span>
+Card linked: **** **** **** 4444
+
+1 Pay  2 Balance  3 Statement  4 Exit  5 Add  6 Card
+<span class="p">Choose: </span><span class="in">1</span>
+<span class="p">Pay to (UPI ID): </span><span class="in">kishor</span>
+<span class="p">Amount in rupees: </span><span class="in">200</span>
+<span class="p">Mode (upi / card / netbanking): </span><span class="in">upi</span>
+<span class="p">UPI PIN: </span><span class="in">4321</span>
+'kishor' is not a valid UPI ID. Payment refused.
+
+1 Pay  2 Balance  3 Statement  4 Exit  5 Add  6 Card
+<span class="p">Choose: </span><span class="in">3</span>
+Payments: 1 | Spent ₹600
+Biggest ₹600 | Last five: [600]
+
+1 Pay  2 Balance  3 Statement  4 Exit  5 Add  6 Card
+<span class="p">Choose: </span><span class="in">4</span>
+Thank you for using PaisaPay</div>
+    <ul class="b">
+      <li>“ UPI” now works. A UPI ID without @ is refused with its own message. The card shows four digits only.</li>
+      <li>Still whole rupees, and amounts that are not numbers still crash <code>int()</code>. Errors are Class 12.</li>
+      <li>The UPI ID check is a classroom check. Class 11 does it properly with regex.</li>
+    </ul>
+  </div></div>
+</section>
+
+<!-- ============ evidence ============ -->
+<section class="step" data-nav="A word is not nothing">
+  <h2>A word is not nothing</h2>
+  <div class="case">
+    <div class="tag">Real incident · 2019</div>
+    <h4>The NULL number plate</h4>
+    <ul>
+      <li>A man in California chose the car number plate NULL. In many computer systems the word NULL means “nothing here”.</li>
+      <li>So every fine with a missing plate number was sent to him. At one point he owed $12,049 for other people's tickets.</li>
+      <li>The website that renews plates also treated his plate as empty, and refused him.</li>
+    </ul>
+    <div class="lesson">The text NULL is four letters. An empty value is a different thing. Keep them apart.</div>
+    <div class="src">Read: <a href="https://www.wired.com/story/null-license-plate-landed-one-hacker-ticket-hell/" target="_blank" rel="noopener">Wired: how a NULL licence plate landed one hacker in ticket hell</a></div>
+  </div>
+  <table class="tbl"><tr><th>In Python</th><th>What it is</th><th><code>len</code></th></tr>
+    <tr><td><code>"None"</code></td><td>a string of four letters</td><td>4</td></tr>
+    <tr><td><code>""</code></td><td>a string with nothing in it</td><td>0</td></tr>
+    <tr><td><code>None</code></td><td>not a string at all: no value</td><td>TypeError</td></tr></table>
+  <div class="take">Clean the text, then check it. Never let a word pretend to be an empty value.</div>
+</section>
+
+<!-- ============ errors ============ -->
+<section class="step" data-nav="New errors today">
+  <h2>Two new errors today, and one silence</h2>
+  <table class="tbl"><tr><th>Error</th><th>Python is saying</th><th>Today's example</th></tr>
+    <tr><td><b>SyntaxError</b>: unterminated string</td><td>A quote opened and never closed.</td><td><code>'It's a nice day'</code></td></tr>
+    <tr><td><b>TypeError</b>: item assignment</td><td>Strings cannot be changed in place.</td><td><code>word[0] = "J"</code></td></tr>
+    <tr><td>No error: <b>a result thrown away</b></td><td>The method gave back a new string and nothing caught it.</td><td><code>text.upper()</code> on its own line</td></tr></table>
+  <div class="take">Catch every string method's result. Compare text only after cleaning it.</div>
+</section>
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Recap and what's next">
+  <h2>Recap</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Two minutes. Write your own three-point recap: what would you tell a friend who missed today? <span class="timer" data-sec="120"></span></div></div>
+  <div class="lab">The reference</div>
+  <div class="steps-list prose">
+    <div class="sl on"><b>a string</b> — a sequence of characters. Index and slice it like a list: <code>word[0]</code>, <code>word[-1]</code>, <code>word[1:4]</code>.</div>
+    <div class="sl on"><b>methods</b> — lower, upper, title, strip, replace, find, startswith, endswith, split. All give back something new.</div>
+    <div class="sl on"><b>join</b> — <code>", ".join(list)</code>: glue a list into a string.</div>
+    <div class="sl on"><b>f-strings</b> — <code>f"Hello {name}"</code>, expressions and <code>:.2f</code> inside the braces.</div>
+    <div class="sl on"><b>escapes</b> — <code>\n</code> new line, <code>\t</code> tab, <code>\"</code> a quote.</div>
+    <div class="sl on"><b>immutable</b> — <code>word[0] = "J"</code> is refused. Build a new string, and catch what methods return.</div>
+    <div class="sl on"><b>PaisaPay v7</b> — clean input, a UPI ID check, a masked card, f-string receipts.</div>
+  </div>
+  <div class="ask"><span class="ic">🎤</span><div>v7 knows amounts, and now names. It still cannot keep the name, amount and mode of one payment together. What would hold one payment?</div></div>
+  <button class="rv" data-reveal="next">Next class</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>Sets, tuples and dictionaries: a payment as one record, unique payees, lookups by name.</li>
+      <li>Practice: <b>PRACTICE.md</b> has twelve problems on strings. Do them before Class 8.</li>
+    </ul>
+  </div>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
