@@ -16,7 +16,7 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 | 5 | Functions | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-05-Functions/) · [notes and code](Class-05-Functions/README.md) · [practice](Class-05-Functions/PRACTICE.md) | **v5** reusable actions: `pay()`, `add_money()`, `show_balance()` |
 | 6 | Lists | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-06-Lists/) · [notes and code](Class-06-Lists/README.md) · [practice](Class-06-Lists/PRACTICE.md) | **v6** transaction history |
 | 7 | Strings | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-07-Strings/) · [notes and code](Class-07-Strings/README.md) · [practice](Class-07-Strings/PRACTICE.md) | **v7** clean input, masked account numbers, formatted receipts |
-| 8 | Sets, Tuples, Dictionaries | coming up | **v8** real records: accounts and transactions as structured data |
+| 8 | Sets, Tuples, Dictionaries | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-08-Sets-Tuples-Dictionaries/) · [notes and code](Class-08-Sets-Tuples-Dictionaries/README.md) · [practice](Class-08-Sets-Tuples-Dictionaries/PRACTICE.md) | **v8** a tuple per payment, a set of payees, contacts and totals as dictionaries |
 | 9 | Functional Programming | coming up | **v9** spending insights with `map`, `filter` and `sorted` |
 | 10 | OOP | coming up | **v10** `Account`, `Wallet` and `Transaction` classes |
 | 11 | Regex | coming up | **v11** validates UPI IDs and reads bank SMS alerts |

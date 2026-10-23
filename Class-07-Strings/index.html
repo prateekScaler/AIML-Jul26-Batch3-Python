@@ -1565,14 +1565,14 @@ print(text)</pre>
     <pre class="py" data-nocopy>name = "  rashi "
 name.strip()
 clean = name.title()
-print(len(name), clean)</pre>
+print(len(name), "[" + clean + "]")</pre>
     <div class="opts">
-      <button class="opt">5 Rashi</button>
-      <button class="opt" data-ok>8   Rashi </button>
-      <button class="opt">8 Rashi</button>
-      <button class="opt">5   Rashi </button>
+      <button class="opt">5 [Rashi]</button>
+      <button class="opt" data-ok>8 [&nbsp;&nbsp;Rashi&nbsp;]</button>
+      <button class="opt">8 [Rashi]</button>
+      <button class="opt">5 [&nbsp;&nbsp;Rashi&nbsp;]</button>
     </div>
-    <div class="expl"><b>8, and a title with the spaces still there.</b> Line 2 stripped a copy and threw it away. <code>name</code> never changed, so <code>title()</code> worked on the padded text.
+    <div class="expl"><b>8 [  Rashi ].</b> The brackets make the spaces visible. Line 2 stripped a copy and threw it away. <code>name</code> never changed, so <code>title()</code> worked on the padded text.
 <div class="diag">
     <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg">
       <text x="12" y="46" font-size="13" font-family="Menlo,monospace" fill="#0f172a">name</text>
@@ -1672,7 +1672,7 @@ name = name.strip()
 name = name.title()
 print(f"Hello, {name}!")</pre>
   <div class="vote">
-    <div class="vopt">Hello,   Rashi Sharma!</div>
+    <div class="vopt">Hello,&nbsp;&nbsp;&nbsp;Rashi Sharma!</div>
     <div class="vopt" data-win>Hello, Rashi Sharma!</div>
     <div class="vopt">Hello, rashi sharma!</div>
   </div>
