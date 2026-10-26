@@ -17,10 +17,11 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 | 6 | Lists | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-06-Lists/) · [notes and code](Class-06-Lists/README.md) · [practice](Class-06-Lists/PRACTICE.md) | **v6** transaction history |
 | 7 | Strings | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-07-Strings/) · [notes and code](Class-07-Strings/README.md) · [practice](Class-07-Strings/PRACTICE.md) | **v7** clean input, masked account numbers, formatted receipts |
 | 8 | Sets, Tuples, Dictionaries | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-08-Sets-Tuples-Dictionaries/) · [notes and code](Class-08-Sets-Tuples-Dictionaries/README.md) · [practice](Class-08-Sets-Tuples-Dictionaries/PRACTICE.md) | **v8** a tuple per payment, a set of payees, contacts and totals as dictionaries |
-| 9 | Functional Programming | coming up | **v9** spending insights with `map`, `filter` and `sorted` |
-| 10 | OOP | coming up | **v10** `Account`, `Wallet` and `Transaction` classes |
-| 11 | Regex | coming up | **v11** validates UPI IDs and reads bank SMS alerts |
-| 12 | File Handling and Modules | coming up | **v12** saves its data and is split into modules |
+| 9 | Problem Solving: Python Foundations | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-09-Problem-Solving-Python-Foundations/) · [notes and code](Class-09-Problem-Solving-Python-Foundations/README.md) · [practice](Class-09-Problem-Solving-Python-Foundations/PRACTICE.md) | no new version: a revision class on Classes 1 to 8 |
+| 10 | Functional Programming | coming up | **v10** spending insights with `map`, `filter`, `reduce` and `sorted` |
+| 11 | OOP | coming up | **v11** `Account`, `Wallet` and `Transaction` classes |
+| 12 | Regex | coming up | **v12** validates UPI IDs and reads bank SMS alerts |
+| 13 | File Handling and Modules | coming up | **v13** saves its data and is split into modules |
 
 ## What is in every class folder
 
@@ -36,7 +37,7 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 
 ## The project: PaisaPay
 
-One app, built across all twelve classes: a small UPI-style payments program. Every class adds one capability, so each new topic has an immediate use. Each class folder holds the version reached that day (`code/paisapay_vN.py`), which makes the growth easy to follow from one class to the next.
+One app, built across the module: a small UPI-style payments program. Every class adds one capability, so each new topic has an immediate use. Each class folder holds the version reached that day (`code/paisapay_vN.py`), which makes the growth easy to follow from one class to the next.
 
 ## Running the code
 

@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 9 · Problem Solving: Python Foundations</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c09" data-class="Class 9" data-title="Problem Solving: Python Foundations" data-course="Python · AIML Jul26 Batch 3" data-date="2026-10-26">
+
+<div class="cover" id="cover">
+  <h1><small>Class 9</small>Problem Solving: Python Foundations</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Last class, in three questions">
+  <h2>Last class, in three questions</h2>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>x = (5)
+y = (5,)
+print(type(x) == type(y))</pre>
+    <div class="opts">
+      <button class="opt">True</button>
+      <button class="opt">SyntaxError</button>
+      <button class="opt" data-ok>False</button>
+      <button class="opt">tuple</button>
+    </div>
+    <div class="expl"><b>False.</b> <code>(5)</code> is an int, <code>(5,)</code> a tuple. The comma makes the tuple, not the brackets.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>payees = {"Akash", "Sumit", "Akash", "Vinay"}
+print(len(payees), "Sumit" in payees)</pre>
+    <div class="opts">
+      <button class="opt">4 True</button>
+      <button class="opt" data-ok>3 True</button>
+      <button class="opt">3 False</button>
+      <button class="opt">KeyError</button>
+    </div>
+    <div class="expl"><b>3 True.</b> A set keeps one copy of each value, and <code>in</code> works on it like on a list, only faster.</div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>coords = (10, 20, 30)
+coords = (99, 20, 30)
+print(coords[0])</pre>
+    <div class="opts">
+      <button class="opt" data-ok>99</button>
+      <button class="opt">TypeError</button>
+      <button class="opt">10</button>
+      <button class="opt">(99, 20, 30)</button>
+    </div>
+    <div class="expl"><b>99.</b> No tuple was changed. The name was pointed at a new tuple. <code>coords[0] = 99</code> would be the TypeError.</div>
+  </div>
+  <div class="take">Class 8 stopped at set order. First the rest of Class 8, then revision.</div>
+</section>
+
+<!-- ============ carried over from Class 8 ============ -->
+
+<!-- ============ dictionaries ============ -->
+<section class="step" data-nav="Dictionaries: key and value" data-tag="Dictionaries">
+  <h2>A dictionary: look up by name</h2>
+  <ul class="b"><li>A list answers "what is at position 2?". A dictionary answers "what is stored under <b>age</b>?".</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>Predict both lines.</div></div>
+  <pre class="py" data-file="dicts.py" data-wide>student = {"name": "Akshay", "age": 20, "course": "AIML"}
+
+print(student["name"])
+print(student["age"])</pre>
+  <div class="vote">
+    <div class="vopt">name, age</div>
+    <div class="vopt" data-win>Akshay, 20</div>
+    <div class="vopt">KeyError</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Akshay
+20</div>
+  </div>
+  <div class="diag">
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar8k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+      <text x="150" y="28" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">key</text>
+      <text x="470" y="28" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">value</text>
+      <rect x="60" y="42" width="180" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="150" y="63" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"name"</text>
+      <rect x="380" y="42" width="180" height="32" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="470" y="63" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"Akshay"</text>
+      <line x1="245" y1="58" x2="372" y2="58" stroke="#64748b" stroke-width="2" marker-end="url(#ar8k)"/>
+      <rect x="60" y="86" width="180" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="150" y="107" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"age"</text>
+      <rect x="380" y="86" width="180" height="32" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="470" y="107" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">20</text>
+      <line x1="245" y1="102" x2="372" y2="102" stroke="#64748b" stroke-width="2" marker-end="url(#ar8k)"/>
+      <rect x="60" y="130" width="180" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="150" y="151" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"course"</text>
+      <rect x="380" y="130" width="180" height="32" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="470" y="151" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"AIML"</text>
+      <line x1="245" y1="146" x2="372" y2="146" stroke="#64748b" stroke-width="2" marker-end="url(#ar8k)"/>
+    </svg>
+    <div class="cap">student["age"]: find the key, follow the arrow</div>
+  </div>
+</section>
+
+<section class="step" data-nav="Add, update, get">
+  <h2>Add a key, update a key, ask safely</h2>
+  <pre class="py" data-file="dicts.py">student["age"] = 21
+student["city"] = "Pune"
+
+print(student)</pre>
+  <div class="out">{'name': 'Akshay', 'age': 21, 'course': 'AIML', 'city': 'Pune'}</div>
+  <ul class="b">
+    <li>Same syntax, two jobs: an existing key is <b>updated</b>, a new key is <b>added</b>.</li>
+  </ul>
+  <div class="ask"><span class="ic">✋</span><div>There is no "grade" key. Does the second line crash?</div></div>
+  <pre class="py" data-file="dicts.py">print(student.get("age"))
+print(student.get("grade"))</pre>
+  <div class="vote">
+    <div class="vopt">KeyError</div>
+    <div class="vopt" data-win>21 then None</div>
+    <div class="vopt">21 then an empty string</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">21
+None</div>
+    <ul class="b">
+      <li><code>get</code> is the safe lookup: None when the key is missing, or a default you choose: <code>student.get("grade", "Not assigned")</code>.</li>
+      <li>Square brackets on a missing key: <code>KeyError: 'grade'</code>.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="step" data-nav="Dictionary methods">
+  <h2>keys, values, items, update, pop</h2>
+  <pre class="py" data-file="dict_methods.py" data-wide>student = {"name": "Akshay", "age": 20}
+
+print(student.keys())
+print(student.values())
+print(student.items())</pre>
+  <div class="out">dict_keys(['name', 'age'])
+dict_values(['Akshay', 20])
+dict_items([('name', 'Akshay'), ('age', 20)])</div>
+  <ul class="b"><li><code>items()</code> gives pairs, and each pair is a tuple. Tuples again.</li></ul>
+  <pre class="py" data-file="dict_methods.py">student.update({"age": 22, "grade": "A"})
+print(student)
+
+removed = student.pop("grade")
+print(removed)
+print(student)</pre>
+  <div class="out">{'name': 'Akshay', 'age': 22, 'grade': 'A'}
+A
+{'name': 'Akshay', 'age': 22}</div>
+  <ul class="b">
+    <li><code>update</code>: several keys at once. <code>pop</code>: remove a key and hand back its value.</li>
+  </ul>
+</section>
+
+<section class="step" data-nav="The silent overwrite">
+  <h2>Assign to a key that already exists</h2>
+  <div class="ask"><span class="ic">✋</span><div>Aanand is assigned twice. How many pairs does <code>scores</code> end with?</div></div>
+  <pre class="py" data-file="overwrite.py">scores = {}
+
+scores["Aanand"] = 90
+scores["Saurabh"] = 85
+scores["Aanand"] = 95
+
+print(scores)
+print(len(scores))</pre>
+  <div class="vote">
+    <div class="vopt">3</div>
+    <div class="vopt" data-win>2</div>
+    <div class="vopt">KeyError</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">{'Aanand': 95, 'Saurabh': 85}
+2</div>
+    <ul class="b">
+      <li>A key points to <b>one</b> value. The second assignment replaces the first.</li>
+      <li>90 is gone. No warning, no error, no way back.</li>
+    </ul>
+  </div>
+  <div class="diag">
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar8o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+      <rect x="40" y="60" width="160" height="36" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="120" y="83" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"Aanand"</text>
+      <rect x="300" y="20" width="80" height="36" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="340" y="43" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">90</text>
+      <line x1="205" y1="70" x2="292" y2="42" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="470" y="43" font-size="12" fill="#dc2626">first value, dropped</text>
+      <rect x="300" y="100" width="80" height="36" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="340" y="123" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">95</text>
+      <line x1="205" y1="86" x2="292" y2="114" stroke="#64748b" stroke-width="2" marker-end="url(#ar8o)"/>
+      <text x="470" y="123" font-size="12" fill="#16a34a">the key points here now</text>
+      <text x="320" y="160" text-anchor="middle" font-size="13" fill="#334155">one key, one arrow, one value</text>
+    </svg>
+  </div>
+</section>
+
+<section class="step" data-nav="Keep every value">
+  <h2>If you wanted both scores</h2>
+  <ul class="b"><li>Store a <b>list</b> under the key. Then append.</li></ul>
+  <pre class="py" data-file="overwrite.py">scores = {}
+scores["Aanand"] = [90]
+scores["Saurabh"] = [85]
+scores["Aanand"].append(95)
+
+print(scores)</pre>
+  <div class="out">{'Aanand': [90, 95], 'Saurabh': [85]}</div>
+  <div class="ai"><b>🤖 AI moment</b> — if you voted 3, ask for the walk-through. Then rewrite the example with a list under each key and run it, so you see both scores survive.<div class="pr">"I expected scores to have 3 entries after assigning to 'Aanand' twice, but it has 2. Walk me through exactly why, step by step."</div></div>
+  <div class="case">
+    <div class="tag">Industry practice</div>
+    <h4>JSON does the same thing, quietly</h4>
+    <ul>
+      <li>An LLM or an API returns JSON. Python's <code>json.loads</code> turns it into a dictionary.</li>
+      <li>If the JSON repeats a key, Python keeps the <b>last</b> value and drops the rest. No error.</li>
+      <li><code>'{"x": 1, "x": 2, "x": 3}'</code> becomes <code>{'x': 3}</code>.</li>
+    </ul>
+    <div class="lesson">The silent overwrite you just saw is also how every JSON object enters your program. Validate what an agent sends before you trust it.</div>
+    <div class="src">Read: <a href="https://docs.python.org/3/library/json.html#repeated-names-within-an-object" target="_blank">Python docs: repeated names within an object</a></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Curly brackets: set or dict?">
+  <h2>Curly brackets: a set or a dictionary?</h2>
+  <ul class="b"><li>Both use <code>{ }</code>. A set holds items. A dictionary holds key: value pairs.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>Curly brackets again. What type is <code>empty</code>?</div></div>
+  <pre class="py" data-file="sets.py">empty = {}
+
+print(type(empty))</pre>
+  <div class="vote">
+    <div class="vopt">set</div>
+    <div class="vopt" data-win>dict</div>
+    <div class="vopt">SyntaxError</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">&lt;class 'dict'&gt;</div>
+    <ul class="b">
+      <li>Dictionaries claimed <code>{}</code> first. An empty set is written <code>set()</code>.</li>
+      <li>This surprises working developers too, not only beginners.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="step" data-nav="Dictionary questions">
+  <h2>Dictionaries: three questions</h2>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>fees = {"upi": 0, "card": 5}
+print(fees["card"] + fees["upi"])</pre>
+    <div class="opts">
+      <button class="opt">cardupi</button>
+      <button class="opt">KeyError</button>
+      <button class="opt" data-ok>5</button>
+      <button class="opt">(5, 0)</button>
+    </div>
+    <div class="expl"><b>5.</b> Two lookups, two values, one sum.</div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>fees = {"upi": 0, "card": 5}
+print(fees.get("netbanking", 2), fees.get("wallet"))</pre>
+    <div class="opts">
+      <button class="opt">KeyError</button>
+      <button class="opt">2 KeyError</button>
+      <button class="opt">None None</button>
+      <button class="opt" data-ok>2 None</button>
+    </div>
+    <div class="expl"><b>2 None.</b> <code>get</code> gives the default you pass, or None when you pass none. It never raises KeyError.
+<div class="diag">
+    <svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar8g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+      <text x="120" y="24" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">fees</text>
+      <rect x="40" y="36" width="80" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="80" y="57" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"upi"</text>
+      <rect x="140" y="36" width="60" height="32" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="170" y="57" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">0</text>
+      <rect x="40" y="78" width="80" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="80" y="99" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"card"</text>
+      <rect x="140" y="78" width="60" height="32" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="170" y="99" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">5</text>
+      <text x="400" y="57" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">fees.get("netbanking", 2)</text>
+      <line x1="290" y1="62" x2="240" y2="62" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="400" y="80" text-anchor="middle" font-size="12" fill="#dc2626">no such key</text>
+      <rect x="520" y="40" width="90" height="32" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="565" y="61" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">2</text>
+      <line x1="495" y1="56" x2="512" y2="56" stroke="#64748b" stroke-width="2" marker-end="url(#ar8g)"/>
+      <text x="400" y="127" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">fees.get("wallet")</text>
+      <line x1="290" y1="132" x2="240" y2="132" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="400" y="150" text-anchor="middle" font-size="12" fill="#dc2626">no such key, no default</text>
+      <rect x="520" y="110" width="90" height="32" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="565" y="131" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">None</text>
+      <line x1="465" y1="126" x2="512" y2="126" stroke="#64748b" stroke-width="2" marker-end="url(#ar8g)"/>
+      <text x="320" y="188" text-anchor="middle" font-size="13" fill="#334155">get looks for the key; when it is missing you get the default, or None. Never a KeyError.</text>
+    </svg></div></div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>spent = {}
+for name in ["Akash", "Sumit", "Akash"]:
+    spent[name] = 1
+print(len(spent), spent["Akash"])</pre>
+    <div class="opts">
+      <button class="opt">3 1</button>
+      <button class="opt" data-ok>2 1</button>
+      <button class="opt">2 2</button>
+      <button class="opt">3 2</button>
+    </div>
+    <div class="expl"><b>2 1.</b> Akash is one key, assigned twice to 1. To count, you would write <code>spent[name] = spent.get(name, 0) + 1</code>. Next build.</div>
+  </div>
+</section>
+
+
+<!-- ============ iteration ============ -->
+<section class="step" data-nav="Looping over a dictionary">
+  <h2>Looping over a dictionary</h2>
+  <div class="ask"><span class="ic">✋</span><div>Keys, values, or both?</div></div>
+  <pre class="py" data-file="iterate.py" data-wide>student = {"name": "Akshay", "age": 22, "course": "AIML"}
+
+for key in student:
+    print(key)</pre>
+  <div class="vote">
+    <div class="vopt" data-win>The keys</div>
+    <div class="vopt">The values</div>
+    <div class="vopt">Both, as pairs</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">name
+age
+course</div>
+    <ul class="b"><li>A plain loop gives the keys. Almost everyone expects the values the first time.</li></ul>
+  </div>
+  <pre class="py" data-file="iterate.py">for key, value in student.items():
+    print(key, "-&gt;", value)</pre>
+  <div class="out">name -&gt; Akshay
+age -&gt; 22
+course -&gt; AIML</div>
+  <div class="diag">
+    <svg viewBox="0 0 680 250" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar8l" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+      <text x="110" y="24" text-anchor="middle" font-size="12" fill="#b45309">for key in student</text>
+      <text x="330" y="24" text-anchor="middle" font-size="12" fill="#16a34a">for value in student.values()</text>
+      <rect x="40" y="40" width="140" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="110" y="61" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"name"</text>
+      <line x1="185" y1="56" x2="252" y2="56" stroke="#64748b" stroke-width="2" marker-end="url(#ar8l)"/>
+      <rect x="260" y="40" width="140" height="32" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="330" y="61" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"Akshay"</text>
+      <rect x="30" y="34" width="380" height="44" rx="10" fill="none" stroke="#6366f1" stroke-width="2" stroke-dasharray="5 4"/>
+      <text x="560" y="61" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#4f46e5">("name", "Akshay")</text>
+      <rect x="40" y="84" width="140" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="110" y="105" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"age"</text>
+      <line x1="185" y1="100" x2="252" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#ar8l)"/>
+      <rect x="260" y="84" width="140" height="32" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="330" y="105" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">22</text>
+      <rect x="30" y="78" width="380" height="44" rx="10" fill="none" stroke="#6366f1" stroke-width="2" stroke-dasharray="5 4"/>
+      <text x="560" y="105" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#4f46e5">("age", 22)</text>
+      <rect x="40" y="128" width="140" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="110" y="149" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"course"</text>
+      <line x1="185" y1="144" x2="252" y2="144" stroke="#64748b" stroke-width="2" marker-end="url(#ar8l)"/>
+      <rect x="260" y="128" width="140" height="32" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="330" y="149" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"AIML"</text>
+      <rect x="30" y="122" width="380" height="44" rx="10" fill="none" stroke="#6366f1" stroke-width="2" stroke-dasharray="5 4"/>
+      <text x="560" y="149" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#4f46e5">("course", "AIML")</text>
+      <text x="560" y="190" text-anchor="middle" font-size="12" fill="#4f46e5">for key, value in student.items()</text>
+      <text x="560" y="208" text-anchor="middle" font-size="12" fill="#4f46e5">one tuple per row, unpacked</text>
+      <text x="340" y="240" text-anchor="middle" font-size="13" fill="#334155">yellow column: the keys. green column: the values. dashed row: both together.</text>
+    </svg></div>
+  <ul class="b">
+    <li><code>items()</code> gives (key, value) tuples. The for line unpacks each one.</li>
+    <li>Only the values: <code>for value in student.values():</code></li>
+  </ul>
+</section>
+
+<section class="step" data-nav="Looping over tuples and sets">
+  <h2>Looping over a tuple and a set</h2>
+  <pre class="py" data-file="iterate.py">coords = (10, 20, 30)
+for value in coords:
+    print(value)</pre>
+  <div class="out">10
+20
+30</div>
+  <pre class="py" data-file="iterate.py">fruits = {"apple", "banana", "cherry"}
+for fruit in fruits:
+    print(fruit)</pre>
+  <div class="out">banana
+cherry
+apple<span class="dim">   (your order may differ)</span></div>
+  <ul class="b">
+    <li>A tuple keeps the order you stored. A set makes no promise.</li>
+    <li>Never write code that needs a set in a particular order.</li>
+  </ul>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>fees = {"upi": 0, "card": 5}
+for mode in fees:
+    print(mode, fees[mode])</pre>
+    <div class="opts">
+      <button class="opt" data-ok>upi 0 then card 5</button>
+      <button class="opt">0 then 5</button>
+      <button class="opt">KeyError</button>
+      <button class="opt">upi then card</button>
+    </div>
+    <div class="expl"><b>upi 0 then card 5.</b> The loop gives each key; <code>fees[mode]</code> looks up its value. Same result as <code>items()</code>, one lookup more.</div>
+  </div>
+</section>
+
+<!-- ============ nested ============ -->
+<section class="step" data-nav="A dictionary of lists" data-tag="Nested">
+  <h2>Collections inside collections</h2>
+  <div class="ask"><span class="ic">✋</span><div>Predict both lines. Read from the outside in.</div></div>
+  <pre class="py" data-file="nested.py">scores = {
+    "Prasad": [90, 85, 95],
+    "Madhumaya": [70, 75, 80]
+}
+
+print(scores["Prasad"])
+print(scores["Prasad"][0])</pre>
+  <div class="vote">
+    <div class="vopt">90 then 90</div>
+    <div class="vopt" data-win>[90, 85, 95] then 90</div>
+    <div class="vopt">[90, 85, 95] then [90]</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">[90, 85, 95]
+90</div>
+    <ul class="b"><li>The key gives the list. The index gives the item. Outside first, then inside.</li></ul>
+  </div>
+  <div class="diag">
+    <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar8n" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+      <rect x="30" y="40" width="150" height="36" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="105" y="63" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">"Prasad"</text>
+      <line x1="185" y1="58" x2="262" y2="58" stroke="#64748b" stroke-width="2" marker-end="url(#ar8n)"/>
+      <rect x="270" y="40" width="60" height="36" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <rect x="340" y="40" width="60" height="36" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <rect x="410" y="40" width="60" height="36" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="300" y="63" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">90</text>
+      <text x="370" y="63" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">85</text>
+      <text x="440" y="63" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">95</text>
+      <text x="300" y="96" text-anchor="middle" font-size="11" fill="#16a34a">0</text>
+      <text x="370" y="96" text-anchor="middle" font-size="11" fill="#16a34a">1</text>
+      <text x="440" y="96" text-anchor="middle" font-size="11" fill="#16a34a">2</text>
+      <text x="105" y="100" text-anchor="middle" font-size="12" fill="#b45309">scores["Prasad"]</text>
+      <text x="320" y="135" text-anchor="middle" font-size="13" fill="#334155">scores["Prasad"][0]: the key first, then the index</text>
+    </svg>
+  </div>
+</section>
+
+<section class="step" data-nav="Dict of dicts, list of tuples">
+  <h2>A lookup inside a lookup, a record per row</h2>
+  <div class="ask"><span class="ic">✋</span><div>Two sets of square brackets. What prints?</div></div>
+  <pre class="py" data-file="nested.py" data-wide>contacts = {
+    "sumit@ybl": {"name": "Sumit", "city": "Bengaluru"},
+    "parveen@okaxis": {"name": "Parveen", "city": "Pune"}
+}
+
+print(contacts["sumit@ybl"]["city"])</pre>
+  <div class="vote">
+    <div class="vopt">{'name': 'Sumit', 'city': 'Bengaluru'}</div>
+    <div class="vopt" data-win>Bengaluru</div>
+    <div class="vopt">KeyError</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Bengaluru</div>
+    <ul class="b"><li>The first key gives a dictionary. The second key looks inside it.</li></ul>
+  </div>
+  <pre class="py" data-file="nested.py" data-wide>payments = [("Sumit", 600, "upi"),
+            ("Parveen", 250, "card"),
+            ("Sumit", 1500, "upi")]
+
+for name, amount, mode in payments:
+    print(name, amount, mode)</pre>
+  <div class="out">Sumit 600 upi
+Parveen 250 card
+Sumit 1500 upi</div>
+  <ul class="b"><li>A list of tuples, unpacked in the for line. This is exactly PaisaPay's history.</li></ul>
+</section>
+
+<section class="step" data-nav="Which structure?">
+  <h2>Which structure would you pick?</h2>
+  <div class="ask"><span class="ic">✋</span><div>Gut feeling first. One structure per line.</div></div>
+  <table class="tbl" data-cells>
+    <tr><th>Store</th><th>Pick</th></tr>
+    <tr><td>A student's exam-hall seat, row and number</td><td>tuple</td></tr>
+    <tr><td>Every unique word in an essay</td><td>set</td></tr>
+    <tr><td>A phonebook: name to number</td><td>dictionary</td></tr>
+    <tr><td>A shopping list where order and repeats both matter</td><td>list</td></tr>
+  </table>
+  <div class="diag" data-brk>
+    <svg viewBox="0 0 640 300" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar8c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+      <rect x="40" y="20" width="300" height="44" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="190" y="47" text-anchor="middle" font-size="13" fill="#0f172a">Look things up by a name or key?</text>
+      <line x1="340" y1="42" x2="440" y2="42" stroke="#64748b" stroke-width="2" marker-end="url(#ar8c)"/>
+      <text x="390" y="34" text-anchor="middle" font-size="11" fill="#16a34a">yes</text>
+      <rect x="450" y="22" width="150" height="40" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="525" y="47" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Dictionary</text>
+      <line x1="190" y1="64" x2="190" y2="106" stroke="#64748b" stroke-width="2" marker-end="url(#ar8c)"/>
+      <text x="210" y="90" font-size="11" fill="#dc2626">no</text>
+      <rect x="40" y="114" width="300" height="44" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="190" y="141" text-anchor="middle" font-size="13" fill="#0f172a">Every item unique, order not needed?</text>
+      <line x1="340" y1="136" x2="440" y2="136" stroke="#64748b" stroke-width="2" marker-end="url(#ar8c)"/>
+      <text x="390" y="128" text-anchor="middle" font-size="11" fill="#16a34a">yes</text>
+      <rect x="450" y="116" width="150" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="525" y="141" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Set</text>
+      <line x1="190" y1="158" x2="190" y2="200" stroke="#64748b" stroke-width="2" marker-end="url(#ar8c)"/>
+      <text x="210" y="184" font-size="11" fill="#dc2626">no</text>
+      <rect x="40" y="208" width="300" height="44" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="190" y="235" text-anchor="middle" font-size="13" fill="#0f172a">Will it change after it is made?</text>
+      <line x1="340" y1="230" x2="440" y2="230" stroke="#64748b" stroke-width="2" marker-end="url(#ar8c)"/>
+      <text x="390" y="222" text-anchor="middle" font-size="11" fill="#dc2626">no</text>
+      <rect x="450" y="210" width="150" height="40" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="525" y="235" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Tuple</text>
+      <line x1="190" y1="252" x2="190" y2="276" stroke="#64748b" stroke-width="2" marker-end="url(#ar8c)"/>
+      <text x="210" y="270" font-size="11" fill="#16a34a">yes</text>
+      <text x="190" y="294" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">List</text>
+    </svg>
+    <div class="cap">Ask what the data must do, not which syntax you remember.</div>
+  </div>
+</section>
+
+<section class="step" data-nav="Word frequency counter">
+  <h2>Mini project: word frequency counter</h2>
+  <ul class="b">
+    <li>Take a sentence. Count each word. Report how many different words.</li>
+  </ul>
+  <pre class="py" data-file="word_counts.py" data-wide>sentence = "the cat sat on the mat the cat ran"
+words = sentence.split()
+print(words)</pre>
+  <div class="out">['the', 'cat', 'sat', 'on', 'the', 'mat', 'the', 'cat', 'ran']</div>
+  <div class="ask"><span class="ic">✍️</span><div>Trace the first three words by hand: the, cat, sat. What is <code>counts</code> after them?</div></div>
+  <pre class="py" data-file="word_counts.py" id="wc-code">counts = {}
+
+for word in words:
+    if word in counts:
+        counts[word] += 1
+    else:
+        counts[word] = 1
+
+print(counts)</pre>
+  <div class="trace" data-code="wc-code" data-once data-steps='[{"l":1,"n":"empty dictionary","m":{"counts":"{}"}},{"l":3,"n":"word = the","m":{"counts":"{}","word":"the"}},{"l":4,"n":"the in counts? No","r":"f"},{"l":7,"n":"new key","m":{"counts":"{the: 1}","word":"the"}},{"l":3,"n":"word = cat","m":{"counts":"{the: 1}","word":"cat"}},{"l":4,"n":"cat in counts? No","r":"f"},{"l":7,"n":"new key","m":{"counts":"{the: 1, cat: 1}","word":"cat"}},{"l":3,"n":"word = sat","m":{"counts":"{the: 1, cat: 1}","word":"sat"}},{"l":4,"n":"sat in counts? No","r":"f"},{"l":7,"n":"new key","m":{"counts":"{the: 1, cat: 1, sat: 1}","word":"sat"}},{"l":3,"n":"word = on ... then the again","m":{"counts":"{the: 1, cat: 1, sat: 1, on: 1}","word":"the"}},{"l":4,"n":"the in counts? Yes","r":"t"},{"l":5,"n":"add one","m":{"counts":"{the: 2, cat: 1, sat: 1, on: 1}","word":"the"}},{"l":9,"n":"after all nine words","o":"{&apos;the&apos;: 3, &apos;cat&apos;: 2, &apos;sat&apos;: 1, &apos;on&apos;: 1, &apos;mat&apos;: 1, &apos;ran&apos;: 1}\n","m":{"counts":"{the: 3, cat: 2, sat: 1, on: 1, mat: 1, ran: 1}"}}]'></div>
+  <pre class="py" data-file="word_counts.py">unique_words = set(words)
+print("Unique words:", len(unique_words))</pre>
+  <div class="out">Unique words: 6</div>
+  <ul class="b">
+    <li>The dictionary updates an existing key on purpose this time.</li>
+    <li>The set does the deduplication. One line.</li>
+  </ul>
+</section>
+
+
+<!-- ============ errors and clinic ============ -->
+<section class="step" data-nav="New errors today">
+  <h2>Two new errors today, and two old ones in new clothes</h2>
+  <table class="tbl">
+    <tr><th>You see</th><th>It means</th><th>Fix</th></tr>
+    <tr><td><code>KeyError: 'grade'</code></td><td>no such key in the dictionary, or no such item to remove from the set</td><td><code>get</code> with a default; <code>discard</code></td></tr>
+    <tr><td><code>TypeError: unhashable type: 'list'</code></td><td>a list used as a key or inside a set</td><td>use a tuple</td></tr>
+    <tr><td><code>TypeError: 'tuple' object does not support item assignment</code></td><td>changing a tuple in place</td><td>build a new tuple, or use a list</td></tr>
+    <tr><td><code>ValueError: too many values to unpack</code></td><td>wrong number of names on the left</td><td>one name per item</td></tr>
+  </table>
+</section>
+
+
+<!-- ============ revision ============ -->
+<section class="step" data-nav="Eight classes, one line each" data-tag="Revision">
+  <h2>Eight classes, one idea each</h2>
+  <ul class="b"><li>Say the idea before you click the cell.</li></ul>
+  <table class="tbl" data-cells>
+    <tr><th>Class</th><th>Topic</th><th>The one idea</th></tr>
+    <tr><td>1</td><td>Data types, variables, input</td><td><code>input()</code> always gives text; convert it on purpose</td></tr>
+    <tr><td>2</td><td>Operators</td><td><code>/</code> gives a float, <code>//</code> and <code>%</code> give whole-number answers; a comparison is a bool</td></tr>
+    <tr><td>3</td><td>Control statements</td><td>only the first true branch runs; order your <code>elif</code>s from strict to loose</td></tr>
+    <tr><td>4</td><td>Loops</td><td><code>range</code> stops before the end; <code>break</code> leaves, <code>continue</code> skips</td></tr>
+    <tr><td>5</td><td>Functions</td><td><code>print</code> shows, <code>return</code> hands back; a function without <code>return</code> gives None</td></tr>
+    <tr><td>6</td><td>Lists</td><td>two names can share one list; <code>sort()</code> changes it and gives None, <code>sorted()</code> makes a new one</td></tr>
+    <tr><td>7</td><td>Strings</td><td>a string never changes; store what every method gives back</td></tr>
+    <tr><td>8</td><td>Sets, tuples, dictionaries</td><td>tuple: fixed; set: unique, no order; dictionary: one value per key</td></tr>
+  </table>
+</section>
+
+<section class="step" data-nav="Quick-fire 1: types">
+  <h2>Quick-fire: types and operators</h2>
+  <ul class="b"><li>Write your answer before you click. Then run it in PyLens.</li></ul>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>print(type(3/2), type(3//2), 2**3**2)</pre>
+    <div class="opts">
+      <button class="opt">&lt;class 'float'&gt; &lt;class 'int'&gt; 64</button>
+      <button class="opt" data-ok>&lt;class 'float'&gt; &lt;class 'int'&gt; 512</button>
+      <button class="opt">&lt;class 'int'&gt; &lt;class 'int'&gt; 512</button>
+      <button class="opt">&lt;class 'float'&gt; &lt;class 'float'&gt; 64</button>
+    </div>
+    <div class="expl"><b>float, int, 512.</b> <code>/</code> always gives a float, <code>//</code> keeps ints. <code>**</code> works from the right: <code>3**2</code> is 9, then <code>2**9</code> is 512.
+<div class="diag">
+    <svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg">
+      <text x="160" y="26" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">2 ** 3 ** 2</text>
+      <rect x="150" y="40" width="120" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="210" y="62" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">3 ** 2 = 9</text>
+      <text x="300" y="62" font-size="12" fill="#b45309">first: the right pair</text>
+      <rect x="150" y="90" width="120" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="210" y="112" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">2 ** 9 = 512</text>
+      <text x="300" y="112" font-size="12" fill="#16a34a">then: 2 to that power</text>
+      <rect x="150" y="140" width="120" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2" stroke-dasharray="4 3"/>
+      <text x="210" y="162" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">(2**3)**2 = 64</text>
+      <text x="300" y="162" font-size="12" fill="#dc2626">not this: that needs the brackets</text>
+      <text x="320" y="198" text-anchor="middle" font-size="13" fill="#334155">** is the one operator that works from the right. Everything else goes left to right.</text>
+    </svg></div>
+    <table class="tbl">
+      <tr><th>Operator</th><th>Rule</th><th>Example</th></tr>
+      <tr><td><code>**</code></td><td>first, and from the right</td><td><code>2 ** 3 ** 2</code> is 512</td></tr>
+      <tr><td><code>-x</code></td><td>after the power</td><td><code>-2 ** 2</code> is -4</td></tr>
+      <tr><td><code>* / // %</code></td><td>before + and -, left to right</td><td><code>2 * 3 ** 2</code> is 18</td></tr>
+      <tr><td><code>+ -</code></td><td>last, left to right</td><td><code>10 - 4 - 3</code> is 3</td></tr>
+      <tr><td>brackets</td><td>change any of it</td><td><code>(2 ** 3) ** 2</code> is 64</td></tr>
+    </table></div>
+  </div>
+  <div class="quiz" data-level="s">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>x = "5"
+print(x*3, int(x)*3)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>555 15</button>
+      <button class="opt">15 15</button>
+      <button class="opt">TypeError</button>
+      <button class="opt">555 555</button>
+    </div>
+    <div class="expl"><b>555 15.</b> Text times 3 repeats the text. Convert first and you get arithmetic. This is why <code>input()</code> answers need <code>int()</code>.</div>
+  </div>
+</section>
+
+<section class="step" data-nav="Quick-fire 2: truthiness">
+  <h2>Quick-fire: what counts as True</h2>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>print(bool(""), bool("0"), bool([]), bool([0]))</pre>
+    <div class="opts">
+      <button class="opt">False False False False</button>
+      <button class="opt">False False False True</button>
+      <button class="opt">True True False True</button>
+      <button class="opt" data-ok>False True False True</button>
+    </div>
+    <div class="expl"><b>False True False True.</b> <code>bool()</code> asks one question: <b>is there anything here?</b> Not "is it zero", not "is it the word False". <code>"0"</code> has one character in it, so yes. <code>[0]</code> has one item in it, so yes. An empty string and an empty list have nothing in them, so no.
+    <table class="tbl" data-cells>
+      <tr><th>Value</th><th>Is there anything here?</th><th>bool()</th></tr>
+      <tr><td><code>0</code>, <code>0.0</code></td><td>the number zero: nothing</td><td>False</td></tr>
+      <tr><td><code>""</code></td><td>no characters</td><td>False</td></tr>
+      <tr><td><code>[]</code>, <code>{}</code>, <code>()</code>, <code>set()</code></td><td>no items</td><td>False</td></tr>
+      <tr><td><code>None</code></td><td>nothing at all</td><td>False</td></tr>
+      <tr><td><code>"0"</code>, <code>" "</code>, <code>"False"</code></td><td>characters, so something</td><td>True</td></tr>
+      <tr><td><code>[0]</code>, <code>[[]]</code></td><td>one item, whatever it holds</td><td>True</td></tr>
+      <tr><td><code>-3</code>, <code>0.001</code></td><td>not zero</td><td>True</td></tr>
+    </table>
+    <ul class="b"><li>Why it matters: <code>if name:</code> means "did the user type anything?". <code>if amount:</code> means "is it not zero?". Both read as one question.</li></ul></div>
+  </div>
+  </section>
+
+<section class="step" data-nav="Quick-fire 3: same box">
+  <h2>Quick-fire: same box or new box?</h2>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>a = [1, 2, 3]
+b = a
+b.append(4)
+print(a)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>[1, 2, 3, 4]</button>
+      <button class="opt">[1, 2, 3]</button>
+      <button class="opt">[1, 2, 3, [4]]</button>
+      <button class="opt">TypeError</button>
+    </div>
+    <div class="expl"><b>[1, 2, 3, 4].</b> <code>b = a</code> does not copy. Two names, one list. Append through either name and both see it. A copy is <code>b = a[:]</code>.
+<div class="diag">
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="ar8b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+      <rect x="60" y="30" width="80" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="100" y="52" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">a</text>
+      <rect x="60" y="100" width="80" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="100" y="122" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">b</text>
+      <line x1="145" y1="47" x2="292" y2="76" stroke="#64748b" stroke-width="2" marker-end="url(#ar8b)"/>
+      <line x1="145" y1="117" x2="292" y2="90" stroke="#64748b" stroke-width="2" marker-end="url(#ar8b)"/>
+      <rect x="300" y="64" width="220" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="410" y="89" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">[1, 2, 3, 4]</text>
+      <text x="410" y="130" text-anchor="middle" font-size="12" fill="#16a34a">one list. b.append(4) grew it, and a sees the same box.</text>
+      <text x="320" y="158" text-anchor="middle" font-size="13" fill="#334155">b = a copies the arrow, not the list. A real copy is b = a[:].</text>
+    </svg></div></div>
+  </div>
+  <div class="quiz" data-level="t">
+    <div class="qt">A tuple holding a list. What prints?</div>
+    <pre class="py" data-nocopy>t = (1, 2, [3, 4])
+t[2].append(5)
+print(t)</pre>
+    <div class="opts">
+      <button class="opt">TypeError</button>
+      <button class="opt">(1, 2, [3, 4])</button>
+      <button class="opt" data-ok>(1, 2, [3, 4, 5])</button>
+      <button class="opt">(1, 2, [3, 4], 5)</button>
+    </div>
+    <div class="expl"><b>(1, 2, [3, 4, 5]).</b> The tuple did not change: slot 2 still holds the same list. The list is mutable, so it grew. Immutable means the slots are fixed, not that everything inside is frozen.
+<div class="diag">
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+      <text x="320" y="24" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">t = (1, 2, [3, 4])</text>
+      <rect x="120" y="40" width="400" height="60" rx="10" fill="none" stroke="#6366f1" stroke-width="3"/>
+      <rect x="135" y="50" width="60" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="165" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">1</text>
+      <rect x="210" y="50" width="60" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="240" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">2</text>
+      <rect x="285" y="50" width="220" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="395" y="76" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">[3, 4, 5]</text>
+      <text x="320" y="126" text-anchor="middle" font-size="12" fill="#4f46e5">the tuple frame is sealed: three slots, never reassigned</text>
+      <text x="320" y="146" text-anchor="middle" font-size="12" fill="#16a34a">slot 2 holds a list, and a list can grow: append(5) worked</text>
+    </svg></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Quick-fire 4: strings">
+  <h2>Quick-fire: strings</h2>
+  <div class="quiz" data-level="t">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>s = "python"
+print(s[::-2], s[1:4])</pre>
+    <div class="opts">
+      <button class="opt">nohtyp yth</button>
+      <button class="opt">nhy ytho</button>
+      <button class="opt">nhy pyt</button>
+      <button class="opt" data-ok>nhy yth</button>
+    </div>
+    <div class="expl"><b>nhy yth.</b> <code>[::-2]</code> walks backwards two at a time: n, h, y. <code>[1:4]</code> is boxes 1, 2, 3: y, t, h. Stop excluded.
+<div class="diag">
+    <svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg">
+      <text x="80" y="55" text-anchor="end" font-size="13" font-family="Menlo,monospace" fill="#0f172a">s[::-2]</text>
+      <rect x="160" y="30" width="44" height="38" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="182" y="55" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">p</text>
+      <text x="182" y="85" text-anchor="middle" font-size="11" fill="#16a34a">0</text>
+      <rect x="210" y="30" width="44" height="38" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="232" y="55" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">y</text>
+      <text x="232" y="85" text-anchor="middle" font-size="11" fill="#16a34a">1</text>
+      <rect x="260" y="30" width="44" height="38" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="282" y="55" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">t</text>
+      <text x="282" y="85" text-anchor="middle" font-size="11" fill="#16a34a">2</text>
+      <rect x="310" y="30" width="44" height="38" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="332" y="55" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <text x="332" y="85" text-anchor="middle" font-size="11" fill="#16a34a">3</text>
+      <rect x="360" y="30" width="44" height="38" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="382" y="55" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <text x="382" y="85" text-anchor="middle" font-size="11" fill="#16a34a">4</text>
+      <rect x="410" y="30" width="44" height="38" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="432" y="55" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">n</text>
+      <text x="432" y="85" text-anchor="middle" font-size="11" fill="#16a34a">5</text>
+      <text x="320" y="110" text-anchor="middle" font-size="12" fill="#4f46e5">start at the end, step back two at a time: 5, 3, 1 → n h y</text>
+      <text x="80" y="155" text-anchor="end" font-size="13" font-family="Menlo,monospace" fill="#0f172a">s[1:4]</text>
+      <rect x="160" y="130" width="44" height="38" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="182" y="155" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">p</text>
+      <text x="182" y="185" text-anchor="middle" font-size="11" fill="#16a34a">0</text>
+      <rect x="210" y="130" width="44" height="38" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="232" y="155" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">y</text>
+      <text x="232" y="185" text-anchor="middle" font-size="11" fill="#16a34a">1</text>
+      <rect x="260" y="130" width="44" height="38" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="282" y="155" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">t</text>
+      <text x="282" y="185" text-anchor="middle" font-size="11" fill="#16a34a">2</text>
+      <rect x="310" y="130" width="44" height="38" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="332" y="155" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">h</text>
+      <text x="332" y="185" text-anchor="middle" font-size="11" fill="#16a34a">3</text>
+      <rect x="360" y="130" width="44" height="38" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="382" y="155" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">o</text>
+      <text x="382" y="185" text-anchor="middle" font-size="11" fill="#16a34a">4</text>
+      <rect x="410" y="130" width="44" height="38" rx="6" fill="#f1f5f9" stroke="#94a3b8" stroke-width="2"/>
+      <text x="432" y="155" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">n</text>
+      <text x="432" y="185" text-anchor="middle" font-size="11" fill="#16a34a">5</text>
+      <text x="320" y="212" text-anchor="middle" font-size="12" fill="#16a34a">boxes 1, 2, 3: y t h. Box 4 is the stop, left out.</text>
+    </svg></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Quick-fire 5: dicts and functions">
+  <h2>Quick-fire: dictionaries and functions</h2>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>d = {"a": 1}
+print(d.get("b", 0), d.get("b"), d)</pre>
+    <div class="opts">
+      <button class="opt">0 None {'a': 1, 'b': 0}</button>
+      <button class="opt">KeyError</button>
+      <button class="opt" data-ok>0 None {'a': 1}</button>
+      <button class="opt">0 0 {'a': 1}</button>
+    </div>
+    <div class="expl"><b>0 None {'a': 1}.</b> <code>get</code> gives the default you pass, or None with no default. It only reads; it never adds a key.</div>
+  </div>
+  
+  <div class="ai"><b>🤖 AI moment</b> — paste these snippets into an assistant and ask it to predict, without running. Then run them. Which ones did it get wrong?<div class="pr">"Predict the output of each snippet. Do not run them. Give one line per snippet."</div></div>
+</section>
+
+<section class="step" data-nav="Concepts 1: input and loops">
+  <h2>Concept check: input and loops</h2>
+  <div class="quiz" data-level="s">
+    <div class="qt">The user types 42 at an <code>input()</code> prompt. What does the program hold?</div>
+    <div class="opts">
+      <button class="opt">The int 42</button>
+      <button class="opt" data-ok>The string "42"</button>
+      <button class="opt">An int if only digits were typed</button>
+      <button class="opt">A float 42.0</button>
+    </div>
+    <div class="expl"><b>The string "42".</b> Always text. <code>int()</code> converts it, and crashes on "abc" until Class 12 teaches errors.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">How many numbers does this print?</div>
+    <pre class="py" data-nocopy>for i in range(1, 10, 3):
+    print(i)</pre>
+    <div class="opts">
+      <button class="opt">4</button>
+      <button class="opt">10</button>
+      <button class="opt" data-ok>3</button>
+      <button class="opt">2</button>
+    </div>
+    <div class="expl"><b>3.</b> 1, 4, 7. The next would be 10, and 10 is the stop, excluded.
+<div class="diag">
+    <svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg">
+      <text x="320" y="24" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">range(1, 10, 3)   start 1, stop 10, step 3</text>
+      <rect x="40" y="44" width="38" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="59" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">0</text>
+      <rect x="86" y="44" width="38" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="105" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">1</text>
+      <rect x="132" y="44" width="38" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="151" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">2</text>
+      <rect x="178" y="44" width="38" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="197" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">3</text>
+      <rect x="224" y="44" width="38" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="243" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">4</text>
+      <rect x="270" y="44" width="38" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="289" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">5</text>
+      <rect x="316" y="44" width="38" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="335" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">6</text>
+      <rect x="362" y="44" width="38" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="381" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">7</text>
+      <rect x="408" y="44" width="38" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="427" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">8</text>
+      <rect x="454" y="44" width="38" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="473" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">9</text>
+      <rect x="500" y="44" width="38" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/>
+      <text x="519" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">10</text>
+      <rect x="546" y="44" width="38" height="34" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+      <text x="565" y="66" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">11</text>
+      <text x="99" y="100" text-anchor="middle" font-size="11" fill="#16a34a">start</text>
+      <text x="237" y="100" text-anchor="middle" font-size="11" fill="#16a34a">+3</text>
+      <text x="375" y="100" text-anchor="middle" font-size="11" fill="#16a34a">+3</text>
+      <text x="513" y="100" text-anchor="middle" font-size="11" fill="#dc2626">stop: not included</text>
+      <text x="320" y="136" text-anchor="middle" font-size="13" fill="#334155">1, 4, 7. The next jump lands on 10, the stop, so it is left out: three numbers.</text>
+    </svg></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Concepts 2: functions and lists">
+  <h2>Concept check: functions and lists</h2>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>def double(x):
+    print(x * 2)
+
+result = double(5)
+print(result)</pre>
+    <div class="opts">
+      <button class="opt">10 then 10</button>
+      <button class="opt">10</button>
+      <button class="opt">None then 10</button>
+      <button class="opt" data-ok>10 then None</button>
+    </div>
+    <div class="expl"><b>10 then None.</b> The function prints 10 and returns nothing, so <code>result</code> is None. To use a value later, <code>return</code> it.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>nums = [3, 1, 2]
+print(sorted(nums), nums)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>[1, 2, 3] [3, 1, 2]</button>
+      <button class="opt">[1, 2, 3] [1, 2, 3]</button>
+      <button class="opt">None [1, 2, 3]</button>
+      <button class="opt">[3, 1, 2] [1, 2, 3]</button>
+    </div>
+    <div class="expl"><b>[1, 2, 3] [3, 1, 2].</b> <code>sorted</code> makes a new list and leaves the original alone. <code>nums.sort()</code> would change <code>nums</code> and give None.</div>
+  </div>
+</section>
+
+<section class="step" data-nav="Concepts 3: strings and structures">
+  <h2>Concept check: strings and structures</h2>
+  <div class="quiz" data-level="s">
+    <div class="qt">After this, what does <code>text</code> hold?</div>
+    <pre class="py" data-nocopy>text = "  hello  "
+text.strip()</pre>
+    <div class="opts">
+      <button class="opt">"hello"</button>
+      <button class="opt" data-ok>"  hello  "</button>
+      <button class="opt">None</button>
+      <button class="opt">An error</button>
+    </div>
+    <div class="expl"><b>Still "  hello  ".</b> <code>strip</code> made a new string and nobody stored it. Write <code>text = text.strip()</code>.</div>
+  </div>
+  <div class="quiz" data-level="m">
+    <div class="qt">Keep every mark for each student, by name, and add marks later. Which structure?</div>
+    <div class="opts">
+      <button class="opt">A tuple of names</button>
+      <button class="opt">A set of marks</button>
+      <button class="opt" data-ok>A dictionary of lists</button>
+      <button class="opt">One list of marks</button>
+    </div>
+    <div class="expl"><b>A dictionary of lists.</b> Lookup by name is a dictionary. Many marks per name, growing, is a list under each key. A set would drop a repeated mark; a tuple cannot grow.</div>
+  </div>
+</section>
+
+<!-- ============ coding ============ -->
+<section class="step" data-nav="Write it: bill splitter" data-tag="Write it">
+  <h2>Write it now: the bill splitter</h2>
+  <div class="ask"><span class="ic">✍️</span><div>In PyLens. Ask for a name, a bill, a tip percentage and the number of people. Print the tip, the grand total, each person's share to two decimals, and whether each pays more than ₹500. <span class="timer" data-sec="480"></span></div></div>
+  <div class="out"><span class="p">Name:</span> <span class="in">Sathvik</span>
+<span class="p">Bill:</span> <span class="in">2400</span>
+<span class="p">Tip:</span> <span class="in">10</span>
+<span class="p">People:</span> <span class="in">4</span>
+Hello Sathvik! Here is your bill summary:
+Tip amount: 240.0
+Grand total: 2640.0
+Each person pays: 660.0
+Pays more than 500? True</div>
+  <button class="rv" data-reveal="next">One way to write it</button>
+  <div class="reveal">
+    <pre class="py" data-file="bill_splitter.py" data-wide>name = input("Name: ")
+bill = float(input("Bill: "))
+tip_percent = int(input("Tip: "))
+people = int(input("People: "))
+
+tip = bill * tip_percent / 100
+grand_total = bill + tip
+each = round(grand_total / people, 2)
+
+print(f"Hello {name}! Here is your bill summary:")
+print(f"Tip amount: {tip}")
+print(f"Grand total: {grand_total}")
+print(f"Each person pays: {each}")
+print(f"Pays more than 500? {each > 500}")</pre>
+    <ul class="b">
+      <li>Convert at the door: <code>float</code> for money, <code>int</code> for counts.</li>
+      <li><code>each > 500</code> is already a bool. No <code>if</code> needed to print it.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="step" data-nav="Together: clean a sentence">
+  <h2>Together: clean a sentence</h2>
+  <pre class="py" data-file="text_cleaner.py" data-wide>text = "  Python is simple. python is POWERFUL! Learning Python for AI is fun, and AI needs Python.  "
+
+clean = text.strip().lower()
+clean = clean.replace(".", "").replace(",", "").replace("!", "")
+words = clean.split()
+print(words)</pre>
+  <div class="out">['python', 'is', 'simple', 'python', 'is', 'powerful', 'learning', 'python', 'for', 'ai', 'is', 'fun', 'and', 'ai', 'needs', 'python']</div>
+  <ul class="b"><li>Every method gives a new string. Each result is stored before the next step.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>One comprehension: the words longer than three characters. How many?</div></div>
+  <pre class="py" data-file="text_cleaner.py">long_words = [w for w in words if len(w) > 3]
+print(len(long_words))</pre>
+  <div class="vote">
+    <div class="vopt">6</div>
+    <div class="vopt" data-win>8</div>
+    <div class="vopt">10</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">8</div>
+    <ul class="b"><li>python ×4, simple, powerful, learning, needs. "fun", "and" and "for" are exactly three, not more.</li></ul>
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>Unique words in the order they first appeared, without a set. Why not a set?</div></div>
+  <button class="rv" data-reveal="next">Because a set forgets the order</button>
+  <div class="reveal">
+    <pre class="py" data-file="text_cleaner.py">unique = []
+for w in words:
+    if w not in unique:
+        unique.append(w)
+print(unique)</pre>
+    <div class="out">['python', 'is', 'simple', 'powerful', 'learning', 'for', 'ai', 'fun', 'and', 'needs']</div>
+    <ul class="b"><li>A set would give the same ten words in any order. A list plus <code>not in</code> keeps the first-seen order.</li></ul>
+  </div>
+  <pre class="py" data-file="text_cleaner.py">print(" ".join(words[::-1]))</pre>
+  <div class="out">python needs ai and fun is ai for python learning powerful is python simple is python</div>
+  <ul class="b"><li>Reverse the list of words, then glue it back with spaces. The full program, with lengths, longest and shortest, title case and palindromes, is <code>code/03_text_cleaner.py</code>.</li></ul>
+</section>
+
+<section class="step" data-nav="Practice and what's next">
+  <h2>Practice, and what's next</h2>
+  <ul class="b">
+    <li><b>PRACTICE.md</b> has six problems with solutions: the bill splitter, a ticket pricing engine, patterns and primes, a password validator, the text cleaner, and a library system that uses everything so far.</li>
+    <li>Do them before the next class. Write first, then compare.</li>
+  </ul>
+  <div class="take">Next class: functional programming. map, filter, sorted with a key, and lambda, on PaisaPay's history.</div>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
