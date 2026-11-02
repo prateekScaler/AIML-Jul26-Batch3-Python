@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 12 · Object-Oriented Programming, Part 2</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c12" data-class="Class 12" data-title="Object-Oriented Programming, Part 2" data-course="Python · AIML Jul26 Batch 3" data-date="2026-11-02">
+
+<div class="cover" id="cover">
+  <h1><small>Class 12</small>Object-Oriented Programming, Part 2</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<!-- ============ recap ============ -->
+<section class="step" data-nav="Last class, in words">
+  <h2>Last class, in words</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">PaisaPay will have fifty accounts. Which is the class, and which are the objects?</div>
+    <div class="opts">
+      <button class="opt" data-ok>Account is the class; each of the fifty is an object</button>
+      <button class="opt">Each of the fifty is a class; Account is the object</button>
+      <button class="opt">All fifty-one are classes</button>
+      <button class="opt">There is one object, Account, with fifty names</button>
+    </div>
+    <div class="expl"><b>Account is the class.</b> The class is the blueprint, written once. Each account built from it is an object with its own owner and balance.
+<div class="diag"><svg viewBox="0 0 640 315" xmlns="http://www.w3.org/2000/svg"><defs><marker id="at1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="at1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="at1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="100" width="150" height="104" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="105" y="120" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Account</text><line x1="38" y1="128" x2="172" y2="128" stroke="#6366f1" stroke-width="1"/><text x="105" y="148" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner</text><text x="105" y="170" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance</text><text x="105" y="192" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">pay()</text><rect x="330" y="12" width="180" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="420" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">account object</text><line x1="338" y1="40" x2="502" y2="40" stroke="#f59e0b" stroke-width="1"/><text x="420" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = "Rajani"</text><text x="420" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 1000</text><line x1="186" y1="152.0" x2="324" y2="53.0" stroke="#64748b" stroke-width="2" marker-end="url(#at1)"/><rect x="330" y="104" width="180" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="420" y="124" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">account object</text><line x1="338" y1="132" x2="502" y2="132" stroke="#f59e0b" stroke-width="1"/><text x="420" y="152" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = "Sumit"</text><text x="420" y="174" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 2500</text><line x1="186" y1="152.0" x2="324" y2="145.0" stroke="#64748b" stroke-width="2" marker-end="url(#at1)"/><rect x="330" y="196" width="180" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="420" y="216" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">account object</text><line x1="338" y1="224" x2="502" y2="224" stroke="#f59e0b" stroke-width="1"/><text x="420" y="244" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = "Vinay"</text><text x="420" y="266" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 400</text><line x1="186" y1="152.0" x2="324" y2="237.0" stroke="#64748b" stroke-width="2" marker-end="url(#at1)"/><text x="320" y="300" text-anchor="middle" font-size="12" fill="#334155">one class, written once; three objects built from it, each with its own owner and balance</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">Which of these is an object?</div>
+    <pre class="py" data-nocopy>5
+"abc"
+[1, 2]
+rex = Dog("Rex")</pre>
+    <div class="opts">
+      <button class="opt">Only rex: objects need a class you wrote</button>
+      <button class="opt">Only the list: it holds things</button>
+      <button class="opt">None of them: 5 and "abc" are plain values</button>
+      <button class="opt" data-ok>All four</button>
+    </div>
+    <div class="expl"><b>All four.</b> Every value in Python is an object built from a class. <code>type(5)</code> says int, <code>type("abc")</code> says str. Class 11 added one class to that list: yours.
+<div class="diag"><svg viewBox="0 0 640 185" xmlns="http://www.w3.org/2000/svg"><defs><marker id="at2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="at2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="at2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="40" y="30" width="120" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="100" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">5</text><line x1="100" y1="68" x2="100" y2="98" stroke="#64748b" stroke-width="2" marker-end="url(#at2)"/><text x="138" y="88" text-anchor="middle" font-size="11" fill="#4f46e5">type()</text><rect x="40" y="102" width="120" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="100" y="123.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">int</text><rect x="190" y="30" width="120" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="250" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">"abc"</text><line x1="250" y1="68" x2="250" y2="98" stroke="#64748b" stroke-width="2" marker-end="url(#at2)"/><text x="288" y="88" text-anchor="middle" font-size="11" fill="#4f46e5">type()</text><rect x="190" y="102" width="120" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="250" y="123.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">str</text><rect x="340" y="30" width="120" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="400" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">[1, 2]</text><line x1="400" y1="68" x2="400" y2="98" stroke="#64748b" stroke-width="2" marker-end="url(#at2)"/><text x="438" y="88" text-anchor="middle" font-size="11" fill="#4f46e5">type()</text><rect x="340" y="102" width="120" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="400" y="123.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">list</text><rect x="490" y="30" width="120" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="550" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex</text><line x1="550" y1="68" x2="550" y2="98" stroke="#64748b" stroke-width="2" marker-end="url(#at2)"/><text x="588" y="88" text-anchor="middle" font-size="11" fill="#4f46e5">type()</text><rect x="490" y="102" width="120" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="550" y="123.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Dog</text><text x="320" y="170" text-anchor="middle" font-size="12" fill="#334155">every value is an object built from a class; int, str and list are classes Python wrote, Dog is one you wrote</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">When does <code>__init__</code> run?</div>
+    <div class="opts">
+      <button class="opt">When you call rex.__init__()</button>
+      <button class="opt">Once, when Python reads the class</button>
+      <button class="opt" data-ok>Every time the class is called to make an object</button>
+      <button class="opt">When you print the object</button>
+    </div>
+    <div class="expl"><b>Every time an object is made.</b> <code>Dog("Rex")</code> builds the object and runs <code>__init__</code> on it. Defining the class runs nothing; printing runs nothing. You never call it yourself.
+<div class="diag"><svg viewBox="0 0 640 145" xmlns="http://www.w3.org/2000/svg"><defs><marker id="at3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="at3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="at3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="140" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="100" y="51.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">class Dog: ...</text><text x="100" y="90" text-anchor="middle" font-size="11" fill="#334155">defined, nothing runs</text><line x1="172" y1="47" x2="180" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#at3)"/><rect x="182" y="30" width="140" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="252" y="51.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">rex = Dog("Rex")</text><text x="252" y="90" text-anchor="middle" font-size="11" fill="#334155">__init__ runs</text><line x1="324" y1="47" x2="332" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#at3)"/><rect x="334" y="30" width="140" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="404" y="51.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">fido = Dog("Fido")</text><text x="404" y="90" text-anchor="middle" font-size="11" fill="#334155">__init__ runs again</text><line x1="476" y1="47" x2="484" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#at3)"/><rect x="486" y="30" width="140" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="556" y="51.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">print(rex.name)</text><text x="556" y="90" text-anchor="middle" font-size="11" fill="#334155">no __init__</text><text x="320" y="130" text-anchor="middle" font-size="12" fill="#334155">__init__ runs once per object, at the moment the class is called with brackets; never at definition, never at a print</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">PaisaPay v10 worked with three variables and a pay() function. What does a class add?</div>
+    <div class="opts">
+      <button class="opt">The program runs faster</button>
+      <button class="opt" data-ok>The data and the rules that work on it stay together, and you can make as many accounts as you need</button>
+      <button class="opt">The balance becomes private by itself</button>
+      <button class="opt">Loops are no longer needed</button>
+    </div>
+    <div class="expl"><b>Together, and many.</b> v10 passed the balance into every call and could hold one account. A class keeps an account's data and its rules in one thing, and account number fifty costs one more line. Speed is the same; privacy comes only when you add it, later today.
+<div class="diag"><svg viewBox="0 0 640 245" xmlns="http://www.w3.org/2000/svg"><defs><marker id="at4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="at4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="at4g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="150" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="105" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 1000</text><rect x="30" y="70" width="150" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="105" y="91.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">saved_pin = "4321"</text><rect x="30" y="110" width="150" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="105" y="131.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">history = []</text><rect x="30" y="150" width="150" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="105" y="171.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">pay(balance, ...)</text><text x="105" y="205" text-anchor="middle" font-size="11" fill="#334155">v10: loose pieces, one account</text><line x1="200" y1="110" x2="270" y2="110" stroke="#64748b" stroke-width="2" marker-end="url(#at4)"/><rect x="280" y="34" width="180" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="370" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Account object</text><line x1="288" y1="62" x2="452" y2="62" stroke="#10b981" stroke-width="1"/><text x="370" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance, pin, history</text><text x="370" y="104" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">pay(), add_money()</text><text x="370" y="205" text-anchor="middle" font-size="11" fill="#334155">one thing: data + rules</text><rect x="490" y="34" width="120" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="550" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Account object</text><line x1="498" y1="62" x2="602" y2="62" stroke="#10b981" stroke-width="1"/><text x="550" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">...</text><text x="550" y="104" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">...</text><text x="550" y="205" text-anchor="middle" font-size="11" fill="#334155">and as many as you need</text><text x="320" y="232" text-anchor="middle" font-size="12" fill="#334155">a class keeps the data and the rules that work on it together, and the blueprint makes copy number fifty free</text></svg></div></div>
+  </div>
+  <div class="take">Class: the blueprint. Object: one thing built from it. <code>__init__</code>: its starting state. Now the same three, in code.</div>
+</section>
+
+<section class="step" data-nav="Where an object lives">
+  <h2>Where an object lives</h2>
+  <ul class="b"><li>Three things happen when you write <code>rex = Dog("Rex")</code>. One picture per thing.</li></ul>
+<div class="diag"><svg viewBox="0 0 640 290" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="amr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="amg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="160" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="110" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex = Dog("Rex")</text><text x="110" y="90" text-anchor="middle" font-size="11" font-weight="700" fill="#4f46e5">step 1</text><text x="110" y="108" text-anchor="middle" font-size="11" fill="#334155">Dog() asks Python for</text><text x="110" y="124" text-anchor="middle" font-size="11" fill="#334155">a free block of memory</text><line x1="196" y1="47" x2="424" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#am)"/><text x="515" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">memory</text><rect x="430" y="30" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="54" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="74" width="170" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="515" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Dog object at 0x...120</text><line x1="438" y1="102" x2="592" y2="102" stroke="#f59e0b" stroke-width="1"/><text x="515" y="122" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">(empty)</text><rect x="430" y="122" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="146" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="168" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="192" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="214" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="238" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><text x="320" y="275" text-anchor="middle" font-size="12" fill="#334155">the class is called with brackets: Python reserves one fresh block and gives it an address</text></svg></div>
+<div class="diag" data-brk><svg viewBox="0 0 640 290" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="am2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="am2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="170" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="115" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">__init__(self, name)</text><rect x="30" y="76" width="170" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="115" y="97.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">self.name = name</text><text x="115" y="130" text-anchor="middle" font-size="11" font-weight="700" fill="#4f46e5">step 2</text><text x="115" y="148" text-anchor="middle" font-size="11" fill="#334155">self is that block;</text><text x="115" y="164" text-anchor="middle" font-size="11" fill="#334155">__init__ writes into it</text><line x1="206" y1="93" x2="424" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#am2)"/><text x="515" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">memory</text><rect x="430" y="30" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="54" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="74" width="170" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="515" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Dog object at 0x...120</text><line x1="438" y1="102" x2="592" y2="102" stroke="#10b981" stroke-width="1"/><text x="515" y="122" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><rect x="430" y="122" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="146" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="168" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="192" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="214" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="238" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><text x="320" y="275" text-anchor="middle" font-size="12" fill="#334155">__init__ runs with self pointing at the new block; "Rex" is stored inside it</text></svg></div>
+<div class="diag" data-brk><svg viewBox="0 0 640 290" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="am3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="am3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="90" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">names</text><rect x="30" y="30" width="120" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="90" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex</text><line x1="156" y1="47" x2="424" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#am3)"/><text x="90" y="130" text-anchor="middle" font-size="11" font-weight="700" fill="#4f46e5">step 3</text><text x="90" y="148" text-anchor="middle" font-size="11" fill="#334155">the name rex is</text><text x="90" y="164" text-anchor="middle" font-size="11" fill="#334155">tied to the address</text><text x="515" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">memory</text><rect x="430" y="30" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="54" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="74" width="170" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="515" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Dog object at 0x...120</text><line x1="438" y1="102" x2="592" y2="102" stroke="#10b981" stroke-width="1"/><text x="515" y="122" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><rect x="430" y="122" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="146" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="168" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="192" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="214" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="238" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><text x="320" y="275" text-anchor="middle" font-size="12" fill="#334155">rex does not hold the dog; it holds the address of the block. rex.name follows the arrow and reads name</text></svg></div>
+  <div class="ask"><span class="ic">✋</span><div>Two more lines. How many Dog objects are in memory now?</div></div>
+  <pre class="py" data-nocopy>rex = Dog("Rex")
+fido = Dog("Fido")
+buddy = rex</pre>
+  <div class="vote">
+    <div class="vopt">Three: one per name</div>
+    <div class="vopt" data-win>Two: buddy is another name for rex's block</div>
+    <div class="vopt">One: the last Dog() replaces the first</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Show memory</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>Every <code>Dog()</code> asks for a new block. <code>=</code> alone only copies an address.</li>
+      <li>So <code>buddy.name = "Max"</code> changes rex too. Same block.</li>
+    </ul>
+<div class="diag"><svg viewBox="0 0 640 290" xmlns="http://www.w3.org/2000/svg"><defs><marker id="am4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="am4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="am4g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="90" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">names</text><rect x="30" y="30" width="120" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="90" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex</text><line x1="156" y1="47" x2="424" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#am4)"/><rect x="30" y="76" width="120" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="90" y="97.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">fido</text><line x1="156" y1="93" x2="424" y2="192" stroke="#64748b" stroke-width="2" marker-end="url(#am4)"/><rect x="30" y="122" width="120" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="90" y="143.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">buddy</text><line x1="156" y1="139" x2="424" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#am4)"/><text x="515" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">memory</text><rect x="430" y="30" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="54" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="74" width="170" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="515" y="94" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Dog object at 0x...120</text><line x1="438" y1="102" x2="592" y2="102" stroke="#10b981" stroke-width="1"/><text x="515" y="122" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><rect x="430" y="122" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="146" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><rect x="430" y="166" width="170" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="515" y="186" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Dog object at 0x...300</text><line x1="438" y1="194" x2="592" y2="194" stroke="#10b981" stroke-width="1"/><text x="515" y="214" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Fido"</text><rect x="430" y="214" width="170" height="40" rx="6" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1" stroke-dasharray="4 3"/><text x="515" y="238" text-anchor="middle" font-size="11" fill="#94a3b8">free</text><text x="320" y="275" text-anchor="middle" font-size="12" fill="#334155">two Dog() calls, two blocks. buddy = rex copies the address, not the dog: two names, one block, as with lists in Class 6</text></svg></div>
+  </div>
+  <div class="take">An object is a block of memory. A variable holds its address. <code>self</code> is that address inside the class.</div>
+</section>
+
+<section class="step" data-nav="Last class, in three questions">
+  <h2>Last class, in three questions</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>class Dog:
+    def __init__(self, name):
+        self.name = name
+
+d = Dog("Rex")
+print(d.name)</pre>
+    <div class="opts">
+      <button class="opt">name</button>
+      <button class="opt">Dog</button>
+      <button class="opt" data-ok>Rex</button>
+      <button class="opt">TypeError: __init__ was never called</button>
+    </div>
+    <div class="expl"><b>Rex.</b> <code>Dog("Rex")</code> runs <code>__init__</code> by itself; <code>self.name = name</code> stores "Rex" on the new object. <code>d.name</code> reads it back.
+<div class="diag"><svg viewBox="0 0 640 175" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ar1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ar1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="97" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="78.5" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Dog("Rex")</text><rect x="400" y="16" width="170" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="485" y="36" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">d</text><line x1="408" y1="44" x2="562" y2="44" stroke="#10b981" stroke-width="1"/><text x="485" y="64" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><line x1="133" y1="47" x2="394" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#ar1)"/><text x="208.5" y="38" text-anchor="middle" font-size="11" fill="#4f46e5">__init__(self, name)</text><rect x="400" y="96" width="170" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="485" y="117.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">print(d.name)  -&gt;  Rex</text><line x1="485" y1="80" x2="485" y2="92" stroke="#10b981" stroke-width="2" marker-end="url(#ar1g)"/><text x="320" y="160" text-anchor="middle" font-size="12" fill="#334155">the bracket value lands in name; self.name = name stores it on d; d.name reads it back</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What happens?</div>
+    <pre class="py" data-nocopy>class Dog:
+    def __init__(self, name, breed):
+        self.name = name
+        self.breed = breed
+
+rex = Dog("Rex")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>TypeError: missing 1 required positional argument: 'breed'</button>
+      <button class="opt">Works; rex.breed is None</button>
+      <button class="opt">Works; rex.breed is ""</button>
+      <button class="opt">SyntaxError</button>
+    </div>
+    <div class="expl"><b>TypeError.</b> After <code>self</code>, <code>__init__</code> wants two values. The brackets gave one. Python says which is missing: <code>breed</code>. Every parameter without a default must be filled, as in Class 5.
+<div class="diag"><svg viewBox="0 0 640 228" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ar2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ar2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="97" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="78.5" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Dog("Rex")</text><line x1="133" y1="47" x2="300" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#ar2)"/><text x="190" y="38" text-anchor="middle" font-size="11" fill="#4f46e5">one value</text><rect x="306" y="30" width="221" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="416.5" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">__init__(self, name, breed)</text><rect x="306" y="92" width="221" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="416.5" y="113.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name  = "Rex"</text><rect x="306" y="134" width="221" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="416.5" y="155.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">breed = ???</text><text x="320" y="195" text-anchor="middle" font-size="12" fill="#334155">two parameters after self, one value in the brackets: breed has nothing to take, so Python stops</text><text x="320" y="213" text-anchor="middle" font-size="11" fill="#b91c1c">TypeError: Dog.__init__() missing 1 required positional argument: 'breed'</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>class Dog:
+    def __init__(self, name):
+        self.name = name
+
+a = Dog("Rex")
+b = Dog("Rex")
+print(a == b, a.name == b.name)</pre>
+    <div class="opts">
+      <button class="opt">True True</button>
+      <button class="opt">False False</button>
+      <button class="opt">True False</button>
+      <button class="opt" data-ok>False True</button>
+    </div>
+    <div class="expl"><b>False True.</b> Two <code>Dog()</code> calls make two objects, so <code>==</code> on them is False even with the same data. The two name strings are equal. Same data is not the same object.
+<div class="diag"><svg viewBox="0 0 640 232" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ar3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ar3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="60" y="30" width="170" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="145" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">a: Dog object</text><line x1="68" y1="58" x2="222" y2="58" stroke="#f59e0b" stroke-width="1"/><text x="145" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><rect x="60" y="112" width="170" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="145" y="132" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">b: Dog object</text><line x1="68" y1="140" x2="222" y2="140" stroke="#f59e0b" stroke-width="1"/><text x="145" y="160" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><rect x="340" y="50" width="240" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="460" y="71.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">a == b  -&gt;  False</text><rect x="340" y="122" width="240" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="460" y="143.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">a.name == b.name  -&gt;  True</text><text x="320" y="200" text-anchor="middle" font-size="12" fill="#334155">two Dog() calls, two objects: == compares the objects and they are different things;</text><text x="320" y="218" text-anchor="middle" font-size="12" fill="#334155">the two name strings inside them are equal</text></svg></div></div>
+  </div>
+  <div class="take">Class 11 stopped at <code>__init__</code>. Today: <code>self</code>, methods, class variables, encapsulation, inheritance, and PaisaPay v11 built in class.</div>
+</section>
+
+<!-- ============ carried over from Class 11 ============ -->
+<section class="step" data-nav="self">
+  <h2>self: the object this code is running on</h2>
+  <div class="ask"><span class="ic">✋</span><div>The same __init__ runs for both. Same name, or different names?</div></div>
+  <pre class="py" data-file="init_and_self.py">rex = Dog("Rex", "Labrador")
+fido = Dog("Fido", "Beagle")
+
+print(rex.name)
+print(fido.name)</pre>
+  <div class="vote">
+    <div class="vopt">Fido twice: the last one wins</div>
+    <div class="vopt" data-win>Rex then Fido</div>
+    <div class="vopt">Rex twice: the first one wins</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Rex
+Fido</div>
+    <ul class="b">
+      <li>Same code, run twice. <code>self</code> was rex the first time and fido the second.</li>
+      <li><code>self</code> is not a keyword. It is the name everyone gives the first parameter of a method.</li>
+    </ul>
+  </div>
+  <div class="diag">
+    <svg viewBox="0 0 640 205" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arQ2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="arQ2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="arQ2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="50" width="210" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="135" y="71.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def __init__(self, name):</text><rect x="30" y="90" width="210" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="135" y="111.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">    self.name = name</text><rect x="400" y="20" width="150" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="475" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">rex</text><line x1="408" y1="48" x2="542" y2="48" stroke="#10b981" stroke-width="1"/><text x="475" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><rect x="400" y="110" width="150" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="475" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">fido</text><line x1="408" y1="138" x2="542" y2="138" stroke="#10b981" stroke-width="1"/><text x="475" y="158" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Fido"</text><line x1="246" y1="70" x2="394" y2="50.0" stroke="#64748b" stroke-width="2" marker-end="url(#arQ2)"/><text x="300" y="38" text-anchor="middle" font-size="10" fill="#92400e">Dog("Rex"): self = this box</text><line x1="246" y1="110" x2="394" y2="140.0" stroke="#64748b" stroke-width="2" marker-end="url(#arQ2)"/><text x="300" y="160" text-anchor="middle" font-size="10" fill="#92400e">Dog("Fido"): self = this box</text><text x="320" y="195" text-anchor="middle" font-size="12" fill="#334155">one __init__, many boxes: self points at whichever box is being built</text></svg>
+  </div>
+</section>
+
+<section class="step" data-nav="self questions">
+  <h2>self: two questions</h2>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">You call <code>rex.bark()</code>. How many arguments does Python pass to <code>bark</code>?</div>
+    <pre class="py" data-nocopy>class Dog:
+    def bark(self):
+        print("Woof")
+
+rex = Dog()
+rex.bark()</pre>
+    <div class="opts">
+      <button class="opt">Zero, the brackets are empty</button>
+      <button class="opt" data-ok>One: rex, as self</button>
+      <button class="opt">Two: rex and Dog</button>
+      <button class="opt">TypeError: bark wants an argument</button>
+    </div>
+    <div class="expl"><b>One.</b> <code>rex.bark()</code> is <code>Dog.bark(rex)</code> in disguise: the object before the dot becomes the first argument. Why: bark is written once, but there are many dogs; self is how it knows which one. Write self when you define, never when you call.
+<div class="diag"><svg viewBox="0 0 640 330" xmlns="http://www.w3.org/2000/svg"><defs><marker id="as1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="as1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="as1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="120" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="90" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex.bark()</text><line x1="156" y1="47" x2="214" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#as1)"/><text x="185" y="38" text-anchor="middle" font-size="10" fill="#4f46e5">Python rewrites</text><rect x="220" y="30" width="140" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="290" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Dog.bark(rex)</text><line x1="366" y1="47" x2="424" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#as1)"/><text x="395" y="38" text-anchor="middle" font-size="10" fill="#4f46e5">so inside</text><rect x="430" y="30" width="190" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="525" y="51.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">def bark(self):  self = rex</text><text x="320" y="95" text-anchor="middle" font-size="11" fill="#334155">what happens: the object before the dot becomes the first argument</text><text x="100" y="135" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">why it is needed</text><rect x="30" y="150" width="140" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="100" y="171.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def bark(self):</text><rect x="30" y="190" width="140" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="100" y="211.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">print(self.name)</text><text x="100" y="240" text-anchor="middle" font-size="11" fill="#334155">written once</text><rect x="330" y="125" width="160" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="410" y="145" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">rex at 0x...120</text><line x1="338" y1="153" x2="482" y2="153" stroke="#10b981" stroke-width="1"/><text x="410" y="173" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><rect x="330" y="215" width="160" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="410" y="235" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">fido at 0x...300</text><line x1="338" y1="243" x2="482" y2="243" stroke="#10b981" stroke-width="1"/><text x="410" y="263" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Fido"</text><line x1="176" y1="170" x2="324" y2="155.0" stroke="#10b981" stroke-width="2" marker-end="url(#as1g)"/><text x="250" y="150" text-anchor="middle" font-size="10" fill="#047857">rex.bark()</text><line x1="176" y1="207" x2="324" y2="245.0" stroke="#10b981" stroke-width="2" marker-end="url(#as1g)"/><text x="250" y="250" text-anchor="middle" font-size="10" fill="#047857">fido.bark()</text><text x="320" y="315" text-anchor="middle" font-size="12" fill="#334155">two dogs, one copy of bark. The dot says which block to work on; self is the name of that block inside the method</text></svg></div>
+<div class="diag"><svg viewBox="0 0 640 235" xmlns="http://www.w3.org/2000/svg"><defs><marker id="as2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="as2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="as2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="160" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#b91c1c">without this design: a copy per dog</text><rect x="30" y="34" width="270" height="146" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="44" y="56" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def rex_bark():</text><text x="44" y="74" font-size="12" font-family="Menlo,monospace" fill="#0f172a">&#160;&#160;&#160;&#160;print("Rex says Woof")</text><text x="44" y="92" font-size="12" font-family="Menlo,monospace" fill="#0f172a"></text><text x="44" y="110" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def fido_bark():</text><text x="44" y="128" font-size="12" font-family="Menlo,monospace" fill="#0f172a">&#160;&#160;&#160;&#160;print("Fido says Woof")</text><text x="44" y="146" font-size="12" font-family="Menlo,monospace" fill="#0f172a"></text><text x="44" y="164" font-size="12" font-family="Menlo,monospace" fill="#0f172a"># ... 48 more copies</text><text x="165" y="190" text-anchor="middle" font-size="10" fill="#b91c1c">one new dog = one new function; a fix must be made fifty times</text><text x="480" y="24" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">with self: written once, runs on any dog</text><rect x="340" y="34" width="280" height="146" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="354" y="56" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def bark(self):</text><text x="354" y="74" font-size="12" font-family="Menlo,monospace" fill="#0f172a">&#160;&#160;&#160;&#160;print(self.name + " says Woof")</text><text x="354" y="92" font-size="12" font-family="Menlo,monospace" fill="#0f172a"></text><text x="354" y="110" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex.bark()    # self = rex</text><text x="354" y="128" font-size="12" font-family="Menlo,monospace" fill="#0f172a">fido.bark()   # self = fido</text><text x="354" y="146" font-size="12" font-family="Menlo,monospace" fill="#0f172a"></text><text x="354" y="164" font-size="12" font-family="Menlo,monospace" fill="#0f172a"># dog number fifty: free</text><text x="480" y="190" text-anchor="middle" font-size="10" fill="#047857">the code never names a dog; the dot hands one in as self</text><text x="320" y="222" text-anchor="middle" font-size="12" fill="#334155">self lets one method serve every object; without it, the code and the data could not meet</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">self is missing. What happens on the last line?</div>
+    <pre class="py" data-nocopy>class Cat:
+    def meow():
+        print("meow")
+
+Cat().meow()</pre>
+    <div class="opts">
+      <button class="opt">meow</button>
+      <button class="opt">NameError</button>
+      <button class="opt">Nothing: meow is never called</button>
+      <button class="opt" data-ok>TypeError: takes 0 positional arguments but 1 was given</button>
+    </div>
+    <div class="expl"><b>TypeError.</b> Python still passes the object as the first argument, and <code>meow</code> has no parameter to receive it. "1 was given": that one is the cat. Every method starts with self.
+<div class="diag"><svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg"><defs><marker id="arY" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs><rect x="30" y="30" width="150" height="36" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="105" y="52.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Cat().meow()</text><line x1="186" y1="48" x2="224" y2="48" stroke="#64748b" stroke-width="2" marker-end="url(#arY)"/><rect x="230" y="30" width="190" height="36" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="325" y="52.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Cat.meow(the cat)</text><line x1="426" y1="48" x2="464" y2="48" stroke="#64748b" stroke-width="2" marker-end="url(#arY)"/><rect x="470" y="30" width="150" height="36" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="545" y="52.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def meow():</text><text x="325" y="90" text-anchor="middle" font-size="12" fill="#4f46e5">one argument arrives, the cat</text><text x="545" y="90" text-anchor="middle" font-size="12" fill="#b91c1c">zero slots to receive it</text><rect x="140" y="110" width="360" height="36" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="320" y="132.5" text-anchor="middle" font-size="12" fill="#0f172a">TypeError: takes 0 positional arguments but 1 was given</text></svg></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="self and methods, in words">
+  <h2>self and methods, in words</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">What is a method?</div>
+    <div class="opts">
+      <button class="opt">Any function that takes at least one argument</button>
+      <button class="opt" data-ok>A function written inside a class, called on an object with a dot</button>
+      <button class="opt">A variable that lives inside a class</button>
+      <button class="opt">A function that returns self</button>
+    </div>
+    <div class="expl"><b>A function inside a class.</b> Same <code>def</code>, but it is written in the class body and called on an object: <code>rex.bark()</code>. That object arrives as <code>self</code>.
+<div class="diag"><svg viewBox="0 0 640 175" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="190" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="125" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Dog</text><line x1="38" y1="58" x2="212" y2="58" stroke="#6366f1" stroke-width="1"/><text x="125" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def bark(self):</text><text x="125" y="100" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def describe(self):</text><text x="125" y="125" text-anchor="middle" font-size="11" fill="#4f46e5">inside the class: methods</text><rect x="330" y="44" width="250" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="455" y="65.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def is_valid_upi_id(upi_id):</text><text x="455" y="102" text-anchor="middle" font-size="11" fill="#334155">outside any class: a plain function (Class 5)</text><text x="455" y="118" text-anchor="middle" font-size="11" fill="#334155">called as is_valid_upi_id(x), no dot</text><text x="320" y="160" text-anchor="middle" font-size="12" fill="#334155">same def keyword; what makes it a method is where it is written and how it is called: rex.bark()</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Is <code>self</code> a keyword?</div>
+    <div class="opts">
+      <button class="opt">Yes, like def and class</button>
+      <button class="opt">Yes: Python raises an error if you rename it</button>
+      <button class="opt" data-ok>No: it is a convention, the name everyone gives the first parameter</button>
+      <button class="opt">No: it is a built-in function</button>
+    </div>
+    <div class="expl"><b>A convention.</b> Call the first parameter <code>dog</code> and the code still runs. Everyone writes <code>self</code> so that every class reads the same way.
+<div class="diag"><svg viewBox="0 0 640 175" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="190" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="125" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def bark(self):</text><rect x="30" y="70" width="190" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="125" y="91.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">    print(self.name)</text><text x="125" y="120" text-anchor="middle" font-size="11" fill="#047857">the usual name</text><rect x="330" y="30" width="190" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="425" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def bark(dog):</text><rect x="330" y="70" width="190" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="425" y="91.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">    print(dog.name)</text><text x="425" y="120" text-anchor="middle" font-size="11" fill="#92400e">runs the same: rex.bark() still prints Rex</text><text x="320" y="160" text-anchor="middle" font-size="12" fill="#334155">Python passes the object into the first parameter whatever it is called; self is the name everyone agrees on</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">Where do <code>rex.name</code> and <code>rex.age</code> live?</div>
+    <div class="opts">
+      <button class="opt" data-ok>In rex's own block of memory, written there by __init__ through self</button>
+      <button class="opt">In the class Dog, shared by every dog</button>
+      <button class="opt">Inside the variable rex itself</button>
+      <button class="opt">In __init__'s local variables, until __init__ ends</button>
+    </div>
+    <div class="expl"><b>In the object's block.</b> The class holds the code. Each object holds its own data. <code>self.name = name</code> is the write into that block, and it stays after <code>__init__</code> ends.
+<div class="diag"><svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="150" height="104" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="105" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Dog</text><line x1="38" y1="58" x2="172" y2="58" stroke="#6366f1" stroke-width="1"/><text x="105" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">__init__</text><text x="105" y="100" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">bark</text><text x="105" y="122" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">describe</text><text x="105" y="150" text-anchor="middle" font-size="11" fill="#4f46e5">only the code lives here</text><rect x="260" y="50" width="80" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="300" y="71.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex</text><line x1="346" y1="67" x2="414" y2="67" stroke="#64748b" stroke-width="2" marker-end="url(#aw3)"/><rect x="420" y="30" width="190" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="515" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Dog object at 0x...120</text><line x1="428" y1="58" x2="602" y2="58" stroke="#10b981" stroke-width="1"/><text x="515" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><text x="515" y="100" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">age = 3</text><text x="515" y="150" text-anchor="middle" font-size="11" fill="#047857">the data lives here, one set per object</text><text x="320" y="185" text-anchor="middle" font-size="12" fill="#334155">self.name = name inside __init__ writes into the object's own block; the class holds no names or ages</text></svg></div></div>
+  </div>
+  <div class="take">A method is a function in a class. self is the object it runs on, by convention. Data lives on the object, code lives on the class.</div>
+</section>
+
+<!-- ============ methods ============ -->
+<section class="step" data-nav="Methods">
+  <h2>Methods: functions that live inside the class</h2>
+  <pre class="py" data-file="methods.py">class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def bark(self):
+        print(f"{self.name} says Woof!")</pre>
+  <div class="ask"><span class="ic">✋</span><div>Predict the output.</div></div>
+  <pre class="py" data-file="methods.py">rex = Dog("Rex", 3)
+rex.bark()</pre>
+  <div class="vote">
+    <div class="vopt" data-win>Rex says Woof!</div>
+    <div class="vopt">self.name says Woof!</div>
+    <div class="vopt">TypeError: bark() missing name</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Rex says Woof!</div>
+    <ul class="b">
+      <li><code>bark</code> reads <code>self.name</code>: the name of the dog it was called on.</li>
+      <li>Values stored through <code>self.</code> are <b>instance attributes</b>. They belong to that one object.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 180" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag17" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag17r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag17g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="20" width="115" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="87.5" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">rex</text><line x1="38" y1="48" x2="137" y2="48" stroke="#f59e0b" stroke-width="1"/><text x="87.5" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><text x="87.5" y="90" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">age  = 3</text><rect x="260" y="30" width="97" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="308.5" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex.bark()</text><line x1="260" y1="47" x2="151" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#ag17)"/><text x="202.5" y="38" text-anchor="middle" font-size="11" fill="#4f46e5">self</text><line x1="308.5" y1="66" x2="308.5" y2="96" stroke="#64748b" stroke-width="2" marker-end="url(#ag17)"/><rect x="200" y="100" width="257" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="328.5" y="121.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">print(f"{self.name} says Woof!")</text><line x1="463" y1="117" x2="497" y2="117" stroke="#64748b" stroke-width="2" marker-end="url(#ag17)"/><rect x="503" y="100" width="126" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="566" y="121.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Rex says Woof!</text><text x="320" y="165" text-anchor="middle" font-size="12" fill="#334155">self is rex here, so self.name is "Rex"; call fido.bark() and the same line prints Fido</text></svg></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Methods change the object">
+  <h2>A method can change its own object</h2>
+  <pre class="py" data-file="methods.py" data-hl="10-14">class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def bark(self):
+        print(f"{self.name} says Woof!")
+
+    def describe(self):
+        return f"{self.name} is {self.age} years old."
+
+    def have_birthday(self):
+        self.age += 1</pre>
+  <div class="ask"><span class="ic">✋</span><div>Two describe() calls, a birthday between them. Same age both times?</div></div>
+  <pre class="py" data-file="methods.py">rex = Dog("Rex", 3)
+print(rex.describe())
+rex.have_birthday()
+print(rex.describe())</pre>
+  <div class="vote">
+    <div class="vopt">3 both times: methods cannot change data</div>
+    <div class="vopt" data-win>3, then 4</div>
+    <div class="vopt">3, then 4, but only inside have_birthday</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Rex is 3 years old.
+Rex is 4 years old.</div>
+    <ul class="b">
+      <li><code>have_birthday</code> changed <code>self.age</code>. The object keeps its state between calls.</li>
+      <li>This is how an account remembers its balance: a method changes it, the object keeps it.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag18c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag18cr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag18cg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="120" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="90" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex.age = 3</text><line x1="156" y1="47" x2="214" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#ag18c)"/><text x="185" y="38" text-anchor="middle" font-size="10" fill="#4f46e5">describe()</text><rect x="220" y="30" width="190" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="315" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">"Rex is 3 years old."</text><line x1="416" y1="47" x2="474" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#ag18c)"/><text x="445" y="38" text-anchor="middle" font-size="10" fill="#4f46e5">have_birthday()</text><rect x="480" y="30" width="120" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="540" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex.age = 4</text><path d="M540,70 L540,88 L310,88 L310,106" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#ag18c)"/><text x="425" y="102" text-anchor="middle" font-size="10" fill="#4f46e5">describe()</text><rect x="220" y="110" width="190" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="315" y="131.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">"Rex is 4 years old."</text><text x="320" y="175" text-anchor="middle" font-size="12" fill="#334155">have_birthday changed self.age; the next describe reads the new value</text></svg></div>
+  </div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>class Counter:
+    def __init__(self):
+        self.count = 0
+
+    def tick(self):
+        self.count += 1
+
+c = Counter()
+c.tick()
+c.tick()
+print(c.count)</pre>
+    <div class="opts">
+      <button class="opt">1</button>
+      <button class="opt">0</button>
+      <button class="opt" data-ok>2</button>
+      <button class="opt">None</button>
+    </div>
+    <div class="expl"><b>2.</b> The object starts at 0 and each tick adds one to its own count. No return needed: the data lives in the object.
+<div class="diag"><svg viewBox="0 0 640 120" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag18" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag18r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag18g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="40" width="104" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="82" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">c.count = 0</text><line x1="134" y1="57" x2="198" y2="57" stroke="#64748b" stroke-width="2" marker-end="url(#ag18)"/><text x="169.0" y="32" text-anchor="middle" font-size="11" fill="#4f46e5">tick()</text><rect x="204" y="40" width="104" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="256" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">c.count = 1</text><line x1="308" y1="57" x2="372" y2="57" stroke="#64748b" stroke-width="2" marker-end="url(#ag18)"/><text x="343.0" y="32" text-anchor="middle" font-size="11" fill="#4f46e5">tick()</text><rect x="378" y="40" width="104" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="430" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">c.count = 2</text><line x1="482" y1="57" x2="546" y2="57" stroke="#64748b" stroke-width="2" marker-end="url(#ag18)"/><text x="517.0" y="32" text-anchor="middle" font-size="11" fill="#4f46e5">print</text><rect x="552" y="40" width="82" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="593" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">prints 2</text><text x="320" y="105" text-anchor="middle" font-size="12" fill="#334155">the object keeps count between calls; each tick changes self.count on that same object</text></svg></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="PaisaPay v11: Transaction" data-tag="PaisaPay v11">
+  <h2>PaisaPay v11: a payment becomes a Transaction</h2>
+  <div class="build"><div class="bh">PaisaPay v11 · build 1 of 3</div><div class="bd">The (name, amount, mode) tuple becomes an object with named parts and its own describe().</div>
+  <pre class="py" data-file="paisapay_v11.py" data-wide>class Transaction:
+    def __init__(self, payee, amount, mode, fee, cashback):
+        self.payee = payee
+        self.amount = amount
+        self.mode = mode
+        self.fee = fee
+        self.cashback = cashback
+
+    def describe(self):
+        return f"₹{self.amount} to {self.payee} ({mode_name(self.mode)})"
+
+t = Transaction("Sumit", 600, "card", 5, 10)
+print(t.amount, t.payee)
+print(t.describe())</pre></div>
+  <div class="out">600 Sumit
+₹600 to Sumit (Card)</div>
+  <ul class="b">
+    <li><code>t.amount</code> instead of <code>t[1]</code>. The name says what it is.</li>
+    <li>In the statement: <code>key=lambda t: t.amount</code> instead of <code>p[1]</code>.</li>
+  </ul>
+    <div class="diag"><svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ah3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ah3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="150" y="20" text-anchor="middle" font-size="12" fill="#b45309">v10: a tuple, parts by position</text><rect x="20" y="30" width="52" height="30" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="46" y="49.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">"Sumit"</text><text x="46" y="80" text-anchor="middle" font-size="11" fill="#4f46e5">p[0]</text><rect x="76" y="30" width="52" height="30" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="102" y="49.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">600</text><text x="102" y="80" text-anchor="middle" font-size="11" fill="#4f46e5">p[1]</text><rect x="132" y="30" width="52" height="30" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="158" y="49.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">"card"</text><text x="158" y="80" text-anchor="middle" font-size="11" fill="#4f46e5">p[2]</text><rect x="188" y="30" width="52" height="30" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="214" y="49.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">5</text><text x="214" y="80" text-anchor="middle" font-size="11" fill="#4f46e5">p[3]</text><rect x="244" y="30" width="52" height="30" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="270" y="49.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">10</text><text x="270" y="80" text-anchor="middle" font-size="11" fill="#4f46e5">p[4]</text><text x="150" y="110" text-anchor="middle" font-size="11" fill="#b45309">p[1]: which one was the amount again?</text><line x1="312" y1="46" x2="352" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#ah3)"/><text x="332" y="36" text-anchor="middle" font-size="10" fill="#4f46e5">becomes</text><text x="480" y="20" text-anchor="middle" font-size="12" fill="#16a34a">v11: a Transaction, parts by name</text><rect x="360" y="30" width="240" height="148" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="480" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">t: Transaction</text><line x1="368" y1="58" x2="592" y2="58" stroke="#10b981" stroke-width="1"/><text x="480" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">payee    = "Sumit"</text><text x="480" y="100" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">amount   = 600</text><text x="480" y="122" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">mode     = "card"</text><text x="480" y="144" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">fee = 5   cashback = 10</text><text x="480" y="166" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">describe()</text><text x="320" y="205" text-anchor="middle" font-size="12" fill="#334155">t.amount says what it is; the receipt line moves inside the object as describe()</text></svg></div>
+</section>
+
+<!-- ============ class vs instance variables ============ -->
+<section class="step" data-nav="Class variables" data-tag="Class variables">
+  <h2>Data shared by every object: a class variable</h2>
+  <ul class="b"><li>name and age belong to one dog. Some data is true for every dog. Write it in the class body, outside __init__.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>Both dogs share the class. Same species for both?</div></div>
+  <pre class="py" data-file="class_variables.py">class Dog:
+    species = "Canis familiaris"
+
+    def __init__(self, name):
+        self.name = name
+
+rex = Dog("Rex")
+fido = Dog("Fido")
+
+print(rex.species)
+print(fido.species)</pre>
+  <div class="vote">
+    <div class="vopt" data-win>Canis familiaris, twice</div>
+    <div class="vopt">AttributeError: species is not in __init__</div>
+    <div class="vopt">Canis familiaris, then None</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Canis familiaris
+Canis familiaris</div>
+    <ul class="b">
+      <li>A <b>class variable</b>: one value, on the class, seen by every object.</li>
+      <li>Safe here. A string cannot change. The trouble starts with a list.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag20" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag20r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag20g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="200" y="16" width="232" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="316" y="36" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Dog</text><line x1="208" y1="44" x2="424" y2="44" stroke="#6366f1" stroke-width="1"/><text x="316" y="64" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">species = "Canis familiaris"</text><rect x="60" y="120" width="115" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="117.5" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">rex</text><line x1="68" y1="148" x2="167" y2="148" stroke="#f59e0b" stroke-width="1"/><text x="117.5" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><rect x="400" y="120" width="122" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="461" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">fido</text><line x1="408" y1="148" x2="514" y2="148" stroke="#f59e0b" stroke-width="1"/><text x="461" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Fido"</text><line x1="117.5" y1="118" x2="230" y2="80" stroke="#64748b" stroke-width="2" marker-end="url(#ag20)"/><line x1="461.0" y1="118" x2="402" y2="80" stroke="#64748b" stroke-width="2" marker-end="url(#ag20)"/><text x="110" y="200" text-anchor="middle" font-size="11" fill="#4f46e5">rex.species: not on rex,</text><text x="110" y="214" text-anchor="middle" font-size="11" fill="#4f46e5">so look in the class</text><text x="480" y="200" text-anchor="middle" font-size="11" fill="#4f46e5">fido.species: same lookup,</text><text x="480" y="214" text-anchor="middle" font-size="11" fill="#4f46e5">same one value</text><text x="320" y="245" text-anchor="middle" font-size="12" fill="#334155">one value on the class, read by every object; nothing is copied into rex or fido</text></svg></div>
+  </div>
+  <ul class="b" data-brk><li><b>Not only your classes.</b> Python's own classes keep shared data the same way. Every date object shares one <code>max</code>, stored on the class.</li></ul>
+  <pre class="py" data-nocopy>from datetime import date
+
+today = date(2026, 11, 2)
+birthday = date(2001, 5, 14)
+
+print(today.year, birthday.year)
+print(today.max)
+print(today.max is birthday.max)</pre>
+  <div class="out">2026 2001
+9999-12-31
+True</div>
+  <ul class="b">
+    <li><code>year</code> is each date's own, like <code>name</code>. <code>max</code> is on the class, like <code>species</code>.</li>
+    <li><code>date.max</code> works without any object. So does <code>Dog.species</code>.</li>
+  </ul>
+<div class="diag"><svg viewBox="0 0 640 255" xmlns="http://www.w3.org/2000/svg"><defs><marker id="acv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="acvr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="acvg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="40" width="190" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="125" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class date</text><line x1="38" y1="68" x2="212" y2="68" stroke="#6366f1" stroke-width="1"/><text x="125" y="88" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">max = 9999-12-31</text><text x="125" y="110" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">min = 0001-01-01</text><rect x="400" y="14" width="170" height="104" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="485" y="34" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">today</text><line x1="408" y1="42" x2="562" y2="42" stroke="#f59e0b" stroke-width="1"/><text x="485" y="62" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">year = 2026</text><text x="485" y="84" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">month = 11</text><text x="485" y="106" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">day = 2</text><rect x="400" y="118" width="170" height="104" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="485" y="138" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">birthday</text><line x1="408" y1="146" x2="562" y2="146" stroke="#f59e0b" stroke-width="1"/><text x="485" y="166" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">year = 2001</text><text x="485" y="188" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">month = 5</text><text x="485" y="210" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">day = 14</text><line x1="394" y1="66.0" x2="226" y2="81.0" stroke="#64748b" stroke-width="2" marker-end="url(#acv)"/><line x1="394" y1="170.0" x2="226" y2="81.0" stroke="#64748b" stroke-width="2" marker-end="url(#acv)"/><text x="310" y="60" text-anchor="middle" font-size="10" fill="#4f46e5">today.max</text><text x="310" y="150" text-anchor="middle" font-size="10" fill="#4f46e5">birthday.max</text><text x="320" y="228" text-anchor="middle" font-size="12" fill="#334155">own data on each object (year, month, day); shared data on the class (max, min)</text><text x="320" y="246" text-anchor="middle" font-size="12" fill="#334155">Python's own classes work the same way as your Dog</text></svg></div>
+</section>
+
+<section class="step" data-nav="The vote: shared tricks">
+  <h2>The vote of the class: whose tricks?</h2>
+  <div class="ask"><span class="ic">✋</span><div>Only rex learns a trick. What does fido's list show?</div></div>
+  <pre class="py" data-file="class_variables.py">class Dog:
+    tricks = []
+
+    def __init__(self, name):
+        self.name = name
+
+rex = Dog("Rex")
+fido = Dog("Fido")
+
+rex.tricks.append("sit")
+
+print(rex.tricks)
+print(fido.tricks)</pre>
+  <div class="vote">
+    <div class="vopt">['sit'] then []</div>
+    <div class="vopt" data-win>['sit'] then ['sit']</div>
+    <div class="vopt">AttributeError on fido.tricks</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">['sit']
+['sit']</div>
+    <ul class="b">
+      <li>There is only <b>one</b> tricks list. It belongs to the class, and every dog looks at it.</li>
+      <li><code>append</code> changed that one list in place. Class 6, one level up: two names, one list.</li>
+    </ul>
+  </div>
+  <div class="diag">
+    <svg viewBox="0 0 640 170" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="arR" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+      <rect x="40" y="30" width="140" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="110" y="55" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">rex</text>
+      <rect x="40" y="100" width="140" height="40" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+      <text x="110" y="125" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">fido</text>
+      <line x1="185" y1="50" x2="302" y2="78" stroke="#64748b" stroke-width="2" marker-end="url(#arR)"/>
+      <line x1="185" y1="120" x2="302" y2="92" stroke="#64748b" stroke-width="2" marker-end="url(#arR)"/>
+      <rect x="310" y="65" width="200" height="40" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="410" y="90" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Dog.tricks: ['sit']</text>
+      <text x="410" y="130" text-anchor="middle" font-size="12" fill="#b45309">one list on the class; both arrows point at it</text>
+      <text x="320" y="160" text-anchor="middle" font-size="13" fill="#334155">rex.tricks.append("sit") changed the shared list. fido was never given its own.</text>
+    </svg>
+  </div>
+  <div class="ai"><b>🤖 AI moment</b> — if you voted for the empty list, ask for the walk-through. Then rewrite the class with the list inside __init__ and confirm fido stays empty.<div class="pr">"I expected fido.tricks to stay empty since I only modified rex.tricks, but it changed too. Walk me through exactly why, step by step."</div></div>
+</section>
+
+<section class="step" data-nav="The fix: in __init__">
+  <h2>The fix: a fresh list per object, inside __init__</h2>
+  <div class="ask"><span class="ic">✋</span><div>The list moved into __init__. Does fido's list change now?</div></div>
+  <pre class="py" data-file="class_variables.py">class Dog:
+    def __init__(self, name):
+        self.name = name
+        self.tricks = []
+
+rex = Dog("Rex")
+fido = Dog("Fido")
+
+rex.tricks.append("sit")
+
+print(rex.tricks)
+print(fido.tricks)</pre>
+  <div class="vote">
+    <div class="vopt" data-win>['sit'] then []</div>
+    <div class="vopt">['sit'] then ['sit']</div>
+    <div class="vopt">[] then []</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">['sit']
+[]</div>
+    <ul class="b">
+      <li>Each <code>Dog()</code> now makes its own list. Two dogs, two lists.</li>
+      <li><b>Rule:</b> a class variable for what is the same for every object. <code>self.x</code> in __init__ for what belongs to one object, and always for a list or a dictionary.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 175" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag22" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag22r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag22g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="40" y="20" width="144" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="112" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">rex</text><line x1="48" y1="48" x2="176" y2="48" stroke="#10b981" stroke-width="1"/><text x="112" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name   = "Rex"</text><text x="112" y="90" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">tricks = ["sit"]</text><rect x="360" y="20" width="137" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="428.5" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">fido</text><line x1="368" y1="48" x2="489" y2="48" stroke="#10b981" stroke-width="1"/><text x="428.5" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name   = "Fido"</text><text x="428.5" y="90" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">tricks = []</text><text x="320" y="140" text-anchor="middle" font-size="12" fill="#334155">self.tricks = [] runs inside __init__, once per Dog(): two dogs, two lists</text><text x="320" y="158" text-anchor="middle" font-size="12" fill="#334155">rex.tricks.append("sit") touches only the list that belongs to rex</text></svg></div>
+  </div>
+  <div class="case">
+    <div class="tag">Industry practice</div>
+    <h4>The warning is in Python's own tutorial</h4>
+    <ul>
+      <li>The official tutorial uses this exact Dog and tricks example, labelled "mistaken use of a class variable".</li>
+      <li>It names the cause: shared data has surprising effects with mutable objects such as lists and dictionaries.</li>
+      <li>Professionals make this mistake too. The tutorial would not warn otherwise.</li>
+    </ul>
+    <div class="lesson">A list in the class body is one list for everyone. A list in __init__ is one per object.</div>
+    <div class="src">Read: <a href="https://docs.python.org/3/tutorial/classes.html#class-and-instance-variables" target="_blank">Python tutorial: class and instance variables</a></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Class variable questions">
+  <h2>Two questions</h2>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What prints?</div>
+    <pre class="py" data-nocopy>class Account:
+    bank = "PaisaPay"
+
+    def __init__(self, owner):
+        self.owner = owner
+
+a = Account("Rajani")
+b = Account("Sumit")
+a.bank = "OtherPay"
+print(a.bank, b.bank)</pre>
+    <div class="opts">
+      <button class="opt">OtherPay OtherPay</button>
+      <button class="opt">PaisaPay PaisaPay</button>
+      <button class="opt">AttributeError</button>
+      <button class="opt" data-ok>OtherPay PaisaPay</button>
+    </div>
+    <div class="expl"><b>OtherPay PaisaPay.</b> Assigning <code>a.bank = ...</code> makes a new instance attribute on a only; it hides the class one for a. b still sees the class value. Assigning is safe; mutating a shared list is the trap.
+<div class="diag"><svg viewBox="0 0 640 270" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag23" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag23r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag23g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="220" y="16" width="152" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="296" y="36" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Account</text><line x1="228" y1="44" x2="364" y2="44" stroke="#6366f1" stroke-width="1"/><text x="296" y="64" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">bank = "PaisaPay"</text><rect x="40" y="120" width="159" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="119.5" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">a</text><line x1="48" y1="148" x2="191" y2="148" stroke="#f59e0b" stroke-width="1"/><text x="119.5" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = "Rajani"</text><text x="119.5" y="190" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b45309">bank  = "OtherPay"</text><rect x="400" y="120" width="137" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="468.5" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">b</text><line x1="408" y1="148" x2="529" y2="148" stroke="#f59e0b" stroke-width="1"/><text x="468.5" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = "Sumit"</text><line x1="468.5" y1="118" x2="342" y2="80" stroke="#64748b" stroke-width="2" marker-end="url(#ag23)"/><text x="119.5" y="222" text-anchor="middle" font-size="11" fill="#b45309">a.bank = "OtherPay" made a new attribute on a</text><text x="468.5" y="222" text-anchor="middle" font-size="11" fill="#4f46e5">b.bank: not on b, so the class value</text><text x="320" y="255" text-anchor="middle" font-size="12" fill="#334155">found on the object first, then the class: a sees its own, b sees the shared one</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">Which line is the bug waiting to happen?</div>
+    <pre class="py" data-nocopy>class Wallet:
+    cards = []                 # A
+    currency = "INR"           # B
+
+    def __init__(self, owner):
+        self.owner = owner     # C
+        self.history = []      # D</pre>
+    <div class="opts">
+      <button class="opt" data-ok>A</button>
+      <button class="opt">B</button>
+      <button class="opt">C</button>
+      <button class="opt">D</button>
+    </div>
+    <div class="expl"><b>A.</b> A list in the class body is shared by every wallet: one person's card shows up in everyone's wallet. B is a string, safe to share. C and D are per object.
+<div class="diag"><svg viewBox="0 0 640 265" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag23b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag23br" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag23bg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="190" y="16" width="188" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="284" y="36" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Wallet</text><line x1="198" y1="44" x2="370" y2="44" stroke="#6366f1" stroke-width="1"/><text x="284" y="64" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">cards    = []        A</text><text x="284" y="86" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">currency = "INR"     B</text><rect x="40" y="130" width="188" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="134" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">wallet 1</text><line x1="48" y1="158" x2="220" y2="158" stroke="#f59e0b" stroke-width="1"/><text x="134" y="178" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner   = "Rajani"   C</text><text x="134" y="200" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">history = []         D</text><rect x="380" y="130" width="188" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="474" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">wallet 2</text><line x1="388" y1="158" x2="560" y2="158" stroke="#f59e0b" stroke-width="1"/><text x="474" y="178" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner   = "Sumit"    C</text><text x="474" y="200" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">history = []         D</text><line x1="134.0" y1="128" x2="230" y2="102" stroke="#64748b" stroke-width="2" marker-end="url(#ag23br)"/><line x1="474.0" y1="128" x2="338" y2="102" stroke="#64748b" stroke-width="2" marker-end="url(#ag23br)"/><text x="320" y="232" text-anchor="middle" font-size="11" fill="#334155">A: one list on the class, every wallet appends to the same one. B: a string, safe to share.</text><text x="320" y="250" text-anchor="middle" font-size="11" fill="#334155">C and D: made in __init__, so each wallet gets its own.</text></svg></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Class variables, in words">
+  <h2>Class variables, in words</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">Where does a class variable live?</div>
+    <div class="opts">
+      <button class="opt">On each object, copied when the object is made</button>
+      <button class="opt">Inside __init__</button>
+      <button class="opt">On the first object that was made</button>
+      <button class="opt" data-ok>On the class: one copy, seen by every object</button>
+    </div>
+    <div class="expl"><b>On the class.</b> Written in the class body, outside any method. Every object reads it through the class, so there is one copy.
+<div class="diag"><svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw4g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="240" y="20" width="230" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="355" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Dog</text><line x1="248" y1="48" x2="462" y2="48" stroke="#6366f1" stroke-width="1"/><text x="355" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">species = "Canis familiaris"</text><rect x="120" y="110" width="130" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="185" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">rex</text><line x1="128" y1="138" x2="242" y2="138" stroke="#f59e0b" stroke-width="1"/><text x="185" y="158" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><line x1="185" y1="110" x2="355" y2="82" stroke="#64748b" stroke-width="2" marker-end="url(#aw4)"/><rect x="400" y="110" width="130" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="465" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">fido</text><line x1="408" y1="138" x2="522" y2="138" stroke="#f59e0b" stroke-width="1"/><text x="465" y="158" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Fido"</text><line x1="465" y1="110" x2="355" y2="82" stroke="#64748b" stroke-width="2" marker-end="url(#aw4)"/><text x="320" y="195" text-anchor="middle" font-size="12" fill="#334155">one copy on the class; rex.species and fido.species both follow the arrow up and read it</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt"><code>rex.species = "Wolf"</code> on one dog. What changes?</div>
+    <div class="opts">
+      <button class="opt" data-ok>Only rex: it gets its own species; the class value stays</button>
+      <button class="opt">Every dog: species is shared</button>
+      <button class="opt">Nothing: an error, class variables cannot be set through an object</button>
+      <button class="opt">The class variable is renamed</button>
+    </div>
+    <div class="expl"><b>Only rex.</b> Assigning on an object makes an instance attribute, which hides the class one for that object. <code>Dog.species</code> and <code>fido.species</code> are unchanged.
+<div class="diag"><svg viewBox="0 0 640 245" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw5r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="240" y="20" width="230" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="355" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Dog</text><line x1="248" y1="48" x2="462" y2="48" stroke="#6366f1" stroke-width="1"/><text x="355" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">species = "Canis familiaris"</text><rect x="60" y="110" width="170" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="145" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">rex</text><line x1="68" y1="138" x2="222" y2="138" stroke="#f59e0b" stroke-width="1"/><text x="145" y="158" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rex"</text><text x="145" y="180" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">species = "Wolf"</text><rect x="400" y="110" width="170" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="485" y="130" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">fido</text><line x1="408" y1="138" x2="562" y2="138" stroke="#f59e0b" stroke-width="1"/><text x="485" y="158" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Fido"</text><line x1="485" y1="110" x2="355" y2="82" stroke="#64748b" stroke-width="2" marker-end="url(#aw5)"/><text x="145" y="200" text-anchor="middle" font-size="11" fill="#b91c1c">rex now has its own species; the class value is not touched</text><text x="485" y="200" text-anchor="middle" font-size="11" fill="#334155">fido still reads the class value</text><text x="320" y="232" text-anchor="middle" font-size="12" fill="#334155">assigning through self makes an instance attribute that hides the class one for that object only</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">Why is <code>tricks = []</code> in the class body a trap, but <code>species = "Canis familiaris"</code> is fine?</div>
+    <div class="opts">
+      <button class="opt">Lists are not allowed in a class body</button>
+      <button class="opt">Strings are copied to each object; lists are not</button>
+      <button class="opt" data-ok>A list can be changed in place, so all objects see the change; a string cannot</button>
+      <button class="opt">Python makes strings private</button>
+    </div>
+    <div class="expl"><b>Changed in place.</b> <code>append</code> changes the one shared list. A string never changes in place; writing a new one makes an instance attribute. Shared and changeable together is the trap.
+<div class="diag"><svg viewBox="0 0 640 200" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw6g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="140" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="100" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">tricks = []</text><rect x="30" y="76" width="200" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="130" y="97.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex.tricks.append("sit")</text><line x1="130" y1="76" x2="100" y2="68" stroke="#ef4444" stroke-width="2" marker-end="url(#aw6r)"/><text x="130" y="130" text-anchor="middle" font-size="11" fill="#b91c1c">append changes the one list in place</text><text x="130" y="146" text-anchor="middle" font-size="11" fill="#b91c1c">every dog sees ["sit"]</text><rect x="380" y="30" width="170" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="465" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">species = "Canis"</text><rect x="380" y="76" width="200" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="480" y="97.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rex.species = "Wolf"</text><text x="480" y="130" text-anchor="middle" font-size="11" fill="#047857">a string cannot change in place;</text><text x="480" y="146" text-anchor="middle" font-size="11" fill="#047857">this makes a new value on rex only</text><text x="320" y="185" text-anchor="middle" font-size="12" fill="#334155">Class 6 again: lists change in place, strings do not. Shared and changeable is the trap</text></svg></div></div>
+  </div>
+  <div class="take">A class variable is one value on the class. Assign through self and that object gets its own. A shared list is one list for all: make lists in __init__.</div>
+</section>
+
+<!-- ============ encapsulation and abstraction ============ -->
+<section class="step" data-nav="Encapsulation" data-tag="Encapsulation">
+  <h2>Encapsulation: the data stays inside, methods are the door</h2>
+  <div class="ask"><span class="ic">✋</span><div>The open version first. Any line can touch balance. What prints?</div></div>
+  <pre class="py" data-file="encapsulation.py" data-kind="bad">class BankAccount:
+    def __init__(self, balance):
+        self.balance = balance
+
+account = BankAccount(100)
+account.balance = -500
+print(account.balance)</pre>
+  <div class="vote">
+    <div class="vopt">ValueError: a balance cannot be negative</div>
+    <div class="vopt">100: an attribute cannot be changed from outside</div>
+    <div class="vopt" data-win>-500: nothing stops it</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">-500</div>
+    <ul class="b">
+      <li>Nothing stops it. The data is open, so the rule "no negative balance" lives nowhere.</li>
+      <li>Fifty places in a program can set balance. One typo, one bad line, and the money is wrong.</li>
+    </ul>
+<div class="diag"><svg viewBox="0 0 640 140" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ao1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ao1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ao1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="50" width="200" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="130" y="71.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account.balance = -500</text><line x1="236" y1="67" x2="324" y2="67" stroke="#ef4444" stroke-width="2" marker-end="url(#ao1r)"/><text x="280" y="58" text-anchor="middle" font-size="11" fill="#b91c1c">no check</text><rect x="330" y="30" width="200" height="60" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="430" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">BankAccount object</text><line x1="338" y1="58" x2="522" y2="58" stroke="#ef4444" stroke-width="1"/><text x="430" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = -500</text><text x="320" y="125" text-anchor="middle" font-size="12" fill="#334155">an open attribute is a door with no lock: any line, anywhere, writes straight into the object</text></svg></div>
+  </div>
+  <ul class="b" data-brk><li><b>The fix:</b> put the data inside, mark it internal, and make the methods the only door.</li></ul>
+  <pre class="py" data-file="encapsulation.py" data-kind="good" data-hl="3,5-6,8-10">class BankAccount:
+    def __init__(self, balance):
+        self.__balance = balance
+
+    def get_balance(self):
+        return self.__balance
+
+    def deposit(self, amount):
+        if amount &gt; 0:
+            self.__balance += amount</pre>
+  <div class="anat">
+    <div class="a"><code>__balance</code><div class="m">read it "dunder balance" or "double underscore balance"; two in front only</div></div>
+    <div class="a"><code>self.__balance</code><div class="m">a <b>private instance attribute</b>; also called a private variable, field or member. Python's docs say "private name"</div></div>
+    <div class="a"><code>__init__</code> both sides<div class="m">a different thing: a name Python calls for you</div></div>
+    <div class="a"><code>_balance</code> one underscore<div class="m">a polite hint only; nothing is hidden</div></div>
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>A deposit of 50, then a deposit of -500. What is the balance?</div></div>
+  <pre class="py" data-file="encapsulation.py">account = BankAccount(100)
+account.deposit(50)
+account.deposit(-500)
+print(account.get_balance())</pre>
+  <div class="vote">
+    <div class="vopt">-350</div>
+    <div class="vopt" data-win>150</div>
+    <div class="vopt">ValueError on the second deposit</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">150</div>
+    <ul class="b">
+      <li>The rule inside <code>deposit</code> refused the negative amount. Nobody outside can skip that rule.</li>
+      <li>Two leading underscores say: internal, change it only through the methods.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 195" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag25" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag25r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag25g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="20" y="40" width="133" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="86.5" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">__balance = 100</text><line x1="153" y1="57" x2="207" y2="57" stroke="#64748b" stroke-width="2" marker-end="url(#ag25)"/><text x="183.0" y="32" text-anchor="middle" font-size="11" fill="#4f46e5">deposit(50)</text><rect x="213" y="40" width="45" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="235.5" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">150</text><line x1="258" y1="57" x2="312" y2="57" stroke="#64748b" stroke-width="2" marker-end="url(#ag25)"/><text x="288.0" y="32" text-anchor="middle" font-size="11" fill="#4f46e5">deposit(-500) refused</text><rect x="318" y="40" width="45" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="340.5" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">150</text><line x1="363" y1="57" x2="417" y2="57" stroke="#64748b" stroke-width="2" marker-end="url(#ag25)"/><text x="393.0" y="32" text-anchor="middle" font-size="11" fill="#4f46e5">get_balance()</text><rect x="423" y="40" width="97" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="471.5" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">prints 150</text><rect x="20" y="110" width="118" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="79" y="131.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">deposit(-500)</text><line x1="138" y1="127" x2="182" y2="127" stroke="#64748b" stroke-width="2" marker-end="url(#ag25)"/><text x="163.0" y="102" text-anchor="middle" font-size="11" fill="#4f46e5">inside</text><rect x="188" y="110" width="177" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="276.5" y="131.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">amount &lt;= 0 -&gt; return</text><text x="320" y="180" text-anchor="middle" font-size="12" fill="#334155">the check lives inside the method; every deposit must pass it, nobody can skip it</text></svg></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Does __ really lock it?">
+  <h2>Does the double underscore lock the door?</h2>
+  <div class="ask"><span class="ic">✋</span><div>Read the balance directly. What happens?</div></div>
+  <pre class="py" data-file="encapsulation.py" data-kind="bad">print(account.__balance)</pre>
+  <div class="vote">
+    <div class="vopt">150</div>
+    <div class="vopt">PermissionError</div>
+    <div class="vopt" data-win>AttributeError: no attribute '__balance'</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">AttributeError: 'BankAccount' object has no attribute '__balance'</span></div>
+    <ul class="b">
+      <li>Python renames <code>__balance</code> to <code>_BankAccount__balance</code> inside the class. That is called name mangling.</li>
+      <li><code>account._BankAccount__balance</code> still works. A speed bump, not a lock: a strong "do not" to other programmers.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 185" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag26b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag26br" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag26bg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="20" y="30" width="257" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="148.5" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">inside the class: self.__balance</text><line x1="283" y1="47" x2="317" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#ag26b)"/><text x="300" y="38" text-anchor="middle" font-size="11" fill="#4f46e5">Python renames</text><rect x="323" y="30" width="177" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="411.5" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">_BankAccount__balance</text><rect x="20" y="100" width="213" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="126.5" y="121.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">outside: account.__balance</text><line x1="239" y1="117" x2="273" y2="117" stroke="#64748b" stroke-width="2" marker-end="url(#ag26br)"/><text x="256" y="108" text-anchor="middle" font-size="11" fill="#b91c1c">no rename, no such name</text><rect x="279" y="100" width="126" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="342" y="121.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">AttributeError</text><text x="320" y="170" text-anchor="middle" font-size="12" fill="#334155">the object only has _BankAccount__balance; the plain name exists nowhere. A speed bump, not a lock.</text></svg></div>
+  </div>
+  <ul class="b">
+    <li><b>Abstraction</b> is the other half: whoever calls <code>deposit(50)</code> does not need to know the rule inside or how the balance is stored. A simple name hides the work.</li>
+    <li>Encapsulation hides the <b>data</b>. Abstraction hides the <b>steps</b>.</li>
+  </ul>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Which call is the point of encapsulation?</div>
+    <div class="opts">
+      <button class="opt">account.__balance = 1000000</button>
+      <button class="opt">account._BankAccount__balance = 1000000</button>
+      <button class="opt" data-ok>account.deposit(1000000)</button>
+      <button class="opt">print(account.__dict__)</button>
+    </div>
+    <div class="expl"><b>deposit.</b> Go through the door that checks. A creates a new, unrelated attribute with no error; B makes a millionaire by reaching around the rule; D peeks at everything. All three are what the underscores ask you not to do.
+<div class="diag"><svg viewBox="0 0 640 260" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag26" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag26r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag26g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="430" y="40" width="137" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="498.5" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">account</text><line x1="438" y1="68" x2="559" y2="68" stroke="#f59e0b" stroke-width="1"/><text x="498.5" y="88" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">__balance = 150</text><rect x="20" y="20" width="300" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="170" y="41.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account.deposit(50)</text><line x1="326" y1="37" x2="424" y2="70" stroke="#64748b" stroke-width="2" marker-end="url(#ag26g)"/><text x="170" y="65" text-anchor="middle" font-size="11" fill="#10b981">through the door: checked</text><rect x="20" y="72" width="300" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="170" y="93.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account.__balance = 500</text><line x1="326" y1="89" x2="424" y2="70" stroke="#64748b" stroke-width="2" marker-end="url(#ag26r)"/><text x="170" y="117" text-anchor="middle" font-size="11" fill="#ef4444">a new, unrelated attribute</text><rect x="20" y="124" width="300" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="170" y="145.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account._BankAccount__balance = 10**6</text><line x1="326" y1="141" x2="424" y2="70" stroke="#64748b" stroke-width="2" marker-end="url(#ag26r)"/><text x="170" y="169" text-anchor="middle" font-size="11" fill="#ef4444">around the wall</text><rect x="20" y="176" width="300" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="170" y="197.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">print(account.__dict__)</text><line x1="326" y1="193" x2="424" y2="70" stroke="#64748b" stroke-width="2" marker-end="url(#ag26r)"/><text x="170" y="221" text-anchor="middle" font-size="11" fill="#ef4444">peeks at everything</text><text x="320" y="245" text-anchor="middle" font-size="12" fill="#334155">one door, deposit(), carries the rule; the other three reach the data without the check</text></svg></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Encapsulation, in words">
+  <h2>Encapsulation, in words</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">What is encapsulation?</div>
+    <div class="opts">
+      <button class="opt">Hiding the class's code from other files</button>
+      <button class="opt">Making every attribute private</button>
+      <button class="opt" data-ok>Keeping data inside the object and changing it only through methods, so the rules cannot be skipped</button>
+      <button class="opt">Giving every attribute a get method</button>
+    </div>
+    <div class="expl"><b>Data inside, methods as the door.</b> The rule "no negative balance" lives in <code>deposit</code>, and nothing outside can reach the balance another way. Not every attribute needs hiding, only the ones with rules.
+<div class="diag"><svg viewBox="0 0 640 155" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw7r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw7g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="240" y="20" width="190" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="335" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">BankAccount object</text><line x1="248" y1="48" x2="422" y2="48" stroke="#10b981" stroke-width="1"/><text x="335" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">__balance = 150</text><rect x="30" y="30" width="130" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="95" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">deposit(50)</text><line x1="166" y1="47" x2="234" y2="47" stroke="#10b981" stroke-width="2" marker-end="url(#aw7g)"/><rect x="30" y="76" width="130" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="95" y="97.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">deposit(-500)</text><line x1="166" y1="93" x2="234" y2="70" stroke="#ef4444" stroke-width="2" marker-end="url(#aw7r)"/><text x="200" y="112" text-anchor="middle" font-size="10" fill="#b91c1c">refused</text><rect x="480" y="30" width="140" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="550" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = -500</text><line x1="474" y1="47" x2="436" y2="47" stroke="#ef4444" stroke-width="2"/><line x1="436" y1="37" x2="436" y2="57" stroke="#ef4444" stroke-width="3"/><text x="550" y="80" text-anchor="middle" font-size="10" fill="#b91c1c">no direct way in</text><text x="320" y="140" text-anchor="middle" font-size="12" fill="#334155">the data is inside; the methods are the only doors, and each door checks. That is encapsulation</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What does the double underscore actually do to <code>__balance</code>?</div>
+    <div class="opts">
+      <button class="opt">Locks it: nothing can reach it</button>
+      <button class="opt" data-ok>Renames it to _BankAccount__balance, so a plain outside read fails</button>
+      <button class="opt">Deletes it when __init__ ends</button>
+      <button class="opt">Turns it into a class variable</button>
+    </div>
+    <div class="expl"><b>Renames it.</b> Name mangling folds the class name in. <code>account.__balance</code> finds nothing; <code>account._BankAccount__balance</code> still works. A strong convention, not a lock.
+<div class="diag"><svg viewBox="0 0 640 210" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw8r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw8g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="160" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="110" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">self.__balance</text><line x1="196" y1="47" x2="264" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#aw8)"/><text x="230" y="38" text-anchor="middle" font-size="10" fill="#4f46e5">Python renames</text><rect x="270" y="30" width="200" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="370" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">_BankAccount__balance</text><text x="480" y="47" text-anchor="start" font-size="11" fill="#334155">stored under this name</text><rect x="30" y="90" width="160" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="110" y="111.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account.__balance</text><text x="200" y="107" text-anchor="start" font-size="11" fill="#b91c1c">looks for a plain __balance: not there, AttributeError</text><rect x="30" y="136" width="230" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="145" y="157.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account._BankAccount__balance</text><text x="270" y="153" text-anchor="start" font-size="11" fill="#92400e">finds it: a convention, not a lock</text><text x="320" y="195" text-anchor="middle" font-size="12" fill="#334155">name mangling: the class name is folded into the attribute name, so a careless outside read fails</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">Abstraction, next to encapsulation: what is it?</div>
+    <div class="opts">
+      <button class="opt">The same thing as encapsulation</button>
+      <button class="opt">A class with no methods</button>
+      <button class="opt">Writing the class in a separate file</button>
+      <button class="opt" data-ok>Hiding the steps behind a simple name: deposit(50) is all the caller needs to know</button>
+    </div>
+    <div class="expl"><b>Hiding the steps.</b> Encapsulation hides the data; abstraction hides how the work is done. You have used it since Class 1: <code>print</code> hides a great deal.
+<div class="diag"><svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw9r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw9g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="60" width="180" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="120" y="81.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account.deposit(50)</text><text x="120" y="110" text-anchor="middle" font-size="11" fill="#92400e">the caller needs only this</text><line x1="216" y1="77" x2="300" y2="77" stroke="#64748b" stroke-width="2" marker-end="url(#aw9)"/><rect x="306" y="20" width="200" height="104" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="406" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">inside deposit</text><line x1="314" y1="48" x2="498" y2="48" stroke="#6366f1" stroke-width="1"/><text x="406" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">check amount &gt; 0</text><text x="406" y="90" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">add to __balance</text><text x="406" y="112" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">record it in history</text><text x="406" y="140" text-anchor="middle" font-size="11" fill="#4f46e5">the steps, hidden behind one name</text><text x="320" y="175" text-anchor="middle" font-size="12" fill="#334155">abstraction: use a thing without knowing how it works inside. Encapsulation keeps the data in; abstraction keeps the steps in</text></svg></div></div>
+  </div>
+  <div class="take">Encapsulation: data inside, methods as the door. The double underscore renames, it does not lock. Abstraction: a simple name over hidden steps.</div>
+</section>
+
+<section class="step" data-nav="PaisaPay v11: private balance" data-tag="PaisaPay v11">
+  <h2>PaisaPay v11: the balance and the PIN go private</h2>
+  <div class="build"><div class="bh">PaisaPay v11 · build 2 of 3</div><div class="bd">Balance, PIN and history live inside the object. Nothing outside can set the balance or read the PIN; the methods are the only door.</div>
+  <pre class="py" data-file="paisapay_v11.py" data-hl="4-5,8-12,18-19" data-wide>class Account:
+    def __init__(self, owner, balance, pin):
+        self.owner = owner
+        self.__balance = balance
+        self.__pin = pin
+        self.history = []
+
+    def get_balance(self):
+        return self.__balance
+
+    def check_pin(self, pin):
+        return pin == self.__pin
+
+    def add_money(self, amount):
+        if amount &lt;= 0:
+            print("Invalid amount. Nothing added.")
+            return
+        self.__balance += amount
+        print(f"Added ₹{amount}. Balance ₹{self.__balance}")
+
+    # fee_for, cashback_for, pay and statement use self.__balance
+    # the same way; the full class is in code/paisapay_v11.py</pre></div>
+  <ul class="b">
+    <li>The menu asks <code>account.check_pin(typed)</code> and never sees the real PIN.</li>
+    <li><code>account.__balance = 999999</code> from outside creates a useless new attribute and changes nothing. The rule holds.</li>
+  </ul>
+<div class="diag"><svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ap1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ap1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ap1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="250" y="20" width="200" height="126" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="350" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Account object</text><line x1="258" y1="48" x2="442" y2="48" stroke="#10b981" stroke-width="1"/><text x="350" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = "Rajani"</text><text x="350" y="90" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">__balance = 1000</text><text x="350" y="112" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">__pin = "4321"</text><text x="350" y="134" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">history = []</text><rect x="20" y="40" width="206" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="123" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account.get_balance()</text><line x1="232" y1="57" x2="244" y2="57" stroke="#10b981" stroke-width="2" marker-end="url(#ap1g)"/><rect x="20" y="86" width="206" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="123" y="107.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account.check_pin("4321")</text><line x1="232" y1="103" x2="244" y2="103" stroke="#10b981" stroke-width="2" marker-end="url(#ap1g)"/><rect x="20" y="132" width="206" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="123" y="153.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">account.__balance = 999999</text><line x1="232" y1="149" x2="244" y2="149" stroke="#ef4444" stroke-width="2"/><line x1="244" y1="139" x2="244" y2="159" stroke="#ef4444" stroke-width="3"/><text x="123" y="185" text-anchor="middle" font-size="11" fill="#b91c1c">bounces off: makes a stray attribute</text><text x="540" y="60" text-anchor="middle" font-size="11" fill="#334155">in red: internal,</text><text x="540" y="76" text-anchor="middle" font-size="11" fill="#334155">reached only through</text><text x="540" y="92" text-anchor="middle" font-size="11" fill="#334155">the methods</text><text x="320" y="215" text-anchor="middle" font-size="12" fill="#334155">the methods are the doors; the double underscore keeps outside lines from reaching the balance or the PIN</text></svg></div>
+</section>
+
+<!-- ============ inheritance ============ -->
+<section class="step" data-nav="DRY, again">
+  <h2>Before inheritance: DRY, again</h2>
+  <ul class="b">
+    <li><b>DRY</b>: Don't Repeat Yourself. Each rule lives in one place.</li>
+    <li>Class 5: copied lines became one function. Same rule for classes.</li>
+  </ul>
+  <pre class="py" data-nocopy data-kind="bad" data-wide>class Manager:
+    def __init__(self, name, salary, team_size):
+        self.name = name
+        self.salary = salary
+        self.team_size = team_size
+
+    def give_raise(self, percent):
+        self.salary += self.salary * percent // 100
+
+class Developer:
+    def __init__(self, name, salary, language):
+        self.name = name
+        self.salary = salary
+        self.language = language
+
+    def give_raise(self, percent):
+        self.salary += self.salary * percent // 100</pre>
+  <div class="ask"><span class="ic">✋</span><div>HR changes the raise rule. How many places do you edit?</div></div>
+  <div class="vote">
+    <div class="vopt">One: the rule is one idea</div>
+    <div class="vopt" data-win>Two: once per class, and one day you forget one</div>
+    <div class="vopt">Zero: Python notices the two methods are the same</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Show</button>
+  <div class="reveal">
+    <ul class="b">
+      <li>Two copies of <code>give_raise</code>, two copies of the name-and-salary setup. Every change, twice.</li>
+      <li>Ten kinds of employee: ten copies. A bug fixed in nine of them.</li>
+    </ul>
+<div class="diag"><svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg"><defs><marker id="adry" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="adryr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="adryg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="170" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#b91c1c">without a parent: the same rows twice</text><rect x="30" y="32" width="150" height="126" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="105" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Manager</text><line x1="38" y1="60" x2="172" y2="60" stroke="#ef4444" stroke-width="1"/><text x="105" y="80" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">name, salary</text><text x="105" y="102" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">describe()</text><text x="105" y="124" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">give_raise()</text><text x="105" y="146" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">team_size</text><rect x="190" y="32" width="150" height="126" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="265" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Developer</text><line x1="198" y1="60" x2="332" y2="60" stroke="#ef4444" stroke-width="1"/><text x="265" y="80" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">name, salary</text><text x="265" y="102" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">describe()</text><text x="265" y="124" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">give_raise()</text><text x="265" y="146" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">language</text><line x1="350" y1="100" x2="400" y2="100" stroke="#64748b" stroke-width="2" marker-end="url(#adry)"/><text x="500" y="22" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">with a parent: the shared rows once</text><rect x="450" y="32" width="150" height="104" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="525" y="52" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Employee</text><line x1="458" y1="60" x2="592" y2="60" stroke="#10b981" stroke-width="1"/><text x="525" y="80" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name, salary</text><text x="525" y="102" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">describe()</text><text x="525" y="124" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">give_raise()</text><rect x="410" y="150" width="110" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="465" y="170" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Manager</text><line x1="418" y1="178" x2="512" y2="178" stroke="#f59e0b" stroke-width="1"/><text x="465" y="198" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">team_size</text><rect x="530" y="150" width="110" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="585" y="170" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Developer</text><line x1="538" y1="178" x2="632" y2="178" stroke="#f59e0b" stroke-width="1"/><text x="585" y="198" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">language</text><line x1="465" y1="150" x2="500" y2="138" stroke="#64748b" stroke-width="2" marker-end="url(#adry)"/><line x1="585" y1="150" x2="550" y2="138" stroke="#64748b" stroke-width="2" marker-end="url(#adry)"/><text x="320" y="225" text-anchor="middle" font-size="12" fill="#334155">a fix to give_raise is made once in Employee; both children get it. DRY: each rule lives in one place</text></svg></div>
+  </div>
+  <div class="take">Write the shared part once, in a parent class. Each child adds only what differs. That is inheritance.</div>
+</section>
+
+<section class="step" data-nav="Inheritance" data-tag="Inheritance">
+  <h2>Inheritance: a class built on another class</h2>
+  <ul class="b"><li>A Manager and a Developer are both employees: a name, a salary, a describe(). Write that once.</li></ul>
+  <pre class="py" data-file="inheritance.py">class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+
+    def describe(self):
+        return f"{self.name} is an employee."
+
+class Manager(Employee):
+    pass</pre>
+  <div class="ask"><span class="ic">✋</span><div>Manager has no __init__ and no describe of its own. Does this even run?</div></div>
+  <pre class="py" data-file="inheritance.py">mgr = Manager("Chitransh", 90000)
+
+print(mgr.name)
+print(mgr.describe())</pre>
+  <div class="vote">
+    <div class="vopt">TypeError: Manager takes no arguments</div>
+    <div class="vopt" data-win>Chitransh, then "Chitransh is an employee."</div>
+    <div class="vopt">AttributeError: no describe</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Chitransh
+Chitransh is an employee.</div>
+    <ul class="b">
+      <li><code>Manager(Employee)</code>: Manager inherits from Employee. Everything Employee can do, Manager can do, with no new code.</li>
+      <li>Employee is the <b>parent</b> (base class). Manager is the <b>child</b> (subclass).</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 275" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag28b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag28br" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag28bg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="116" width="140" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="100" y="137.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">mgr.describe()</text><rect x="300" y="20" width="230" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="415" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Employee (parent)</text><line x1="308" y1="48" x2="522" y2="48" stroke="#6366f1" stroke-width="1"/><text x="415" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">__init__(name, salary)</text><text x="415" y="90" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">describe()</text><rect x="300" y="130" width="230" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="415" y="150" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Manager (child)</text><line x1="308" y1="158" x2="522" y2="158" stroke="#6366f1" stroke-width="1"/><text x="415" y="178" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">(nothing of its own)</text><line x1="415" y1="130" x2="415" y2="104" stroke="#64748b" stroke-width="2" marker-end="url(#ag28b)"/><text x="445" y="118" text-anchor="middle" font-size="10" fill="#4f46e5">inherits</text><line x1="176" y1="133" x2="294" y2="160.0" stroke="#64748b" stroke-width="2" marker-end="url(#ag28b)"/><text x="235" y="125" text-anchor="middle" font-size="10" fill="#b91c1c">1st look: not here</text><path d="M176,120 L230,120 L230,60 L294,60" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#ag28b)"/><text x="235" y="50" text-anchor="middle" font-size="10" fill="#047857">2nd look: found</text><rect x="30" y="200" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="145" y="221.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">"Chitransh is an employee."</text><text x="320" y="260" text-anchor="middle" font-size="12" fill="#334155">Manager adds nothing yet, so every lookup walks up to Employee: the child reuses the parent, no new code</text></svg></div>
+  </div>
+</section>
+
+<section class="step" data-nav="super()">
+  <h2>super(): let the parent do its part</h2>
+  <ul class="b"><li>A Manager needs one more thing: a team size. Its own __init__, but Employee should still set up name and salary.</li></ul>
+  <pre class="py" data-file="inheritance.py" data-wide>class Manager(Employee):
+    def __init__(self, name, salary, team_size):
+        super().__init__(name, salary)
+        self.team_size = team_size</pre>
+  <div class="ask"><span class="ic">✋</span><div>Predict both lines.</div></div>
+  <pre class="py" data-file="inheritance.py">mgr = Manager("Chitransh", 90000, 5)
+
+print(mgr.name)
+print(mgr.team_size)</pre>
+  <div class="vote">
+    <div class="vopt" data-win>Chitransh then 5</div>
+    <div class="vopt">AttributeError: name was never set</div>
+    <div class="vopt">TypeError: Employee got 3 arguments</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Chitransh
+5</div>
+    <ul class="b">
+      <li><code>super().__init__(name, salary)</code> runs Employee's __init__ on this same object. Then Manager adds what is new.</li>
+      <li>Forget that line and <code>mgr.name</code> is an AttributeError: the parent never ran.</li>
+    </ul>
+  </div>
+  <div class="diag">
+    <svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg">
+      <defs><marker id="arS" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker></defs>
+      <rect x="220" y="20" width="200" height="50" rx="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/>
+      <text x="320" y="41" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Employee</text>
+      <text x="320" y="60" text-anchor="middle" font-size="11" fill="#0f172a">name, salary, describe()</text>
+      <line x1="280" y1="75" x2="190" y2="112" stroke="#64748b" stroke-width="2" marker-end="url(#arS)"/>
+      <line x1="360" y1="75" x2="450" y2="112" stroke="#64748b" stroke-width="2" marker-end="url(#arS)"/>
+      <rect x="60" y="120" width="220" height="50" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="170" y="141" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Manager</text>
+      <text x="170" y="160" text-anchor="middle" font-size="11" fill="#0f172a">+ team_size, its own describe()</text>
+      <rect x="360" y="120" width="220" height="50" rx="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+      <text x="470" y="141" text-anchor="middle" font-size="14" font-weight="700" fill="#0f172a">Developer</text>
+      <text x="470" y="160" text-anchor="middle" font-size="11" fill="#0f172a">+ language, its own describe()</text>
+      <text x="320" y="186" text-anchor="middle" font-size="12" fill="#334155">the children get everything the parent has, and add their own</text>
+    </svg>
+  </div>
+</section>
+
+<section class="step" data-nav="Overriding and polymorphism">
+  <h2>Overriding: the child replaces a method</h2>
+  <pre class="py" data-file="inheritance.py" data-wide>class Manager(Employee):
+    def __init__(self, name, salary, team_size):
+        super().__init__(name, salary)
+        self.team_size = team_size
+
+    def describe(self):
+        return f"{self.name} manages a team of {self.team_size}."</pre>
+  <div class="ask"><span class="ic">✋</span><div>Employee has a describe too. Which one runs for a Manager?</div></div>
+  <pre class="py" data-file="inheritance.py">mgr = Manager("Chitransh", 90000, 5)
+print(mgr.describe())</pre>
+  <div class="vote">
+    <div class="vopt">Employee's: Chitransh is an employee.</div>
+    <div class="vopt" data-win>Manager's: Chitransh manages a team of 5.</div>
+    <div class="vopt">Both, one after the other</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Chitransh manages a team of 5.</div>
+    <ul class="b">
+      <li>Python looks in the object's own class first, then the parent. The child's version wins: <b>overriding</b>.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 309" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag30" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag30r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag30g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="360" y="16" width="203" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="461.5" y="36" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Employee  (parent)</text><line x1="368" y1="44" x2="555" y2="44" stroke="#6366f1" stroke-width="1"/><text x="461.5" y="64" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">__init__(name, salary)</text><text x="461.5" y="86" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">describe()</text><rect x="360" y="128" width="268" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="494" y="148" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Manager  (child)</text><line x1="368" y1="156" x2="620" y2="156" stroke="#6366f1" stroke-width="1"/><text x="494" y="176" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">__init__(name, salary, team_size)</text><text x="494" y="198" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">describe()   &lt;- overrides</text><line x1="494.0" y1="126" x2="461.5" y2="102" stroke="#64748b" stroke-width="2" marker-end="url(#ag30)"/><text x="544.0" y="118" text-anchor="middle" font-size="11" fill="#4f46e5">inherits</text><rect x="20" y="152.0" width="126" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="83" y="173.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">mgr.describe()</text><line x1="152" y1="169.0" x2="354" y2="169.0" stroke="#64748b" stroke-width="2" marker-end="url(#ag30)"/><text x="83.0" y="201.0" text-anchor="middle" font-size="11" fill="#4f46e5">1 look in Manager: found</text><rect x="20" y="234" width="257" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="148.5" y="255.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">"Chitransh manages a team of 5."</text><text x="320" y="294" text-anchor="middle" font-size="12" fill="#334155">Python stops at the first describe it finds: the child's. The parent's version is never reached for a Manager</text></svg></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Polymorphism">
+  <h2>Polymorphism: one call, many forms</h2>
+  <pre class="py" data-file="inheritance.py" data-wide>class Developer(Employee):
+    def __init__(self, name, salary, language):
+        super().__init__(name, salary)
+        self.language = language
+
+    def describe(self):
+        return f"{self.name} writes code in {self.language}."</pre>
+  <div class="ask"><span class="ic">✋</span><div>The loop calls describe() the same way for every item. What prints?</div></div>
+  <pre class="py" data-file="inheritance.py" data-wide>people = [Manager("Chitransh", 90000, 5),
+          Developer("Rahul", 75000, "Python"),
+          Employee("Prajnika", 60000)]
+
+for person in people:
+    print(person.describe())</pre>
+  <div class="vote">
+    <div class="vopt">"is an employee." three times: the loop uses Employee</div>
+    <div class="vopt" data-win>Three different sentences</div>
+    <div class="vopt">TypeError: a list cannot mix classes</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Chitransh manages a team of 5.
+Rahul writes code in Python.
+Prajnika is an employee.</div>
+    <ul class="b">
+      <li>The loop never asks "which kind are you?". Each object answers <code>describe()</code> its own way.</li>
+      <li><b>Polymorphism</b>: many forms. One line of calling code, a different behaviour per object.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 242" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag31" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag31r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag31g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="190" y="16" width="316" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="348" y="37.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">for person in people:  person.describe()</text><rect x="20" y="80" width="195" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="117.5" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Manager</text><line x1="28" y1="108" x2="207" y2="108" stroke="#6366f1" stroke-width="1"/><text x="117.5" y="128" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Chitransh"</text><text x="117.5" y="150" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">team_size = 5</text><line x1="348.0" y1="52" x2="117" y2="76" stroke="#64748b" stroke-width="2" marker-end="url(#ag31)"/><rect x="20" y="172" width="195" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="117.5" y="191.5" text-anchor="middle" font-size="10" font-family="Menlo,monospace" fill="#0f172a">"Chitransh manages a team of 5."</text><rect x="225" y="80" width="195" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="322.5" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Developer</text><line x1="233" y1="108" x2="412" y2="108" stroke="#6366f1" stroke-width="1"/><text x="322.5" y="128" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rahul"</text><text x="322.5" y="150" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">language = "Python"</text><line x1="348.0" y1="52" x2="322" y2="76" stroke="#64748b" stroke-width="2" marker-end="url(#ag31)"/><rect x="225" y="172" width="195" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="322.5" y="191.5" text-anchor="middle" font-size="10" font-family="Menlo,monospace" fill="#0f172a">"Rahul writes code in Python."</text><rect x="430" y="80" width="195" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="527.5" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Employee</text><line x1="438" y1="108" x2="617" y2="108" stroke="#6366f1" stroke-width="1"/><text x="527.5" y="128" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Prajnika"</text><line x1="348.0" y1="52" x2="527" y2="76" stroke="#64748b" stroke-width="2" marker-end="url(#ag31)"/><rect x="430" y="172" width="195" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="527.5" y="191.5" text-anchor="middle" font-size="10" font-family="Menlo,monospace" fill="#0f172a">"Prajnika is an employee."</text><text x="320" y="227" text-anchor="middle" font-size="12" fill="#334155">one line of calling code; each object answers describe() with its own class's version</text></svg></div>
+  </div>
+  <div class="case">
+    <div class="tag">Industry practice</div>
+    <h4>True + True is 2: inheritance inside Python itself</h4>
+    <ul>
+      <li><code>bool</code> is a child class of <code>int</code>. Python's docs say it plainly: booleans are a subtype of integers.</li>
+      <li>So <code>True + True</code> is 2, and <code>sum([True, False, True])</code> counts the Trues.</li>
+      <li>The language is built from the same ideas you are learning today.</li>
+    </ul>
+    <div class="lesson">A child class is its parent, plus something. bool is an int that can only be 0 or 1, with better names.</div>
+    <div class="src">Read: <a href="https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex" target="_blank">Python docs: "Booleans are a subtype of integers"</a></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Inheritance questions">
+  <h2>Inheritance: two questions</h2>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">super() is missing. What happens on the last line?</div>
+    <pre class="py" data-nocopy>class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+
+class Manager(Employee):
+    def __init__(self, name, salary, team_size):
+        self.team_size = team_size
+
+print(Manager("Chitransh", 90000, 5).name)</pre>
+    <div class="opts">
+      <button class="opt">Chitransh</button>
+      <button class="opt" data-ok>AttributeError: no attribute 'name'</button>
+      <button class="opt">TypeError: too many arguments</button>
+      <button class="opt">None</button>
+    </div>
+    <div class="expl"><b>AttributeError.</b> Manager's own __init__ replaced Employee's and never called it, so name was never set. The most common inheritance mistake: add <code>super().__init__(name, salary)</code>.
+<div class="diag"><svg viewBox="0 0 640 215" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag32" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag32r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag32g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="20" y="30" width="243" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="141.5" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Manager("Chitransh", 90000, 5)</text><line x1="269" y1="47" x2="303" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#ag32)"/><text x="286" y="38" text-anchor="middle" font-size="11" fill="#4f46e5">runs</text><rect x="309" y="30" width="286" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="452" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Manager.__init__: self.team_size = 5</text><rect x="309" y="80" width="286" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="452" y="101.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Employee.__init__: never called</text><text x="452.0" y="135" text-anchor="middle" font-size="11" fill="#b91c1c">no super().__init__(name, salary), so name and salary were never set</text><rect x="20" y="80" width="243" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="141.5" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">the object</text><line x1="28" y1="108" x2="255" y2="108" stroke="#f59e0b" stroke-width="1"/><text x="141.5" y="128" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">team_size = 5</text><text x="141.5" y="158" text-anchor="middle" font-size="12" fill="#b91c1c">.name  -&gt;  AttributeError</text><text x="320" y="200" text-anchor="middle" font-size="12" fill="#334155">a child __init__ replaces the parent's; call super().__init__(...) to run the parent's setup too</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">No shared parent at all. Does the loop still work?</div>
+    <pre class="py" data-nocopy>class Dog:
+    def speak(self):
+        return "Woof"
+
+class Robot:
+    def speak(self):
+        return "Beep"
+
+for thing in [Dog(), Robot()]:
+    print(thing.speak())</pre>
+    <div class="opts">
+      <button class="opt">TypeError: Dog and Robot are unrelated</button>
+      <button class="opt">AttributeError on Robot</button>
+      <button class="opt">Woof Woof</button>
+      <button class="opt" data-ok>Woof then Beep</button>
+    </div>
+    <div class="expl"><b>Woof then Beep.</b> Python's polymorphism only needs the method to exist on the object. No parent required. Inheritance is for sharing code, not for permission to call.
+<div class="diag"><svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag32b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag32br" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag32bg" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="60" y="20" width="152" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="136" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Dog</text><line x1="68" y1="48" x2="204" y2="48" stroke="#6366f1" stroke-width="1"/><text x="136" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">speak() -&gt; "Woof"</text><rect x="380" y="20" width="152" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="456" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Robot</text><line x1="388" y1="48" x2="524" y2="48" stroke="#6366f1" stroke-width="1"/><text x="456" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">speak() -&gt; "Beep"</text><text x="320" y="50" text-anchor="middle" font-size="11" fill="#64748b">no parent in common</text><rect x="190" y="110" width="264" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="322" y="131.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">for thing in [...]: thing.speak()</text><line x1="210" y1="110" x2="136.0" y2="86" stroke="#64748b" stroke-width="2" marker-end="url(#ag32b)"/><line x1="434" y1="110" x2="456.0" y2="86" stroke="#64748b" stroke-width="2" marker-end="url(#ag32b)"/><rect x="60" y="160" width="152" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="136" y="181.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Woof</text><rect x="380" y="160" width="152" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="456" y="181.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Beep</text><text x="320" y="225" text-anchor="middle" font-size="12" fill="#334155">Python only asks: does this object have speak()? Both do. Inheritance shares code; it is not a permission slip.</text></svg></div></div>
+  </div>
+  <div class="ai"><b>🤖 AI moment</b> — write one sentence first: why use inheritance for Manager and Developer instead of three separate classes? Then ask the assistant, and test its answer by deleting the parent and running the loop again.<div class="pr">"Why would I use inheritance for Employee, Manager and Developer instead of three independent classes? What does it buy me, and what does it cost?"</div></div>
+</section>
+
+<section class="step" data-nav="Inheritance, in words">
+  <h2>Inheritance, in words</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">What does <code>class Manager(Employee)</code> give Manager?</div>
+    <div class="opts">
+      <button class="opt" data-ok>Every attribute and method of Employee, without copying the code</button>
+      <button class="opt">A copy of Employee's code, which can then drift apart</button>
+      <button class="opt">Only Employee's __init__</button>
+      <button class="opt">Nothing until super() is called</button>
+    </div>
+    <div class="expl"><b>Everything, uncopied.</b> Manager reaches Employee's methods through the parent link. One place to fix, every child gets the fix. DRY.
+<div class="diag"><svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw10r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw10g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="60" y="20" width="210" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="165" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Employee</text><line x1="68" y1="48" x2="262" y2="48" stroke="#6366f1" stroke-width="1"/><text x="165" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">__init__(name, salary)</text><text x="165" y="90" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">describe()</text><rect x="370" y="20" width="210" height="104" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="475" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Manager(Employee)</text><line x1="378" y1="48" x2="572" y2="48" stroke="#10b981" stroke-width="1"/><text x="475" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#94a3b8">__init__(name, salary)</text><text x="475" y="90" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#94a3b8">describe()</text><text x="475" y="112" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">team_size</text><line x1="364" y1="60" x2="276" y2="60" stroke="#64748b" stroke-width="2" marker-end="url(#aw10)"/><text x="475" y="140" text-anchor="middle" font-size="11" fill="#334155">grey: not copied, reached through the parent</text><text x="320" y="175" text-anchor="middle" font-size="12" fill="#334155">the child's code holds only what is new; a fix in Employee reaches Manager at once</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What does <code>super().__init__(name, salary)</code> do?</div>
+    <div class="opts">
+      <button class="opt">Makes a second, parent object inside the child</button>
+      <button class="opt">Calls the child's own __init__ again</button>
+      <button class="opt">Is optional: Python runs the parent's __init__ anyway</button>
+      <button class="opt" data-ok>Runs the parent's __init__ on the same object, so the parent's attributes get set</button>
+    </div>
+    <div class="expl"><b>Runs the parent's setup on this object.</b> One object, two setup steps. Leave the line out and <code>name</code> is never set: AttributeError on the first read.
+<div class="diag"><svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw11r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw11g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="170" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="115" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Manager.__init__</text><rect x="30" y="76" width="230" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="145" y="97.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">super().__init__(name, salary)</text><line x1="266" y1="93" x2="330" y2="60" stroke="#64748b" stroke-width="2" marker-end="url(#aw11)"/><rect x="336" y="44" width="170" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="421" y="65.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Employee.__init__</text><line x1="421" y1="82" x2="421" y2="110" stroke="#10b981" stroke-width="2" marker-end="url(#aw11g)"/><rect x="330" y="116" width="190" height="104" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="425" y="136" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">the same Manager object</text><line x1="338" y1="144" x2="512" y2="144" stroke="#10b981" stroke-width="1"/><text x="425" y="164" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Chitransh"</text><text x="425" y="186" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">salary = 90000</text><text x="425" y="208" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">team_size = 5</text><text x="150" y="150" text-anchor="middle" font-size="11" fill="#b91c1c">without this line: the parent's</text><text x="150" y="166" text-anchor="middle" font-size="11" fill="#b91c1c">setup never runs, name is missing</text><text x="320" y="235" text-anchor="middle" font-size="12" fill="#334155">super() reaches the parent's method and runs it on this object: one object, two __init__ steps</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Overriding means</div>
+    <div class="opts">
+      <button class="opt">The parent's method is deleted</button>
+      <button class="opt" data-ok>The child defines a method with the same name, and Python uses the child's first</button>
+      <button class="opt">Two methods with the same name run one after the other</button>
+      <button class="opt">The child cannot have a method with the parent's name</button>
+    </div>
+    <div class="expl"><b>Child first.</b> Python looks in the child class, then the parent. The parent's version still exists; <code>super().describe()</code> can reach it.
+<div class="diag"><svg viewBox="0 0 640 145" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw12r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw12g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="50" width="150" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="105" y="71.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">mgr.describe()</text><line x1="186" y1="67" x2="254" y2="67" stroke="#64748b" stroke-width="2" marker-end="url(#aw12)"/><text x="220" y="58" text-anchor="middle" font-size="10" fill="#4f46e5">1st look</text><rect x="260" y="30" width="170" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="345" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Manager</text><line x1="268" y1="58" x2="422" y2="58" stroke="#10b981" stroke-width="1"/><text x="345" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">describe()  &lt;- found</text><line x1="436" y1="67" x2="480" y2="67" stroke="#64748b" stroke-width="2" marker-end="url(#aw12)"/><text x="458" y="58" text-anchor="middle" font-size="10" fill="#94a3b8">2nd look</text><rect x="486" y="30" width="150" height="60" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="561" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Employee</text><line x1="494" y1="58" x2="628" y2="58" stroke="#94a3b8" stroke-width="1"/><text x="561" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">describe()  (unused)</text><text x="320" y="130" text-anchor="middle" font-size="12" fill="#334155">Python looks in the child first; if the name is there, the parent's version is never reached. Nothing is deleted</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">A loop calls <code>speak()</code> on a Dog and a Robot. Must they share a parent?</div>
+    <div class="opts">
+      <button class="opt">Yes: both must inherit from Animal</button>
+      <button class="opt">Yes, or the loop raises TypeError</button>
+      <button class="opt" data-ok>No: each object needs a speak method; Python looks at the object, not the family tree</button>
+      <button class="opt">Only if speak returns the same type in both</button>
+    </div>
+    <div class="expl"><b>No parent needed.</b> Polymorphism in Python is "do you have the method?", not "who is your parent?". Inheritance is for sharing code, not for permission to call.
+<div class="diag"><svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg"><defs><marker id="aw13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="aw13r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="aw13g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="50" width="250" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="155" y="71.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">for thing in [Dog(), Robot()]:</text><rect x="30" y="90" width="250" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="155" y="111.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">    thing.speak()</text><line x1="286" y1="107" x2="350" y2="60" stroke="#64748b" stroke-width="2" marker-end="url(#aw13)"/><line x1="286" y1="107" x2="350" y2="130" stroke="#64748b" stroke-width="2" marker-end="url(#aw13)"/><rect x="356" y="30" width="170" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="441" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Dog</text><line x1="364" y1="58" x2="518" y2="58" stroke="#10b981" stroke-width="1"/><text x="441" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">speak() -&gt; Woof</text><rect x="356" y="100" width="170" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="441" y="120" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Robot</text><line x1="364" y1="128" x2="518" y2="128" stroke="#10b981" stroke-width="1"/><text x="441" y="148" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">speak() -&gt; Beep</text><text x="540" y="50" text-anchor="middle" font-size="11" fill="#334155">no shared</text><text x="540" y="66" text-anchor="middle" font-size="11" fill="#334155">parent</text><text x="320" y="175" text-anchor="middle" font-size="12" fill="#334155">the loop asks each object "can you speak?"; Python checks the object, not its family. Having the method is enough</text></svg></div></div>
+  </div>
+  <div class="take">Inheritance reuses a parent's code. super() runs the parent's setup on the same object. Overriding: child first. Polymorphism: one call, each object answers its own way.</div>
+</section>
+
+<section class="step" data-nav="PaisaPay v11: PremiumAccount" data-tag="PaisaPay v11">
+  <h2>PaisaPay v11: a PremiumAccount, by inheritance</h2>
+  <div class="build"><div class="bh">PaisaPay v11 · build 3 of 3</div><div class="bd">Everything an Account does, plus no fees and double cashback. Two methods overridden, nothing copied.</div>
+  <pre class="py" data-file="paisapay_v11.py" data-wide>class PremiumAccount(Account):
+    def fee_for(self, mode):
+        return 0
+
+    def cashback_for(self, amount):
+        return super().cashback_for(amount) * 2
+
+kind = clean(input("Account type (basic / premium): "))
+if kind == "premium":
+    account = PremiumAccount("Rajani", 1000, "4321")
+else:
+    account = Account("Rajani", 1000, "4321")</pre></div>
+  <div class="out"><span class="p">Account type (basic / premium):</span> <span class="in">premium</span>
+<span class="p">Choose:</span> <span class="in">1</span>
+<span class="p">Pay to (UPI ID):</span> <span class="in">sumit@ybl</span>
+<span class="p">Amount in rupees:</span> <span class="in">600</span>
+<span class="p">Mode (upi / card / netbanking):</span> <span class="in">card</span>
+<span class="p">UPI PIN:</span> <span class="in">4321</span>
+Paid ₹600 to Sumit via Card
+Fee ₹0 | Cashback ₹20 | Balance ₹420</div>
+  <ul class="b">
+    <li><code>pay</code> is written once, in Account. It calls <code>self.fee_for(mode)</code>, and for a premium account that is the overridden one. Polymorphism, inside our own program.</li>
+    <li>Full program: <code>code/paisapay_v11.py</code>. <b>What v11 cannot do yet:</b> check a UPI ID properly (regular expressions, coming up); remember anything after exit (files, later).</li>
+  </ul>
+    <div class="diag"><svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ah5r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ah5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="330" y="16" width="290" height="104" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="475" y="36" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Account</text><line x1="338" y1="44" x2="612" y2="44" stroke="#6366f1" stroke-width="1"/><text x="475" y="64" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">pay():  fee = self.fee_for(mode)</text><text x="475" y="86" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">fee_for()      -&gt; 5 for card</text><text x="475" y="108" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">cashback_for() -&gt; 10 on 600</text><rect x="330" y="154" width="290" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="475" y="174" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class PremiumAccount(Account)</text><line x1="338" y1="182" x2="612" y2="182" stroke="#10b981" stroke-width="1"/><text x="475" y="202" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">fee_for()      -&gt; 0</text><text x="475" y="224" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">cashback_for() -&gt; 10 * 2 = 20</text><line x1="475.0" y1="152" x2="475.0" y2="124" stroke="#64748b" stroke-width="2" marker-end="url(#ah5)"/><text x="533.0" y="144" text-anchor="middle" font-size="11" fill="#4f46e5">inherits</text><rect x="20" y="30" width="290" height="32" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="165" y="50.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">account.pay("sumit@ybl", 600, "card")</text><line x1="316" y1="46" x2="324" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#ah5)"/><text x="165" y="86" text-anchor="middle" font-size="11" fill="#4f46e5">1  pay() lives in Account, so it runs</text><text x="165" y="126" text-anchor="middle" font-size="11" fill="#16a34a">2  inside pay: self.fee_for(mode)</text><text x="165" y="142" text-anchor="middle" font-size="11" fill="#16a34a">self is a PremiumAccount, so Python</text><text x="165" y="158" text-anchor="middle" font-size="11" fill="#16a34a">finds fee_for there first: fee 0, cashback 20</text><path d="M 322 64 L 300 64 L 300 202 L 322 202" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#ah5g)"/><text x="320" y="270" text-anchor="middle" font-size="12" fill="#334155">pay is written once; which fee_for runs depends on the object. Polymorphism inside our own program.</text></svg></div>
+</section>
+
+<!-- ============ mini project ============ -->
+<section class="step" data-nav="Mini project: employees">
+  <h2>Mini project: every idea in one program</h2>
+  <pre class="py" data-file="employees.py" data-wide>class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.__salary = salary
+
+    def get_salary(self):
+        return self.__salary
+
+    def describe(self):
+        return f"{self.name} is an employee."</pre>
+  <ul class="b"><li>Manager adds team_size, Developer adds language, each with its own describe(). Both call super().__init__.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>Six lines of output. Predict them in order.</div></div>
+  <pre class="py" data-file="employees.py" data-wide>employees = [
+    Manager("Chitransh", 90000, 5),
+    Developer("Rahul", 75000, "Python"),
+    Employee("Prajnika", 60000),
+]
+
+for emp in employees:
+    print(emp.describe())
+    print("Salary:", emp.get_salary())</pre>
+  <div class="vote">
+    <div class="vopt" data-win>Three describe lines, each with its salary</div>
+    <div class="vopt">AttributeError: __salary is private</div>
+    <div class="vopt">Only Prajnika's salary: the children never set one</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Chitransh manages a team of 5.
+Salary: 90000
+Rahul writes code in Python.
+Salary: 75000
+Prajnika is an employee.
+Salary: 60000</div>
+    <ul class="b">
+      <li>Classes and objects, __init__ and self, super(), overriding, polymorphism in the loop, and a private salary read through a method.</li>
+      <li>Full code: <code>code/07_employees.py</code>.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 280" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ag34" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ag34r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ag34g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="190" y="16" width="381" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="380.5" y="37.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">for emp in employees: describe() and get_salary()</text><rect x="20" y="80" width="195" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="117.5" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Manager</text><line x1="28" y1="108" x2="207" y2="108" stroke="#6366f1" stroke-width="1"/><text x="117.5" y="128" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Chitransh"</text><text x="117.5" y="150" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">team_size = 5</text><line x1="380.5" y1="52" x2="117" y2="76" stroke="#64748b" stroke-width="2" marker-end="url(#ag34)"/><rect x="20" y="172" width="195" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="117.5" y="191.5" text-anchor="middle" font-size="10" font-family="Menlo,monospace" fill="#0f172a">"Chitransh manages a team of 5."</text><rect x="20" y="210" width="195" height="30" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="117.5" y="229.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">get_salary() -&gt; 90000</text><rect x="225" y="80" width="195" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="322.5" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Developer</text><line x1="233" y1="108" x2="412" y2="108" stroke="#6366f1" stroke-width="1"/><text x="322.5" y="128" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Rahul"</text><text x="322.5" y="150" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">language = "Python"</text><line x1="380.5" y1="52" x2="322" y2="76" stroke="#64748b" stroke-width="2" marker-end="url(#ag34)"/><rect x="225" y="172" width="195" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="322.5" y="191.5" text-anchor="middle" font-size="10" font-family="Menlo,monospace" fill="#0f172a">"Rahul writes code in Python."</text><rect x="225" y="210" width="195" height="30" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="322.5" y="229.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">get_salary() -&gt; 75000</text><rect x="430" y="80" width="195" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="527.5" y="100" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Employee</text><line x1="438" y1="108" x2="617" y2="108" stroke="#6366f1" stroke-width="1"/><text x="527.5" y="128" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">name = "Prajnika"</text><line x1="380.5" y1="52" x2="527" y2="76" stroke="#64748b" stroke-width="2" marker-end="url(#ag34)"/><rect x="430" y="172" width="195" height="30" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="527.5" y="191.5" text-anchor="middle" font-size="10" font-family="Menlo,monospace" fill="#0f172a">"Prajnika is an employee."</text><rect x="430" y="210" width="195" height="30" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="527.5" y="229.5" text-anchor="middle" font-size="11" font-family="Menlo,monospace" fill="#0f172a">get_salary() -&gt; 60000</text><text x="320" y="265" text-anchor="middle" font-size="12" fill="#334155">describe(): each class its own way. get_salary(): the private __salary read through one method</text></svg></div>
+  </div>
+</section>
+
+<!-- ============ errors and clinic ============ -->
+<section class="step" data-nav="New errors today">
+  <h2>Errors you will meet today</h2>
+  <table class="tbl">
+    <tr><th>You see</th><th>It means</th><th>Fix</th></tr>
+    <tr><td><code>TypeError: Cat.meow() takes 0 positional arguments but 1 was given</code></td><td>a method without self</td><td>add self as the first parameter</td></tr>
+    <tr><td><code>TypeError: Dog.__init__() missing 1 required positional argument: 'breed'</code></td><td><code>Dog()</code> called without what __init__ needs</td><td>pass every argument after self</td></tr>
+    <tr><td><code>AttributeError: 'Dog' object has no attribute 'age'</code></td><td>never set, or set only on another object</td><td>set it in __init__</td></tr>
+    <tr><td><code>AttributeError: 'Manager' object has no attribute 'name'</code></td><td>the child's __init__ never called the parent's</td><td><code>super().__init__(...)</code></td></tr>
+    <tr><td><code>AttributeError: no attribute '__balance'</code></td><td>reading a double-underscore attribute from outside</td><td>use the method</td></tr>
+    <tr><td>every object shares one list</td><td>a mutable class variable</td><td>create it in __init__</td></tr>
+  </table>
+</section>
+
+<section class="step" data-nav="Debug clinic 1">
+  <h2>Debug clinic: the method that forgot itself</h2>
+  <pre class="py" data-nocopy data-wide data-big>class Account:
+    def __init__(self, owner):
+        self.owner = owner
+
+    def greet():
+        print("Welcome, " + owner)
+
+Account("Rajani").greet()</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">TypeError: Account.greet() takes 0 positional arguments but 1 was given</span></div>
+    <ul class="b">
+      <li>Two bugs, one cause. <code>greet(self)</code>, then <code>self.owner</code>. The object is the first argument, always.</li>
+    </ul>
+<div class="diag"><svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ac1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ac1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ac1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="40" width="210" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="135" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Account("Rajani").greet()</text><line x1="246" y1="57" x2="330" y2="57" stroke="#64748b" stroke-width="2" marker-end="url(#ac1)"/><text x="288" y="48" text-anchor="middle" font-size="11" fill="#4f46e5">passes the object</text><rect x="336" y="40" width="150" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="411" y="61.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def greet():</text><text x="411" y="95" text-anchor="middle" font-size="11" fill="#b91c1c">zero slots, one argument</text><rect x="336" y="110" width="150" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="411" y="131.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def greet(self):</text><text x="411" y="165" text-anchor="middle" font-size="11" fill="#047857">one slot: the object lands in self</text><text x="320" y="205" text-anchor="middle" font-size="12" fill="#334155">calling a method always sends the object first; the method needs a parameter to catch it, and that parameter is self</text></svg></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Debug clinic 2">
+  <h2>Debug clinic: the balance that nobody set</h2>
+  <pre class="py" data-nocopy data-wide data-big>class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        balance = balance
+
+a = Account("Rajani", 1000)
+print(a.balance)</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">AttributeError: 'Account' object has no attribute 'balance'</span></div>
+    <ul class="b">
+      <li><code>balance = balance</code> is a local variable that dies when __init__ ends. Only <code>self.balance = balance</code> stores it on the object.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ah6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ah6g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="20" y="30" width="240" height="104" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="140" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">inside __init__ (temporary)</text><line x1="28" y1="58" x2="252" y2="58" stroke="#f59e0b" stroke-width="1"/><text x="140" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">self   -&gt; the object</text><text x="140" y="100" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner  = "Rajani"</text><text x="140" y="122" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#b91c1c">balance = 1000</text><text x="140" y="152" text-anchor="middle" font-size="11" fill="#b91c1c">gone when __init__ ends</text><rect x="380" y="30" width="220" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="490" y="50" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">a: Account object</text><line x1="388" y1="58" x2="592" y2="58" stroke="#10b981" stroke-width="1"/><text x="490" y="78" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = "Rajani"</text><line x1="266" y1="100" x2="374" y2="78" stroke="#64748b" stroke-width="2" marker-end="url(#ah6g)"/><text x="320" y="66" text-anchor="middle" font-size="10" fill="#16a34a">self.owner = owner</text><line x1="266" y1="122" x2="336" y2="122" stroke="#64748b" stroke-width="2" marker-end="url(#ah6r)"/><text x="300" y="140" text-anchor="middle" font-size="10" fill="#b91c1c">balance = balance</text><text x="352" y="127" text-anchor="middle" font-size="16" font-weight="700" fill="#b91c1c">x</text><text x="490" y="108" text-anchor="middle" font-size="12" fill="#b91c1c">a.balance -&gt; AttributeError</text><text x="320" y="175" text-anchor="middle" font-size="12" fill="#334155">only names written through self. land on the object; a plain name is a local that dies with the call</text></svg></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Recap and what's next">
+  <h2>Recap</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Two minutes. Three points you would tell a friend who missed today. <span class="timer" data-sec="120"></span></div></div>
+  <button class="rv" data-reveal="next">Compare</button>
+  <div class="reveal">
+    <ul class="b">
+      <li><b>Class</b>: the blueprint. <b>Object</b>: one thing built from it, with its own data.</li>
+      <li><b>__init__</b> runs when an object is made. <b>self</b> is the object a method is running on; you write it when defining, never when calling.</li>
+      <li><b>Class variable</b>: one value for all. A list there is one list for all: make lists in __init__.</li>
+      <li><b>Encapsulation</b> hides data behind methods; <b>abstraction</b> hides steps behind a name.</li>
+      <li><b>Inheritance</b> reuses a parent's code, <b>super()</b> runs the parent's setup, <b>overriding</b> replaces a method, <b>polymorphism</b> lets one call do many things.</li>
+      <li><b>PaisaPay v11</b>: Transaction and Account objects, a private balance and PIN, a PremiumAccount by inheritance.</li>
+    </ul>
+<div class="diag"><svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ar9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="ar9r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="ar9g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="30" width="140" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="100" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">class Account</text><line x1="176" y1="47" x2="224" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#ar9)"/><text x="200" y="38" text-anchor="middle" font-size="10" fill="#4f46e5">Account()</text><rect x="230" y="14" width="150" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="305" y="34" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">object</text><line x1="238" y1="42" x2="372" y2="42" stroke="#10b981" stroke-width="1"/><text x="305" y="62" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">self.__balance</text><text x="305" y="84" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">pay(self, ...)</text><text x="305" y="108" text-anchor="middle" font-size="10" fill="#334155">encapsulation: data inside, methods the door</text><rect x="430" y="30" width="180" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="520" y="51.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">bank = "PaisaPay"</text><text x="520" y="80" text-anchor="middle" font-size="10" fill="#334155">class variable: one value for all</text><rect x="30" y="150" width="240" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="150" y="171.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">class PremiumAccount(Account)</text><path d="M100,145 L100,72" fill="none" stroke="#64748b" stroke-width="2" marker-end="url(#ar9)"/><text x="60" y="118" text-anchor="middle" font-size="10" fill="#4f46e5">inherits</text><text x="150" y="200" text-anchor="middle" font-size="10" fill="#334155">super().__init__ runs the parent setup; fee_for overridden</text><rect x="430" y="150" width="180" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="520" y="171.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">for a in accounts: a.pay()</text><text x="520" y="200" text-anchor="middle" font-size="10" fill="#334155">polymorphism: one call, each class answers</text><text x="320" y="235" text-anchor="middle" font-size="12" fill="#334155">today in one picture: a class makes objects; data hides behind methods; a child class reuses and changes the parent</text></svg></div>
+    <div class="take">Next class: encapsulation and polymorphism, then more inheritance practice. Regular expressions after that.</div>
+    <ul class="b"><li>Practice: <code>PRACTICE.md</code>, twelve problems. Assignment: <code>ASSIGNMENT.md</code>.</li></ul>
+  </div>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
