@@ -21,9 +21,8 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 | 10 | Functional Programming | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-10-Functional-Programming/) · [notes and code](Class-10-Functional-Programming/README.md) · [practice](Class-10-Functional-Programming/PRACTICE.md) | **v10** spending insights with `map`, `filter`, `reduce` and `sorted` |
 | 11 | Object-Oriented Programming | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-11-Object-Oriented-Programming/) · [notes and code](Class-11-Object-Oriented-Programming/README.md) · [practice](Class-11-Object-Oriented-Programming/PRACTICE.md) | **v11** planned: `Transaction` and `Account` objects, a private balance, a `PremiumAccount` by inheritance (built in Class 12) |
 | 12 | Object-Oriented Programming, Part 2 | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-12-Object-Oriented-Programming-Part-2/) · [notes and code](Class-12-Object-Oriented-Programming-Part-2/README.md) · [practice](Class-12-Object-Oriented-Programming-Part-2/PRACTICE.md) | **v11**, finished: `Transaction` and `Account` objects, a private balance, a `PremiumAccount` by inheritance |
-| 13 | Encapsulation, Polymorphism and Inheritance in Practice | coming up | **v11**, completed: the private balance and the `PremiumAccount` |
-| 14 | Regex | coming up | **v14** validates UPI IDs and reads bank SMS alerts |
-| 15 | File Handling and Modules | coming up | **v15** saves its data and is split into modules |
+| 13 | OOP in Practice, and Regular Expressions | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-13-OOP-Practice-And-Regex/) · [notes and code](Class-13-OOP-Practice-And-Regex/README.md) · [practice](Class-13-OOP-Practice-And-Regex/PRACTICE.md) | **v13** classes finished; a UPI ID and a PAN checked by pattern, a bank SMS read with groups |
+| 14 | File Handling and Modules | coming up | **v14** saves its data and is split into modules |
 
 ## What is in every class folder
 
