@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 14 · Revision: OOP and Regex in Practice</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c14" data-class="Class 14" data-title="Revision: OOP and Regex in Practice" data-course="Python · AIML Jul26 Batch 3" data-date="2026-11-06">
+
+<div class="cover" id="cover">
+  <h1><small>Class 14</small>Revision: OOP and Regex in Practice</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<section class="step" data-nav="OOP recap: the ideas" data-tag="Recap">
+  <h2>OOP recap: the ideas</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">PaisaPay has 50 accounts. Why write one class instead of 50 sets of variables?</div>
+    
+    <div class="opts">
+      <button class="opt">Python does not allow 50 variables</button>
+      <button class="opt" data-ok>One blueprint: write the data and the methods once, then make as many objects as you need</button>
+      <button class="opt">Classes make the program run faster</button>
+      <button class="opt">Objects use no memory</button>
+    </div>
+    <div class="expl"><b>One blueprint, many objects.</b> Each account keeps its own data, and every account shares the same methods. Fix a method once, and all 50 accounts get the fix.
+<div class="diag"><svg viewBox="0 0 640 236" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="220" y="10" width="200" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="320" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Account</text><line x1="228" y1="38" x2="412" y2="38" stroke="#6366f1" stroke-width="1"/><text x="320" y="58" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def deposit(self, ...)</text><text x="320" y="80" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def pay(self, ...)</text><rect x="10" y="142" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="110" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Rajani's account</text><line x1="18" y1="170" x2="202" y2="170" stroke="#f59e0b" stroke-width="1"/><text x="110" y="190" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 1000</text><line x1="110" y1="138" x2="260.0" y2="96" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="220" y="142" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="320" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Sumit's account</text><line x1="228" y1="170" x2="412" y2="170" stroke="#f59e0b" stroke-width="1"/><text x="320" y="190" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 2500</text><line x1="320" y1="138" x2="320.0" y2="96" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="430" y="142" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="530" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">... 48 more</text><line x1="438" y1="170" x2="622" y2="170" stroke="#f59e0b" stroke-width="1"/><text x="530" y="190" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">their own balance</text><line x1="530" y1="138" x2="380.0" y2="96" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><text x="320" y="224" text-anchor="middle" font-size="13" fill="#334155">The methods are written once. The data is per object.</text></svg><div class="cap">Class 11: the class is the blueprint.</div></div></div>
+  </div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">After <code>a = Account("Rajani", 1000)</code>, what is <code>a</code>?</div>
+    
+    <div class="opts">
+      <button class="opt" data-ok>An object, also called an instance, of Account</button>
+      <button class="opt">The class Account itself</button>
+      <button class="opt">A copy of the class</button>
+      <button class="opt">A function</button>
+    </div>
+    <div class="expl"><b>An object.</b> Account is the blueprint. Calling it builds one object, and <code>__init__</code> fills in its data.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="98" y="12" width="77" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="136.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Account</text><line x1="178" y1="32.0" x2="198" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f2)"/><rect x="202" y="12" width="203" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="303.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Account("Rajani", 1000)</text><line x1="408" y1="32.0" x2="428" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f2)"/><rect x="430" y="12" width="111" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="485.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">a: one object</text></svg><div class="cap">Calling the class builds an object.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt"><code>bank = "PaisaPay"</code> is written in the class body. <code>self.balance = balance</code> is written in <code>__init__</code>. Which is right?</div>
+    
+    <div class="opts">
+      <button class="opt">Both belong to each object separately</button>
+      <button class="opt">Both are shared by every object</button>
+      <button class="opt" data-ok>bank is shared by all objects: a class variable. balance belongs to each object: an instance variable</button>
+      <button class="opt">bank belongs to each object, balance is shared</button>
+    </div>
+    <div class="expl"><b>Where it is written decides.</b> In the class body: one value for all objects, a class variable. On <code>self</code>: each object's own, an instance (object) variable.
+<div class="diag"><svg viewBox="0 0 640 236" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="220" y="10" width="200" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="320" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Account</text><line x1="228" y1="38" x2="412" y2="38" stroke="#6366f1" stroke-width="1"/><text x="320" y="58" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">bank = "PaisaPay"</text><text x="320" y="80" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">(one, for everyone)</text><rect x="80" y="142" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="180" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">a</text><line x1="88" y1="170" x2="272" y2="170" stroke="#f59e0b" stroke-width="1"/><text x="180" y="190" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 1000</text><line x1="180" y1="138" x2="290.0" y2="96" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><rect x="360" y="142" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="460" y="162" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">b</text><line x1="368" y1="170" x2="552" y2="170" stroke="#f59e0b" stroke-width="1"/><text x="460" y="190" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 2500</text><line x1="460" y1="138" x2="350.0" y2="96" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><text x="320" y="224" text-anchor="middle" font-size="13" fill="#334155">bank: in the class. balance: in each object.</text></svg><div class="cap">Class variable versus instance variable.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Why is the balance written <code>self.__balance</code>, changed only through <code>deposit()</code> and <code>pay()</code>?</div>
+    
+    <div class="opts">
+      <button class="opt">To make the program shorter</button>
+      <button class="opt" data-ok>So every change passes through the rules inside the methods, such as no negative amounts</button>
+      <button class="opt">So the balance cannot be read at all</button>
+      <button class="opt">Because Python needs two underscores for numbers</button>
+    </div>
+    <div class="expl"><b>Encapsulation.</b> The data stays inside, and the methods are the door. The rule "no negative amount" lives in one place and cannot be skipped by mistake.
+<div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">account.deposit(500)</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#047857">through the door: the rule checks it</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">account.__balance = -500</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#b91c1c">not the real balance: blocked by name</text></svg><div class="cap">Data inside, methods as the door.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt"><code>deposit</code> is written once, in the class. Rajani and Sumit both call it. How does it change only the right balance?</div>
+    
+    <div class="opts">
+      <button class="opt">It changes every balance</button>
+      <button class="opt">It asks the user which account</button>
+      <button class="opt">Python makes a copy of deposit for each object</button>
+      <button class="opt" data-ok>self is the object that made the call, so it changes that object's data</button>
+    </div>
+    <div class="expl"><b>self.</b> <code>rajani.deposit(500)</code> runs deposit with self = rajani. One method, the right object every time.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f4g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="8" y="12" width="155" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="85.5" y="36.5" text-anchor="middle" font-size="11.705627705627705" font-family="Menlo,monospace" fill="#0f172a">rajani.deposit(500)</text><line x1="166" y1="32.0" x2="183" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f4)"/><rect x="186" y="12" width="254" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="313" y="36.5" text-anchor="middle" font-size="11.705627705627705" font-family="Menlo,monospace" fill="#0f172a">Account.deposit(self=rajani, 500)</text><line x1="443" y1="32.0" x2="461" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f4)"/><rect x="464" y="12" width="168" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="548" y="36.5" text-anchor="middle" font-size="11.705627705627705" fill="#0f172a">rajani's balance changes</text></svg><div class="cap">The object before the dot becomes self.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="OOP recap: predict" data-tag="Recap">
+  <h2>OOP recap: predict the output</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">The class variable is changed on the class. What prints?</div>
+    <pre class="py" data-file="x.py" data-nocopy>class Account:
+    bank = "PaisaPay"
+
+    def __init__(self, owner):
+        self.owner = owner
+
+a = Account("Rajani")
+b = Account("Sumit")
+Account.bank = "PaisaPay Plus"
+print(a.bank, b.bank)</pre>
+    <div class="opts">
+      <button class="opt"><code>PaisaPay PaisaPay</code></button>
+      <button class="opt"><code>PaisaPay Plus PaisaPay</code></button>
+      <button class="opt" data-ok><code>PaisaPay Plus PaisaPay Plus</code></button>
+      <button class="opt">AttributeError</button>
+    </div>
+    <div class="expl"><b>Both change.</b> There is one bank, kept in the class. Every object reads it from there.
+<div class="diag"><svg viewBox="0 0 640 214" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f5r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="220" y="10" width="200" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="320" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Account</text><line x1="228" y1="38" x2="412" y2="38" stroke="#6366f1" stroke-width="1"/><text x="320" y="58" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">bank = "PaisaPay Plus"</text><rect x="80" y="120" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="180" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">a</text><line x1="88" y1="148" x2="272" y2="148" stroke="#f59e0b" stroke-width="1"/><text x="180" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = Rajani</text><line x1="180" y1="116" x2="290.0" y2="74" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><rect x="360" y="120" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="460" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">b</text><line x1="368" y1="148" x2="552" y2="148" stroke="#f59e0b" stroke-width="1"/><text x="460" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = Sumit</text><line x1="460" y1="116" x2="350.0" y2="74" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><text x="320" y="202" text-anchor="middle" font-size="13" fill="#334155">Neither object has its own bank. Both read the class.</text></svg><div class="cap">Change the class variable, every object sees it.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Now the change is made on one object. What prints?</div>
+    <pre class="py" data-file="x.py" data-nocopy>class Account:
+    bank = "PaisaPay"
+
+    def __init__(self, owner):
+        self.owner = owner
+
+a = Account("Rajani")
+b = Account("Sumit")
+a.bank = "OtherPay"
+print(a.bank, b.bank, Account.bank)</pre>
+    <div class="opts">
+      <button class="opt"><code>OtherPay OtherPay OtherPay</code></button>
+      <button class="opt" data-ok><code>OtherPay PaisaPay PaisaPay</code></button>
+      <button class="opt"><code>OtherPay OtherPay PaisaPay</code></button>
+      <button class="opt">AttributeError</button>
+    </div>
+    <div class="expl"><b>Only a changes.</b> <code>a.bank = ...</code> makes a new instance variable on a, which hides the class one. b and the class still say PaisaPay.
+<div class="diag"><svg viewBox="0 0 640 236" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f6g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="220" y="10" width="200" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="320" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Account</text><line x1="228" y1="38" x2="412" y2="38" stroke="#6366f1" stroke-width="1"/><text x="320" y="58" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">bank = "PaisaPay"</text><rect x="80" y="120" width="200" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="180" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">a</text><line x1="88" y1="148" x2="272" y2="148" stroke="#10b981" stroke-width="1"/><text x="180" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = Rajani</text><text x="180" y="190" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">bank = "OtherPay"</text><line x1="180" y1="116" x2="290.0" y2="74" stroke="#64748b" stroke-width="2" marker-end="url(#f6)"/><rect x="360" y="120" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="460" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">b</text><line x1="368" y1="148" x2="552" y2="148" stroke="#f59e0b" stroke-width="1"/><text x="460" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">owner = Sumit</text><line x1="460" y1="116" x2="350.0" y2="74" stroke="#64748b" stroke-width="2" marker-end="url(#f6)"/><text x="320" y="224" text-anchor="middle" font-size="13" fill="#334155">a found its own bank first. b still reads the class.</text></svg><div class="cap">Assigning on an object makes an instance variable.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What happens on the last line?</div>
+    <pre class="py" data-file="x.py" data-nocopy>class Account:
+    def __init__(self, balance):
+        self.__balance = balance
+
+    def get_balance(self):
+        return self.__balance
+
+acc = Account(1000)
+print(acc.get_balance())
+print(acc.__balance)</pre>
+    <div class="opts">
+      <button class="opt"><code>1000</code></button>
+      <button class="opt"><code>None</code></button>
+      <button class="opt"><code>-1</code></button>
+      <button class="opt" data-ok><code>AttributeError: 'Account' object has no attribute '__balance'</code></button>
+    </div>
+    <div class="expl"><b>AttributeError.</b> Inside the class the name is renamed, name mangling. Outside, read it through the door: <code>get_balance()</code> printed 1000 on the line before.
+<div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">acc.get_balance()</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#047857">1000: through the method</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">acc.__balance</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#b91c1c">AttributeError: no such name outside</text></svg><div class="cap">Encapsulation at work.</div></div></div>
+  </div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">One method, two objects. What prints?</div>
+    <pre class="py" data-file="x.py" data-nocopy>class Account:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self.balance = balance
+
+    def deposit(self, amount):
+        self.balance += amount
+
+rajani = Account("Rajani", 1000)
+sumit = Account("Sumit", 2500)
+rajani.deposit(500)
+print(rajani.balance, sumit.balance)</pre>
+    <div class="opts">
+      <button class="opt" data-ok><code>1500 2500</code></button>
+      <button class="opt"><code>1500 3000</code></button>
+      <button class="opt"><code>1000 2500</code></button>
+      <button class="opt"><code>2000 3000</code></button>
+    </div>
+    <div class="expl"><b>1500 2500.</b> self was rajani, so only Rajani's balance changed. Sumit's object was never touched.
+<div class="diag"><svg viewBox="0 0 640 214" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f7r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f7g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="220" y="10" width="200" height="60" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="320" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">class Account</text><line x1="228" y1="38" x2="412" y2="38" stroke="#6366f1" stroke-width="1"/><text x="320" y="58" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">def deposit(self, amount)</text><rect x="80" y="120" width="200" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="180" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">rajani</text><line x1="88" y1="148" x2="272" y2="148" stroke="#10b981" stroke-width="1"/><text x="180" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 1500</text><line x1="180" y1="116" x2="290.0" y2="74" stroke="#64748b" stroke-width="2" marker-end="url(#f7)"/><rect x="360" y="120" width="200" height="60" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="460" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">sumit</text><line x1="368" y1="148" x2="552" y2="148" stroke="#f59e0b" stroke-width="1"/><text x="460" y="168" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">balance = 2500</text><line x1="460" y1="116" x2="350.0" y2="74" stroke="#64748b" stroke-width="2" marker-end="url(#f7)"/><text x="320" y="202" text-anchor="middle" font-size="13" fill="#334155">rajani.deposit(500): self = rajani.</text></svg><div class="cap">Each object keeps its own data.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Which tool? Part 1" data-tag="Recap">
+  <h2>Which tool: a string method, a regex, or an LLM?</h2>
+  <ul class="b"><li>For each job, pick the simplest tool that works.</li></ul>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">Does a file name end in <code>.csv</code>?</div>
+    
+    <div class="opts">
+      <button class="opt" data-ok>A string method (<code>in</code>, <code>endswith</code>, <code>split</code>)</button>
+      <button class="opt">A regex</button>
+      <button class="opt">An LLM</button>
+      <button class="opt">An LLM, then a regex to check its answer</button>
+    </div>
+    <div class="expl"><b>A string method.</b> <code>name.endswith(".csv")</code> is exact text: simplest, fastest, clearest.
+<div class="diag"><svg viewBox="0 0 640 104" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="18" y="26" width="140" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="88" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">string method</text><text x="88.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">use this</text><line x1="162" y1="46" x2="176" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="180" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="250" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">regex</text><line x1="324" y1="46" x2="338" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="342" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="412" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM</text><line x1="486" y1="46" x2="500" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="504" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="574" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM + regex check</text><text x="320" y="92" text-anchor="middle" font-size="13" fill="#334155">exact text: name.endswith(".csv")</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Pull the six-digit OTP out of each of 10,000 SMS messages, fast and free.</div>
+    
+    <div class="opts">
+      <button class="opt">A string method (<code>in</code>, <code>endswith</code>, <code>split</code>)</button>
+      <button class="opt" data-ok>A regex</button>
+      <button class="opt">An LLM</button>
+      <button class="opt">An LLM, then a regex to check its answer</button>
+    </div>
+    <div class="expl"><b>A regex.</b> <code>\d{6}</code> is a fixed shape. It runs on your machine in a moment and gives the same answer every time.
+<div class="diag"><svg viewBox="0 0 640 104" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="18" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="88" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">string method</text><line x1="162" y1="46" x2="176" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f2)"/><rect x="180" y="26" width="140" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="250" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">regex</text><text x="250.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">use this</text><line x1="324" y1="46" x2="338" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f2)"/><rect x="342" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="412" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM</text><line x1="486" y1="46" x2="500" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f2)"/><rect x="504" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="574" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM + regex check</text><text x="320" y="92" text-anchor="middle" font-size="13" fill="#334155">a shape: re.search(r"\d{6}", sms)</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">A customer writes "paise kat gaye par recharge nahi hua". Is it a failed-recharge complaint?</div>
+    
+    <div class="opts">
+      <button class="opt">A string method (<code>in</code>, <code>endswith</code>, <code>split</code>)</button>
+      <button class="opt">A regex</button>
+      <button class="opt" data-ok>An LLM</button>
+      <button class="opt">An LLM, then a regex to check its answer</button>
+    </div>
+    <div class="expl"><b>An LLM.</b> This is meaning, in any words and any language. No pattern lists every way to say it.
+<div class="diag"><svg viewBox="0 0 640 104" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="18" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="88" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">string method</text><line x1="162" y1="46" x2="176" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><rect x="180" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="250" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">regex</text><line x1="324" y1="46" x2="338" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><rect x="342" y="26" width="140" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="412" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM</text><text x="412.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">use this</text><line x1="486" y1="46" x2="500" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><rect x="504" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="574" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM + regex check</text><text x="320" y="92" text-anchor="middle" font-size="13" fill="#334155">a meaning: no word or shape to match</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">A scanned letter, typed messily, has the customer's PAN somewhere in it. You must store a correct PAN.</div>
+    
+    <div class="opts">
+      <button class="opt">A string method (<code>in</code>, <code>endswith</code>, <code>split</code>)</button>
+      <button class="opt">A regex</button>
+      <button class="opt">An LLM</button>
+      <button class="opt" data-ok>An LLM, then a regex to check its answer</button>
+    </div>
+    <div class="expl"><b>Both.</b> The LLM finds the PAN in messy text. A regex, <code>[A-Z]{5}\d{4}[A-Z]</code>, then checks the answer, because an LLM can be wrong.
+<div class="diag"><svg viewBox="0 0 640 104" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f4g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="18" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="88" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">string method</text><line x1="162" y1="46" x2="176" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f4)"/><rect x="180" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="250" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">regex</text><line x1="324" y1="46" x2="338" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f4)"/><rect x="342" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="412" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM</text><line x1="486" y1="46" x2="500" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f4)"/><rect x="504" y="26" width="140" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="574" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM + regex check</text><text x="574.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">use this</text><text x="320" y="92" text-anchor="middle" font-size="13" fill="#334155">the LLM reads, the regex verifies</text></svg></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Which tool? Part 2" data-tag="Recap">
+  <h2>Which tool? Three more</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">Is this a valid IFSC code: four capitals, a 0, then six letters or digits?</div>
+    
+    <div class="opts">
+      <button class="opt">A string method (<code>in</code>, <code>endswith</code>, <code>split</code>)</button>
+      <button class="opt" data-ok>A regex</button>
+      <button class="opt">An LLM</button>
+      <button class="opt">An LLM, then a regex to check its answer</button>
+    </div>
+    <div class="expl"><b>A regex.</b> A fixed shape: <code>[A-Z]{4}0[A-Z0-9]{6}</code> with fullmatch.
+<div class="diag"><svg viewBox="0 0 640 104" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f5r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="18" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="88" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">string method</text><line x1="162" y1="46" x2="176" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><rect x="180" y="26" width="140" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="250" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">regex</text><text x="250.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">use this</text><line x1="324" y1="46" x2="338" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><rect x="342" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="412" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM</text><line x1="486" y1="46" x2="500" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><rect x="504" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="574" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM + regex check</text><text x="320" y="92" text-anchor="middle" font-size="13" fill="#334155">a shape: re.fullmatch(r"[A-Z]{4}0[A-Z0-9]{6}", code)</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Sort 500 customer reviews into happy, angry and confused.</div>
+    
+    <div class="opts">
+      <button class="opt">A string method (<code>in</code>, <code>endswith</code>, <code>split</code>)</button>
+      <button class="opt">A regex</button>
+      <button class="opt" data-ok>An LLM</button>
+      <button class="opt">An LLM, then a regex to check its answer</button>
+    </div>
+    <div class="expl"><b>An LLM.</b> Mood is meaning. Words such as "great" can be angry too: "great, it failed again".
+<div class="diag"><svg viewBox="0 0 640 104" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f6g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="18" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="88" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">string method</text><line x1="162" y1="46" x2="176" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f6)"/><rect x="180" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="250" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">regex</text><line x1="324" y1="46" x2="338" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f6)"/><rect x="342" y="26" width="140" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="412" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM</text><text x="412.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">use this</text><line x1="486" y1="46" x2="500" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f6)"/><rect x="504" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="574" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM + regex check</text><text x="320" y="92" text-anchor="middle" font-size="13" fill="#334155">a meaning: mood is not a shape</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">A line from a file reads <code>Sumit,600,UPI</code>. You need the three parts.</div>
+    
+    <div class="opts">
+      <button class="opt" data-ok>A string method (<code>in</code>, <code>endswith</code>, <code>split</code>)</button>
+      <button class="opt">A regex</button>
+      <button class="opt">An LLM</button>
+      <button class="opt">An LLM, then a regex to check its answer</button>
+    </div>
+    <div class="expl"><b>A string method.</b> <code>line.split(",")</code> gives the three parts. A regex works, but is harder to read for no gain. For full CSV files, the csv module.
+<div class="diag"><svg viewBox="0 0 640 104" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f7r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f7g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="18" y="26" width="140" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="88" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">string method</text><text x="88.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">use this</text><line x1="162" y1="46" x2="176" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f7)"/><rect x="180" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="250" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">regex</text><line x1="324" y1="46" x2="338" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f7)"/><rect x="342" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="412" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM</text><line x1="486" y1="46" x2="500" y2="46" stroke="#64748b" stroke-width="2" marker-end="url(#f7)"/><rect x="504" y="26" width="140" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="574" y="50.5" text-anchor="middle" font-size="13" fill="#0f172a">LLM + regex check</text><text x="320" y="92" text-anchor="middle" font-size="13" fill="#334155">exact text: line.split(",")</text></svg></div></div>
+  </div>
+  <div class="take">Exact text: a string method. A shape: a regex. A meaning: an LLM. And check an LLM's answer when it must be right.</div>
+</section>
+
+<section class="step" data-nav="Inheritance, in words" data-tag="Recap">
+  <h2>Inheritance, in words</h2>
+  <ul class="b"><li>Account is a parent class. PremiumAccount inherits from it, so it is a child class.</li></ul>
+  <pre class="py" data-file="inheritance.py" data-nocopy data-wide>class Account:                  # the parent
+    def total(self, amount, mode):
+        ...
+
+class PremiumAccount(Account):  # the child: inherits from Account
+    pass</pre>
+  <div class="diag"><svg viewBox="0 0 640 114" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="70" y="22" width="200" height="82" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="170" y="42" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Account</text><line x1="78" y1="50" x2="262" y2="50" stroke="#94a3b8" stroke-width="1"/><text x="170" y="70" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">the parent class</text><text x="170" y="92" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">has total()</text><rect x="370" y="22" width="200" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="470" y="42" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">PremiumAccount</text><line x1="378" y1="50" x2="562" y2="50" stroke="#10b981" stroke-width="1"/><text x="470" y="70" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">the child class</text><text x="470" y="92" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">no total() of its own</text><line x1="364" y1="63.0" x2="276" y2="63.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><text x="320" y="55.0" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">inherits</text></svg><div class="cap">class PremiumAccount(Account): the name in brackets is the parent.</div></div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">The child, PremiumAccount, has no <code>total</code> method. You call <code>premium.total(1000, "card")</code>. Where does Python find it?</div>
+    
+    <div class="opts">
+      <button class="opt" data-ok>In Account, after it looks in PremiumAccount first</button>
+      <button class="opt">In PremiumAccount: Python copied the code there</button>
+      <button class="opt">Nowhere: AttributeError</button>
+      <button class="opt">Only if PremiumAccount calls super()</button>
+    </div>
+    <div class="expl"><b>Child first, then parent.</b> Nothing is copied. Python looks in the object's own class, then walks up to the parent.
+<pre class="py" data-file="inheritance.py" data-wide data-hl="6-7">class Account:
+    def total(self, amount, mode):
+        fee = 5 if mode == "card" else 0
+        return amount + fee
+
+class PremiumAccount(Account):
+    pass                       # no total here
+
+premium = PremiumAccount()
+print(premium.total(1000, "card"))</pre>
+<div class="out">1005</div>
+<p>PremiumAccount wrote no total, yet the call works: Python found it in Account.</p>
+<div class="diag"><svg viewBox="0 0 640 98" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="20" y="30" width="166" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="103" y="51.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">premium.total(...)</text><line x1="190" y1="47" x2="222" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><rect x="226" y="30" width="134" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="293" y="51.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">PremiumAccount</text><text x="293.0" y="84" text-anchor="middle" font-size="12" fill="#64748b">no total here</text><line x1="364" y1="47" x2="396" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><rect x="400" y="30" width="79" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="439.5" y="51.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Account</text><text x="439.5" y="84" text-anchor="middle" font-size="12" fill="#047857">total found</text><text x="320.0" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">where Python looks</text></svg><div class="cap">Look in the child, then the parent.</div></div></div>
+  </div>
+  
+</section>
+
+<section class="step" data-nav="Scenario: parent calls child" data-tag="Recap">
+  <h2>Scenario: a parent method calls an overridden method</h2>
+  <div class="ask"><span class="ic">✋</span><div>total is written once, in Account. Two objects call it. What prints?</div></div>
+  <pre class="py" data-file="inheritance.py" data-hl="9-10" data-wide>class Account:
+    def fee_for(self, mode):
+        return 5 if mode == "card" else 0
+
+    def total(self, amount, mode):
+        return amount + self.fee_for(mode)
+
+class PremiumAccount(Account):
+    def fee_for(self, mode):
+        return 0
+
+print(Account().total(1000, "card"))
+print(PremiumAccount().total(1000, "card"))</pre>
+  <div class="vote">
+    <div class="vopt">1005 then 1005</div>
+    <div class="vopt" data-win>1005 then 1000</div>
+    <div class="vopt">1000 then 1000</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">1005
+1000</div>
+    <ul class="b">
+      <li>The same total method, two answers. self decides which fee_for runs.</li>
+      <li>PaisaPay v13 uses exactly this: pay() is in Account, and a PremiumAccount pays no fee.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 98" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f5r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="20" y="30" width="142" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="91" y="51.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">premium.total()</text><line x1="166" y1="47" x2="198" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><rect x="202" y="30" width="63" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="233.5" y="51.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">total</text><text x="233.5" y="84" text-anchor="middle" font-size="12" fill="#64748b">in Account</text><line x1="269" y1="47" x2="301" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><rect x="305" y="30" width="118" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="364" y="51.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">self.fee_for</text><text x="364.0" y="84" text-anchor="middle" font-size="12" fill="#64748b">child first</text><line x1="427" y1="47" x2="459" y2="47" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><rect x="463" y="30" width="103" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="514.5" y="51.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">fee_for: 0</text><text x="514.5" y="84" text-anchor="middle" font-size="12" fill="#047857">child wins</text><text x="320.0" y="18" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">one call, followed through</text></svg><div class="cap">Write the rule once in the parent. Let each child change one piece.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Scenario: class variable hidden" data-tag="Recap">
+  <h2>Scenario: a child class variable with the same name</h2>
+  <div class="ask"><span class="ic">✋</span><div>Each class sets its own rate. What prints?</div></div>
+  <pre class="py" data-file="inheritance.py" data-wide>class Deposit:
+    rate = 4
+
+class FixedDeposit(Deposit):
+    rate = 7
+
+print(Deposit.rate, FixedDeposit.rate, FixedDeposit().rate)</pre>
+  <div class="vote">
+    <div class="vopt">4 4 4</div>
+    <div class="vopt">7 7 7</div>
+    <div class="vopt" data-win>4 7 7</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">4 7 7</div>
+    <ul class="b">
+      <li>The child's rate hides the parent's. The parent's 4 does not change.</li>
+      <li>An object of FixedDeposit finds 7 first, so it never looks at Deposit.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 116" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f6g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="60" y="20" width="200" height="60" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="160" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Deposit</text><line x1="68" y1="48" x2="252" y2="48" stroke="#94a3b8" stroke-width="1"/><text x="160" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rate = 4</text><rect x="380" y="20" width="200" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="480" y="40" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">FixedDeposit</text><line x1="388" y1="48" x2="572" y2="48" stroke="#10b981" stroke-width="1"/><text x="480" y="68" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">rate = 7</text><line x1="374" y1="50.0" x2="264" y2="50.0" stroke="#64748b" stroke-width="2" marker-end="url(#f6)"/><text x="320" y="42.0" text-anchor="middle" font-size="11" fill="#64748b">parent</text><text x="320" y="104" text-anchor="middle" font-size="13" fill="#0f172a">FixedDeposit().rate: found in FixedDeposit, so 7</text></svg><div class="cap">The nearest class wins.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Scenario: super() missing an argument" data-tag="Recap">
+  <h2>Scenario: super().__init__ with one argument short</h2>
+  <div class="ask"><span class="ic">✋</span><div>Intern passes only the name up to Employee. What happens?</div></div>
+  <pre class="py" data-file="inheritance.py" data-hl="8" data-wide>class Employee:
+    def __init__(self, name, salary):
+        self.name = name
+        self.salary = salary
+
+class Intern(Employee):
+    def __init__(self, name):
+        super().__init__(name)
+
+Intern("Karthikeyan")</pre>
+  <div class="vote">
+    <div class="vopt">Nothing: salary becomes None</div>
+    <div class="vopt">AttributeError: 'Intern' object has no attribute 'salary'</div>
+    <div class="vopt" data-win>TypeError: Employee.__init__() missing 1 required positional argument: 'salary'</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">TypeError: Employee.__init__() missing 1 required positional argument: 'salary'</span></div>
+    <ul class="b">
+      <li>super().__init__ calls the parent's __init__. It still needs every argument the parent asks for.</li>
+      <li>Fix: pass a value, for example <code>super().__init__(name, 0)</code>.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f8r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f8g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="12" width="187" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="123.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Intern("Karthikeyan")</text><line x1="220" y1="32.0" x2="240" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f8)"/><rect x="243" y="12" width="195" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="340.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">super().__init__(name)</text><line x1="441" y1="32.0" x2="461" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f8)"/><rect x="464" y="12" width="146" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="537" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">needs name, salary</text></svg><div class="cap">The parent's rules still apply.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Recap">
+  <h2>Recap</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Two minutes. Three points you would tell a friend who missed today. <span class="timer" data-sec="120"></span></div></div>
+  <button class="rv" data-reveal="next">Compare</button>
+  <div class="reveal">
+    <ul class="b"><li><b>A class</b> is one blueprint: methods written once, data kept in each object.</li><li><b>Class variable</b>: in the class body, shared. <b>Instance variable</b>: on <code>self</code>, each object's own. Assigning on one object makes its own copy.</li><li><b>Encapsulation</b>: <code>self.__balance</code> stays inside; methods are the door.</li><li><b>self</b> is the object before the dot, so a parent's method runs the child's override.</li><li><b>Which tool</b>: exact text, a string method; a shape, a regex; a meaning, an LLM, checked by a regex when it must be right.</li></ul>
+  </div>
+  <div class="take">Next class: file handling and modules. PaisaPay will remember its data after it closes.</div>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
