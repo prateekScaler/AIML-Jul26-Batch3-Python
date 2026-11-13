@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 15 · File Handling</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c15" data-class="Class 15" data-title="File Handling" data-course="Python · AIML Jul26 Batch 3" data-date="2026-11-13">
+
+<div class="cover" id="cover">
+  <h1><small>Class 15</small>File Handling</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<section class="step" data-nav="Where does data go?" data-tag="Recap">
+  <h2>Before we start: where does your data go?</h2>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">The laptop battery dies while PaisaPay is open. What is lost?</div>
+    
+    <div class="opts">
+      <button class="opt">Nothing: Python saves everything</button>
+      <button class="opt">Only the files on the disk</button>
+      <button class="opt" data-ok>Every variable of the running program</button>
+      <button class="opt">Only Python itself</button>
+    </div>
+    <div class="expl"><b>Every variable.</b> A running program keeps its variables in RAM, and RAM needs power. No power, no data.
+<div class="diag"><svg viewBox="0 0 640 106" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="305" height="82" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="162.5" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">RAM</text><line x1="18" y1="40" x2="307" y2="40" stroke="#ef4444" stroke-width="1"/><text x="162.5" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">variables, lists, objects</text><text x="162.5" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">cleared with no power</text><rect x="325" y="12" width="305" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="477.5" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Storage (disk)</text><line x1="333" y1="40" x2="622" y2="40" stroke="#10b981" stroke-width="1"/><text x="477.5" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">files</text><text x="477.5" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">still there after a restart</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">Your phone restarts. Which of these is still there?</div>
+    
+    <div class="opts">
+      <button class="opt" data-ok>A photo in your gallery</button>
+      <button class="opt">A number typed in the calculator</button>
+      <button class="opt">Text typed in a form you did not submit</button>
+      <button class="opt">A variable in a running Python program</button>
+    </div>
+    <div class="expl"><b>The photo.</b> It was saved as a file in storage. The other three lived in memory, inside apps that were running.
+<div class="diag"><svg viewBox="0 0 640 178" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">a photo</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#047857">a file: survives</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">calculator number</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#b91c1c">memory: gone</text><rect x="16" y="92" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">unsent form text</text><text x="260" y="114" text-anchor="start" font-size="13" fill="#b91c1c">memory: gone</text><rect x="16" y="134" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="155.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">a Python variable</text><text x="260" y="156" text-anchor="start" font-size="13" fill="#b91c1c">memory: gone</text></svg><div class="cap">Saved means written to a file.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">So how can PaisaPay remember Rajani's payments tomorrow?</div>
+    
+    <div class="opts">
+      <button class="opt">Keep the program running forever</button>
+      <button class="opt">Use a bigger list</button>
+      <button class="opt">Make the list a class variable</button>
+      <button class="opt" data-ok>Write the payments to a file, and read them back at the start</button>
+    </div>
+    <div class="expl"><b>A file.</b> Write when something changes, read when the program starts. That is today's class.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="k749x2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="k749x2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="k749x2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="76" y="12" width="77" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="114.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">pay ₹600</text><line x1="156" y1="32.0" x2="176" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k749x2)"/><rect x="178" y="12" width="187" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="271.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">write to passbook.txt</text><line x1="368" y1="32.0" x2="388" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k749x2)"/><rect x="392" y="12" width="173" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="478.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">tomorrow: read it back</text></svg><div class="cap">Today: PaisaPay learns to remember.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Memory and storage" data-tag="Files">
+  <h2>Memory forgets. Storage remembers.</h2>
+  <ul class="b"><li>A running program keeps its variables in <b>memory</b> (RAM). Files live in <b>storage</b> (the disk).</li></ul>
+  <div class="diag"><svg viewBox="0 0 640 128" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="305" height="104" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="162.5" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">RAM (memory)</text><line x1="18" y1="40" x2="307" y2="40" stroke="#f59e0b" stroke-width="1"/><text x="162.5" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">variables live here</text><text x="162.5" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">fast</text><text x="162.5" y="104" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">cleared when the program ends</text><rect x="325" y="12" width="305" height="104" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="477.5" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Storage (disk)</text><line x1="333" y1="40" x2="622" y2="40" stroke="#10b981" stroke-width="1"/><text x="477.5" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">files live here</text><text x="477.5" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">SSD, hard disk, phone storage</text><text x="477.5" y="104" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">stays, even with no power</text></svg></div>
+  <div class="ask"><span class="ic">✋</span><div>Restart the computer. Which of these are still there?</div></div>
+  <table class="tbl" data-cells>
+    <tr><th>What</th><th>After a restart?</th></tr>
+    <tr><td><code>balance = 400</code> in a running program</td><td>Gone. It was in RAM.</td></tr>
+    <tr><td><code>passbook.txt</code></td><td>Still there. It is in storage.</td></tr>
+    <tr><td>The list <code>history</code> inside PaisaPay v13</td><td>Gone. RAM again.</td></tr>
+    <tr><td>A photo in your gallery</td><td>Still there. A photo is a file.</td></tr>
+  </table>
+  <ul class="b" data-brk><li>Phone shops say "8 GB RAM, 128 GB ROM". That 128 GB is really storage: it is where files live.</li></ul>
+  <div class="take">RAM: fast and temporary. Storage: slower and permanent. A file is how a program reaches storage.</div>
+</section>
+
+<section class="step" data-nav="Today: a passbook">
+  <h2>Today: PaisaPay gets a passbook</h2>
+  <ul class="b"><li>One small file, all the way through: a passbook of payments.</li></ul>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <div class="diag" data-brk><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="8" y="12" width="61" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="38.5" y="36.5" text-anchor="middle" font-size="11.361344537815127" fill="#0f172a">read it</text><line x1="72" y1="32.0" x2="89" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="92" y="12" width="85" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="134.5" y="36.5" text-anchor="middle" font-size="11.361344537815127" fill="#0f172a">write to it</text><line x1="180" y1="32.0" x2="196" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="199" y="12" width="109" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="253.5" y="36.5" text-anchor="middle" font-size="11.361344537815127" fill="#0f172a">close it safely</text><line x1="312" y1="32.0" x2="328" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="331" y="12" width="109" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="385.5" y="36.5" text-anchor="middle" font-size="11.361344537815127" fill="#0f172a">plan for errors</text><line x1="444" y1="32.0" x2="460" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="463" y="12" width="85" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="505.5" y="36.5" text-anchor="middle" font-size="11.361344537815127" fill="#0f172a">tables: CSV</text><line x1="551" y1="32.0" x2="568" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="571" y="12" width="61" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="601.5" y="36.5" text-anchor="middle" font-size="11.361344537815127" fill="#0f172a">modules</text></svg><div class="cap">Six small stops. By the end, PaisaPay remembers.</div></div>
+</section>
+
+<section class="step" data-nav="What a file is">
+  <h2>A text file is one long string, kept in storage</h2>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <div class="diag"><svg viewBox="0 0 640 60" xmlns="http://www.w3.org/2000/svg"><rect x="126" y="14" width="154" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="203" y="35.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><rect x="284" y="14" width="35" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="301.5" y="35.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\n</text><rect x="322" y="14" width="154" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="399" y="35.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi</text><rect x="478" y="14" width="35" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="495.5" y="35.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\n</text></svg><div class="cap">What is really stored: characters in a row.</div></div>
+  <ul class="b" data-brk><li>You see two lines. Storage holds one row of characters.</li><li><code>\n</code> marks the end of each line: the newline from Class 7.</li></ul>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">A file holds <code>Paid 600 to Sumit\nPaid 250 to Vamsi\n</code>. How many lines does an editor show?</div>
+    
+    <div class="opts">
+      <button class="opt">1</button>
+      <button class="opt" data-ok>2</button>
+      <button class="opt">3</button>
+      <button class="opt">36</button>
+    </div>
+    <div class="expl"><b>Two.</b> Each <code>\n</code> ends one line. 36 is the number of characters.
+<div class="diag"><svg viewBox="0 0 420 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="176" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="104" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit\n</text><text x="206" y="30" text-anchor="start" font-size="13" fill="#334155">line 1</text><rect x="16" y="50" width="176" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="104" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi\n</text><text x="206" y="72" text-anchor="start" font-size="13" fill="#334155">line 2</text></svg><div class="cap">One \n, one line.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Which folder?" data-tag="Files">
+  <h2>Which folder does Python look in?</h2>
+  <ul class="b"><li><code>open("passbook.txt")</code> gives only a name. Python looks for it in one folder: the <b>working folder</b>.</li><li>The working folder is the folder your program was started from.</li></ul>
+  <div class="diag"><svg viewBox="0 0 640 274" xmlns="http://www.w3.org/2000/svg"><rect x="30" y="14" width="124" height="26" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="92" y="31.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Users/ravi/</text><rect x="64" y="46" width="101" height="26" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="114.5" y="63.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Downloads/</text><rect x="98" y="78" width="116" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="156" y="95.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">passbook.txt</text><text x="226" y="96" text-anchor="start" font-size="12" fill="#b91c1c">never found by a bare name</text><rect x="64" y="110" width="93" height="26" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="110.5" y="127.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">paisapay/</text><text x="169" y="128" text-anchor="start" font-size="12" font-weight="700" fill="#047857">◀ the working folder</text><rect x="98" y="142" width="69" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="132.5" y="159.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">app.py</text><rect x="98" y="174" width="116" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="156" y="191.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">passbook.txt</text><text x="226" y="192" text-anchor="start" font-size="12" fill="#334155">open("passbook.txt") finds this one</text><rect x="98" y="206" width="61" height="26" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="128.5" y="223.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">data/</text><rect x="132" y="238" width="116" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="190" y="255.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">passbook.txt</text><text x="260" y="256" text-anchor="start" font-size="12" fill="#334155">open("data/passbook.txt")</text></svg><div class="cap">Start the program inside paisapay/, and that is where a bare name is looked up.</div></div>
+  <pre class="py" data-file="which_folder.py">import os
+
+print(os.getcwd())</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">/Users/ravi/paisapay</div>
+    <ul class="b">
+      <li><code>os.getcwd()</code> tells you the working folder (get current working directory). Yours will differ.</li>
+      <li>In Google Colab it is <code>/content</code>. In a terminal, it is where you typed <code>python3</code>.</li>
+    </ul>
+    
+    
+  </div>
+  <table class="tbl">
+    <tr><th>You write</th><th>Python looks in</th></tr>
+    <tr><td><code>open("passbook.txt")</code></td><td>the working folder</td></tr>
+    <tr><td><code>open("data/passbook.txt")</code></td><td>the folder data, inside the working folder</td></tr>
+    <tr><td><code>open("/Users/ravi/Downloads/passbook.txt")</code></td><td>exactly that place: a full path</td></tr>
+    <tr><td><code>open(r"C:\Users\ravi\passbook.txt")</code></td><td>a full path on Windows; r keeps the backslashes, as in regex</td></tr>
+  </table>
+  <details class="b" style="margin-top:18px">
+      <summary><b>Install Python on your computer</b> (click to open)</summary>
+      <p><b>Windows</b></p>
+      <ol>
+        <li>Go to <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads</a> and click the yellow Download button.</li>
+        <li>Run the installer. On the first screen, tick <b>Add python.exe to PATH</b>, then click <b>Install Now</b>.</li>
+        <li>Open Command Prompt and check: <code>py --version</code>. If that fails, try <code>python --version</code>.</li>
+        <li>Run a file: <code>py passbook.py</code></li>
+      </ol>
+      <p><b>macOS</b></p>
+      <ol>
+        <li>Go to <a href="https://www.python.org/downloads/" target="_blank">python.org/downloads</a>, download the macOS installer and open it. Click Continue until it finishes.</li>
+        <li>Open Terminal and check: <code>python3 --version</code></li>
+        <li>Run a file: <code>python3 passbook.py</code></li>
+      </ol>
+      <p>This course needs Python 3.10 or newer. Any version the site offers today is fine.</p>
+      <p><b>Why the 3 in python3?</b> Python 2 and Python 3 are two different versions, and Python 2 ended in 2020. Many Mac and Linux computers kept the name <code>python</code> for the old one, so <code>python3</code> asks clearly for Python 3. On Windows the command is <code>py</code> or <code>python</code>.</p>
+    </details>
+  <details class="b" style="margin-top:12px">
+      <summary><b>The terminal, and seven commands to start with</b> (click to open)</summary>
+      <p><b>What is a terminal?</b> A window where you type commands instead of clicking. It is how you run Python files, move between folders, and see which folder you are in: the working folder.</p>
+      <ul>
+        <li><b>macOS:</b> press Cmd + Space, type <b>Terminal</b>, press Enter.</li>
+        <li><b>Windows:</b> press the Windows key, type <b>PowerShell</b>, press Enter. Command Prompt also works.</li>
+      </ul>
+      <table class="tbl" data-cells>
+        <tr><th>Mac and Linux</th><th>Windows (PowerShell)</th><th>What it does</th></tr>
+        <tr><td><code>pwd</code></td><td><code>pwd</code></td><td>which folder am I in?</td></tr>
+        <tr><td><code>ls</code></td><td><code>ls</code> (or <code>dir</code>)</td><td>list the files and folders here</td></tr>
+        <tr><td><code>cd paisapay</code></td><td><code>cd paisapay</code></td><td>go into the folder paisapay</td></tr>
+        <tr><td><code>cd ..</code></td><td><code>cd ..</code></td><td>go up one folder</td></tr>
+        <tr><td><code>python3 app.py</code></td><td><code>py app.py</code></td><td>run a Python file</td></tr>
+        <tr><td><code>mkdir notes</code></td><td><code>mkdir notes</code></td><td>make a new folder</td></tr>
+        <tr><td><code>clear</code></td><td><code>clear</code> (or <code>cls</code>)</td><td>clear the screen</td></tr>
+      </table>
+      <p>Two keys save time: <b>Tab</b> finishes a file or folder name for you, and the <b>Up arrow</b> brings back your last command. These seven are enough for this course.</p>
+    <p><b>Practise in your browser, nothing to install:</b></p>
+      <ul>
+        <li><a href="https://web.mit.edu/mprat/Public/web/Terminus/Web/main.html" target="_blank">Terminus (MIT)</a>: a small adventure game. You walk through rooms with <code>ls</code> and <code>cd</code>. Start here.</li>
+        <li><a href="https://www.learnshell.org/" target="_blank">Learn Shell</a>: short lessons, and you type each command in a box on the page.</li>
+        <li><a href="https://linuxsurvival.com/" target="_blank">Linux Survival</a>: four short lessons with a practice terminal.</li>
+        <li><a href="https://cmdchallenge.com/" target="_blank">Command Challenge</a>: one small task at a time; type the command that solves it.</li>
+        <li>Later, for fun: <a href="https://overthewire.org/wargames/bandit/" target="_blank">OverTheWire Bandit</a>, a puzzle game played with real commands (harder).</li>
+      </ul>
+    </details>
+</section>
+
+<section class="step" data-nav="Which folder: check" data-tag="Files">
+  <h2>Which folder: quick check</h2>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">passbook.txt is only in Downloads/. The program runs inside paisapay/. What happens?</div>
+    <div class="diag"><svg viewBox="0 0 333 174" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="10" width="108" height="26" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="78" y="27.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Users/ravi/</text><rect x="54" y="42" width="101" height="26" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="104.5" y="59.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Downloads/</text><rect x="84" y="74" width="116" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="142" y="91.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">passbook.txt</text><rect x="54" y="106" width="93" height="26" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="100.5" y="123.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">paisapay/</text><text x="159" y="124" text-anchor="start" font-size="12" font-weight="700" fill="#047857">◀ the program runs here</text><rect x="84" y="138" width="69" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="118.5" y="155.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">app.py</text><text x="165" y="156" text-anchor="start" font-size="12" fill="#334155">open("passbook.txt")</text></svg></div>
+    
+    <div class="opts">
+      <button class="opt">It finds the one in Downloads/</button>
+      <button class="opt" data-ok>FileNotFoundError: [Errno 2] No such file or directory: 'passbook.txt'</button>
+      <button class="opt">Python searches every folder</button>
+      <button class="opt">It creates an empty passbook.txt</button>
+    </div>
+    <div class="expl"><b>FileNotFoundError.</b> A bare name is looked up in the working folder only. Python does not search other folders.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="58" y="12" width="180" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="148" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">open("passbook.txt")</text><line x1="241" y1="32.0" x2="261" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="264" y="12" width="153" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="340.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">paisapay/: not here</text><line x1="420" y1="32.0" x2="440" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="443" y="12" width="139" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="512.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">FileNotFoundError</text></svg><div class="cap">One folder, no search.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">app.py and passbook.txt are both inside paisapay/. You stand in the folder above it and type <code>python3 paisapay/app.py</code>. What happens?</div>
+    <div class="diag"><svg viewBox="0 0 619 142" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="10" width="298" height="26" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="173" y="27.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Class-15-File-Handling-And-Modules/</text><text x="334" y="28" text-anchor="start" font-size="12" font-weight="700" fill="#047857">◀ you type python3 paisapay/app.py here</text><rect x="54" y="42" width="93" height="26" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="100.5" y="59.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">paisapay/</text><rect x="84" y="74" width="69" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="118.5" y="91.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">app.py</text><text x="165" y="92" text-anchor="start" font-size="12" fill="#334155">open("passbook.txt")</text><rect x="84" y="106" width="116" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="142" y="123.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">passbook.txt</text></svg></div>
+    <pre class="py" data-file="x.py" data-nocopy>with open("passbook.txt") as file:
+    print(file.readline())</pre>
+    <div class="opts">
+      <button class="opt" data-ok>FileNotFoundError: [Errno 2] No such file or directory: 'passbook.txt'</button>
+      <button class="opt">It works: the file is next to app.py</button>
+      <button class="opt">ModuleNotFoundError</button>
+      <button class="opt">Python asks which folder to use</button>
+    </div>
+    <div class="expl"><b>FileNotFoundError.</b> The working folder is where you started, the folder above. passbook.txt is not there. A very common surprise: same program, started from another place.
+<div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="235" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="133.5" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">cd paisapay; python3 app.py</text><text x="265" y="30" text-anchor="start" font-size="13" fill="#047857">working folder: paisapay/, found</text><rect x="16" y="50" width="235" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="133.5" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">python3 paisapay/app.py</text><text x="265" y="72" text-anchor="start" font-size="13" fill="#b91c1c">working folder: the one above, not found</text></svg><div class="cap">Where you start the program decides the working folder.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Try it: two starting folders" data-tag="Files">
+  <h2>Try it: one program, two starting folders</h2>
+  <ul class="b"><li>The class folder has a small folder, <code>paisapay/</code>, made for this. Open a terminal in the class folder.</li></ul>
+  <div class="diag"><svg viewBox="0 0 640 238" xmlns="http://www.w3.org/2000/svg"><rect x="20" y="10" width="298" height="26" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="169" y="27.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Class-15-File-Handling-And-Modules/</text><text x="330" y="28" text-anchor="start" font-size="12" font-weight="700" fill="#b91c1c">start here: Run 2</text><rect x="50" y="42" width="93" height="26" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="96.5" y="59.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">paisapay/</text><text x="155" y="60" text-anchor="start" font-size="12" font-weight="700" fill="#047857">start here: Run 1</text><rect x="80" y="74" width="69" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="114.5" y="91.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">app.py</text><rect x="80" y="106" width="116" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="138" y="123.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">passbook.txt</text><text x="208" y="124" text-anchor="start" font-size="12" fill="#334155">open("passbook.txt") wants this one</text><rect x="80" y="138" width="116" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="138" y="155.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">read_data.py</text><rect x="80" y="170" width="61" height="26" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="110.5" y="187.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">data/</text><rect x="110" y="202" width="116" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="168" y="219.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">passbook.txt</text><text x="238" y="220" text-anchor="start" font-size="12" fill="#334155">open("data/passbook.txt")</text></svg><div class="cap">The folder you are in when you type python3 is the working folder.</div></div>
+  <pre class="py" data-file="paisapay/app.py" data-wide data-hl="1">import os
+
+print("Working folder:", os.getcwd())
+
+with open("passbook.txt") as file:
+    print(file.read())</pre>
+  <div class="ask"><span class="ic">✋</span><div>Run 1: go into paisapay/, then run app.py. Does it find the passbook?</div></div>
+  <pre class="py" data-file="terminal" data-plain>cd paisapay
+python3 app.py</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">Working folder: …/Class-15-File-Handling-And-Modules/paisapay
+Paid 600 to Sumit
+Paid 250 to Vamsi
+</div>
+    <ul class="b">
+      <li>The working folder is <code>paisapay/</code>, and passbook.txt is right there.</li>
+    </ul>
+    
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>Run 2: go back up one folder, and run the same file from there. What happens?</div></div>
+  <pre class="py" data-file="terminal" data-plain>cd ..
+python3 paisapay/app.py</pre>
+  <div class="vote">
+    <div class="vopt">It works: passbook.txt is next to app.py</div>
+    <div class="vopt" data-win>FileNotFoundError: Python looks in the folder you started from</div>
+    <div class="vopt">Python asks which folder to use</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">Working folder: …/Class-15-File-Handling-And-Modules
+FileNotFoundError: [Errno 2] No such file or directory: 'passbook.txt'</span></div>
+    <ul class="b">
+      <li>Same program, same files. Only the starting folder changed, so the working folder changed.</li>
+      <li>Line 1 of the output says it: Python looked in the class folder, and passbook.txt is not there.</li>
+      <li><b>Fix 1:</b> <code>cd paisapay</code> first. <b>Fix 2:</b> give the path from where you are: <code>open("paisapay/passbook.txt")</code>.</li>
+      <li><code>pwd</code> (Mac, Linux) or <code>cd</code> (Windows) shows where you are. In PyCharm, see Run, Edit Configurations, Working directory.</li>
+    </ul>
+    
+  </div>
+  <div class="take">Where you start the program decides where a bare file name is looked up.</div>
+</section>
+
+<section class="step" data-nav="open()">
+  <h2><code>open()</code>: ask for the file</h2>
+  <div class="diag"><svg viewBox="0 0 640 116" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="12" y="40" width="150" height="44" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="87" y="66.5" text-anchor="middle" font-size="14" fill="#0f172a">Your program</text><text x="87" y="104" text-anchor="middle" font-size="12" fill="#64748b">runs in RAM</text><rect x="232" y="40" width="176" height="44" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="320" y="66.5" text-anchor="middle" font-size="14" fill="#0f172a">Operating system</text><rect x="478" y="40" width="150" height="44" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="553" y="66.5" text-anchor="middle" font-size="12" fill="#0f172a">Storage: passbook.txt</text><text x="553" y="104" text-anchor="middle" font-size="11" fill="#64748b">stays after the program ends</text><line x1="166" y1="62" x2="228" y2="62" stroke="#64748b" stroke-width="2" marker-end="url(#f2)"/><line x1="412" y1="62" x2="474" y2="62" stroke="#64748b" stroke-width="2" marker-end="url(#f2)"/><text x="197" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">asks with open()</text><text x="443" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">reads or writes</text></svg><div class="cap">A program cannot touch storage itself. It asks the operating system.</div></div>
+  <ul class="b"><li><code>open()</code> is how Python asks. It gives back a <b>file object</b>: your handle to the file.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>What does this print?</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="read_file.py" data-wide>file = open("passbook.txt")
+print(file)</pre>
+  <div class="vote">
+    <div class="vopt">The two payments</div>
+    <div class="vopt" data-win>A file object, not the text</div>
+    <div class="vopt">passbook.txt</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">&lt;_io.TextIOWrapper name='passbook.txt' mode='r' encoding='UTF-8'&gt;</div>
+    <ul class="b">
+      <li>Not the text. A file object: the handle.</li>
+      <li>It knows the name and the mode. <code>mode='r'</code> means read, which is the default.</li>
+      <li>Nothing has been read yet. Think of taking the passbook out of the cupboard.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="139" y="12" width="53" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="165.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">file</text><line x1="195" y1="32.0" x2="215" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><rect x="218" y="12" width="77" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="256.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">a handle</text><line x1="298" y1="32.0" x2="318" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><rect x="321" y="12" width="180" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="411" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">passbook.txt in storage</text></svg><div class="cap">The variable holds a handle, not the contents.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="encoding" data-tag="Files">
+  <h2>What <code>encoding='UTF-8'</code> means</h2>
+  <ul class="b"><li>The file object said <code>encoding='UTF-8'</code>. Storage keeps only numbers (bytes), so Python needs a rule to turn ₹, Sumit or सुमित into numbers and back. That rule is the <b>encoding</b>.</li></ul>
+  <div class="diag"><svg viewBox="0 0 640 104" xmlns="http://www.w3.org/2000/svg"><defs><marker id="k929x1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="k929x1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="k929x1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="20" y="30" width="70" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="55" y="54.5" text-anchor="middle" font-size="18" fill="#0f172a">₹</text><rect x="150" y="30" width="180" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="240" y="54.5" text-anchor="middle" font-size="14" fill="#0f172a">encoding: UTF-8</text><rect x="390" y="30" width="130" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="455" y="54.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">E2 82 B9</text><line x1="94" y1="50" x2="146" y2="50" stroke="#64748b" stroke-width="2" marker-end="url(#k929x1)"/><line x1="334" y1="50" x2="386" y2="50" stroke="#64748b" stroke-width="2" marker-end="url(#k929x1)"/><text x="55" y="92" text-anchor="middle" font-size="12" fill="#64748b">a character</text><text x="240" y="92" text-anchor="middle" font-size="12" fill="#64748b">the rule</text><text x="455" y="92" text-anchor="middle" font-size="12" fill="#64748b">bytes in storage</text><text x="580" y="54" text-anchor="middle" font-size="12" font-weight="700" fill="#047857">read: back to ₹</text></svg><div class="cap">Storage keeps only numbers. The encoding is the rule for turning text into numbers and back.</div></div>
+  <table class="tbl">
+    <tr><th>Encoding</th><th>What it can store</th><th>Where you meet it</th></tr>
+    <tr><td><code>utf-8</code></td><td>every language: English, हिंदी, தமிழ், ₹, emoji</td><td><b>the standard today</b>: most of the web, Mac, Linux</td></tr>
+    <tr><td><code>ascii</code></td><td>English letters, digits, basic symbols only. No ₹</td><td>very old files and systems</td></tr>
+    <tr><td><code>cp1252</code></td><td>English and Western European letters. No हिंदी</td><td>older Windows default</td></tr>
+    <tr><td><code>utf-16</code></td><td>every language, stored in a different way</td><td>some Windows and Excel exports</td></tr>
+  </table>
+  <div class="ask"><span class="ic">✋</span><div>Write the rupee sign with the old ascii rule. What happens?</div></div>
+  <pre class="py" data-file="encoding.py" data-wide>with open("a.txt", "w", encoding="ascii") as f:
+    f.write("Paid ₹600")</pre>
+  <div class="vote">
+    <div class="vopt">It saves Paid ₹600</div>
+    <div class="vopt">It saves Paid 600, without the sign</div>
+    <div class="vopt" data-win>UnicodeEncodeError: 'ascii' codec can't encode character '\u20b9' in position 5: ordinal not in range(128)</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">UnicodeEncodeError: 'ascii' codec can't encode character '\u20b9' in position 5: ordinal not in range(128)</span></div>
+    <ul class="b">
+      <li>ascii has no number for ₹, so Python refuses to write it.</li>
+      <li>With <code>encoding="utf-8"</code> the same line works, even with हिंदी: <code>Paid ₹600 to सुमित</code>.</li>
+    </ul>
+    
+  </div>
+  <div class="take">Safe habit: write <code>encoding="utf-8"</code> in every open(). On Mac and Linux it is already the default; on Windows it may not be, and ₹ can break.</div>
+</section>
+
+<section class="step" data-nav=".read()">
+  <h2><code>.read()</code>: the whole file as one string</h2>
+  <div class="ask"><span class="ic">✋</span><div>Now we read. Predict what prints.</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="read_file.py">file = open("passbook.txt")
+contents = file.read()
+print(contents)
+file.close()</pre>
+  <div class="vote">
+    <div class="vopt">['Paid 600 to Sumit', 'Paid 250 to Vamsi']</div>
+    <div class="vopt" data-win>The two payments, on two lines</div>
+    <div class="vopt">passbook.txt</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Paid 600 to Sumit
+Paid 250 to Vamsi
+
+</div>
+    <ul class="b">
+      <li><code>.read()</code> gives the whole file as <b>one string</b>, newlines included.</li>
+      <li>The blank line at the end: the file's last <code>\n</code>, plus the one print adds.</li>
+      <li><code>close()</code> hands the file back. Why that matters comes soon.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 420 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="180" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="106" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">open("passbook.txt")</text><text x="210" y="30" text-anchor="start" font-size="13" fill="#334155">take the passbook out</text><rect x="16" y="50" width="180" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="106" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">.read()</text><text x="210" y="72" text-anchor="start" font-size="13" fill="#334155">read every page</text><rect x="16" y="92" width="180" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="106" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">.close()</text><text x="210" y="114" text-anchor="start" font-size="13" fill="#047857">put it back</text></svg><div class="cap">Open, read, close.</div></div>
+  </div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">What type is <code>contents</code>?</div>
+    
+    <div class="opts">
+      <button class="opt">A list of lines</button>
+      <button class="opt">A file object</button>
+      <button class="opt" data-ok>A string</button>
+      <button class="opt">A dictionary</button>
+    </div>
+    <div class="expl"><b>A string.</b> One string for the whole file. Everything from Class 7 works on it: <code>split</code>, <code>strip</code>, <code>in</code>, slicing.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f4g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="151" y="12" width="338" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="320" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"Paid 600 to Sumit\nPaid 250 to Vamsi\n"</text></svg><div class="cap">One string, with the newlines inside.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="The bookmark">
+  <h2>Reading moves a bookmark</h2>
+  <ul class="b"><li>A file object remembers how far it has read, like a bookmark.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>The file has 36 characters. We read twice. What prints?</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="read_file.py" data-wide>file = open("passbook.txt")
+first = file.read()
+second = file.read()
+print(len(first), len(second))
+file.close()</pre>
+  <div class="vote">
+    <div class="vopt">36 36</div>
+    <div class="vopt" data-win>36 0</div>
+    <div class="vopt">An error on the second read</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">36 0</div>
+    <ul class="b">
+      <li>The first read took everything. The bookmark is now at the end.</li>
+      <li>The second read starts at the end, so it gets an empty string.</li>
+      <li>Seen before: a map object, in Class 10, could also be used only once. To read again, open again.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 352" xmlns="http://www.w3.org/2000/svg"><text x="14" y="34" text-anchor="start" font-size="14" font-weight="700" fill="#0f172a">Open</text><text x="14" y="52" text-anchor="start" font-size="12" fill="#64748b">nothing read yet</text><rect x="170" y="18" width="175" height="36" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="257.5" y="40.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><rect x="348" y="18" width="40" height="36" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="368" y="40.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">\n</text><rect x="391" y="18" width="175" height="36" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="478.5" y="40.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi</text><rect x="569" y="18" width="40" height="36" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="589" y="40.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">\n</text><line x1="170" y1="12" x2="170" y2="60" stroke="#ef4444" stroke-width="3"/><text x="170" y="74" text-anchor="middle" font-size="12" font-weight="700" fill="#b91c1c">▲ bookmark at the start</text><text x="170" y="96" text-anchor="start" font-size="13" font-weight="700" fill="#334155"></text><text x="14" y="142" text-anchor="start" font-size="14" font-weight="700" fill="#0f172a">first read()</text><text x="14" y="160" text-anchor="start" font-size="12" fill="#64748b">takes all 36</text><rect x="170" y="126" width="175" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/><text x="257.5" y="148.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><rect x="348" y="126" width="40" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/><text x="368" y="148.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">\n</text><rect x="391" y="126" width="175" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/><text x="478.5" y="148.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi</text><rect x="569" y="126" width="40" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/><text x="589" y="148.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">\n</text><line x1="610" y1="120" x2="610" y2="168" stroke="#ef4444" stroke-width="3"/><text x="610" y="182" text-anchor="end" font-size="12" font-weight="700" fill="#b91c1c">▲ bookmark at the end</text><text x="170" y="204" text-anchor="start" font-size="13" font-weight="700" fill="#047857">first = "Paid 600 to Sumit\nPaid 250 to Vamsi\n": 36 characters</text><text x="14" y="266" text-anchor="start" font-size="14" font-weight="700" fill="#0f172a">second read()</text><text x="14" y="284" text-anchor="start" font-size="12" fill="#64748b">starts at the end</text><rect x="170" y="250" width="175" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/><text x="257.5" y="272.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><rect x="348" y="250" width="40" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/><text x="368" y="272.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">\n</text><rect x="391" y="250" width="175" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/><text x="478.5" y="272.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi</text><rect x="569" y="250" width="40" height="36" rx="6" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/><text x="589" y="272.5" text-anchor="middle" font-size="14" font-family="Menlo,monospace" fill="#0f172a">\n</text><line x1="610" y1="244" x2="610" y2="292" stroke="#ef4444" stroke-width="3"/><text x="610" y="306" text-anchor="end" font-size="12" font-weight="700" fill="#b91c1c">▲ still at the end</text><text x="170" y="328" text-anchor="start" font-size="13" font-weight="700" fill="#b91c1c">second = "": nothing is left, 0 characters</text></svg><div class="cap">Grey: already read. The bookmark only moves forward. Open the file again to start over.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Writing: modes" data-tag="Modes">
+  <h2>To write, tell <code>open()</code> your plan</h2>
+  <ul class="b"><li><code>open()</code> takes a second argument, the <b>mode</b>: one letter for what you plan to do.</li></ul>
+  <pre class="py" data-file="file_modes.py" data-nocopy data-wide>open("passbook.txt", "r")   # read
+open("passbook.txt", "w")   # write
+open("passbook.txt", "a")   # append
+open("passbook.txt", "x")   # create</pre>
+  <div class="diag" data-brk><svg viewBox="0 0 640 106" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="148" height="82" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="84" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">"r"</text><line x1="18" y1="40" x2="150" y2="40" stroke="#94a3b8" stroke-width="1"/><text x="84" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">read</text><text x="84" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">look, do not touch</text><rect x="168" y="12" width="148" height="82" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="242" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">"w"</text><line x1="176" y1="40" x2="308" y2="40" stroke="#ef4444" stroke-width="1"/><text x="242" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">write</text><text x="242" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">start fresh</text><rect x="325" y="12" width="148" height="82" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="399" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">"a"</text><line x1="333" y1="40" x2="465" y2="40" stroke="#10b981" stroke-width="1"/><text x="399" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">append</text><text x="399" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">add at the end</text><rect x="482" y="12" width="148" height="82" rx="8" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="556" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">"x"</text><line x1="490" y1="40" x2="622" y2="40" stroke="#6366f1" stroke-width="1"/><text x="556" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">create</text><text x="556" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">a new file only</text></svg></div>
+  <ul class="b" data-brk><li>For each mode we ask the same two questions: what if the file exists, and what if it does not?</li></ul>
+</section>
+
+<section class="step" data-nav="Mode r" data-tag="Modes">
+  <h2>Mode <code>"r"</code>: read only</h2>
+  <div class="ask"><span class="ic">✋</span><div>passbook.txt exists. We open it with "r", then try to write. What happens?</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="file_modes.py">file = open("passbook.txt", "r")
+file.write("Paid 100 to Akshay")</pre>
+  <div class="vote">
+    <div class="vopt">The payment is added</div>
+    <div class="vopt" data-win>io.UnsupportedOperation: not writable</div>
+    <div class="vopt">The passbook is erased</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">io.UnsupportedOperation: not writable</span></div>
+    <ul class="b">
+      <li>"r" means look, do not touch. The file cannot change.</li>
+      <li>"r" is the default: <code>open("passbook.txt")</code> means the same.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 420 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="176" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="104" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">file.read()</text><text x="206" y="30" text-anchor="start" font-size="13" fill="#047857">allowed</text><rect x="16" y="50" width="176" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="104" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">file.write(...)</text><text x="206" y="72" text-anchor="start" font-size="13" fill="#b91c1c">not writable</text></svg><div class="cap">Read only.</div></div>
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>And if the file does not exist?</div></div>
+  <pre class="py" data-file="file_modes.py">file = open("missing.txt", "r")</pre>
+  <div class="vote">
+    <div class="vopt">Python creates an empty missing.txt</div>
+    <div class="vopt">It reads an empty string</div>
+    <div class="vopt" data-win>FileNotFoundError: [Errno 2] No such file or directory: 'missing.txt'</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">FileNotFoundError: [Errno 2] No such file or directory: 'missing.txt'</span></div>
+    <ul class="b">
+      <li>"r" never creates a file. No file, nothing to read.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 420 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="176" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="104" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">the file exists</text><text x="206" y="30" text-anchor="start" font-size="13" fill="#047857">reads from the start</text><rect x="16" y="50" width="176" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="104" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">the file does not</text><text x="206" y="72" text-anchor="start" font-size="13" fill="#b91c1c">FileNotFoundError</text></svg><div class="cap">Mode "r", both cases.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Mode w" data-tag="Modes">
+  <h2>Mode <code>"w"</code>: write, starting fresh</h2>
+  <div class="ask"><span class="ic">✋</span><div>receipt.txt does not exist yet. What happens?</div></div>
+  <pre class="py" data-file="file_modes.py">file = open("receipt.txt", "w")
+file.write("Paid 100 to Akshay")
+file.close()</pre>
+  <div class="vote">
+    <div class="vopt">FileNotFoundError</div>
+    <div class="vopt" data-win>receipt.txt is created, holding that payment</div>
+    <div class="vopt">Nothing: "w" needs a file that exists</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Open the file</button>
+  <div class="reveal">
+    <div class="out">Paid 100 to Akshay</div>
+    <ul class="b">
+      <li>"w" creates the file when it is missing. Simple and safe.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 92" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f5r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="140" y="18" text-anchor="middle" font-size="12" fill="#64748b">before</text><text x="500" y="18" text-anchor="middle" font-size="12" fill="#64748b">after</text><rect x="20" y="30" width="240" height="50" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="30" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">receipt.txt</text><line x1="20" y1="55" x2="260" y2="55" stroke="#94a3b8" stroke-width="1"/><text x="30" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">(no such file)</text><rect x="380" y="30" width="240" height="50" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="390" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">receipt.txt</text><line x1="380" y1="55" x2="620" y2="55" stroke="#10b981" stroke-width="1"/><text x="390" y="73" font-size="13" font-weight="700" font-family="Menlo,monospace" fill="#047857">Paid 100 to Akshay</text><line x1="268" y1="55.0" x2="372" y2="55.0" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><text x="320" y="45.0" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">open(..., "w")</text></svg><div class="cap">A new file appears.</div></div>
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>What if the file already existed? passbook.txt holds two payments.</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="file_modes.py">file = open("passbook.txt", "w")
+file.write("Paid 100 to Akshay")
+file.close()</pre>
+  <div class="vote">
+    <div class="vopt">Three payments: the new one is added</div>
+    <div class="vopt" data-win>Only Paid 100 to Akshay</div>
+    <div class="vopt">Two payments: "w" will not change a file that exists</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Open the file</button>
+  <div class="reveal">
+    <div class="out">Paid 100 to Akshay</div>
+    <ul class="b">
+      <li>"w" emptied the file first. Both old payments are gone.</li>
+      <li>Python never asks "are you sure?".</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 112" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f6g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="140" y="18" text-anchor="middle" font-size="12" fill="#64748b">before</text><text x="500" y="18" text-anchor="middle" font-size="12" fill="#64748b">after</text><rect x="20" y="30" width="240" height="70" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="30" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">passbook.txt</text><line x1="20" y1="55" x2="260" y2="55" stroke="#94a3b8" stroke-width="1"/><text x="30" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><text x="30" y="93" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi</text><rect x="380" y="30" width="240" height="50" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="390" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">passbook.txt</text><line x1="380" y1="55" x2="620" y2="55" stroke="#10b981" stroke-width="1"/><text x="390" y="73" font-size="13" font-weight="700" font-family="Menlo,monospace" fill="#047857">Paid 100 to Akshay</text><line x1="268" y1="65.0" x2="372" y2="65.0" stroke="#64748b" stroke-width="2" marker-end="url(#f6)"/><text x="320" y="55.0" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">open(..., "w")</text></svg><div class="cap">Old lines are gone for good.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Mode a" data-tag="Modes">
+  <h2>Mode <code>"a"</code>: add at the end</h2>
+  <div class="ask"><span class="ic">✋</span><div>passbook.txt holds two payments. What does it hold after this?</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="file_modes.py">file = open("passbook.txt", "a")
+file.write("Paid 100 to Akshay\n")
+file.close()</pre>
+  <div class="vote">
+    <div class="vopt">Only Paid 100 to Akshay</div>
+    <div class="vopt">The new payment first, then the two old ones</div>
+    <div class="vopt" data-win>The two old payments, then the new one</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Open the file</button>
+  <div class="reveal">
+    <div class="out">Paid 600 to Sumit
+Paid 250 to Vamsi
+Paid 100 to Akshay</div>
+    <ul class="b">
+      <li>"a" kept everything and added one line at the end.</li>
+      <li><code>write()</code> adds no newline, unlike print. Put <code>\n</code> yourself.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 132" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f7r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f7g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="140" y="18" text-anchor="middle" font-size="12" fill="#64748b">before</text><text x="500" y="18" text-anchor="middle" font-size="12" fill="#64748b">after</text><rect x="20" y="30" width="240" height="70" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="30" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">passbook.txt</text><line x1="20" y1="55" x2="260" y2="55" stroke="#94a3b8" stroke-width="1"/><text x="30" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><text x="30" y="93" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi</text><rect x="380" y="30" width="240" height="90" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="390" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">passbook.txt</text><line x1="380" y1="55" x2="620" y2="55" stroke="#10b981" stroke-width="1"/><text x="390" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><text x="390" y="93" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi</text><text x="390" y="113" font-size="13" font-weight="700" font-family="Menlo,monospace" fill="#047857">Paid 100 to Akshay</text><line x1="268" y1="65.0" x2="372" y2="65.0" stroke="#64748b" stroke-width="2" marker-end="url(#f7)"/><text x="320" y="55.0" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">open(..., "a")</text></svg><div class="cap">Nothing lost, one line added.</div></div>
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>And if the file does not exist? log.txt is not there yet.</div></div>
+  <pre class="py" data-file="file_modes.py">file = open("log.txt", "a")
+file.write("Paid 100 to Akshay\n")
+file.close()</pre>
+  <div class="vote">
+    <div class="vopt" data-win>log.txt is created, holding that payment</div>
+    <div class="vopt">FileNotFoundError: nothing to add to</div>
+    <div class="vopt">Nothing happens</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Open the file</button>
+  <div class="reveal">
+    <div class="out">Paid 100 to Akshay</div>
+    <ul class="b">
+      <li>"a" also creates a missing file. Then it adds.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 92" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f8r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f8g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="140" y="18" text-anchor="middle" font-size="12" fill="#64748b">before</text><text x="500" y="18" text-anchor="middle" font-size="12" fill="#64748b">after</text><rect x="20" y="30" width="240" height="50" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="30" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">log.txt</text><line x1="20" y1="55" x2="260" y2="55" stroke="#94a3b8" stroke-width="1"/><text x="30" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">(no such file)</text><rect x="380" y="30" width="240" height="50" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="390" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">log.txt</text><line x1="380" y1="55" x2="620" y2="55" stroke="#10b981" stroke-width="1"/><text x="390" y="73" font-size="13" font-weight="700" font-family="Menlo,monospace" fill="#047857">Paid 100 to Akshay</text><line x1="268" y1="55.0" x2="372" y2="55.0" stroke="#64748b" stroke-width="2" marker-end="url(#f8)"/><text x="320" y="45.0" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">open(..., "a")</text></svg><div class="cap">Created, then added to.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Mode x" data-tag="Modes">
+  <h2>Mode <code>"x"</code>: create, never overwrite</h2>
+  <div class="ask"><span class="ic">✋</span><div>receipt_101.txt does not exist yet. What happens?</div></div>
+  <pre class="py" data-file="file_modes.py">file = open("receipt_101.txt", "x")
+file.write("Paid 100 to Akshay")
+file.close()</pre>
+  <div class="vote">
+    <div class="vopt" data-win>The file is created, holding that payment</div>
+    <div class="vopt">FileNotFoundError</div>
+    <div class="vopt">Nothing: "x" only checks</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Open the file</button>
+  <div class="reveal">
+    <div class="out">Paid 100 to Akshay</div>
+    <ul class="b">
+      <li>On a new file, "x" works just like "w".</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 92" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f9r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f9g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="140" y="18" text-anchor="middle" font-size="12" fill="#64748b">before</text><text x="500" y="18" text-anchor="middle" font-size="12" fill="#64748b">after</text><rect x="20" y="30" width="240" height="50" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="30" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">receipt_101.txt</text><line x1="20" y1="55" x2="260" y2="55" stroke="#94a3b8" stroke-width="1"/><text x="30" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">(no such file)</text><rect x="380" y="30" width="240" height="50" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="390" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">receipt_101.txt</text><line x1="380" y1="55" x2="620" y2="55" stroke="#10b981" stroke-width="1"/><text x="390" y="73" font-size="13" font-weight="700" font-family="Menlo,monospace" fill="#047857">Paid 100 to Akshay</text><line x1="268" y1="55.0" x2="372" y2="55.0" stroke="#64748b" stroke-width="2" marker-end="url(#f9)"/><text x="320" y="45.0" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">open(..., "x")</text></svg><div class="cap">A new file appears.</div></div>
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>What if the file already exists?</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="file_modes.py">file = open("passbook.txt", "x")</pre>
+  <div class="vote">
+    <div class="vopt">It erases the passbook, like "w"</div>
+    <div class="vopt" data-win>FileExistsError: [Errno 17] File exists: 'passbook.txt'</div>
+    <div class="vopt">It adds at the end, like "a"</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">FileExistsError: [Errno 17] File exists: 'passbook.txt'</span></div>
+    <ul class="b">
+      <li>"x" is "w" with a safety catch. It refuses to touch a file that exists.</li>
+      <li>Where it helps: a receipt must never overwrite an older receipt.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">the file does not exist</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#047857">created, ready to write</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">the file exists</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#b91c1c">FileExistsError: nothing erased</text></svg><div class="cap">Mode "x", both cases.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Modes: the full picture" data-tag="Modes">
+  <h2>The four modes, side by side</h2>
+  <table class="tbl">
+    <tr><th>Mode</th><th>Means</th><th>If the file exists</th><th>If it does not</th></tr>
+    <tr><td><code>"r"</code></td><td>read (the default)</td><td>reads from the start</td><td>FileNotFoundError</td></tr>
+    <tr><td><code>"w"</code></td><td>write</td><td><b>erases it first</b></td><td>creates it</td></tr>
+    <tr><td><code>"a"</code></td><td>append</td><td>adds at the end</td><td>creates it</td></tr>
+    <tr><td><code>"x"</code></td><td>create only</td><td>FileExistsError, nothing erased</td><td>creates it</td></tr>
+  </table>
+  <div class="take">Getting the mode wrong is the easiest way to lose data.</div>
+</section>
+
+<section class="step" data-nav="Which mode?" data-tag="Modes">
+  <h2>Which mode for the job?</h2>
+  <div class="ask"><span class="ic">🎤</span><div>Say the mode before you click.</div></div>
+  <table class="tbl" data-cells>
+    <tr><th>The job</th><th>Mode</th></tr>
+    <tr><td>Show the passbook on screen</td><td><code>"r"</code>: only look</td></tr>
+    <tr><td>Add today's payment to the passbook</td><td><code>"a"</code>: keep the old ones</td></tr>
+    <tr><td>Save the new balance over the old balance</td><td><code>"w"</code>: replace on purpose</td></tr>
+    <tr><td>Make receipt_102.txt, and never overwrite a receipt</td><td><code>"x"</code>: new files only</td></tr>
+    <tr><td>Start a fresh error log every morning</td><td><code>"w"</code>: start fresh</td></tr>
+  </table>
+</section>
+
+<section class="step" data-nav="Modes, quick check" data-tag="Modes">
+  <h2>Modes: quick check</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">Which mode can never change a file?</div>
+    
+    <div class="opts">
+      <button class="opt"><code>"w"</code></button>
+      <button class="opt"><code>"a"</code></button>
+      <button class="opt"><code>"x"</code></button>
+      <button class="opt" data-ok><code>"r"</code></button>
+    </div>
+    <div class="expl"><b>"r".</b> Read only. The other three can all create or change a file.
+<div class="diag"><svg viewBox="0 0 640 84" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="148" height="60" rx="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="84" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">"r"</text><line x1="18" y1="40" x2="150" y2="40" stroke="#10b981" stroke-width="1"/><text x="84" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">cannot change</text><rect x="168" y="12" width="148" height="60" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="242" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">"w"</text><line x1="176" y1="40" x2="308" y2="40" stroke="#ef4444" stroke-width="1"/><text x="242" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">erases, writes</text><rect x="325" y="12" width="148" height="60" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="399" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">"a"</text><line x1="333" y1="40" x2="465" y2="40" stroke="#94a3b8" stroke-width="1"/><text x="399" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">adds</text><rect x="482" y="12" width="148" height="60" rx="8" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="556" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">"x"</text><line x1="490" y1="40" x2="622" y2="40" stroke="#94a3b8" stroke-width="1"/><text x="556" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">creates</text></svg></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Three opens in a row. What does log.txt hold at the end?</div>
+    <pre class="py" data-file="x.py" data-nocopy>f = open("log.txt", "w")
+f.write("A")
+f.close()
+
+f = open("log.txt", "a")
+f.write("B")
+f.close()
+
+f = open("log.txt", "w")
+f.write("C")
+f.close()</pre>
+    <div class="opts">
+      <button class="opt">ABC</button>
+      <button class="opt">AB</button>
+      <button class="opt" data-ok>C</button>
+      <button class="opt">BC</button>
+    </div>
+    <div class="expl"><b>C.</b> "w" writes A. "a" adds B, so AB. The last "w" erases everything and writes C.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f10r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f10g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="186" y="12" width="69" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="220.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"w": A</text><line x1="258" y1="32.0" x2="278" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f10)"/><rect x="282" y="12" width="77" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="320.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"a": AB</text><line x1="362" y1="32.0" x2="382" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f10)"/><rect x="384" y="12" width="69" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="418.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"w": C</text></svg><div class="cap">Each "w" starts from an empty file.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">A loop saves three names. What does paid.txt hold at the end?</div>
+    <pre class="py" data-file="x.py" data-nocopy>for name in ["Sumit", "Vamsi", "Akshay"]:
+    f = open("paid.txt", "w")
+    f.write(name + "\n")
+    f.close()</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Only Akshay</button>
+      <button class="opt">Sumit, Vamsi and Akshay</button>
+      <button class="opt">Only Sumit</button>
+      <button class="opt">Nothing</button>
+    </div>
+    <div class="expl"><b>Only Akshay.</b> Each trip round the loop opens with "w", which erases the file. A real bug that loses data quietly. Fix: use "a", or open once before the loop.
+<div class="diag"><svg viewBox="0 0 640 152" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f11" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f11r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f11g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="140" y="18" text-anchor="middle" font-size="12" fill="#64748b">before</text><text x="500" y="18" text-anchor="middle" font-size="12" fill="#64748b">after</text><rect x="20" y="30" width="240" height="110" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="30" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">paid.txt</text><line x1="20" y1="55" x2="260" y2="55" stroke="#94a3b8" stroke-width="1"/><text x="30" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Sumit</text><text x="30" y="93" font-size="13" font-family="Menlo,monospace" fill="#0f172a">(erased)</text><text x="30" y="113" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Vamsi</text><text x="30" y="133" font-size="13" font-family="Menlo,monospace" fill="#0f172a">(erased)</text><rect x="380" y="30" width="240" height="50" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="390" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">paid.txt</text><line x1="380" y1="55" x2="620" y2="55" stroke="#10b981" stroke-width="1"/><text x="390" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Akshay</text><line x1="268" y1="85.0" x2="372" y2="85.0" stroke="#64748b" stroke-width="2" marker-end="url(#f11)"/><text x="320" y="75.0" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">each "w" erases</text></svg><div class="cap">Three writes, one survivor.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Why close a file?" data-tag="Closing">
+  <h2>Why close a file at all?</h2>
+  <ul class="b"><li>An open file is a live link between your program and the operating system. <code>close()</code> ends it.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>The file is still open when we read it back. What does the first print show?</div></div>
+  <pre class="py" data-file="why_close.py" data-hl="4" data-wide>file = open("receipt.txt", "w")
+file.write("Paid 100 to Akshay")
+print("[" + open("receipt.txt").read() + "]")
+file.close()
+print("[" + open("receipt.txt").read() + "]")</pre>
+  <div class="vote">
+    <div class="vopt">[Paid 100 to Akshay]</div>
+    <div class="vopt" data-win>[]: nothing yet</div>
+    <div class="vopt">An error: the file is busy</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">[]
+[Paid 100 to Akshay]</div>
+    <ul class="b">
+      <li>Writing to storage is slow, so Python collects your writes in RAM first. <code>close()</code> sends them to storage.</li>
+      <li>An open file can stay locked: on Windows, Excel or another program cannot change or delete it.</li>
+      <li>A program may keep only a limited number of files open. Thousands left open: <code>OSError: [Errno 24] Too many open files</code>.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 116" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f12" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f12r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f12g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="12" y="40" width="150" height="44" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="87" y="66.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">file.write(...)</text><rect x="232" y="40" width="176" height="44" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="320" y="66.5" text-anchor="middle" font-size="14" fill="#0f172a">a buffer in RAM</text><rect x="478" y="40" width="150" height="44" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="553" y="66.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">receipt.txt</text><line x1="166" y1="62" x2="228" y2="62" stroke="#64748b" stroke-width="2" marker-end="url(#f12)"/><line x1="412" y1="62" x2="474" y2="62" stroke="#64748b" stroke-width="2" marker-end="url(#f12)"/><text x="197" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">goes here first</text><text x="443" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">close()</text><text x="320" y="104" text-anchor="middle" font-size="12" fill="#b91c1c">waiting: lost if the program crashes</text><text x="553" y="104" text-anchor="middle" font-size="12" fill="#047857">safe in storage</text></svg><div class="cap">A write is not safe until the file is closed.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="with" data-tag="Closing">
+  <h2><code>with</code>: the file closes itself</h2>
+  <ul class="b"><li>Forgetting <code>close()</code> is so common that Python has a helper who always puts the passbook back.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>No close() anywhere. What does the last line print?</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="with.py" data-wide>with open("passbook.txt", "r") as file:
+    contents = file.read()
+    print(contents)
+
+print("Is the file closed now?", file.closed)</pre>
+  <div class="vote">
+    <div class="vopt">Is the file closed now? False</div>
+    <div class="vopt">NameError: file is gone after the block</div>
+    <div class="vopt" data-win>Is the file closed now? True</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Paid 600 to Sumit
+Paid 250 to Vamsi
+
+Is the file closed now? True</div>
+    <ul class="b">
+      <li><code>with</code> closed the file when the indented block ended.</li>
+      <li>It closes it even if an error happens inside the block.</li>
+      <li>From now on, every file is opened with <code>with</code>.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 420 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="203" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="117.5" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">with open(...) as file:</text><text x="233" y="30" text-anchor="start" font-size="13" fill="#334155">opens</text><rect x="16" y="50" width="203" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="117.5" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">    the block runs</text><text x="233" y="72" text-anchor="start" font-size="13" fill="#334155">even if it fails</text><rect x="16" y="92" width="203" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="117.5" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">the block ends</text><text x="233" y="114" text-anchor="start" font-size="13" fill="#047857">Python closes the file</text></svg><div class="cap">No close() to forget.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Closing, quick check" data-tag="Closing">
+  <h2>Closing: quick check</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">Which line closes the file?</div>
+    <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+    <pre class="py" data-file="x.py" data-nocopy>with open("passbook.txt") as file:
+    text = file.read()
+print(len(text))</pre>
+    <div class="opts">
+      <button class="opt">Line 1</button>
+      <button class="opt">Line 2</button>
+      <button class="opt">Line 3</button>
+      <button class="opt" data-ok>No line: it closes when the block ends, after line 2</button>
+    </div>
+    <div class="expl"><b>The end of the block.</b> There is no close() to write. When the indented lines finish, the file is closed.
+<div class="diag"><svg viewBox="0 0 420 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="180" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="106" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">line 2: still inside</text><text x="210" y="30" text-anchor="start" font-size="13" fill="#334155">the file is open</text><rect x="16" y="50" width="180" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="106" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">line 3: outside</text><text x="210" y="72" text-anchor="start" font-size="13" fill="#047857">the file is closed</text></svg><div class="cap">Indented: open. Back at the margin: closed.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">The read moved outside the block. What happens?</div>
+    <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+    <pre class="py" data-file="x.py" data-nocopy>with open("passbook.txt") as file:
+    pass
+
+print(file.read())</pre>
+    <div class="opts">
+      <button class="opt">The two payments print</button>
+      <button class="opt">An empty line prints</button>
+      <button class="opt" data-ok>ValueError: I/O operation on closed file.</button>
+      <button class="opt">NameError: file is not defined</button>
+    </div>
+    <div class="expl"><b>ValueError.</b> The block ended at <code>pass</code>, so the file is already closed. Do the reading inside the block.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f13" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f13r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f13g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="89" y="12" width="156" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="167" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">with ... as file:</text><line x1="248" y1="32.0" x2="268" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f13)"/><rect x="271" y="12" width="146" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="344" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">block ends: closed</text><line x1="420" y1="32.0" x2="440" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f13)"/><rect x="443" y="12" width="108" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="497" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">file.read()</text></svg><div class="cap">Read inside the block.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">Two separate with blocks read the same file. What prints?</div>
+    <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+    <pre class="py" data-file="x.py" data-nocopy>with open("passbook.txt") as file:
+    first = file.read()
+
+with open("passbook.txt") as file:
+    second = file.read()
+
+print(first == second)</pre>
+    <div class="opts">
+      <button class="opt" data-ok>True</button>
+      <button class="opt">False: the second read gets an empty string</button>
+      <button class="opt">An error: a file cannot be opened twice</button>
+      <button class="opt">None</button>
+    </div>
+    <div class="expl"><b>True.</b> Every <code>open()</code> gives a new file object, with its bookmark back at the start. The empty second read happened only on the same open file.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f14r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f14g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="65" y="12" width="180" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="155" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">open: bookmark at start</text><line x1="248" y1="32.0" x2="268" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f14)"/><rect x="271" y="12" width="77" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="309.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">read all</text><line x1="351" y1="32.0" x2="371" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f14)"/><rect x="374" y="12" width="201" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="474.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">open again: at start again</text></svg><div class="cap">A new open, a new bookmark.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Line by line" data-tag="Lines">
+  <h2>Reading line by line</h2>
+  <ul class="b"><li>Often you want one line at a time: one payment, one log entry. A file object can be looped over.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>Predict exactly what prints, gaps included.</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="line_by_line.py">with open("passbook.txt", "r") as file:
+    for line in file:
+        print(line)</pre>
+  <div class="vote">
+    <div class="vopt">Two lines, no gaps</div>
+    <div class="vopt" data-win>A blank line after each payment</div>
+    <div class="vopt">One line: the whole file</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Paid 600 to Sumit
+
+Paid 250 to Vamsi
+
+</div>
+    <ul class="b">
+      <li>Each line keeps its own <code>\n</code>, and print adds another.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 108" xmlns="http://www.w3.org/2000/svg"><text x="320" y="16" text-anchor="middle" font-size="12" fill="#64748b">the file in storage: one string</text><rect x="60" y="26" width="154" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="137" y="47.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><rect x="217" y="26" width="35" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="234.5" y="47.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\n</text><rect x="255" y="26" width="154" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="332" y="47.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi</text><rect x="412" y="26" width="35" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="429.5" y="47.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\n</text><line x1="246" y1="66" x2="246" y2="80" stroke="#ef4444" stroke-width="2"/><text x="150" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#b91c1c">loop pass 1</text><text x="430" y="96" text-anchor="middle" font-size="12" font-weight="700" fill="#b91c1c">loop pass 2</text><line x1="62" y1="80" x2="244" y2="80" stroke="#ef4444" stroke-width="2"/><line x1="249" y1="80" x2="560" y2="80" stroke="#ef4444" stroke-width="2"/></svg><div class="cap">The loop cuts the file after each \n. Each piece keeps its \n.</div></div>
+  </div>
+  <div data-brk><div class="diag"><svg viewBox="0 0 640 178" xmlns="http://www.w3.org/2000/svg"><text x="14" y="32" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a">line holds</text><rect x="150" y="10" width="154" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="227" y="31.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><rect x="307" y="10" width="35" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="324.5" y="31.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\n</text><text x="14" y="76" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a">print adds</text><rect x="150" y="54" width="154" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="227" y="75.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><rect x="307" y="54" width="35" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="324.5" y="75.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\n</text><rect x="345" y="54" width="35" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="362.5" y="75.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\n</text><text x="393" y="76" text-anchor="start" font-size="12" fill="#64748b">one more \n</text><text x="14" y="120" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a">screen shows</text><rect x="150" y="98" width="154" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="227" y="119.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><text x="14" y="158" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a"></text><rect x="150" y="136" width="114" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="207" y="157.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">(blank line)</text></svg><div class="cap">Two newlines in a row: the text, then an empty line.</div></div></div>
+  <div class="ask"><span class="ic">✋</span><div>Now strip each line first. What prints?</div></div>
+  <pre class="py" data-file="line_by_line.py">with open("passbook.txt", "r") as file:
+    for line in file:
+        print(line.strip())</pre>
+  <div class="vote">
+    <div class="vopt">The same, with gaps</div>
+    <div class="vopt" data-win>Two lines, no gaps</div>
+    <div class="vopt">Nothing: strip removes the text</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Paid 600 to Sumit
+Paid 250 to Vamsi
+</div>
+    <ul class="b">
+      <li><code>strip()</code> from Class 7 removes the <code>\n</code> at the end of each line.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 98" xmlns="http://www.w3.org/2000/svg"><text x="14" y="32" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a">line.strip()</text><rect x="150" y="10" width="154" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="227" y="31.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><text x="317" y="32" text-anchor="start" font-size="12" fill="#64748b">the \n is gone</text><text x="14" y="76" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a">print adds</text><rect x="150" y="54" width="154" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="227" y="75.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit</text><rect x="307" y="54" width="35" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="324.5" y="75.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\n</text><text x="355" y="76" text-anchor="start" font-size="12" fill="#64748b">just one</text></svg><div class="cap">Strip first, then print: one line each, no gaps.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Lines become data" data-tag="Lines">
+  <h2>Lines become data: total the passbook</h2>
+  <ul class="b"><li>A line is a string. Split it, and the amount is yours.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>What prints?</div></div>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" id="c14-total" data-file="line_by_line.py" data-wide>total = 0
+with open("passbook.txt") as file:
+    for line in file:
+        words = line.split()
+        total += int(words[1])
+print("Total spent:", total)</pre>
+  <div class="vote">
+    <div class="vopt" data-win>Total spent: 850</div>
+    <div class="vopt">Total spent: 600250</div>
+    <div class="vopt">TypeError</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Total spent: 850</div>
+    <div class="diag"><svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg"><text x="32.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b"></text><text x="150.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b">line</text><text x="353.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b">line.split()</text><text x="555.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b">total</text><rect x="2" y="28" width="60" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="32" y="49.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">start</text><rect x="66" y="28" width="168" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="150" y="49.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a"></text><rect x="238" y="28" width="230" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="353" y="49.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a"></text><rect x="472" y="28" width="166" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="555" y="49.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">total = 0</text><rect x="2" y="68" width="60" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="32" y="89.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">trip 1</text><rect x="66" y="68" width="168" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="150" y="89.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Paid 600 to Sumit\n</text><rect x="238" y="68" width="230" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="353" y="89.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">['Paid', '600', 'to', 'Sumit']</text><rect x="472" y="68" width="166" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="555" y="89.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">0 + int('600') = 600</text><rect x="2" y="108" width="60" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="32" y="129.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">trip 2</text><rect x="66" y="108" width="168" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="150" y="129.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Paid 250 to Vamsi\n</text><rect x="238" y="108" width="230" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="353" y="129.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">['Paid', '250', 'to', 'Vamsi']</text><rect x="472" y="108" width="166" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="555" y="129.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">600 + int('250') = 850</text></svg><div class="cap">words[1] is the amount, as text. int() turns it into a number.</div></div>
+    <ul class="b"><li>Everything read from a file is text. <code>int()</code> turns the amount into a number.</li><li>Splitting lines by hand works for simple lines. For rows with columns there is a standard format, coming up: CSV.</li></ul>
+  </div>
+</section>
+
+<section class="step" data-nav="Files, quick check" data-tag="Lines">
+  <h2>Files: quick check</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">Each payment must be added to a history file, and the old ones kept. Which mode?</div>
+    
+    <div class="opts">
+      <button class="opt" data-ok><code>"a"</code></button>
+      <button class="opt"><code>"w"</code></button>
+      <button class="opt"><code>"x"</code></button>
+      <button class="opt"><code>"r"</code></button>
+    </div>
+    <div class="expl"><b>"a".</b> It keeps what is there and adds at the end. "w" would erase the history every time.
+<div class="diag"><svg viewBox="0 0 420 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="176" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="104" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"a"</text><text x="206" y="30" text-anchor="start" font-size="13" fill="#047857">adds at the end</text><rect x="16" y="50" width="176" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="104" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"w"</text><text x="206" y="72" text-anchor="start" font-size="13" fill="#b91c1c">erases first</text><rect x="16" y="92" width="176" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="104" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"x"</text><text x="206" y="114" text-anchor="start" font-size="13" fill="#b91c1c">fails if the file exists</text></svg><div class="cap">History grows: append.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What does <code>with open(...) as file:</code> promise?</div>
+    
+    <div class="opts">
+      <button class="opt">The file is saved twice</button>
+      <button class="opt" data-ok>The file closes when the block ends, even after an error</button>
+      <button class="opt">The file can never be erased</button>
+      <button class="opt">The file opens faster</button>
+    </div>
+    <div class="expl"><b>It closes.</b> Always, even when an error stops the block. That is why it is the standard way.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f15r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f15g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="148" y="12" width="49" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="172.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">open</text><line x1="200" y1="32.0" x2="220" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f15)"/><rect x="223" y="12" width="180" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="313" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">the block runs or fails</text><line x1="406" y1="32.0" x2="426" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f15)"/><rect x="429" y="12" width="63" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="460.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">closed</text></svg><div class="cap">Closing is not your job any more.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">The passbook has two lines. What prints?</div>
+    <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+    <pre class="py" data-file="x.py" data-nocopy>with open("passbook.txt") as file:
+    text = file.read()
+    count = 0
+    for line in file:
+        count += 1
+print(count)</pre>
+    <div class="opts">
+      <button class="opt">2</button>
+      <button class="opt">36</button>
+      <button class="opt">An error</button>
+      <button class="opt" data-ok>0</button>
+    </div>
+    <div class="expl"><b>0.</b> <code>read()</code> took everything and left the bookmark at the end. The loop finds no lines left.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f16" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f16r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f16g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="33" y="12" width="208" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="137" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">read(): bookmark at the end</text><line x1="244" y1="32.0" x2="264" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f16)"/><rect x="267" y="12" width="148" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="341" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">for line in file</text><line x1="418" y1="32.0" x2="438" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f16)"/><rect x="441" y="12" width="166" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="524" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">nothing left: 0 trips</text></svg><div class="cap">One open file, one bookmark.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Recap">
+  <h2>Recap</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Two minutes. Three points you would tell a friend who missed today. <span class="timer" data-sec="120"></span></div></div>
+  <button class="rv" data-reveal="next">Compare</button>
+  <div class="reveal">
+    <ul class="b"><li><b>Memory forgets, storage remembers.</b> Variables live in RAM; a file lives in storage and outlives the program.</li><li><b>The working folder</b> is where a bare file name is looked up: the folder you started the program from.</li><li><code>open()</code> gives a file object. <code>.read()</code> gives one string, and the bookmark only moves forward.</li><li><b>Modes:</b> "r" read, "w" erase and write, "a" add at the end, "x" create only.</li><li><b>Close the file</b>, or let <code>with</code> do it. Writes are not safe until then.</li><li><b>Line by line:</b> each line keeps its <code>\n</code>; <code>strip()</code> it, <code>split()</code> it, <code>int()</code> the numbers.</li></ul>
+  </div>
+  <div class="take">Next class: what to do when a file is missing (try and except), CSV files, and modules.</div>
+  <p>Practice: <code>PRACTICE.md</code>.</p>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
