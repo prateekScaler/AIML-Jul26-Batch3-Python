@@ -24,7 +24,7 @@ You come to this module from GenAI Foundations 1 and 2, where you prompted LLMs,
 | 13 | OOP in Practice, and Regular Expressions | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-13-OOP-Practice-And-Regex/) · [notes and code](Class-13-OOP-Practice-And-Regex/README.md) · [practice](Class-13-OOP-Practice-And-Regex/PRACTICE.md) | **v13** classes finished; a UPI ID and a PAN checked by pattern, a bank SMS read with groups |
 | 14 | Revision: OOP and Regex in Practice | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-14-Revision-OOP-And-Regex/) · [notes and code](Class-14-Revision-OOP-And-Regex/README.md) | no new version: classes, class and instance variables, encapsulation, which tool for which job |
 | 15 | File Handling | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-15-File-Handling/) · [notes and code](Class-15-File-Handling/README.md) · [practice](Class-15-File-Handling/PRACTICE.md) | no new version yet: memory and storage, the working folder, open and read, the four modes, with, line by line |
-| 16 | Exceptions, CSV and Modules | coming up | **v16** remembers its balance and every payment in files; the checks move into a module |
+| 16 | Exceptions, CSV and Modules | [Open the class page](https://prateekscaler.github.io/AIML-Jul26-Batch3-Python/Class-16-Exceptions-CSV-And-Modules/) · [notes and code](Class-16-Exceptions-CSV-And-Modules/README.md) · [practice](Class-16-Exceptions-CSV-And-Modules/PRACTICE.md) | **v16** remembers its balance and every payment in files; the checks move into a module |
 
 ## What is in every class folder
 

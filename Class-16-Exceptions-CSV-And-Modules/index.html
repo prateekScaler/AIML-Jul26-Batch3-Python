@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Class 16 · Exceptions, CSV and Modules</title>
+<link rel="stylesheet" href="../assets/lesson.css">
+</head>
+<body data-key="aiml3-py-c16" data-class="Class 16" data-title="Exceptions, CSV and Modules" data-course="Python · AIML Jul26 Batch 3" data-date="2026-11-16">
+
+<div class="cover" id="cover">
+  <h1><small>Class 16</small>Exceptions, CSV and Modules</h1>
+  <div class="by">Prateek Vijay</div>
+</div>
+
+<main class="main"><div class="wrap">
+
+<section class="step" data-nav="Last class, in three questions" data-tag="Lines">
+  <h2>Last class, in three questions</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">Each payment must be added to a history file, and the old ones kept. Which mode?</div>
+    
+    <div class="opts">
+      <button class="opt" data-ok><code>"a"</code></button>
+      <button class="opt"><code>"w"</code></button>
+      <button class="opt"><code>"x"</code></button>
+      <button class="opt"><code>"r"</code></button>
+    </div>
+    <div class="expl"><b>"a".</b> It keeps what is there and adds at the end. "w" would erase the history every time.
+<div class="diag"><svg viewBox="0 0 420 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="176" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="104" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"a"</text><text x="206" y="30" text-anchor="start" font-size="13" fill="#047857">adds at the end</text><rect x="16" y="50" width="176" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="104" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"w"</text><text x="206" y="72" text-anchor="start" font-size="13" fill="#b91c1c">erases first</text><rect x="16" y="92" width="176" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="104" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"x"</text><text x="206" y="114" text-anchor="start" font-size="13" fill="#b91c1c">fails if the file exists</text></svg><div class="cap">History grows: append.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What does <code>with open(...) as file:</code> promise?</div>
+    
+    <div class="opts">
+      <button class="opt">The file is saved twice</button>
+      <button class="opt" data-ok>The file closes when the block ends, even after an error</button>
+      <button class="opt">The file can never be erased</button>
+      <button class="opt">The file opens faster</button>
+    </div>
+    <div class="expl"><b>It closes.</b> Always, even when an error stops the block. That is why it is the standard way.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f15" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f15r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f15g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="148" y="12" width="49" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="172.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">open</text><line x1="200" y1="32.0" x2="220" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f15)"/><rect x="223" y="12" width="180" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="313" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">the block runs or fails</text><line x1="406" y1="32.0" x2="426" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f15)"/><rect x="429" y="12" width="63" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="460.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">closed</text></svg><div class="cap">Closing is not your job any more.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">The passbook has two lines. What prints?</div>
+    <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+    <pre class="py" data-file="x.py" data-nocopy>with open("passbook.txt") as file:
+    text = file.read()
+    count = 0
+    for line in file:
+        count += 1
+print(count)</pre>
+    <div class="opts">
+      <button class="opt">2</button>
+      <button class="opt">36</button>
+      <button class="opt">An error</button>
+      <button class="opt" data-ok>0</button>
+    </div>
+    <div class="expl"><b>0.</b> <code>read()</code> took everything and left the bookmark at the end. The loop finds no lines left.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f16" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f16r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f16g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="33" y="12" width="208" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="137" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">read(): bookmark at the end</text><line x1="244" y1="32.0" x2="264" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f16)"/><rect x="267" y="12" width="148" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="341" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">for line in file</text><line x1="418" y1="32.0" x2="438" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f16)"/><rect x="441" y="12" width="166" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="524" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">nothing left: 0 trips</text></svg><div class="cap">One open file, one bookmark.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Errors you already know" data-tag="Errors">
+  <h2>You have met these errors before</h2>
+  <div class="ask"><span class="ic">🎤</span><div>Each line crashes the program. Name the error before you click.</div></div>
+  <table class="tbl" data-cells>
+    <tr><th>This line</th><th>You met it in</th><th>The error</th></tr>
+    <tr><td><code>int("abc")</code></td><td>input, Class 1</td><td><code>ValueError</code></td></tr>
+    <tr><td><code>1200 / 0</code></td><td>operators, Class 2</td><td><code>ZeroDivisionError</code></td></tr>
+    <tr><td><code>"500" + 100</code></td><td>types, Class 2</td><td><code>TypeError</code></td></tr>
+    <tr><td><code>marks[5]</code> <span style="color:#64748b">(marks = [72, 85, 90])</span></td><td>lists, Class 6</td><td><code>IndexError</code></td></tr>
+    <tr><td><code>contacts["vamsi@oksbi"]</code> <span style="color:#64748b">(contacts = {"sumit@ybl": "Sumit"})</span></td><td>dictionaries, Class 8</td><td><code>KeyError</code></td></tr>
+    <tr><td><code>open("missing.txt")</code></td><td>files, last class</td><td><code>FileNotFoundError</code></td></tr>
+  </table>
+  <ul class="b" data-brk><li>Every crash has a name. Python calls these errors <b>exceptions</b>.</li><li>So far, an exception stopped the program. Today the program gets a plan B.</li></ul>
+</section>
+
+<section class="step" data-nav="try / except" data-tag="Errors">
+  <h2><code>try</code> / <code>except</code>: catch an error, keep going</h2>
+  <ul class="b"><li>Class 2's bill split. With <code>people = 0</code>, the line <code>bill / people</code> crashes: <code>ZeroDivisionError: division by zero</code>.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>Now the risky line sits inside try. What prints?</div></div>
+  <pre class="py" data-file="try_except.py" data-hl="4,7" data-wide>bill = 1200
+people = 0
+
+try:
+    share = bill / people
+    print("Each pays", share)
+except ZeroDivisionError:
+    print("Nobody to split with.")</pre>
+  <div class="vote">
+    <div class="vopt">Each pays 0</div>
+    <div class="vopt">ZeroDivisionError: the program crashes</div>
+    <div class="vopt" data-win>Nobody to split with.</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Nobody to split with.</div>
+    <ul class="b">
+      <li>The division failed, so Python jumped to the except part. No crash.</li>
+      <li><code>print("Each pays", share)</code> never ran: the error skipped it.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="219" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="125.5" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">try:</text><text x="249" y="30" text-anchor="start" font-size="13" fill="#334155">run the risky part</text><rect x="16" y="50" width="219" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="125.5" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">share = bill / people</text><text x="249" y="72" text-anchor="start" font-size="13" fill="#b91c1c">it fails here</text><rect x="16" y="92" width="219" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="125.5" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except ZeroDivisionError:</text><text x="249" y="114" text-anchor="start" font-size="13" fill="#047857">your plan B runs</text><rect x="16" y="134" width="219" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="125.5" y="155.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">the program goes on</text><text x="249" y="156" text-anchor="start" font-size="13" fill="#047857">no crash</text></svg><div class="cap">Catch what you expect, and have a plan for it.</div></div>
+  </div>
+  <div class="anat" data-brk>
+    <div class="a"><code>try:</code><div class="m">try this risky part. It may fail</div></div>
+    <div class="a"><code>except</code><div class="m">"except if this happens". An <b>exception</b> is an error that happens while the program runs: something outside the normal path</div></div>
+    <div class="a"><code>ZeroDivisionError</code><div class="m">which exception to catch. Only this one; others still crash</div></div>
+    <div class="a"><code>the indented lines</code><div class="m">plan B: they run only when that exception happens</div></div>
+  </div>
+  <ul class="b"><li>Read it aloud: "try to split the bill, <b>except</b> if it is a division by zero, then print a message." Java and JavaScript use the word <code>catch</code> for the same idea.</li></ul>
+</section>
+
+<section class="step" data-nav="Easy practice" data-tag="Errors">
+  <h2>try / except: practise on errors you know</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">A list of three marks. What prints?</div>
+    <pre class="py" data-file="x.py" data-nocopy>marks = [72, 85, 90]
+
+try:
+    print(marks[5])
+except IndexError:
+    print("No such position.")</pre>
+    <div class="opts">
+      <button class="opt">90</button>
+      <button class="opt" data-ok>No such position.</button>
+      <button class="opt">IndexError: the program crashes</button>
+      <button class="opt">None</button>
+    </div>
+    <div class="expl"><b>No such position.</b> <code>marks[5]</code> raises IndexError, as in Class 6. This time an except is waiting for it.
+<div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">marks[5]</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#b91c1c">IndexError: only 0, 1, 2 exist</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except IndexError:</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#047857">No such position.</text></svg><div class="cap">The error is caught by its name.</div></div></div>
+  </div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">A dictionary lookup with a key that is not there. What prints?</div>
+    <pre class="py" data-file="x.py" data-nocopy>contacts = {"sumit@ybl": "Sumit"}
+
+try:
+    print(contacts["vamsi@oksbi"])
+except KeyError:
+    print("Not in your contacts.")
+print("Done")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>Not in your contacts. then Done</button>
+      <button class="opt">Only Not in your contacts.</button>
+      <button class="opt">KeyError, and Done never prints</button>
+      <button class="opt">None then Done</button>
+    </div>
+    <div class="expl"><b>Both lines.</b> The KeyError is caught, the message prints, and the program carries on to <code>print("Done")</code>.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="k269x1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="k269x1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="k269x1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="25" y="12" width="203" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="126.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">contacts["vamsi@oksbi"]</text><line x1="231" y1="32.0" x2="251" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k269x1)"/><rect x="254" y="12" width="211" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="359.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except KeyError: message</text><line x1="468" y1="32.0" x2="488" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k269x1)"/><rect x="491" y="12" width="124" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="553" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">print("Done")</text></svg><div class="cap">After the except, the program continues.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Text plus a number, from Class 2. What happens?</div>
+    <pre class="py" data-file="x.py" data-nocopy>try:
+    total = "500" + 100
+    print(total)
+except ValueError:
+    print("Bad amount.")</pre>
+    <div class="opts">
+      <button class="opt">Bad amount.</button>
+      <button class="opt">600</button>
+      <button class="opt">500100</button>
+      <button class="opt" data-ok>TypeError: can only concatenate str (not "int") to str</button>
+    </div>
+    <div class="expl"><b>A crash.</b> <code>"500" + 100</code> is a TypeError. This except only waits for a ValueError, so nothing catches it. The name must match.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="k269x2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="k269x2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="k269x2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="52" y="12" width="195" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="149.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"500" + 100: TypeError</text><line x1="250" y1="32.0" x2="270" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k269x2)"/><rect x="273" y="12" width="164" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="355" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except ValueError?</text><line x1="440" y1="32.0" x2="460" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k269x2)"/><rect x="463" y="12" width="125" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="525.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">no match: crash</text></svg><div class="cap">An except catches only the error it names.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Several excepts" data-tag="Errors">
+  <h2>More than one <code>except</code></h2>
+  <ul class="b"><li>Two different things can go wrong in the bill split. Each gets its own plan B.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>Three calls. What does each one print?</div></div>
+  <pre class="py" data-file="try_except.py" data-hl="5-8" data-wide>def split(bill, people_text):
+    try:
+        people = int(people_text)
+        return bill / people
+    except ValueError:
+        return "Please type a number."
+    except ZeroDivisionError:
+        return "Nobody to split with."
+
+print(split(1200, "4"))
+print(split(1200, "four"))
+print(split(1200, "0"))</pre>
+  <div class="vote">
+    <div class="vopt" data-win>300.0, then Please type a number., then Nobody to split with.</div>
+    <div class="vopt">300.0, then Please type a number. twice</div>
+    <div class="vopt">300.0, then a crash on "four"</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">300.0
+Please type a number.
+Nobody to split with.</div>
+    <ul class="b">
+      <li><code>int("four")</code> is a ValueError. <code>1200 / 0</code> is a ZeroDivisionError. Each error finds the except with its own name.</li>
+      <li>No error at all: both excepts are skipped, and 300.0 comes back.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">split(1200, "4")</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#047857">no error: 300.0</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">split(1200, "four")</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#b91c1c">ValueError: first except</text><rect x="16" y="92" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">split(1200, "0")</text><text x="260" y="114" text-anchor="start" font-size="13" fill="#b91c1c">ZeroDivisionError: second except</text></svg><div class="cap">Each error gets its own answer.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Errors, more practice" data-tag="Errors">
+  <h2>try / except: more practice</h2>
+  <ul class="b"><li>Not only files fail. Text that is not a number breaks <code>int()</code> with a <b>ValueError</b>.</li></ul>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">A user types abc as the amount. What prints?</div>
+    <pre class="py" data-file="x.py" data-nocopy>try:
+    amount = int("abc")
+    print("Amount:", amount)
+except ValueError:
+    print("Please type a number.")</pre>
+    <div class="opts">
+      <button class="opt">Amount: abc</button>
+      <button class="opt" data-ok>Please type a number.</button>
+      <button class="opt">ValueError: the program crashes</button>
+      <button class="opt">Amount: 0</button>
+    </div>
+    <div class="expl"><b>Please type a number.</b> <code>int("abc")</code> raises ValueError. The except catches it, so the app answers politely and keeps running.
+<div class="diag"><svg viewBox="0 0 640 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">int("abc")</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#b91c1c">ValueError: jump</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">print("Amount:", amount)</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#334155">skipped</text><rect x="16" y="92" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except ValueError:</text><text x="260" y="114" text-anchor="start" font-size="13" fill="#047857">Please type a number.</text></svg><div class="cap">Plan B for bad input.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">passbook.txt exists. Which letter prints?</div>
+    <pre class="py" data-file="x.py" data-nocopy>try:
+    amount = int("12a")
+    file = open("passbook.txt")
+except FileNotFoundError:
+    print("A")
+except ValueError:
+    print("B")</pre>
+    <div class="opts">
+      <button class="opt">A: the first except always runs</button>
+      <button class="opt">A, then B</button>
+      <button class="opt">Nothing prints</button>
+      <button class="opt" data-ok>B: the error is a ValueError, so that except matches</button>
+    </div>
+    <div class="expl"><b>B.</b> Python picks the except by the <b>kind</b> of error, not by position. <code>int("12a")</code> is a ValueError, so the FileNotFoundError part is passed over. The open line never runs.
+<div class="diag"><svg viewBox="0 0 640 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">int("12a")</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#b91c1c">raises ValueError</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except FileNotFoundError:</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#334155">not this kind: passed over</text><rect x="16" y="92" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except ValueError:</text><text x="260" y="114" text-anchor="start" font-size="13" fill="#047857">a match: B</text></svg><div class="cap">The error looks for its own name.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">What prints, in order?</div>
+    <pre class="py" data-file="x.py" data-nocopy>try:
+    print("1")
+    x = int("ten")
+    print("2")
+except ValueError:
+    print("3")
+print("4")</pre>
+    <div class="opts">
+      <button class="opt" data-ok>1, 3, 4</button>
+      <button class="opt">1, 2, 3, 4</button>
+      <button class="opt">3, 4</button>
+      <button class="opt">1, 2, 4</button>
+    </div>
+    <div class="expl"><b>1, 3, 4.</b> 1 prints before the error. The error skips 2 and jumps to except, which prints 3. Then the program carries on: 4.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="k44x1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="k44x1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="k44x1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="100" y="12" width="29" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="114.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">1</text><line x1="132" y1="32.0" x2="152" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k44x1)"/><rect x="155" y="12" width="156" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="233" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">int("ten"): error</text><line x1="314" y1="32.0" x2="334" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k44x1)"/><rect x="337" y="12" width="93" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="383.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">2 skipped</text><line x1="433" y1="32.0" x2="453" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k44x1)"/><rect x="456" y="12" width="29" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="470.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">3</text><line x1="488" y1="32.0" x2="508" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k44x1)"/><rect x="511" y="12" width="29" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="525.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">4</text></svg><div class="cap">Before the error, the except, then onward.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Real world: Ariane 5">
+  <h2>An error nobody caught: Ariane 5, 1996</h2>
+  <div class="case"><div class="tag">Real incident · 1996</div><h4>Ariane 5, flight 501, 4 June 1996</h4><ul><li>About 37 seconds after launch, a 64-bit number was converted to a 16-bit integer. It did not fit.</li><li>Only four of seven such conversions were protected. This one was not, and the guidance computer stopped.</li><li>The rocket broke up. The loss was more than US$370 million.</li></ul><div class="lesson">Before you write try, ask two questions: what can fail here, and what should happen then?</div><div class="src">Read: <a href="https://www.esa.int/Newsroom/Press_Releases/Ariane_501_-_Presentation_of_Inquiry_Board_report" target="_blank">ESA: Inquiry Board report</a> · <a href="https://en.wikipedia.org/wiki/Ariane_flight_V88" target="_blank">Wikipedia: Ariane flight V88</a></div></div>
+  <div class="diag" data-brk><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f14r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f14g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="34" y="12" width="125" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="96.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">a 64-bit number</text><line x1="162" y1="32.0" x2="182" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f14)"/><rect x="186" y="12" width="104" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="238" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">into 16 bits</text><line x1="292" y1="32.0" x2="312" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f14)"/><rect x="316" y="12" width="146" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="389" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">error, not handled</text><line x1="464" y1="32.0" x2="484" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f14)"/><rect x="488" y="12" width="118" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="547" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">computer stops</text></svg><div class="cap">One unhandled error, one lost rocket.</div></div>
+</section>
+
+<section class="step" data-nav="What can go wrong?" data-tag="Errors">
+  <h2>What can go wrong with a file?</h2>
+  <ul class="b"><li>Files live outside your program. Things you do not control can break.</li></ul>
+  <div class="diag"><svg viewBox="0 0 640 106" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="12" width="148" height="82" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="84" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Missing</text><line x1="18" y1="40" x2="150" y2="40" stroke="#ef4444" stroke-width="1"/><text x="84" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">no such file</text><text x="84" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">FileNotFoundError</text><rect x="168" y="12" width="148" height="82" rx="8" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="242" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Not allowed</text><line x1="176" y1="40" x2="308" y2="40" stroke="#ef4444" stroke-width="1"/><text x="242" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">no permission</text><text x="242" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">PermissionError</text><rect x="325" y="12" width="148" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="399" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">A folder</text><line x1="333" y1="40" x2="465" y2="40" stroke="#f59e0b" stroke-width="1"/><text x="399" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">not a file</text><text x="399" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">IsADirectoryError</text><rect x="482" y="12" width="148" height="82" rx="8" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="556" y="32" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">Bad data</text><line x1="490" y1="40" x2="622" y2="40" stroke="#f59e0b" stroke-width="1"/><text x="556" y="60" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">"abc" as a number</text><text x="556" y="82" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">ValueError</text></svg></div>
+  <div class="ask"><span class="ic">🎤</span><div>Your program reads passbook.txt every morning. One day the file is not there. What should happen?</div></div>
+  <ul class="b" data-brk><li>A crash with a red error is the worst answer. Better: a clear message, or a fresh start.</li><li>The same <code>try</code> and <code>except</code> is the plan.</li></ul>
+</section>
+
+<section class="step" data-nav="try / except: a file" data-tag="Errors">
+  <h2>The same plan for a missing file</h2>
+  <div class="ask"><span class="ic">✋</span><div>Same try and except, a new error name. missing.txt does not exist. What happens?</div></div>
+  <pre class="py" data-file="try_except.py" data-wide>try:
+    with open("missing.txt", "r") as file:
+        print(file.read())
+except FileNotFoundError:
+    print("That file doesn't exist yet.")</pre>
+  <div class="vote">
+    <div class="vopt">The program crashes with FileNotFoundError</div>
+    <div class="vopt">Nothing prints</div>
+    <div class="vopt" data-win>That file doesn't exist yet.</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">That file doesn't exist yet.</div>
+    <ul class="b">
+      <li>Without try, the program stops with <code>FileNotFoundError</code>.</li>
+      <li>Name the error you expect. A bare <code>except:</code> also hides real bugs.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 420 178" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="219" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="125.5" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">try:</text><text x="249" y="30" text-anchor="start" font-size="13" fill="#334155">run the risky part</text><rect x="16" y="50" width="219" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="125.5" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">FileNotFoundError</text><text x="249" y="72" text-anchor="start" font-size="13" fill="#b91c1c">it fails here</text><rect x="16" y="92" width="219" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="125.5" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except FileNotFoundError:</text><text x="249" y="114" text-anchor="start" font-size="13" fill="#047857">your plan B runs</text><rect x="16" y="134" width="219" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="125.5" y="155.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">the program goes on</text><text x="249" y="156" text-anchor="start" font-size="13" fill="#047857">no crash</text></svg><div class="cap">Catch what you expect, and have a plan for it.</div></div>
+  </div>
+  <div class="ai"><b>🤖 AI moment</b> — ask which other errors can happen when reading a file, then test one yourself: pass a folder name and see that this except does not catch it.<div class="pr">"I am reading a text file in Python. Besides FileNotFoundError and PermissionError, what other exceptions can realistically happen here? Should I catch all of them, or let some crash the program?"</div></div>
+</section>
+
+<section class="step" data-nav="Errors, quick check" data-tag="Errors">
+  <h2>try / except with files: quick check</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">passbook.txt exists. What prints?</div>
+    <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+    <pre class="py" data-file="x.py" data-nocopy>try:
+    with open("passbook.txt") as file:
+        print("Read", len(file.read()), "characters")
+except FileNotFoundError:
+    print("No passbook yet.")</pre>
+    <div class="opts">
+      <button class="opt">No passbook yet.</button>
+      <button class="opt" data-ok>Read 36 characters</button>
+      <button class="opt">Both lines</button>
+      <button class="opt">Nothing</button>
+    </div>
+    <div class="expl"><b>Read 36 characters.</b> No error, so the except part is skipped completely.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="110" y="12" width="91" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="155.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">try: works</text><line x1="204" y1="32.0" x2="224" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="226" y="12" width="125" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="288.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">except: skipped</text><line x1="354" y1="32.0" x2="374" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f1)"/><rect x="378" y="12" width="153" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="454.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">the program goes on</text></svg><div class="cap">except runs only when its error happens.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">The file is missing. What prints?</div>
+    <pre class="py" data-file="x.py" data-nocopy>try:
+    file = open("missing.txt")
+    print("A")
+except FileNotFoundError:
+    print("B")
+print("C")</pre>
+    <div class="opts">
+      <button class="opt">A, B, C</button>
+      <button class="opt">A, C</button>
+      <button class="opt" data-ok>B, C</button>
+      <button class="opt">C</button>
+    </div>
+    <div class="expl"><b>B, then C.</b> The error happens on the open line, so <code>print("A")</code> never runs. Python jumps to except, then carries on after it.
+<div class="diag"><svg viewBox="0 0 640 178" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">file = open("missing.txt")</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#b91c1c">error here: jump</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">print("A")</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#334155">skipped</text><rect x="16" y="92" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">print("B")</text><text x="260" y="114" text-anchor="start" font-size="13" fill="#047857">the except part</text><rect x="16" y="134" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="155.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">print("C")</text><text x="260" y="156" text-anchor="start" font-size="13" fill="#047857">after try: runs</text></svg><div class="cap">An error jumps straight to except.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">The file is missing. What happens?</div>
+    <pre class="py" data-file="x.py" data-nocopy>try:
+    file = open("missing.txt")
+except ValueError:
+    print("Bad number")</pre>
+    <div class="opts">
+      <button class="opt">Bad number</button>
+      <button class="opt">Nothing prints, the program goes on</button>
+      <button class="opt">Both: Bad number, then a crash</button>
+      <button class="opt" data-ok>FileNotFoundError: the program crashes</button>
+    </div>
+    <div class="expl"><b>A crash.</b> This except only catches ValueError. A FileNotFoundError does not match, so it is not caught.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="80" y="12" width="139" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="149.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">FileNotFoundError</text><line x1="222" y1="32.0" x2="242" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f2)"/><rect x="245" y="12" width="164" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="327" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except ValueError?</text><line x1="412" y1="32.0" x2="432" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f2)"/><rect x="435" y="12" width="125" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="497.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">no match: crash</text></svg><div class="cap">Name the error you expect.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="CSV: a quick guess" data-tag="CSV">
+  <h2>Before we open one: what does CSV stand for?</h2>
+  <div class="ask"><span class="ic">🎤</span><div>Banks, Excel and Google Sheets all export .csv files. Take a guess.</div></div>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">CSV is short for:</div>
+    
+    <div class="opts">
+      <button class="opt">Common Spreadsheet Values</button>
+      <button class="opt">Character-Separated Variables</button>
+      <button class="opt" data-ok>Comma-Separated Values</button>
+      <button class="opt">Column Storage View</button>
+    </div>
+    <div class="expl"><b>Comma-Separated Values.</b> Each line is one row, and a comma separates the values in it. "Character-separated" is close: some files use a tab or a semicolon instead, but the name says comma.
+<div class="diag"><svg viewBox="0 0 640 76" xmlns="http://www.w3.org/2000/svg"><rect x="140" y="20" width="80" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="180" y="44.5" text-anchor="middle" font-size="16" font-family="Menlo,monospace" fill="#0f172a">Sumit</text><rect x="224" y="20" width="40" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="244" y="44.5" text-anchor="middle" font-size="16" font-family="Menlo,monospace" fill="#0f172a">,</text><rect x="268" y="20" width="60" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="298" y="44.5" text-anchor="middle" font-size="16" font-family="Menlo,monospace" fill="#0f172a">600</text><text x="346" y="46" text-anchor="start" font-size="13" font-weight="700" fill="#b45309">the comma separates the values</text></svg><div class="cap">C for Comma, S for Separated, V for Values.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="What a CSV is" data-tag="CSV">
+  <h2>CSV: a table, written as text</h2>
+  <ul class="b"><li>Our passbook lines are easy to read, but hard to split into parts. Banks and spreadsheets use <b>CSV</b>: comma-separated values.</li></ul>
+  <div class="diag"><svg viewBox="0 0 640 116" xmlns="http://www.w3.org/2000/svg"><rect x="60" y="20" width="160" height="30" fill="#e0e7ff" stroke="#6366f1" stroke-width="1"/><text x="140.0" y="40" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">payee</text><rect x="220" y="20" width="120" height="30" fill="#e0e7ff" stroke="#6366f1" stroke-width="1"/><text x="280.0" y="40" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">amount</text><rect x="60" y="50" width="160" height="30" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="140.0" y="70" text-anchor="middle" font-size="13" fill="#0f172a">Sumit</text><rect x="220" y="50" width="120" height="30" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="280.0" y="70" text-anchor="middle" font-size="13" fill="#0f172a">600</text><rect x="60" y="80" width="160" height="30" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="140.0" y="100" text-anchor="middle" font-size="13" fill="#0f172a">Vamsi</text><rect x="220" y="80" width="120" height="30" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="280.0" y="100" text-anchor="middle" font-size="13" fill="#0f172a">250</text><text x="200" y="14" text-anchor="middle" font-size="12" fill="#64748b">a spreadsheet shows a table</text><defs><marker id="f3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f3r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f3g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><line x1="350" y1="65" x2="384" y2="65" stroke="#64748b" stroke-width="2" marker-end="url(#f3)"/><rect x="392" y="20" width="200" height="90" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="402" y="38" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">payments.csv</text><line x1="392" y1="45" x2="592" y2="45" stroke="#10b981" stroke-width="1"/><text x="402" y="63" font-size="13" font-family="Menlo,monospace" fill="#0f172a">payee,amount</text><text x="402" y="83" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Sumit,600</text><text x="402" y="103" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Vamsi,250</text><text x="492" y="14" text-anchor="middle" font-size="12" fill="#64748b">the file is plain text</text></svg><div class="cap">One row per line. Commas separate the columns.</div></div>
+  <div class="ask"><span class="ic">✋</span><div>A name has a comma inside it. How many parts does split give?</div></div>
+  <pre class="py" data-file="csv_files.py">line = '"Sumit Kumar, Jr",600'
+print(len(line.split(",")))</pre>
+  <div class="vote">
+    <div class="vopt">2: the name and the amount</div>
+    <div class="vopt" data-win>3: the comma inside the name also splits</div>
+    <div class="vopt">An error</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">3</div>
+    <ul class="b">
+      <li>split cuts at every comma, even the one inside the name.</li>
+      <li>A CSV puts such a value in quotes. The <code>csv</code> module understands the quotes and gives 2 parts.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">line.split(",")</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#b91c1c">3 parts: wrong</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">csv.reader</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#047857">['Sumit Kumar, Jr', '600']</text></svg><div class="cap">Let the csv module do the splitting.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="CSV: csv.reader" data-tag="CSV">
+  <h2><code>csv.reader</code>: one list per row</h2>
+  <div class="ask"><span class="ic">✋</span><div>Predict what prints.</div></div>
+  <pre class="py" data-file="payments.csv" data-plain data-nocopy>payee,amount
+Sumit,600
+Vamsi,250</pre>
+  <pre class="py" data-file="csv_files.py">import csv
+
+with open("payments.csv", "r") as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)</pre>
+  <div class="vote">
+    <div class="vopt" data-win>Each row as a list of strings, header first</div>
+    <div class="vopt">Each row as one string</div>
+    <div class="vopt">Only the two payment rows</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">['payee', 'amount']
+['Sumit', '600']
+['Vamsi', '250']</div>
+    <ul class="b">
+      <li>One list per row. The header is just the first row.</li>
+      <li>Every value is a string: '600', not 600.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 420 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="176" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="104" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">payee,amount</text><text x="206" y="30" text-anchor="start" font-size="13" fill="#334155">['payee', 'amount']</text><rect x="16" y="50" width="176" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="104" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Sumit,600</text><text x="206" y="72" text-anchor="start" font-size="13" fill="#334155">['Sumit', '600']</text><rect x="16" y="92" width="176" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="104" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Vamsi,250</text><text x="206" y="114" text-anchor="start" font-size="13" fill="#334155">['Vamsi', '250']</text></svg><div class="cap">A CSV line becomes a list of strings.</div></div>
+  </div>
+
+  <div class="ask"><span class="ic">✋</span><div>The name with a comma, from before. This time csv.reader reads it. What is the second row?</div></div>
+  <pre class="py" data-file="tricky.csv" data-plain data-nocopy>payee,amount
+"Sumit Kumar, Jr",600</pre>
+  <pre class="py" data-file="csv_files.py">import csv
+
+with open("tricky.csv", "r") as file:
+    for row in csv.reader(file):
+        print(row)</pre>
+  <div class="vote">
+    <div class="vopt">['"Sumit Kumar', ' Jr"', '600']: three parts, like split</div>
+    <div class="vopt" data-win>['Sumit Kumar, Jr', '600']: two parts</div>
+    <div class="vopt">An error: a comma inside a value is not allowed</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">['payee', 'amount']
+['Sumit Kumar, Jr', '600']</div>
+    <ul class="b">
+      <li>Two parts. The comma inside the quotes stayed in the name, and the quotes themselves are gone.</li>
+      <li>That is why we use the csv module and do not split by hand.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 102" xmlns="http://www.w3.org/2000/svg"><text x="14" y="32" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a">split(",")</text><rect x="150" y="10" width="122" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="211" y="31.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">"Sumit Kumar</text><rect x="276" y="10" width="55" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="303.5" y="31.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a"> Jr"</text><rect x="335" y="10" width="47" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="358.5" y="31.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">600</text><text x="396" y="32" text-anchor="start" font-size="12" fill="#b91c1c">3 parts: the name is cut in two</text><text x="14" y="80" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a">csv.reader</text><rect x="150" y="58" width="148" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="224" y="79.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Sumit Kumar, Jr</text><rect x="302" y="58" width="47" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="325.5" y="79.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">600</text><text x="363" y="80" text-anchor="start" font-size="12" fill="#047857">2 parts: the name stays whole</text></svg><div class="cap">The quotes tell csv: the comma inside is part of the value.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="CSV: DictReader" data-tag="CSV">
+  <h2><code>csv.DictReader</code>: rows as dictionaries</h2>
+  <ul class="b"><li>DictReader uses the header row as the keys. You read a column by its name.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>The same total as before, now from a CSV. What is the last line?</div></div>
+  <pre class="py" data-file="payments.csv" data-plain data-nocopy>payee,amount
+Sumit,600
+Vamsi,250</pre>
+  <pre class="py" id="c14-dict" data-file="csv_files.py" data-wide>import csv
+
+total = 0
+with open("payments.csv", "r") as file:
+    for row in csv.DictReader(file):
+        print(row["payee"], row["amount"])
+        total += int(row["amount"])
+print("Total:", total)</pre>
+  <div class="vote">
+    <div class="vopt" data-win>Total: 850</div>
+    <div class="vopt">Total: 600250</div>
+    <div class="vopt">KeyError: amount</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Sumit 600
+Vamsi 250
+Total: 850</div>
+    <div class="diag"><svg viewBox="0 0 640 190" xmlns="http://www.w3.org/2000/svg"><text x="45.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b"></text><text x="212.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b">row: a dictionary</text><text x="390.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b">print</text><text x="537.0" y="18" text-anchor="middle" font-size="12" font-weight="700" fill="#64748b">total</text><rect x="8" y="28" width="74" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="45" y="49.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">start</text><rect x="86" y="28" width="252" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="212" y="49.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a"></text><rect x="342" y="28" width="96" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="390" y="49.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a"></text><rect x="442" y="28" width="190" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="537" y="49.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">total = 0</text><rect x="8" y="68" width="74" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="45" y="89.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">trip 1</text><rect x="86" y="68" width="252" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="212" y="89.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">{'payee': 'Sumit', 'amount': '600'}</text><rect x="342" y="68" width="96" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="390" y="89.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Sumit 600</text><rect x="442" y="68" width="190" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="537" y="89.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">0 + int('600') = 600</text><rect x="8" y="108" width="74" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="45" y="129.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">trip 2</text><rect x="86" y="108" width="252" height="34" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="212" y="129.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">{'payee': 'Vamsi', 'amount': '250'}</text><rect x="342" y="108" width="96" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="390" y="129.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Vamsi 250</text><rect x="442" y="108" width="190" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="537" y="129.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">600 + int('250') = 850</text><rect x="8" y="148" width="74" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="45" y="169.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">after</text><rect x="86" y="148" width="252" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="212" y="169.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">the loop ends</text><rect x="342" y="148" width="96" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="390" y="169.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">Total: 850</text><rect x="442" y="148" width="190" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="537" y="169.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">total = 850</text></svg><div class="cap">The header became the keys. The header row itself was never a trip.</div></div>
+    <ul class="b"><li><code>row["amount"]</code> instead of <code>words[1]</code>: clear, and safe if the columns move.</li><li>Class 8's dictionaries, now filled from a file.</li></ul>
+  </div>
+</section>
+
+<section class="step" data-nav="Real world: genes and Excel">
+  <h2>A CSV is text. Spreadsheets guess.</h2>
+  <div class="case"><div class="tag">Real incident · 2016 and 2020</div><h4>Gene names turned into dates</h4><ul><li>Opened in Excel, the gene name MARCH1 became 1-Mar, and SEPT1 became a date too.</li><li>A 2016 study: about one-fifth of genomics papers with Excel gene lists had such errors.</li><li>In 2020 scientists renamed 27 genes, for example MARCH1 to MARCHF1, to stop it.</li></ul><div class="lesson">A CSV is plain text. The program that opens it decides what each value means. Python's csv gives you strings, and you convert on purpose.</div><div class="src">Read: <a href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-016-1044-7" target="_blank">Genome Biology, 2016</a> · <a href="https://www.engadget.com/scientists-rename-genes-due-to-excel-151748790.html" target="_blank">Engadget, 2020</a></div></div>
+  <div class="diag" data-brk><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f16" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f16r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f16g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="141" y="12" width="125" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="203.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">MARCH1 in a CSV</text><line x1="269" y1="32.0" x2="289" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f16)"/><rect x="292" y="12" width="125" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="354.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">opened in Excel</text><line x1="420" y1="32.0" x2="440" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f16)"/><rect x="443" y="12" width="56" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="471" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">1-Mar</text></svg><div class="cap">Text guessed as a date.</div></div>
+</section>
+
+<section class="step" data-nav="CSV: writing" data-tag="CSV">
+  <h2>Writing a CSV</h2>
+  <div class="ask"><span class="ic">✋</span><div>Predict what payments.csv holds after this runs.</div></div>
+  <pre class="py" data-file="csv_files.py" data-wide>import csv
+
+rows = [["payee", "amount"], ["Sumit", 600], ["Vamsi", 250]]
+
+with open("payments.csv", "w", newline="") as file:
+    writer = csv.writer(file)
+    writer.writerows(rows)</pre>
+  <div class="vote">
+    <div class="vopt">['payee', 'amount'] and two more lists, as written</div>
+    <div class="vopt" data-win>payee,amount then Sumit,600 then Vamsi,250</div>
+    <div class="vopt">TypeError: 600 is not a string</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Open the file</button>
+  <div class="reveal">
+    <div class="out">payee,amount
+Sumit,600
+Vamsi,250</div>
+    <ul class="b">
+      <li>writerows writes each list as one line. The number 600 becomes the text 600.</li>
+      <li>Always write <code>newline=""</code> when you open a CSV to write. The next step shows why.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f4r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f4g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="24" y="12" width="132" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="90" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">["Sumit", 600]</text><line x1="160" y1="32.0" x2="180" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f4)"/><rect x="182" y="12" width="140" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="252" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">writer.writerow</text><line x1="326" y1="32.0" x2="346" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f4)"/><rect x="348" y="12" width="93" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="394.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Sumit,600</text><line x1="444" y1="32.0" x2="464" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f4)"/><rect x="468" y="12" width="148" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="542" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">read back: "600"</text></svg><div class="cap">Numbers go out as text and come back as text.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="CSV: why newline" data-tag="CSV">
+  <h2>What if you forget <code>newline=""</code>?</h2>
+  <div class="ask"><span class="ic">🎤</span><div>What if we leave out <code>newline=""</code>, and a classmate runs it on Windows?</div></div>
+  <div><div class="diag"><svg viewBox="0 0 640 228" xmlns="http://www.w3.org/2000/svg"><text x="140" y="16" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">with newline="": what you meant</text><rect x="20" y="26" width="120" height="28" fill="#e0e7ff" stroke="#6366f1" stroke-width="1"/><text x="80" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">payee</text><rect x="140" y="26" width="120" height="28" fill="#e0e7ff" stroke="#6366f1" stroke-width="1"/><text x="200" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">amount</text><rect x="20" y="54" width="120" height="28" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="80" y="73" text-anchor="middle" font-size="12" fill="#0f172a">Sumit</text><rect x="140" y="54" width="120" height="28" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="200" y="73" text-anchor="middle" font-size="12" fill="#0f172a">600</text><rect x="20" y="82" width="120" height="28" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="80" y="101" text-anchor="middle" font-size="12" fill="#0f172a">Vamsi</text><rect x="140" y="82" width="120" height="28" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="200" y="101" text-anchor="middle" font-size="12" fill="#0f172a">250</text><text x="490" y="16" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">without it, on Windows</text><rect x="370" y="26" width="120" height="28" fill="#e0e7ff" stroke="#6366f1" stroke-width="1"/><text x="430" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">payee</text><rect x="490" y="26" width="120" height="28" fill="#e0e7ff" stroke="#6366f1" stroke-width="1"/><text x="550" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">amount</text><rect x="370" y="54" width="120" height="28" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/><text x="430" y="73" text-anchor="middle" font-size="12" fill="#0f172a"></text><rect x="490" y="54" width="120" height="28" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/><text x="550" y="73" text-anchor="middle" font-size="12" fill="#0f172a"></text><rect x="370" y="82" width="120" height="28" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="430" y="101" text-anchor="middle" font-size="12" fill="#0f172a">Sumit</text><rect x="490" y="82" width="120" height="28" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="550" y="101" text-anchor="middle" font-size="12" fill="#0f172a">600</text><rect x="370" y="110" width="120" height="28" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/><text x="430" y="129" text-anchor="middle" font-size="12" fill="#0f172a"></text><rect x="490" y="110" width="120" height="28" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/><text x="550" y="129" text-anchor="middle" font-size="12" fill="#0f172a"></text><rect x="370" y="138" width="120" height="28" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="430" y="157" text-anchor="middle" font-size="12" fill="#0f172a">Vamsi</text><rect x="490" y="138" width="120" height="28" fill="#ffffff" stroke="#94a3b8" stroke-width="1"/><text x="550" y="157" text-anchor="middle" font-size="12" fill="#0f172a">250</text><rect x="370" y="166" width="120" height="28" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/><text x="430" y="185" text-anchor="middle" font-size="12" fill="#0f172a"></text><rect x="490" y="166" width="120" height="28" fill="#fee2e2" stroke="#ef4444" stroke-width="1"/><text x="550" y="185" text-anchor="middle" font-size="12" fill="#0f172a"></text><text x="490" y="216" text-anchor="middle" font-size="12" font-weight="700" fill="#b91c1c">an empty row after every row</text></svg><div class="cap">The same three rows, opened in a spreadsheet.</div></div></div>
+  <div class="anat" data-brk>
+    <div class="a"><code>\n</code><div class="m"><b>line feed</b>, also called newline: move down to the next line</div></div>
+    <div class="a"><code>\r</code><div class="m"><b>carriage return</b>: go back to the start of the line. The name comes from typewriters, where the carriage slid back to the left</div></div>
+    <div class="a"><code>\r\n</code><div class="m">Windows ends every line with both. Mac and Linux use only <code>\n</code></div></div>
+  </div>
+  <div class="diag"><svg viewBox="0 0 640 176" xmlns="http://www.w3.org/2000/svg"><defs><marker id="k789x1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="k789x1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="k789x1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="14" width="580" height="150" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="48" y="32" text-anchor="start" font-size="11" fill="#94a3b8">a page</text><text x="70" y="62" font-size="18" font-family="Menlo,monospace" fill="#0f172a">Sumit,600</text><circle cx="186" cy="56" r="10" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="186" y="60" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">1</text><text x="204" y="61" text-anchor="start" font-size="12" fill="#334155">you finished typing the row</text><line x1="176" y1="84" x2="74" y2="84" stroke="#ef4444" stroke-width="2" marker-end="url(#k789x1r)"/><text x="190" y="89" text-anchor="start" font-size="12" font-weight="700" fill="#b91c1c">\r  carriage return: slide back to the start of the same line</text><circle cx="58" cy="84" r="10" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="58" y="88" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">2</text><line x1="58" y1="98" x2="58" y2="124" stroke="#6366f1" stroke-width="2" marker-end="url(#k789x1)"/><text x="76" y="116" text-anchor="start" font-size="12" font-weight="700" fill="#4f46e5">\n  line feed: move down one line</text><circle cx="58" cy="140" r="10" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="58" y="144" text-anchor="middle" font-size="12" font-weight="700" fill="#0f172a">3</text><text x="76" y="145" text-anchor="start" font-size="12" fill="#047857">ready: the next row starts here</text></svg><div class="cap">A typewriter needed both moves to start a new line. Windows still writes both: \r\n.</div></div>
+  <div class="diag"><svg viewBox="0 0 640 112" xmlns="http://www.w3.org/2000/svg"><defs><marker id="k120x1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="k120x1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="k120x1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><text x="14" y="36" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a">csv writes</text><rect x="140" y="14" width="97" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="188.5" y="35.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Sumit,600</text><rect x="240" y="14" width="55" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="267.5" y="35.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\r\n</text><text x="310" y="36" text-anchor="start" font-size="12" fill="#334155">csv ends every row with \r\n itself</text><text x="14" y="86" text-anchor="start" font-size="13" font-weight="700" fill="#0f172a">Windows adds</text><rect x="140" y="64" width="97" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="188.5" y="85.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Sumit,600</text><rect x="240" y="64" width="38" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="259" y="85.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\r</text><rect x="281" y="64" width="55" height="34" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="308.5" y="85.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">\r\n</text><text x="351" y="86" text-anchor="start" font-size="12" fill="#b91c1c">its own \r before the \n: \r\r\n</text></svg><div class="cap">Two line endings in a row read as an empty line. newline="" tells Python: do not add your own.</div></div>
+  <ul class="b" data-brk><li><b>Why only Windows?</b> When a program writes text, Python changes every <code>\n</code> into the line ending of that computer.</li></ul>
+  <table class="tbl">
+    <tr><th>Computer</th><th>Its line ending</th><th>csv writes</th><th>Python changes \n to</th><th>In the file</th></tr>
+    <tr><td>Mac, Linux</td><td><code>\n</code></td><td><code>\r\n</code></td><td><code>\n</code> (no change)</td><td><code>\r\n</code>: fine</td></tr>
+    <tr><td>Windows</td><td><code>\r\n</code></td><td><code>\r\n</code></td><td><code>\r\n</code></td><td><code>\r\r\n</code>: an empty row</td></tr>
+    <tr><td>Any, with <code>newline=""</code></td><td></td><td><code>\r\n</code></td><td>nothing: the change is switched off</td><td><code>\r\n</code>: fine</td></tr>
+  </table>
+  <ul class="b" data-brk><li>So on a Mac or Linux the bug hides. It shows up on a Windows laptop, or when the file reaches Excel.</li><li>Read back in Python, the empty rows arrive as empty lists: <code>[['payee', 'amount'], [], ['Sumit', '600'], [], ...]</code>. A loop that does <code>int(row[1])</code> then crashes with IndexError.</li></ul>
+</section>
+
+<section class="step" data-nav="CSV, quick check" data-tag="CSV">
+  <h2>CSV: quick check</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">In <code>for row in csv.DictReader(file):</code>, what is <code>row</code>?</div>
+    
+    <div class="opts">
+      <button class="opt">A string</button>
+      <button class="opt">A list</button>
+      <button class="opt" data-ok>A dictionary, keyed by the header</button>
+      <button class="opt">A file object</button>
+    </div>
+    <div class="expl"><b>A dictionary.</b> The header row gives the keys: <code>row["payee"]</code>, <code>row["amount"]</code>.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f5r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f5g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="40" y="12" width="116" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="98" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">payee,amount</text><line x1="160" y1="32.0" x2="180" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><rect x="182" y="12" width="93" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="228.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Sumit,600</text><line x1="278" y1="32.0" x2="298" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f5)"/><rect x="302" y="12" width="298" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="451" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">{'payee': 'Sumit', 'amount': '600'}</text></svg><div class="cap">Header plus row: a dictionary.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">What happens on the first row?</div>
+    <pre class="py" data-file="payments.csv" data-plain data-nocopy>payee,amount
+Sumit,600
+Vamsi,250</pre>
+    <pre class="py" data-file="x.py" data-nocopy>import csv
+with open("payments.csv") as file:
+    for row in csv.DictReader(file):
+        print(row["amount"] + 1)</pre>
+    <div class="opts">
+      <button class="opt">601</button>
+      <button class="opt">6001</button>
+      <button class="opt">KeyError: amount</button>
+      <button class="opt" data-ok>TypeError: can only concatenate str (not "int") to str</button>
+    </div>
+    <div class="expl"><b>TypeError.</b> <code>row["amount"]</code> is the string '600'. A string plus a number does not work. Write <code>int(row["amount"]) + 1</code>.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f6r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f6g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="199" y="12" width="61" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="229.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">'600'</text><line x1="263" y1="32.0" x2="283" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f6)"/><rect x="286" y="12" width="45" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="308.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">+ 1</text><line x1="334" y1="32.0" x2="354" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f6)"/><rect x="357" y="12" width="84" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="399" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">TypeError</text></svg><div class="cap">Convert first, then calculate.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">csv.reader, not DictReader. What happens?</div>
+    <pre class="py" data-file="payments.csv" data-plain data-nocopy>payee,amount
+Sumit,600
+Vamsi,250</pre>
+    <pre class="py" data-file="x.py" data-nocopy>import csv
+with open("payments.csv") as file:
+    total = 0
+    for row in csv.reader(file):
+        total += int(row[1])
+print(total)</pre>
+    <div class="opts">
+      <button class="opt">850</button>
+      <button class="opt">0</button>
+      <button class="opt">IndexError</button>
+      <button class="opt" data-ok>ValueError: invalid literal for int() with base 10: 'amount'</button>
+    </div>
+    <div class="expl"><b>ValueError.</b> csv.reader also gives the header row. On the first trip, <code>row[1]</code> is the word 'amount', and int() cannot read it. DictReader skips this problem.
+<div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">['payee', 'amount']</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#b91c1c">int('amount'): ValueError</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">['Sumit', '600']</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#334155">never reached</text></svg><div class="cap">The header is a row too.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="CSV, more practice" data-tag="CSV">
+  <h2>CSV: more practice</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">The file has a header and two payments. What prints?</div>
+    
+    <pre class="py" data-file="payments.csv" data-plain data-nocopy>payee,amount
+Sumit,600
+Vamsi,250</pre>
+    <pre class="py" data-file="x.py" data-nocopy>import csv
+with open("payments.csv") as file:
+    rows = list(csv.DictReader(file))
+print(len(rows))</pre>
+    <div class="opts">
+      <button class="opt">3: the header is a row too</button>
+      <button class="opt">6</button>
+      <button class="opt" data-ok>2: the header became the keys</button>
+      <button class="opt">1</button>
+    </div>
+    <div class="expl"><b>2.</b> DictReader uses the header for the keys and gives only the data rows. <code>csv.reader</code> would give 3.
+<div class="diag"><svg viewBox="0 0 640 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">payee,amount</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#334155">the header: becomes the keys</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Sumit,600</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#047857">row 1</text><rect x="16" y="92" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Vamsi,250</text><text x="260" y="114" text-anchor="start" font-size="13" fill="#047857">row 2</text></svg><div class="cap">DictReader: data rows only.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">The header says amount. The code asks for Amount. What happens?</div>
+    
+    <pre class="py" data-file="payments.csv" data-plain data-nocopy>payee,amount
+Sumit,600
+Vamsi,250</pre>
+    <pre class="py" data-file="x.py" data-nocopy>import csv
+with open("payments.csv") as file:
+    for row in csv.DictReader(file):
+        print(row["Amount"])</pre>
+    <div class="opts">
+      <button class="opt" data-ok>KeyError: 'Amount'</button>
+      <button class="opt">600 then 250</button>
+      <button class="opt">None then None</button>
+      <button class="opt">amount</button>
+    </div>
+    <div class="expl"><b>KeyError.</b> The keys are exactly the header's text, capitals included. <code>row["amount"]</code> works; <code>row["Amount"]</code> does not exist.
+<div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">row["amount"]</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#047857">'600'</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">row["Amount"]</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#b91c1c">KeyError: 'Amount'</text></svg><div class="cap">Keys match the header exactly.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">You want to add one payment. What does payments.csv hold after this runs?</div>
+    
+    <pre class="py" data-file="payments.csv" data-plain data-nocopy>payee,amount
+Sumit,600
+Vamsi,250</pre>
+    <pre class="py" data-file="x.py" data-nocopy>import csv
+with open("payments.csv", "w", newline="") as file:
+    csv.writer(file).writerow(["Akshay", 100])</pre>
+    <div class="opts">
+      <button class="opt">The header, Sumit, Vamsi, then Akshay</button>
+      <button class="opt">The header, then Akshay</button>
+      <button class="opt">Akshay first, then the old rows</button>
+      <button class="opt" data-ok>Only Akshay,100: the header and both rows are gone</button>
+    </div>
+    <div class="expl"><b>Only Akshay,100.</b> "w" erased the file first, exactly as with a text file last class. To add a row, open with <code>"a"</code>.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="k44x2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="k44x2r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="k44x2g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="56" y="12" width="187" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="149.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">"w": the file is emptied</text><line x1="246" y1="32.0" x2="266" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k44x2)"/><rect x="269" y="12" width="164" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="351" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">Akshay,100 written</text><line x1="436" y1="32.0" x2="456" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#k44x2)"/><rect x="459" y="12" width="125" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="521.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">header gone too</text></svg><div class="cap">The modes work the same for CSV files.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Your own module" data-tag="Modules">
+  <h2>Every .py file is a module</h2>
+  <ul class="b"><li>You want the same helper functions in several programs, without copying them.</li></ul>
+  <pre class="py" data-file="greetings.py" data-wide># greetings.py
+
+def say_hello(name):
+    return f"Hello, {name}!"
+
+def say_goodbye(name):
+    return f"Goodbye, {name}!"</pre>
+  <div class="diag" data-brk><svg viewBox="0 0 640 124" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f18" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f18r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f18g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="20" width="250" height="70" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="40" y="38" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">greetings.py</text><line x1="30" y1="45" x2="280" y2="45" stroke="#94a3b8" stroke-width="1"/><text x="40" y="63" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def say_hello(name):</text><text x="40" y="83" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def say_goodbye(name):</text><rect x="380" y="20" width="240" height="70" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="390" y="38" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">main.py</text><line x1="380" y1="45" x2="620" y2="45" stroke="#10b981" stroke-width="1"/><text x="390" y="63" font-size="13" font-weight="700" font-family="Menlo,monospace" fill="#047857">import greetings</text><text x="390" y="83" font-size="13" font-family="Menlo,monospace" fill="#0f172a">greetings.say_hello(...)</text><line x1="374" y1="55.0" x2="286" y2="55.0" stroke="#64748b" stroke-width="2" marker-end="url(#f18)"/><text x="330" y="47.0" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">import</text><text x="320" y="112" text-anchor="middle" font-size="13" fill="#334155">same folder; the module name is the file name without .py</text></svg><div class="cap">Write it once, use it from many files.</div></div>
+  <ul class="b" data-brk><li>Nothing special inside: ordinary Python. It becomes a module when another file imports it.</li></ul>
+</section>
+
+<section class="step" data-nav="import" data-tag="Modules">
+  <h2><code>import</code>: use another file's functions</h2>
+  <div class="ask"><span class="ic">✋</span><div>greetings.py is in the same folder. What prints?</div></div>
+  <pre class="py" data-file="import_modules.py">import greetings
+
+print(greetings.say_hello("Parveen"))</pre>
+  <div class="vote">
+    <div class="vopt">say_hello is not defined</div>
+    <div class="vopt">Hello, {name}!</div>
+    <div class="vopt" data-win>Hello, Parveen!</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Hello, Parveen!</div>
+    <ul class="b">
+      <li><code>greetings.</code> in front says where the function came from.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f19" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f19r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f19g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="143" y="12" width="93" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="189.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">greetings</text><line x1="239" y1="32.0" x2="259" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f19)"/><rect x="262" y="12" width="101" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="312.5" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">.say_hello</text><line x1="366" y1="32.0" x2="386" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f19)"/><rect x="389" y="12" width="108" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="443" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">("Parveen")</text></svg><div class="cap">module name, dot, function name</div></div>
+  </div>
+  <table class="tbl">
+    <tr><th>You write</th><th>Then you call</th><th>Use it when</th></tr>
+    <tr><td><code>import greetings</code></td><td><code>greetings.say_hello(...)</code></td><td>you want it clear where a name came from</td></tr>
+    <tr><td><code>from greetings import say_hello</code></td><td><code>say_hello(...)</code></td><td>you need one or two names</td></tr>
+    <tr><td><code>import greetings as g</code></td><td><code>g.say_hello(...)</code></td><td>the module name is long</td></tr>
+    <tr><td><code>from greetings import *</code></td><td><code>say_hello(...)</code></td><td>avoid it: names can clash without a warning</td></tr>
+  </table>
+</section>
+
+<section class="step" data-nav="The * trap" data-tag="Modules">
+  <h2>Why <code>import *</code> is risky</h2>
+  <div class="diag"><svg viewBox="0 0 640 212" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f1r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="14" y="30" width="290" height="130" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="24" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">greetings.py</text><line x1="14" y1="55" x2="304" y2="55" stroke="#94a3b8" stroke-width="1"/><text x="24" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def say_hello(name):</text><text x="24" y="93" font-size="13" font-family="Menlo,monospace" fill="#0f172a">    return f"Hello, {name}!"</text><text x="24" y="113" font-size="13" font-family="Menlo,monospace" fill="#0f172a"></text><text x="24" y="133" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def say_goodbye(name):</text><text x="24" y="153" font-size="13" font-family="Menlo,monospace" fill="#0f172a">    return f"Goodbye, {name}!"</text><rect x="336" y="30" width="290" height="150" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="346" y="48" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">main.py</text><line x1="336" y1="55" x2="626" y2="55" stroke="#f59e0b" stroke-width="1"/><text x="346" y="73" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def say_hello(name):</text><text x="346" y="93" font-size="13" font-family="Menlo,monospace" fill="#0f172a">    return "Hi " + name</text><text x="346" y="113" font-size="13" font-family="Menlo,monospace" fill="#0f172a"></text><text x="346" y="133" font-size="13" font-weight="700" font-family="Menlo,monospace" fill="#047857">from greetings import *</text><text x="346" y="153" font-size="13" font-family="Menlo,monospace" fill="#0f172a"></text><text x="346" y="173" font-size="13" font-family="Menlo,monospace" fill="#0f172a">print(say_hello("Prasad"))</text><text x="159" y="20" text-anchor="middle" font-size="12" fill="#64748b">the module</text><text x="481" y="20" text-anchor="middle" font-size="12" fill="#64748b">your program</text><path d="M336,133 C300,133 300,73 308,73" fill="none" stroke="#ef4444" stroke-width="2" marker-end="url(#f1r)"/><text x="320" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#0f172a">Two functions named say_hello. Which one is left after line 4?</text></svg><div class="cap">The same name in two files.</div></div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">You wrote your own say_hello first. Then you imported everything. What prints?</div>
+    <pre class="py" data-file="x.py" data-nocopy>def say_hello(name):
+    return "Hi " + name
+
+from greetings import *
+
+print(say_hello("Prasad"))</pre>
+    <div class="opts">
+      <button class="opt"><code>Hi Prasad</code></button>
+      <button class="opt" data-ok><code>Hello, Prasad!</code></button>
+      <button class="opt"><code>NameError</code></button>
+      <button class="opt">Both lines, one after the other</button>
+    </div>
+    <div class="expl"><b>Hello, Prasad!</b> The import came later and replaced your function, with no warning. With <code>import greetings</code> both would live side by side.
+<div class="diag"><svg viewBox="0 0 640 136" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def say_hello(...)</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#b91c1c">your version: replaced</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">from greetings import *</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#047857">the module's version wins</text><rect x="16" y="92" width="230" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="131" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">say_hello("Prasad")</text><text x="260" y="114" text-anchor="start" font-size="13" fill="#334155">Hello, Prasad!</text></svg><div class="cap">The last definition of a name wins.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Standard library" data-tag="Modules">
+  <h2>The standard library: already installed</h2>
+  <div class="ask"><span class="ic">✋</span><div>Run it twice. Which line prints the same thing every time?</div></div>
+  <pre class="py" data-file="standard_library.py">import math
+import random
+import datetime
+import os
+
+print(math.sqrt(49))
+print(random.randint(1, 6))
+print(datetime.date.today())
+print(os.getcwd())</pre>
+  <div class="vote">
+    <div class="vopt" data-win>math.sqrt(49)</div>
+    <div class="vopt">random.randint(1, 6)</div>
+    <div class="vopt">datetime.date.today()</div>
+    <div class="vopt">os.getcwd()</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">7.0
+4
+2026-11-16
+/home/you/project</div>
+    <ul class="b">
+      <li>Only <code>7.0</code> never changes. The dice, the date and the folder depend on when and where you run it.</li>
+      <li>Batteries included: all four come with Python. No pip install needed.</li>
+    </ul>
+  </div>
+  <div class="anat" data-brk>
+    <div class="a"><code>math.sqrt(49)</code><div class="m">the square root: 7.0, every time</div></div>
+    <div class="a"><code>random.randint(1, 6)</code><div class="m">a random whole number from 1 to 6, both included, like a dice</div></div>
+    <div class="a"><code>datetime.date.today()</code><div class="m">today's date, from the computer's clock</div></div>
+    <div class="a"><code>os.getcwd()</code><div class="m">get current working directory: the working folder, where open("passbook.txt") looks</div></div>
+  </div>
+  <div class="ai"><b>🤖 AI moment</b> — ask for a standard library module that makes a unique ID, then check the official Python docs to confirm it is built in, not a package you would install.<div class="pr">"I need a unique ID for each row of a CSV file I write in Python. Is there a standard library module for that, and how do I use it?"</div></div>
+</section>
+
+<section class="step" data-nav="Real world: look-alike packages">
+  <h2>Built in, or installed? Check the name.</h2>
+  <div class="case"><div class="tag">Real incident · 2017</div><h4>Ten fake packages on PyPI</h4><ul><li>PyPI is where <code>pip install</code> downloads packages that are not built in.</li><li>In 2017, Slovakia's security team found ten packages with look-alike names, such as urlib3 for urllib3.</li><li>Installing one ran hidden code. PyPI removed them after the report.</li></ul><div class="lesson">The standard library needs no install. For anything else, type the exact name, and check that an AI suggestion really exists.</div><div class="src">Read: <a href="https://www.bleepingcomputer.com/news/security/ten-malicious-libraries-found-on-pypi-python-package-index/" target="_blank">BleepingComputer, 2017</a> · <a href="https://mail.python.org/pipermail/python-dev/2017-September/149569.html" target="_blank">python-dev announcement</a></div></div>
+  <div class="diag" data-brk><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f20" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f20r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f20g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="94" y="12" width="164" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="176" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">pip install urlib3</text><line x1="261" y1="32.0" x2="281" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f20)"/><rect x="284" y="12" width="104" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="336" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">a look-alike</text><line x1="391" y1="32.0" x2="411" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f20)"/><rect x="414" y="12" width="132" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="480" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">hidden code runs</text></svg><div class="cap">One missing letter.</div></div>
+</section>
+
+<section class="step" data-nav="Modules, in words" data-tag="Modules">
+  <h2>Modules, in words</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">What makes greetings.py a module?</div>
+    
+    <div class="opts">
+      <button class="opt">A special line at the top</button>
+      <button class="opt">Installing it with pip</button>
+      <button class="opt" data-ok>Another file imports it by name</button>
+      <button class="opt">A class inside it</button>
+    </div>
+    <div class="expl"><b>Being imported.</b> Any .py file is a module. Nothing inside it has to change.
+<div class="diag"><svg viewBox="0 0 640 124" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f21" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f21r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f21g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="30" y="20" width="250" height="70" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="40" y="38" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">greetings.py</text><line x1="30" y1="45" x2="280" y2="45" stroke="#94a3b8" stroke-width="1"/><text x="40" y="63" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def say_hello(name):</text><text x="40" y="83" font-size="13" font-family="Menlo,monospace" fill="#0f172a">def say_goodbye(name):</text><rect x="380" y="20" width="240" height="70" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="390" y="38" font-size="11" font-weight="700" font-family="Menlo,monospace" fill="#475569">main.py</text><line x1="380" y1="45" x2="620" y2="45" stroke="#10b981" stroke-width="1"/><text x="390" y="63" font-size="13" font-weight="700" font-family="Menlo,monospace" fill="#047857">import greetings</text><text x="390" y="83" font-size="13" font-family="Menlo,monospace" fill="#0f172a">greetings.say_hello(...)</text><line x1="374" y1="55.0" x2="286" y2="55.0" stroke="#64748b" stroke-width="2" marker-end="url(#f21)"/><text x="330" y="47.0" text-anchor="middle" font-size="12" font-weight="700" fill="#4f46e5">import</text><text x="320" y="112" text-anchor="middle" font-size="13" fill="#334155">same folder; the module name is the file name without .py</text></svg><div class="cap">Write it once, use it from many files.</div></div></div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Your folder has a file named random.py. Another file runs <code>import random</code>. Which random does it get?</div>
+    
+    <div class="opts">
+      <button class="opt" data-ok>Your random.py: Python looks in your folder first</button>
+      <button class="opt">The standard library one, always</button>
+      <button class="opt">Both, merged</button>
+      <button class="opt">An error before anything runs</button>
+    </div>
+    <div class="expl"><b>Yours.</b> The program's own folder comes first. Never name a file after a module you use.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f22" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f22r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f22g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="86" y="12" width="124" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="148" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">import random</text><line x1="214" y1="32.0" x2="234" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f22)"/><rect x="236" y="12" width="97" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="284.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">your folder</text><line x1="336" y1="32.0" x2="356" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f22)"/><rect x="360" y="12" width="194" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="457" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">then the standard library</text></svg><div class="cap">The first match wins. More in the debug clinic.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Modules, quick check" data-tag="Modules">
+  <h2>Modules: quick check</h2>
+  <div class="quiz" data-level="s" data-wide>
+    <div class="qt">greetings.py is in a different folder. What happens?</div>
+    <div class="diag"><svg viewBox="0 0 295 142" xmlns="http://www.w3.org/2000/svg"><rect x="24" y="10" width="85" height="26" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="66.5" y="27.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">project/</text><text x="121" y="28" text-anchor="start" font-size="12" font-weight="700" fill="#047857">◀ the program runs here</text><rect x="54" y="42" width="77" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="92.5" y="59.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">main.py</text><text x="143" y="60" text-anchor="start" font-size="12" fill="#334155">import greetings</text><rect x="54" y="74" width="85" height="26" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="96.5" y="91.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">helpers/</text><rect x="84" y="106" width="116" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="142" y="123.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">greetings.py</text></svg></div>
+    <pre class="py" data-file="x.py" data-nocopy>import greetings
+
+print(greetings.say_hello("Parveen"))</pre>
+    <div class="opts">
+      <button class="opt">Hello, Parveen!</button>
+      <button class="opt" data-ok>ModuleNotFoundError: No module named 'greetings'</button>
+      <button class="opt">NameError</button>
+      <button class="opt">Python searches the whole computer for it</button>
+    </div>
+    <div class="expl"><b>ModuleNotFoundError.</b> Python looks in your program's folder, then the standard library. Not everywhere.
+<div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f7r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f7g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="8" y="12" width="139" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="77.5" y="36.5" text-anchor="middle" font-size="12.216867469879519" font-family="Menlo,monospace" fill="#0f172a">import greetings</text><line x1="150" y1="32.0" x2="169" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f7)"/><rect x="172" y="12" width="117" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="230.5" y="36.5" text-anchor="middle" font-size="12.216867469879519" fill="#0f172a">this folder? no</text><line x1="292" y1="32.0" x2="310" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f7)"/><rect x="313" y="12" width="150" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="388" y="36.5" text-anchor="middle" font-size="12.216867469879519" fill="#0f172a">standard library? no</text><line x1="467" y1="32.0" x2="485" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f7)"/><rect x="488" y="12" width="144" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="560" y="36.5" text-anchor="middle" font-size="12.216867469879519" fill="#0f172a">ModuleNotFoundError</text></svg><div class="cap">Keep your module next to your program.</div>
+</div>
+<p><b>Or name the folder in the import.</b> A dot means "inside": <code>helpers.greetings</code> is greetings.py inside the folder helpers.</p>
+<table class="tbl">
+    <tr><th>You write in main.py</th><th>Then you call</th></tr>
+    <tr><td><code>from helpers import greetings</code></td><td><code>greetings.say_hello("Parveen")</code></td></tr>
+    <tr><td><code>from helpers.greetings import say_hello</code></td><td><code>say_hello("Parveen")</code></td></tr>
+    <tr><td><code>import helpers.greetings</code></td><td><code>helpers.greetings.say_hello("Parveen")</code></td></tr>
+  </table>
+<p>All three print <code>Hello, Parveen!</code></p>
+</div>
+  </div>
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">greetings.py now starts with a print line. What prints?</div>
+    <pre class="py" data-file="greetings.py" data-plain data-nocopy>print(&quot;Loading greetings&quot;)
+
+def say_hello(name):
+    return f&quot;Hello, {name}!&quot;</pre>
+    <pre class="py" data-file="x.py" data-nocopy>import greetings
+import greetings
+print(greetings.say_hello("Prasad"))</pre>
+    <div class="opts">
+      <button class="opt">Loading greetings, twice, then Hello, Prasad!</button>
+      <button class="opt">Hello, Prasad! only</button>
+      <button class="opt" data-ok>Loading greetings, once, then Hello, Prasad!</button>
+      <button class="opt">An error: you cannot import twice</button>
+    </div>
+    <div class="expl"><b>Once.</b> Importing runs the module's file one time. A second import reuses it and runs nothing.
+<div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">first import greetings</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#047857">runs the file: Loading greetings</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">second import greetings</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#334155">already loaded: nothing runs</text></svg><div class="cap">A module runs once, however often you import it.</div></div></div>
+  </div>
+  <div class="quiz" data-level="t" data-wide>
+    <div class="qt">What happens?</div>
+    <pre class="py" data-file="greetings.py" data-plain data-nocopy>def say_hello(name):
+    return f&quot;Hello, {name}!&quot;</pre>
+    <pre class="py" data-file="x.py" data-nocopy>from greetings import say_hello
+
+print(greetings.say_hello("Prasad"))</pre>
+    <div class="opts">
+      <button class="opt">Hello, Prasad!</button>
+      <button class="opt" data-ok>NameError: name 'greetings' is not defined</button>
+      <button class="opt">ModuleNotFoundError</button>
+      <button class="opt">AttributeError: module has no say_hello</button>
+    </div>
+    <div class="expl"><b>NameError.</b> <code>from greetings import say_hello</code> brings in the function, not the name greetings. Call it as <code>say_hello("Prasad")</code>.
+<div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="266" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="149" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">from greetings import say_hello</text><text x="296" y="30" text-anchor="start" font-size="13" fill="#047857">say_hello exists here</text><rect x="16" y="50" width="266" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="149" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">greetings.say_hello</text><text x="296" y="72" text-anchor="start" font-size="13" fill="#b91c1c">greetings was never imported</text></svg><div class="cap">Each import style brings in different names.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Mini project: log analyzer" data-tag="Project">
+  <h2>Mini project: a log file analyzer</h2>
+  <ul class="b"><li>Read website visits from a CSV. Handle a missing file. Count the errors (status code 400 or above). Write a summary file.</li></ul>
+  <div class="ask"><span class="ic">✋</span><div>Predict the two lines it prints.</div></div>
+  <pre class="py" data-file="visits.csv" data-plain data-nocopy>page,status_code
+/home,200
+/login,200
+/admin,403
+/checkout,500</pre>
+  <pre class="py" data-file="log_analyzer.py" data-wide>import csv
+
+def analyze_visits(filename):
+    try:
+        with open(filename, "r") as file:
+            reader = csv.DictReader(file)
+            rows = list(reader)
+    except FileNotFoundError:
+        print(f"Error: {filename} not found.")
+        return
+
+    total = len(rows)
+    errors = [r for r in rows if int(r["status_code"]) &gt;= 400]
+
+    print(f"Total requests: {total}")
+    print(f"Errors: {len(errors)}")
+
+    with open("summary.txt", "w") as file:
+        file.write(f"Total requests: {total}\n")
+        file.write(f"Errors: {len(errors)}\n")
+
+analyze_visits("visits.csv")</pre>
+  <div class="vote">
+    <div class="vopt">Total requests: 4, Errors: 1</div>
+    <div class="vopt" data-win>Total requests: 4, Errors: 2</div>
+    <div class="vopt">Total requests: 5, Errors: 2</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Total requests: 4
+Errors: 2</div>
+    <ul class="b">
+      <li>403 and 500 are both 400 or more. The header is not a visit, so the total is 4.</li>
+      <li><code>int(r["status_code"])</code>: the CSV gave a string.</li>
+      <li>summary.txt now holds the same two lines.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 178" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">/home,200</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#047857">fine</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">/login,200</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#047857">fine</text><rect x="16" y="92" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="113.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">/admin,403</text><text x="260" y="114" text-anchor="start" font-size="13" fill="#b91c1c">error: 403 &gt;= 400</text><rect x="16" y="134" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="155.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">/checkout,500</text><text x="260" y="156" text-anchor="start" font-size="13" fill="#b91c1c">error: 500 &gt;= 400</text></svg><div class="cap">try, with, DictReader, int() and "w": every idea today.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="PaisaPay v16: the balance" data-tag="PaisaPay v16">
+  <h2>PaisaPay v16: the balance survives</h2>
+  <div class="build"><div class="bh">🔨 PaisaPay v16 · build 1 of 3</div><div class="bd">Save the balance after every change. Load it when the app starts.</div>
+  <pre class="py" data-file="paisapay_v16.py" data-hl="3-11,13-15" data-wide>BALANCE_FILE = "paisapay_balance.txt"
+
+def load_balance(default):
+    try:
+        with open(BALANCE_FILE, "r") as file:
+            return int(file.read().strip())
+    except FileNotFoundError:
+        return default                       # first run: no file yet
+    except ValueError:
+        print(f"The balance file is damaged. Starting from ₹{default}.")
+        return default
+
+def save_balance(balance):
+    with open(BALANCE_FILE, "w") as file:    # w: replace the old number
+        file.write(str(balance))</pre></div>
+  <ul class="b" data-brk><li>"w" is right here: the file holds one number, and the new one replaces the old.</li><li>Two excepts: no file on the first run, and a damaged file (someone typed abc).</li><li>Save after each change, not only at Exit. A crash then loses nothing.</li></ul>
+
+  <div class="ask"><span class="ic">✋</span><div>First run ever: there is no paisapay_balance.txt yet. What balance does PaisaPay start with?</div></div>
+  <div class="vote">
+    <div class="vopt">FileNotFoundError: the app crashes</div>
+    <div class="vopt" data-win>₹1000: the default</div>
+    <div class="vopt">₹0: the file is empty</div>
+  </div>
+  <button class="rv" data-reveal="next" data-vote="prev">Why</button>
+  <div class="reveal">
+    
+    <ul class="b">
+      <li><code>except FileNotFoundError: return default</code>. A missing file on the first run is expected, so it is planned for.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f8r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f8g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="88" y="12" width="164" height="40" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="170" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">open(BALANCE_FILE)</text><line x1="256" y1="32.0" x2="276" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f8)"/><rect x="278" y="12" width="139" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="347.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">FileNotFoundError</text><line x1="420" y1="32.0" x2="440" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f8)"/><rect x="444" y="12" width="108" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="498" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">return 1000</text></svg><div class="cap">A planned error is not a crash.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="PaisaPay v16: the history" data-tag="PaisaPay v16">
+  <h2>PaisaPay v16: every payment is written down</h2>
+  <div class="build"><div class="bh">🔨 PaisaPay v16 · build 2 of 3</div><div class="bd">Append each payment to a CSV. The header goes in only once, when the file is new.</div>
+  <pre class="py" data-file="paisapay_v16.py" data-hl="1-2,4-12,14-23" data-wide>import csv
+import os
+
+def save_payment(t):
+    new_file = not os.path.exists(HISTORY_FILE)
+    with open(HISTORY_FILE, "a", newline="") as file:   # a: add, never erase
+        writer = csv.writer(file)
+        if new_file:
+            writer.writerow(["date", "payee", "amount",
+                             "mode", "fee", "cashback"])
+        writer.writerow([t.date, t.payee, t.amount,
+                         t.mode, t.fee, t.cashback])
+
+def load_history():
+    try:
+        with open(HISTORY_FILE, "r") as file:
+            rows = list(csv.DictReader(file))
+    except FileNotFoundError:
+        return []
+    # every value comes back as a string, so the numbers need int()
+    return [Transaction(r["payee"], int(r["amount"]), r["mode"],
+                        int(r["fee"]), int(r["cashback"]), r["date"])
+            for r in rows]</pre></div>
+  <pre class="py" data-file="paisapay_history.csv" data-plain data-nocopy>date,payee,amount,mode,fee,cashback
+2026-11-16,Sumit,600,upi,0,10</pre>
+  <ul class="b" data-brk><li>"a" for history: old payments stay. <code>os.path.exists</code> tells us if the header is needed.</li><li><code>datetime.date.today()</code> gives each payment its date.</li><li>Loading turns strings back into numbers with int().</li></ul>
+
+  <div class="quiz" data-level="m" data-wide>
+    <div class="qt">Why does save_payment open the history with "a", not "w"?</div>
+    
+    <div class="opts">
+      <button class="opt">"a" is faster</button>
+      <button class="opt" data-ok>"w" would erase all the old payments every time</button>
+      <button class="opt">"w" cannot write CSV</button>
+      <button class="opt">There is no difference</button>
+    </div>
+    <div class="expl"><b>"w" erases first.</b> The history must grow. Only the balance file uses "w", because it holds one number that replaces the old one.
+<div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">history: "a"</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#047857">every payment is kept</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">balance: "w"</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#047857">one number, replaced on purpose</text></svg><div class="cap">Pick the mode by the job.</div></div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="PaisaPay v16: a module" data-tag="PaisaPay v16">
+  <h2>PaisaPay v16: the checks move into a module</h2>
+  <div class="build"><div class="bh">🔨 PaisaPay v16 · build 3 of 3</div><div class="bd">The regex checks move to paisapay_checks.py. The app imports them. Same behaviour, a tidier app.</div>
+  <pre class="py" data-file="paisapay_v16.py" data-hl="1,10-11" data-wide># paisapay_checks.py: the checks, now in their own module
+import re
+
+def is_valid_upi_id(upi_id):
+    return re.fullmatch(r"[a-z0-9.]+@[a-z]+", upi_id) is not None
+
+def is_valid_pan(pan):
+    return re.fullmatch(r"[A-Z]{5}\d{4}[A-Z]", pan) is not None
+
+# paisapay_v16.py: the app imports them
+from paisapay_checks import (clean, is_valid_upi_id, is_valid_pan,
+                             read_bank_sms, mode_name)</pre></div>
+  <div class="ask"><span class="ic">✋</span><div>Run 1: pay Sumit ₹600, then Exit. Run 2: start again. What does run 2 say first?</div></div>
+  <div class="vote">
+    <div class="vopt">Loaded 0 saved payments. Balance ₹1000</div>
+    <div class="vopt" data-win>Loaded 1 saved payments. Balance ₹410</div>
+    <div class="vopt">FileNotFoundError</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out">Welcome to PaisaPay
+Account type (basic / premium): basic
+Loaded 1 saved payments. Balance ₹410</div>
+    <ul class="b">
+      <li>Run 2 starts where run 1 stopped: 1000 - 600 + 10 cashback = 410.</li>
+      <li>Full program: <code>code/paisapay_v16.py</code> with <code>code/paisapay_checks.py</code> in the same folder.</li>
+      <li>What v16 cannot do yet: stay correct when two copies run at once, or stop someone from editing the balance file. Real payment apps use a database on a server for both.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f23" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f23r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f23g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="103" y="12" width="125" height="40" rx="6" fill="#fef3c7" stroke="#f59e0b" stroke-width="2"/><text x="165.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">run 1: pay ₹600</text><line x1="231" y1="32.0" x2="251" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f23)"/><rect x="254" y="12" width="111" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="309.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">files on disk</text><line x1="368" y1="32.0" x2="388" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f23)"/><rect x="391" y="12" width="146" height="40" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="464" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">run 2: ₹410 loaded</text></svg><div class="cap">PaisaPay remembers.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Errors you will meet" data-tag="Errors">
+  <h2>Errors you will meet</h2>
+  <table class="tbl">
+    <tr><th>You see</th><th>It means</th><th>Fix</th></tr>
+    <tr><td><code>FileNotFoundError: [Errno 2] No such file or directory: 'missing.txt'</code></td><td>the file is not there, or the name or folder is wrong</td><td>check the name; catch it with try/except</td></tr>
+    <tr><td><code>ValueError: invalid literal for int() with base 10: 'abc'</code></td><td>text that is not a number went into int()</td><td>catch ValueError, or clean the text first</td></tr>
+    <tr><td><code>TypeError: can only concatenate str (not "int") to str</code></td><td>a value read from a CSV is text</td><td>int() it first</td></tr>
+    <tr><td><code>KeyError: 'Amount'</code></td><td>no column with exactly that name</td><td>match the header's spelling and capitals</td></tr>
+    <tr><td><code>IndexError: list index out of range</code></td><td>an empty row, often from a missing newline=""</td><td>write with newline=""; skip empty rows</td></tr>
+    <tr><td><code>ModuleNotFoundError: No module named 'greeting'</code></td><td>a typo, or the file is in another folder</td><td>check the name and the folder</td></tr>
+    <tr><td><code>NameError: name 'greetings' is not defined</code></td><td>you imported a function, not the module</td><td>call say_hello(...) directly</td></tr>
+    <tr><td><code>AttributeError: module 'random' has no attribute 'randint'</code></td><td>your own random.py hides the real one</td><td>rename your file</td></tr>
+  </table>
+</section>
+
+<section class="step" data-nav="Debug clinic: bare except" data-tag="Errors">
+  <h2>Debug clinic: the except that hid a bug</h2>
+  <ul class="b"><li>passbook.txt exists, with two payments. The program still says there is no passbook.</li></ul>
+  <pre class="py" data-file="passbook.txt" data-plain data-nocopy>Paid 600 to Sumit
+Paid 250 to Vamsi</pre>
+  <pre class="py" data-file="clinic.py" data-hl="3,5" data-nocopy data-wide data-big>try:
+    with open("passbook.txt") as file:
+        text = fille.read()
+    print(len(text))
+except:
+    print("No passbook yet.")</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out">No passbook yet.</div>
+    <ul class="b">
+      <li>The file is there. Line 3 has a typo, <code>fille</code>, which raises a NameError.</li>
+      <li>A bare <code>except:</code> catches <b>every</b> error, so it hid the typo and printed the wrong message.</li>
+    </ul>
+    
+  </div>
+  <div class="ask"><span class="ic">✋</span><div>The fix: name the error. What happens now?</div></div>
+  <pre class="py" data-file="clinic.py" data-hl="5" data-nocopy data-wide data-big>try:
+    with open("passbook.txt") as file:
+        text = fille.read()
+    print(len(text))
+except FileNotFoundError:
+    print("No passbook yet.")</pre>
+  <div class="vote">
+    <div class="vopt">No passbook yet.</div>
+    <div class="vopt">36</div>
+    <div class="vopt" data-win>NameError: name 'fille' is not defined. Did you mean: 'file'?</div>
+  </div>
+  <button class="rv run" data-reveal="next" data-vote="prev">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">NameError: name 'fille' is not defined. Did you mean: 'file'?</span></div>
+    <ul class="b">
+      <li>Now only a missing file is caught. The typo shows itself, and Python even suggests the fix.</li>
+      <li>An error you can see is better than a wrong answer you cannot.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 94" xmlns="http://www.w3.org/2000/svg"><rect x="16" y="8" width="230" height="34" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="131" y="29.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except:</text><text x="260" y="30" text-anchor="start" font-size="13" fill="#b91c1c">catches everything, bugs too</text><rect x="16" y="50" width="230" height="34" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="131" y="71.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">except FileNotFoundError:</text><text x="260" y="72" text-anchor="start" font-size="13" fill="#047857">catches only what you planned for</text></svg><div class="cap">Name the error you expect.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Debug clinic: random.py" data-tag="Errors">
+  <h2>Debug clinic: the file that hid a module</h2>
+  <ul class="b"><li>Your folder has two files: game.py, and your own random.py.</li></ul>
+  <div class="diag"><svg viewBox="0 0 347 110" xmlns="http://www.w3.org/2000/svg" style="max-width:700px;display:block;margin:0 auto"><rect x="24" y="10" width="85" height="26" rx="6" fill="#dcfce7" stroke="#10b981" stroke-width="2"/><text x="66.5" y="27.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">my_game/</text><text x="121" y="28" text-anchor="start" font-size="12" font-weight="700" fill="#047857">◀ the program runs here</text><rect x="54" y="42" width="77" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="92.5" y="59.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">game.py</text><text x="143" y="60" text-anchor="start" font-size="12" fill="#334155">import random</text><rect x="54" y="74" width="93" height="26" rx="6" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/><text x="100.5" y="91.5" text-anchor="middle" font-size="12" font-family="Menlo,monospace" fill="#0f172a">random.py</text><text x="159" y="92" text-anchor="start" font-size="12" fill="#334155">a file you wrote yourself</text></svg></div>
+  <pre class="py" data-file="game.py" data-nocopy data-wide data-big># game.py
+import random
+
+print(random.randint(1, 6))</pre>
+  <button class="rv run" data-reveal="next">Run</button>
+  <div class="reveal">
+    <div class="out"><span class="err">AttributeError: module 'random' has no attribute 'randint' (consider renaming '.../random.py' since it has the same name as the standard library module named 'random' and prevents importing that standard library module)</span></div>
+    <ul class="b">
+      <li>Python found your random.py first, and it has no randint.</li>
+      <li>Fix: rename your file, for example to my_random.py. Python 3.13 and newer even suggest it in the message.</li>
+    </ul>
+    <div class="diag"><svg viewBox="0 0 640 66" xmlns="http://www.w3.org/2000/svg"><defs><marker id="f25" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748b"/></marker><marker id="f25r" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#ef4444"/></marker><marker id="f25g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker></defs><rect x="120" y="12" width="124" height="40" rx="6" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/><text x="182" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">import random</text><line x1="248" y1="32.0" x2="268" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f25)"/><rect x="270" y="12" width="132" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="336" y="36.5" text-anchor="middle" font-size="13" font-family="Menlo,monospace" fill="#0f172a">your random.py</text><line x1="406" y1="32.0" x2="426" y2="32.0" stroke="#64748b" stroke-width="2" marker-end="url(#f25)"/><rect x="428" y="12" width="91" height="40" rx="6" fill="#fee2e2" stroke="#ef4444" stroke-width="2"/><text x="473.5" y="36.5" text-anchor="middle" font-size="13" fill="#0f172a">no randint</text></svg><div class="cap">Never name a file after a module you use.</div></div>
+  </div>
+</section>
+
+<section class="step" data-nav="Recap">
+  <h2>Recap</h2>
+  <div class="ask"><span class="ic">✍️</span><div>Two minutes. Three points you would tell a friend who missed today. <span class="timer" data-sec="120"></span></div></div>
+  <button class="rv" data-reveal="next">Compare</button>
+  <div class="reveal">
+    
+    <ul class="b"><li><b>try / except:</b> try the risky part; except runs only if its named error happens, then the program goes on.</li><li><b>Name the error.</b> With several excepts, the one that matches the kind of error runs. A bare <code>except:</code> hides bugs.</li><li><b>CSV:</b> a table as text. <code>csv.reader</code> gives lists, <code>csv.DictReader</code> gives dictionaries keyed by the header.</li><li><b>Every CSV value is a string.</b> Convert with int(). Write with <code>newline=""</code>.</li><li><b>Modules:</b> any .py file can be imported. The standard library is already installed. Never name a file after a module.</li><li><b>PaisaPay v16</b> remembers its balance and every payment between runs.</li></ul>
+  </div>
+  <p>Practice: <code>PRACTICE.md</code>. Assignment: <code>ASSIGNMENT.md</code>.</p>
+</section>
+
+</div></main>
+<script src="../assets/lesson.js"></script>
+</body>
+</html>
